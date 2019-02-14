@@ -13,6 +13,7 @@ public class ViewMain extends JFrame {
         g2.setColor(Color.BLACK);
         g2.fillRect(0,0, getWidth(), getHeight());
         guitar(g2);
+        new NoteIcon(6, g2);
         menu(g2);
       }
     };
