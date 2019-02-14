@@ -1,7 +1,7 @@
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import javax.swing.JFrame;
+import javax.swing.*;
 
 public class ViewMain extends JFrame {
   private MainPanel panel;
@@ -23,7 +23,9 @@ public class ViewMain extends JFrame {
     this.setVisible(true);
   }
 
+
   //Pseudo Code for Carousel Menu
+  /*
   public CarouselMain() {
       JFrame carousel = new JFrame("Slash Mode");
       carousel.setSize((128*5), 128);
@@ -47,4 +49,5 @@ public class ViewMain extends JFrame {
 	  carousel.add(storeButton);
 	  carousel.add(tutorialButton);
   }
+  */
 }
