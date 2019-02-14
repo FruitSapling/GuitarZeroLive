@@ -1,4 +1,3 @@
-package PACKAGE_NAME;
-
-public class GuitarButton {
+public enum GuitarButton {
+        ZERO_POWER, STRUM, FRET, WHAMMY, BENDER, ESCAPE;
 }
