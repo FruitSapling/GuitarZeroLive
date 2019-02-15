@@ -27,6 +27,9 @@ public class GuitarPollingThread implements Runnable {
 
     public void fireGuitarButtonPressedEvent(GuitarButton btn) {
         GuitarButtonPressedEvent e = new GuitarButtonPressedEvent(this, btn);
+        for (GuitarButtonListener listener: listeners) {
+            listener.guitarButtonPressReceived(e);
+        }
     }
 
     public void run() {
