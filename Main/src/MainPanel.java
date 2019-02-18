@@ -63,8 +63,8 @@ public class MainPanel extends JPanel {
   public void guitar(Graphics2D g2) {
     Polygon board = new Polygon();
     board.addPoint(100, 0);
-    board.addPoint(0, getHeight());
-    board.addPoint(getWidth(), getHeight());
+    board.addPoint(100, getHeight());
+    board.addPoint(getWidth()-100, getHeight());
     board.addPoint(getWidth()-100, 0);
     g2.setClip(board);
     g2.fillPolygon(board);
@@ -79,16 +79,16 @@ public class MainPanel extends JPanel {
     g2.fillRect(0, 600, getWidth(), 50);
 
     g2.setColor(Color.orange);
-    g2.drawLine(125, 0, 42, getHeight());
-    g2.drawLine(175, 0, 126, getHeight());
+    g2.drawLine(125, 0, 125, getHeight());
+    g2.drawLine(175, 0, 175, getHeight());
     g2.setStroke(new BasicStroke(4));
-    g2.drawLine(225, 0, 210, getHeight());
+    g2.drawLine(225, 0, 225, getHeight());
     g2.setStroke(new BasicStroke(3));
     g2.setColor(Color.GRAY);
-    g2.drawLine(275, 0, 290, getHeight());
+    g2.drawLine(275, 0, 275, getHeight());
     g2.setStroke(new BasicStroke(2));
-    g2.drawLine(325, 0, 374, getHeight());
+    g2.drawLine(325, 0, 325, getHeight());
     g2.setStroke(new BasicStroke(2));
-    g2.drawLine(375, 0, 458, getHeight());
+    g2.drawLine(375, 0, 375, getHeight());
   }
 }
