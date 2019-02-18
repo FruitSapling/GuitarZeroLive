@@ -2,6 +2,7 @@
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.FileSystemException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -23,7 +24,7 @@ public class FileZipper {
     /*
     * Method to zip all the files from the 'files' array into a compressed format and return the '.zip' file.
     */
-    private void zipFiles(File[] files) {
+    private void zipFiles() {
         try {
             File firstFile = new File(saveLocation.toString());
             String zipFileName = firstFile.getName().concat(".zip");
@@ -47,8 +48,68 @@ public class FileZipper {
         }
     }
 
+
+
     /*
-    EXAMPLE USAGE
+    * A method to check the number of files and the extensions on each of them coincide with the specification:
+    *   - The files array is of length 3.
+    *   - The first File is MIDI.
+    *   - The second is a PNG.
+    *   - The final is a proprietary format for holding the notes.
+    */
+    public static File[] validateFiles(File[] files) throws FileSystemException {
+        int ARRAYLENGTH = 3;
+
+        //TODO: add third file extension to the extensions array to validate our proprietary format.
+        String[] extensions = new String[]{".midi", ".png", ""};
+
+        if (files.length == ARRAYLENGTH) {
+
+            //TODO: Remove -1 from (ARRAYLENGTH - 1) when third file extension has been added to extensions array.
+            for (int i = 0; i < ARRAYLENGTH - 1; i++) {
+
+                File file = files[i];
+
+                if (!file.getPath().endsWith(extensions[i])) {
+                    String errorMessage = String.format("%s is not a valid file format", file.getName());
+                    throw new FileSystemException(errorMessage);
+                }
+
+                System.out.println();
+
+            }
+
+        }
+
+        return files;
+    }
+
+
+    public static void main(String[] args) {
+
+        File file1 = new File("testFileZipper1.midi");
+        File file2 = new File("testFileZipper2.png");
+        File file3 = new File("testFileZipper3.txt");
+
+        File[] files  = new File[] {file1,file2,file3};
+
+        File[] validatedFiles = null;
+
+        try {
+            validatedFiles = FileZipper.validateFiles(files);
+        }
+        catch (FileSystemException e) {
+            System.out.println(e.getMessage());
+        }
+        finally {
+            System.out.println(validatedFiles[0]);
+        }
+
+
+    }
+
+    /*
+    EXAMPLE USAGE OF ZIPPING
 
     public static void main(String[] args) {
 
