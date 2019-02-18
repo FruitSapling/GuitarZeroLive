@@ -13,7 +13,7 @@ import java.io.IOException;
 public class MainPanel extends JPanel {
   @Override
   public Dimension getPreferredSize() {
-    return new Dimension(500, 750);
+    return new Dimension(660, 750);
   }
 
   public void menu(Graphics2D g2) {
@@ -31,8 +31,8 @@ public class MainPanel extends JPanel {
     Polygon menu = new Polygon();
     menu.addPoint(20, getHeight()/2);
     menu.addPoint(20, getHeight()/2+100);
-    menu.addPoint(20+getWidth()-40, getHeight()/2+100);
-    menu.addPoint(20+getWidth()-40, getHeight()/2);
+    menu.addPoint(20+getWidth()-20, getHeight()/2+100);
+    menu.addPoint(20+getWidth()-20, getHeight()/2);
     g2.setClip(menu);
     g2.setColor(Color.WHITE);
     g2.fillRect(20, getHeight()/2, getWidth(), getHeight());
@@ -44,20 +44,10 @@ public class MainPanel extends JPanel {
     g2.fillPolygon(arrow);
   }
 
-  private JButton generateButton(String imageFileName, Graphics2D g2) {
-    BufferedImage bImage;
-    ImageIcon image;
-
-    try {
-      bImage = ImageIO.read(new File(imageFileName));
-      image = new ImageIcon(bImage);
-      JButton button = new JButton(image);
-      return button;
-    }
-    catch(IOException IOe) {
-      //TODO: Handle the exception
-    }
-      return null;
+  public JButton generateButton(String imageFileName) {
+    ImageIcon image = new ImageIcon(imageFileName);
+    JButton button = new JButton(image);
+    return button;
   }
 
   public void guitar(Graphics2D g2) {
@@ -90,5 +80,28 @@ public class MainPanel extends JPanel {
     g2.drawLine(325, 0, 325, getHeight());
     g2.setStroke(new BasicStroke(2));
     g2.drawLine(375, 0, 375, getHeight());
+  }
+
+  public void buttons(MainPanel panel){
+    JButton exit = generateButton("Main/src/exit.png");
+    JButton select = generateButton("Main/src/select.png");
+    JButton play = generateButton("Main/src/play.png");
+    JButton store = generateButton("Main/src/store.png");
+    JButton tutorial = generateButton("Main/src/tutorial.png");
+
+    exit.setBounds(20, 350, 128, 128);
+    select.setBounds(148, 350, 128, 128);
+    play.setBounds(276, 350, 128, 128);
+    store.setBounds(404, 350, 128, 128);
+    tutorial.setBounds(532, 350, 128, 128);
+
+    panel.add(exit);
+    panel.add(select);
+    panel.add(play);
+    panel.add(store);
+    panel.add(tutorial);
+
+    panel.revalidate();
+    panel.repaint();
   }
 }
