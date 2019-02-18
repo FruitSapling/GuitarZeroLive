@@ -7,6 +7,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+<<<<<<< HEAD
     <orderEntry type="library" exported="" name="jinput-2.0.9" level="project" />
     <orderEntry type="module-library" exported="">
       <library>
@@ -39,5 +40,9 @@
         <jarDirectory url="file://$USER_HOME$/Downloads/javafx-sdk-11.0.2/lib" recursive="false" type="SOURCES" />
       </library>
     </orderEntry>
+=======
+    <orderEntry type="library" name="jinput-2.0.9" level="project" />
+    <orderEntry type="library" name="jinput-2.0.91" level="project" />
+>>>>>>> origin/master
   </component>
 </module>
