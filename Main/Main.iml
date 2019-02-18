@@ -7,21 +7,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" exported="" name="jinput-2.0.9" level="project" />
-    <orderEntry type="module-library" exported="">
-      <library>
-        <CLASSES>
-          <root url="file://$MODULE_DIR$/src" />
-        </CLASSES>
-        <JAVADOC />
-        <NATIVE>
-          <root url="file://$MODULE_DIR$/src" />
-        </NATIVE>
-        <SOURCES>
-          <root url="file://$MODULE_DIR$/src" />
-        </SOURCES>
-        <jarDirectory url="file://$MODULE_DIR$/src" recursive="false" />
-      </library>
-    </orderEntry>
+    <orderEntry type="library" name="jinput-2.0.9" level="project" />
+    <orderEntry type="library" name="jinput-2.0.91" level="project" />
   </component>
 </module>
