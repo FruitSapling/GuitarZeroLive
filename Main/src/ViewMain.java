@@ -23,12 +23,6 @@ public class ViewMain extends JFrame {
     this.setVisible(true);
   }
 
-//  ImageIcon icon = new ImageIcon("Main/src/exit.png");
-//  JButton button = new JButton(icon);
-//  panel.add(button);
-//  panel.revalidate();
-//  panel.repaint();
-
 
   //Pseudo Code for Carousel Menu
   /*
