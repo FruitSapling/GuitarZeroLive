@@ -2,3 +2,5 @@
 .idea\workspace.xml
 Main\Main.iml
 *.class
+
+*.iml
