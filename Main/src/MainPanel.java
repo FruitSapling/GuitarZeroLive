@@ -3,7 +3,12 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Polygon;
-import javax.swing.JPanel;
+import javax.swing.*;
+
+import java.awt.image.BufferedImage;
+import javax.imageio.ImageIO;
+import java.io.File;
+import java.io.IOException;
 
 public class MainPanel extends JPanel {
   @Override
@@ -37,6 +42,22 @@ public class MainPanel extends JPanel {
     g2.drawPolygon(menu);
     g2.fillPolygon(arrow2);
     g2.fillPolygon(arrow);
+  }
+
+  private JButton generateButton(String imageFileName, Graphics2D g2) {
+    BufferedImage bImage;
+    ImageIcon image;
+
+    try {
+      bImage = ImageIO.read(new File(imageFileName));
+      image = new ImageIcon(bImage);
+      JButton button = new JButton(image);
+      return button;
+    }
+    catch(IOException IOe) {
+      //TODO: Handle the exception
+    }
+      return null;
   }
 
   public void guitar(Graphics2D g2) {
