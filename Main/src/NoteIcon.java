@@ -15,6 +15,6 @@ public class NoteIcon {
 
   // TODO: 14/02/2019
   public void move() {
-
+    this.y = this.y + 5;
   }
 }
