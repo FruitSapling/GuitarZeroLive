@@ -81,17 +81,17 @@ public class MainPanel extends JPanel {
   }
 
   public void buttons(MainPanel panel){
-    JButton exit = generateButton("Main/src/exit.png");
+    JButton exit = generateButton("Main/src/resources/exit.png");
     exit.addActionListener(new ActionListener(){
       public void actionPerformed(ActionEvent e){
         System.exit(0);
       }
     });
 
-    JButton select = generateButton("Main/src/select.png");
-    JButton play = generateButton("Main/src/play.png");
-    JButton store = generateButton("Main/src/store.png");
-    JButton tutorial = generateButton("Main/src/tutorial.png");
+    JButton select = generateButton("Main/src/resources/select.png");
+    JButton play = generateButton("Main/src/resources/play.png");
+    JButton store = generateButton("Main/src/resources/store.png");
+    JButton tutorial = generateButton("Main/src/resources/tutorial.png");
 
     exit.setBounds(20, 350, 128, 128);
     select.setBounds(148, 350, 128, 128);
