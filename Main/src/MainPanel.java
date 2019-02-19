@@ -5,10 +5,8 @@ import java.awt.Graphics2D;
 import java.awt.Polygon;
 import javax.swing.*;
 
-import java.awt.image.BufferedImage;
-import javax.imageio.ImageIO;
-import java.io.File;
-import java.io.IOException;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class MainPanel extends JPanel {
   @Override
@@ -84,6 +82,12 @@ public class MainPanel extends JPanel {
 
   public void buttons(MainPanel panel){
     JButton exit = generateButton("Main/src/exit.png");
+    exit.addActionListener(new ActionListener(){
+      public void actionPerformed(ActionEvent e){
+        System.exit(0);
+      }
+    });
+
     JButton select = generateButton("Main/src/select.png");
     JButton play = generateButton("Main/src/play.png");
     JButton store = generateButton("Main/src/store.png");
