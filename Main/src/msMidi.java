@@ -13,7 +13,7 @@ import java.text.*;
  */
 
 public class msMidi {
-    final static String FILE = "MrBrightside.mid";
+    final static String FILE = "Wonderwall.mid";
     static Sequence seq;
     static int currentTrack = 0;
     static ArrayList<Integer> nextMessageOf = new ArrayList<Integer>();
@@ -42,9 +42,11 @@ public class msMidi {
         while ((nextEvent = getNextEvent()) != null) {
             int tick = (int)nextEvent.getTick();
 	    if (noteIsOff(nextEvent)) {
+			/*
             double time = (msb4+(((currentTempo/seq.getResolution())/1000)*(tick-tickOfTempoChange)));
-            //System.out.println("track="+currentTrack+" tick="+tick+" time="+(int)(time+0.5)+"ms "
-            //                  +" note "+((int)nextEvent.getMessage().getMessage()[1] & 0xFF)+" off");
+            System.out.println("track="+currentTrack+" tick="+tick+" time="+(int)(time+0.5)+"ms "
+                              +" note "+((int)nextEvent.getMessage().getMessage()[1] & 0xFF)+" off");
+			*/
 			// try making a short message then using getdat1 to find instrument name
 			/*
 			MidiMessage msg = nextEvent.getMessage();
@@ -55,18 +57,37 @@ public class msMidi {
 				System.out.println(dat1);
 				System.out.println(dat2);
 			}
-			*/
+			
+			/*
 			int instrumentNumber = (int)nextEvent.getMessage().getMessage()[1];
 			if(instrumentNumber <= 25 && instrumentNumber <= 38){
 				System.out.println(instrumentName(instrumentNumber));
 			}
-			//System.out.println(instrumentName((int)nextEvent.getMessage().getMessage()[1]));
+			*/
+			int instrumentNumber = (int)nextEvent.getMessage().getMessage()[1];
+			//System.out.println(instrumentName(instrumentNumber));
+			
+			if(instrumentNumber == 36){
+				System.out.println(instrumentName(instrumentNumber));
+				double time = (msb4+(((currentTempo/seq.getResolution())/1000)*(tick-tickOfTempoChange)));
+				System.out.println("track="+currentTrack+" tick="+tick+" time="+(int)(time+0.5)+"ms "
+									+" note "+((int)nextEvent.getMessage().getMessage()[1] & 0xFF)+" off");
+			}
         } 
 		else 
 			if (noteIsOn(nextEvent)) {
+				/*
                 double time = (msb4+(((currentTempo/seq.getResolution())/1000)*(tick-tickOfTempoChange)));
-                //System.out.println("track="+currentTrack+" tick="+tick+" time="+(int)(time+0.5)+"ms "
-                //        +" note "+((int)nextEvent.getMessage().getMessage()[1] & 0xFF)+" on");
+                System.out.println("track="+currentTrack+" tick="+tick+" time="+(int)(time+0.5)+"ms "
+                        +" note "+((int)nextEvent.getMessage().getMessage()[1] & 0xFF)+" on");
+				*/
+				int instrumentNumber = (int)nextEvent.getMessage().getMessage()[1];
+				if(instrumentNumber == 25){
+					System.out.println(instrumentName(instrumentNumber));
+					double time = (msb4+(((currentTempo/seq.getResolution())/1000)*(tick-tickOfTempoChange)));
+					System.out.println("track="+currentTrack+" tick="+tick+" time="+(int)(time+0.5)+"ms "
+								+" note "+((int)nextEvent.getMessage().getMessage()[1] & 0xFF)+" on");
+				}
             }
 			else 
 				if (changeTemp(nextEvent)) {
