@@ -15,10 +15,10 @@ public class ViewMain extends JFrame {
         Graphics2D g2 = (Graphics2D) g;
         g2.setColor(Color.BLACK);
         g2.fillRect(0, 0, getWidth(), getHeight());
+        buttons(panel);
         guitar(g2);
         new NoteIcon(1, g2);
         menu(g2);
-        buttons(panel);
 
       }
     };
