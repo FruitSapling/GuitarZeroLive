@@ -5,15 +5,13 @@ import java.awt.Graphics2D;
 import java.awt.Polygon;
 import javax.swing.*;
 
-import java.awt.image.BufferedImage;
-import javax.imageio.ImageIO;
-import java.io.File;
-import java.io.IOException;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class MainPanel extends JPanel {
   @Override
   public Dimension getPreferredSize() {
-    return new Dimension(500, 750);
+    return new Dimension(660, 750);
   }
 
   public void menu(Graphics2D g2) {
@@ -31,8 +29,8 @@ public class MainPanel extends JPanel {
     Polygon menu = new Polygon();
     menu.addPoint(20, getHeight()/2);
     menu.addPoint(20, getHeight()/2+100);
-    menu.addPoint(20+getWidth()-40, getHeight()/2+100);
-    menu.addPoint(20+getWidth()-40, getHeight()/2);
+    menu.addPoint(20+getWidth()-20, getHeight()/2+100);
+    menu.addPoint(20+getWidth()-20, getHeight()/2);
     g2.setClip(menu);
     g2.setColor(Color.WHITE);
     g2.fillRect(20, getHeight()/2, getWidth(), getHeight());
@@ -44,27 +42,17 @@ public class MainPanel extends JPanel {
     g2.fillPolygon(arrow);
   }
 
-  private JButton generateButton(String imageFileName, Graphics2D g2) {
-    BufferedImage bImage;
-    ImageIcon image;
-
-    try {
-      bImage = ImageIO.read(new File(imageFileName));
-      image = new ImageIcon(bImage);
-      JButton button = new JButton(image);
-      return button;
-    }
-    catch(IOException IOe) {
-      //TODO: Handle the exception
-    }
-      return null;
+  public JButton generateButton(String imageFileName) {
+    ImageIcon image = new ImageIcon(imageFileName);
+    JButton button = new JButton(image);
+    return button;
   }
 
   public void guitar(Graphics2D g2) {
     Polygon board = new Polygon();
     board.addPoint(100, 0);
-    board.addPoint(0, getHeight());
-    board.addPoint(getWidth(), getHeight());
+    board.addPoint(100, getHeight());
+    board.addPoint(getWidth()-100, getHeight());
     board.addPoint(getWidth()-100, 0);
     g2.setClip(board);
     g2.fillPolygon(board);
@@ -79,16 +67,45 @@ public class MainPanel extends JPanel {
     g2.fillRect(0, 600, getWidth(), 50);
 
     g2.setColor(Color.orange);
-    g2.drawLine(125, 0, 42, getHeight());
-    g2.drawLine(175, 0, 126, getHeight());
+    g2.drawLine(125, 0, 125, getHeight());
+    g2.drawLine(175, 0, 175, getHeight());
     g2.setStroke(new BasicStroke(4));
-    g2.drawLine(225, 0, 210, getHeight());
+    g2.drawLine(225, 0, 225, getHeight());
     g2.setStroke(new BasicStroke(3));
     g2.setColor(Color.GRAY);
-    g2.drawLine(275, 0, 290, getHeight());
+    g2.drawLine(275, 0, 275, getHeight());
     g2.setStroke(new BasicStroke(2));
-    g2.drawLine(325, 0, 374, getHeight());
+    g2.drawLine(325, 0, 325, getHeight());
     g2.setStroke(new BasicStroke(2));
-    g2.drawLine(375, 0, 458, getHeight());
+    g2.drawLine(375, 0, 375, getHeight());
+  }
+
+  public void buttons(MainPanel panel){
+    JButton exit = generateButton("Main/src/resources/exit.png");
+    exit.addActionListener(new ActionListener(){
+      public void actionPerformed(ActionEvent e){
+        System.exit(0);
+      }
+    });
+
+    JButton select = generateButton("Main/src/resources/select.png");
+    JButton play = generateButton("Main/src/resources/play.png");
+    JButton store = generateButton("Main/src/resources/store.png");
+    JButton tutorial = generateButton("Main/src/resources/tutorial.png");
+
+    exit.setBounds(20, 350, 128, 128);
+    select.setBounds(148, 350, 128, 128);
+    play.setBounds(276, 350, 128, 128);
+    store.setBounds(404, 350, 128, 128);
+    tutorial.setBounds(532, 350, 128, 128);
+
+    panel.add(exit);
+    panel.add(select);
+    panel.add(play);
+    panel.add(store);
+    panel.add(tutorial);
+
+    panel.revalidate();
+    panel.repaint();
   }
 }
