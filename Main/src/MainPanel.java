@@ -57,7 +57,7 @@ public class MainPanel extends JPanel implements KeyListener {
     g2.fillRect(20, getHeight()/2, getWidth(), getHeight());
 
     g2.setClip(null);
-    g2.setColor(Color.CYAN);
+    g2.setColor(Color.BLUE);
     g2.drawPolygon(menu);
     g2.fillPolygon(arrow2);
     g2.fillPolygon(arrow);

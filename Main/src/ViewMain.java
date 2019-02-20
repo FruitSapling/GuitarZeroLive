@@ -48,17 +48,17 @@ public class ViewMain extends JFrame {
         g2.fillRect(0, 600, getWidth(), 50);
 
         g2.setColor(Color.orange);
-        g2.drawLine(125, 0, 125, getHeight());
-        g2.drawLine(175, 0, 175, getHeight());
+        g2.drawLine(150, 0, 150, getHeight());
+        g2.drawLine(235, 0, 235, getHeight());
         g2.setStroke(new BasicStroke(4));
-        g2.drawLine(225, 0, 225, getHeight());
+        g2.drawLine(320, 0, 320, getHeight());
         g2.setStroke(new BasicStroke(3));
         g2.setColor(Color.GRAY);
-        g2.drawLine(275, 0, 275, getHeight());
+        g2.drawLine(405, 0, 405, getHeight());
         g2.setStroke(new BasicStroke(2));
-        g2.drawLine(325, 0, 325, getHeight());
+        g2.drawLine(490, 0, 490, getHeight());
         g2.setStroke(new BasicStroke(2));
-        g2.drawLine(375, 0, 375, getHeight());
+        g2.drawLine(575, 0, 575, getHeight());
     }
 
 }
