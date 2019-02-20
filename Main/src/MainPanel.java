@@ -42,15 +42,15 @@ public class MainPanel extends JPanel implements KeyListener {
     arrow.addPoint(arrowLoc+20, getHeight()/2+2);
 
     Polygon arrow2 = new Polygon();
-    arrow2.addPoint(arrowLoc, getHeight()/2+151);
-    arrow2.addPoint(arrowLoc+10, getHeight()/2+141);
-    arrow2.addPoint(arrowLoc+20, getHeight()/2+151);
+    arrow2.addPoint(arrowLoc, getHeight()/2+191);
+    arrow2.addPoint(arrowLoc+10, getHeight()/2+181);
+    arrow2.addPoint(arrowLoc+20, getHeight()/2+191);
 
     g2.setStroke(new BasicStroke(5));
     Polygon menu = new Polygon();
     menu.addPoint(20, getHeight()/2);
-    menu.addPoint(20, getHeight()/2+152);
-    menu.addPoint(20+getWidth()-50, getHeight()/2+152);
+    menu.addPoint(20, getHeight()/2+192);
+    menu.addPoint(20+getWidth()-50, getHeight()/2+192);
     menu.addPoint(20+getWidth()-50, getHeight()/2);
     g2.setClip(menu);
     g2.setColor(Color.WHITE);
@@ -90,11 +90,11 @@ public class MainPanel extends JPanel implements KeyListener {
     JButton store = generateButton("Main/src/resources/store.png", 3);
     JButton tutorial = generateButton("Main/src/resources/tutorial.png", 4);
 
-    exit.setBounds(25, 388, 128, 128); panel.add(exit);
-    play.setBounds(281, 388, 128, 128); panel.add(play);
-    select.setBounds(153, 388, 128, 128); panel.add(select);
-    store.setBounds(409, 388, 128, 128); panel.add(store);
-    tutorial.setBounds(537, 388, 128, 128); panel.add(tutorial);
+    exit.setBounds(25, 388, 128, 168); panel.add(exit);
+    play.setBounds(281, 388, 128, 168); panel.add(play);
+    select.setBounds(153, 388, 128, 168); panel.add(select);
+    store.setBounds(409, 388, 128, 168); panel.add(store);
+    tutorial.setBounds(537, 388, 128, 168); panel.add(tutorial);
 
 //    JLabel modeInfo = new JLabel("Welcome!");
 //    modeInfo.setOpaque(true);
