@@ -3,12 +3,33 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Polygon;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import javax.swing.*;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class MainPanel extends JPanel {
+public class MainPanel extends JPanel implements KeyListener {
+  int arrowLoc = 336;
+  public void keyTyped(KeyEvent e) {
+    //System.out.println("keyTyped: "+e);
+  }
+  public void keyPressed(KeyEvent e) {
+    if(e.getKeyChar() == 'd') {
+      if(arrowLoc < 20+getWidth()-50-128) {
+        arrowLoc += 128;
+      }
+    }else if(e.getKeyChar() == 'e') {
+      if(arrowLoc > 20+128) {
+        arrowLoc -= 128;
+      }
+    }
+  }
+  public void keyReleased(KeyEvent e) {
+    //System.out.println("keyReleased: "+e);
+  }
+
   @Override
   public Dimension getPreferredSize() {
     return new Dimension(700, 750);
@@ -16,14 +37,14 @@ public class MainPanel extends JPanel {
 
   public void menu(Graphics2D g2) {
     Polygon arrow = new Polygon();
-    arrow.addPoint(getWidth()/2-14, getHeight()/2+2);
-    arrow.addPoint(getWidth()/2-4, getHeight()/2+12);
-    arrow.addPoint(getWidth()/2+6, getHeight()/2+2);
+    arrow.addPoint(arrowLoc, getHeight()/2+2);
+    arrow.addPoint(arrowLoc+10, getHeight()/2+12);
+    arrow.addPoint(arrowLoc+20, getHeight()/2+2);
 
     Polygon arrow2 = new Polygon();
-    arrow2.addPoint(getWidth()/2-14, getHeight()/2+151);
-    arrow2.addPoint(getWidth()/2-4, getHeight()/2+141);
-    arrow2.addPoint(getWidth()/2+6, getHeight()/2+151);
+    arrow2.addPoint(arrowLoc, getHeight()/2+151);
+    arrow2.addPoint(arrowLoc+10, getHeight()/2+141);
+    arrow2.addPoint(arrowLoc+20, getHeight()/2+151);
 
     g2.setStroke(new BasicStroke(5));
     Polygon menu = new Polygon();
@@ -61,38 +82,6 @@ public class MainPanel extends JPanel {
     });
     return button;
   }
-
-    public void guitar(Graphics2D g2) {
-        Polygon board = new Polygon();
-        board.addPoint(100, 0);
-        board.addPoint(100, getHeight());
-        board.addPoint(getWidth()-100, getHeight());
-        board.addPoint(getWidth()-100, 0);
-        g2.setClip(board);
-        g2.fillPolygon(board);
-
-        g2.setStroke(new BasicStroke(5));
-        g2.setColor(Color.RED);
-        g2.drawLine(0, 100, getWidth(), 100);
-        g2.drawLine(0, 200, getWidth(), 200);
-        g2.drawLine(0, 300, getWidth(), 300);
-        g2.drawLine(0, 400, getWidth(), 400);
-        g2.drawLine(0, 500, getWidth(), 500);
-        g2.fillRect(0, 600, getWidth(), 50);
-
-        g2.setColor(Color.orange);
-        g2.drawLine(125, 0, 125, getHeight());
-        g2.drawLine(175, 0, 175, getHeight());
-        g2.setStroke(new BasicStroke(4));
-        g2.drawLine(225, 0, 225, getHeight());
-        g2.setStroke(new BasicStroke(3));
-        g2.setColor(Color.GRAY);
-        g2.drawLine(275, 0, 275, getHeight());
-        g2.setStroke(new BasicStroke(2));
-        g2.drawLine(325, 0, 325, getHeight());
-        g2.setStroke(new BasicStroke(2));
-        g2.drawLine(375, 0, 375, getHeight());
-    }
 
   public void buttons(MainPanel panel){
     JButton exit = generateButton("Main/src/resources/exit.png", 0);

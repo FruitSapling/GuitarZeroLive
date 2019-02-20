@@ -8,7 +8,7 @@ import java.text.*;
  * This source code may be used freely but please do not publish it without consent.
  * This source code is provided "as is," without warranty of any kind, express or implied.
  * In no event shall the author or contributors be held liable for any damages arising in
- * any way from the use of this software. 
+ * any way from the use of this software.
  * Copyright (c) 2009 Robert Macrae
  */
 
@@ -27,7 +27,7 @@ public class msMidi {
         }
         convertMidi2RealTime(seq);
     }
-    
+
     public static void convertMidi2RealTime(Sequence seq) {
         double currentTempo = 500000;
         int tickOfTempoChange = 0;
@@ -37,17 +37,17 @@ public class msMidi {
         int count = 0;
         for (int track = 0; track < seq.getTracks().length; track ++) nextMessageOf.add(0);
         System.out.println();
-        
+
         MidiEvent nextEvent;
         while ((nextEvent = getNextEvent()) != null) {
             int tick = (int)nextEvent.getTick();
-	    if (noteIsOff(nextEvent)) {
+            if (noteIsOff(nextEvent)) {
 			/*
             double time = (msb4+(((currentTempo/seq.getResolution())/1000)*(tick-tickOfTempoChange)));
             System.out.println("track="+currentTrack+" tick="+tick+" time="+(int)(time+0.5)+"ms "
                               +" note "+((int)nextEvent.getMessage().getMessage()[1] & 0xFF)+" off");
 			*/
-			// try making a short message then using getdat1 to find instrument name
+                // try making a short message then using getdat1 to find instrument name
 			/*
 			MidiMessage msg = nextEvent.getMessage();
 			if ( msg instanceof ShortMessage ) {
@@ -57,56 +57,56 @@ public class msMidi {
 				System.out.println(dat1);
 				System.out.println(dat2);
 			}
-			
+
 			/*
 			int instrumentNumber = (int)nextEvent.getMessage().getMessage()[1];
 			if(instrumentNumber <= 25 && instrumentNumber <= 38){
 				System.out.println(instrumentName(instrumentNumber));
 			}
 			*/
-			int instrumentNumber = (int)nextEvent.getMessage().getMessage()[1];
-			//System.out.println(instrumentName(instrumentNumber));
-			
-			if(instrumentNumber == 36){
-				System.out.println(instrumentName(instrumentNumber));
-				double time = (msb4+(((currentTempo/seq.getResolution())/1000)*(tick-tickOfTempoChange)));
-				System.out.println("track="+currentTrack+" tick="+tick+" time="+(int)(time+0.5)+"ms "
-									+" note "+((int)nextEvent.getMessage().getMessage()[1] & 0xFF)+" off");
-			}
-        } 
-		else 
-			if (noteIsOn(nextEvent)) {
+                int instrumentNumber = (int)nextEvent.getMessage().getMessage()[1];
+                //System.out.println(instrumentName(instrumentNumber));
+
+                if(instrumentNumber == 36){
+                    System.out.println(instrumentName(instrumentNumber));
+                    double time = (msb4+(((currentTempo/seq.getResolution())/1000)*(tick-tickOfTempoChange)));
+                    System.out.println("track="+currentTrack+" tick="+tick+" time="+(int)(time+0.5)+"ms "
+                            +" note "+((int)nextEvent.getMessage().getMessage()[1] & 0xFF)+" off");
+                }
+            }
+            else
+            if (noteIsOn(nextEvent)) {
 				/*
                 double time = (msb4+(((currentTempo/seq.getResolution())/1000)*(tick-tickOfTempoChange)));
                 System.out.println("track="+currentTrack+" tick="+tick+" time="+(int)(time+0.5)+"ms "
                         +" note "+((int)nextEvent.getMessage().getMessage()[1] & 0xFF)+" on");
 				*/
-				int instrumentNumber = (int)nextEvent.getMessage().getMessage()[1];
-				if(instrumentNumber == 25){
-					System.out.println(instrumentName(instrumentNumber));
-					double time = (msb4+(((currentTempo/seq.getResolution())/1000)*(tick-tickOfTempoChange)));
-					System.out.println("track="+currentTrack+" tick="+tick+" time="+(int)(time+0.5)+"ms "
-								+" note "+((int)nextEvent.getMessage().getMessage()[1] & 0xFF)+" on");
-				}
+                int instrumentNumber = (int)nextEvent.getMessage().getMessage()[1];
+                if(instrumentNumber == 25){
+                    System.out.println(instrumentName(instrumentNumber));
+                    double time = (msb4+(((currentTempo/seq.getResolution())/1000)*(tick-tickOfTempoChange)));
+                    System.out.println("track="+currentTrack+" tick="+tick+" time="+(int)(time+0.5)+"ms "
+                            +" note "+((int)nextEvent.getMessage().getMessage()[1] & 0xFF)+" on");
+                }
             }
-			else 
-				if (changeTemp(nextEvent)) {
-					String a = (Integer.toHexString((int)nextEvent.getMessage().getMessage()[3] & 0xFF));
-					String b = (Integer.toHexString((int)nextEvent.getMessage().getMessage()[4] & 0xFF));
-					String c = (Integer.toHexString((int)nextEvent.getMessage().getMessage()[5] & 0xFF));
-					if (a.length() == 1) a = ("0"+a);
-					if (b.length() == 1) b = ("0"+b);
-					if (c.length() == 1) c = ("0"+c);
-					String whole = a+b+c;
-					int newTempo = Integer.parseInt(whole,16);
-					double newTime = (currentTempo/seq.getResolution())*(tick-tickOfTempoChange);
-					msb4 += (newTime/1000);
-					tickOfTempoChange = tick;
-					currentTempo = newTempo;
+            else
+            if (changeTemp(nextEvent)) {
+                String a = (Integer.toHexString((int)nextEvent.getMessage().getMessage()[3] & 0xFF));
+                String b = (Integer.toHexString((int)nextEvent.getMessage().getMessage()[4] & 0xFF));
+                String c = (Integer.toHexString((int)nextEvent.getMessage().getMessage()[5] & 0xFF));
+                if (a.length() == 1) a = ("0"+a);
+                if (b.length() == 1) b = ("0"+b);
+                if (c.length() == 1) c = ("0"+c);
+                String whole = a+b+c;
+                int newTempo = Integer.parseInt(whole,16);
+                double newTime = (currentTempo/seq.getResolution())*(tick-tickOfTempoChange);
+                msb4 += (newTime/1000);
+                tickOfTempoChange = tick;
+                currentTempo = newTempo;
             }
         }
     }
-    
+
     public static MidiEvent getNextEvent() {
         ArrayList<MidiEvent> nextEvent = new ArrayList<MidiEvent>();
         ArrayList<Integer> trackOfNextEvent = new ArrayList<Integer>();
@@ -132,7 +132,7 @@ public class msMidi {
 
     public static boolean noteIsOff(MidiEvent event) {
         if (Integer.toString((int)event.getMessage().getStatus(), 16).toUpperCase().charAt(0) == '8' ||
-         (noteIsOn(event) && event.getMessage().getLength() >= 3 && ((int)event.getMessage().getMessage()[2] & 0xFF) == 0)) return true;
+                (noteIsOn(event) && event.getMessage().getLength() >= 3 && ((int)event.getMessage().getMessage()[2] & 0xFF) == 0)) return true;
         return false;
     }
 
@@ -143,22 +143,22 @@ public class msMidi {
 
     public static boolean changeTemp(MidiEvent event) {
         if ((int)Integer.valueOf((""+Integer.toString((int)event.getMessage().getStatus(), 16).toUpperCase().charAt(0)), 16) == 15
-         && (int)Integer.valueOf((""+((String)(Integer.toString((int)event.getMessage().getStatus(), 16).toUpperCase())).charAt(1)), 16) == 15
-         && Integer.toString((int)event.getMessage().getMessage()[1],16).toUpperCase().length() == 2
-         && Integer.toString((int)event.getMessage().getMessage()[1],16).toUpperCase().equals("51")
-         && Integer.toString((int)event.getMessage().getMessage()[2],16).toUpperCase().equals("3")) return true;
+                && (int)Integer.valueOf((""+((String)(Integer.toString((int)event.getMessage().getStatus(), 16).toUpperCase())).charAt(1)), 16) == 15
+                && Integer.toString((int)event.getMessage().getMessage()[1],16).toUpperCase().length() == 2
+                && Integer.toString((int)event.getMessage().getMessage()[1],16).toUpperCase().equals("51")
+                && Integer.toString((int)event.getMessage().getMessage()[2],16).toUpperCase().equals("3")) return true;
         return false;
     }
-	
-	public static String instrumentName( int n ) {
+
+    public static String instrumentName( int n ) {
         try {
-		   final Synthesizer synth = MidiSystem.getSynthesizer();
-		   synth.open();
-		   final Instrument[] instrs = synth.getAvailableInstruments();
-		   synth.close();
-		return instrs[ n ].getName();
-      } catch ( Exception exn ) {
-		   System.out.println( exn ); System.exit( 1 ); return "";
+            final Synthesizer synth = MidiSystem.getSynthesizer();
+            synth.open();
+            final Instrument[] instrs = synth.getAvailableInstruments();
+            synth.close();
+            return instrs[ n ].getName();
+        } catch ( Exception exn ) {
+            System.out.println( exn ); System.exit( 1 ); return "";
+        }
     }
-  }
 }
