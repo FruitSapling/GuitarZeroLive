@@ -4,26 +4,26 @@ import java.awt.event.MouseAdapter;
 
 
 public class ViewMain extends JFrame {
-  private MainPanel panel;
+  private MainPanel mainPanel;
 
   public ViewMain() {
-    panel = new MainPanel() {
+    mainPanel = new MainPanel() {
       public void paintComponent(Graphics g) {
-        panel.setLayout(null);
+        mainPanel.setLayout(null);
         Graphics2D g2 = (Graphics2D) g;
         g2.setColor(Color.DARK_GRAY);
         g2.fillRect(0, 0, getWidth(), getHeight());
         guitar(g2);
         new NoteIcon(1, g2);
         menu(g2);
-        buttons(panel);
+        buttons(mainPanel);
 
       }
     };
-    panel.addKeyListener(panel);
-    panel.setFocusable(true);
+    mainPanel.addKeyListener(mainPanel);
+    mainPanel.setFocusable(true);
 
-    this.add(panel);
+    this.add(mainPanel);
     this.pack();
     Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
     this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);

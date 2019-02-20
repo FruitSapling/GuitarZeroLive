@@ -41,6 +41,7 @@ public class ViewStore extends JFrame {
                 }
             });
 
+            saveExit.setPreferredSize(new Dimension(400, 50));
             panel.add(saveExit, BorderLayout.SOUTH);
 
             panel.revalidate();

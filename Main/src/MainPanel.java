@@ -73,10 +73,7 @@ public class MainPanel extends JPanel implements KeyListener {
         public void mouseClicked(MouseEvent e) {
             switch(mode) {
                 case 0: System.exit(0);
-                case 1: System.out.println("");//TODO: Play Mode
-                case 2: System.out.println("");//TODO: Select Mode
-                case 3: ViewStore store = new ViewStore(); //TODO: Bug where all buttons bar exit seem to open new window
-                case 4: System.out.println("");//TODO: Tutorial Mode
+                case 3: ViewStore store = new ViewStore();
             }
         }
     });
