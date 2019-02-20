@@ -74,8 +74,8 @@ public class MainPanel extends JPanel implements KeyListener {
             switch(mode) {
                 case 0: System.exit(0);
                 case 1: System.out.println("");//TODO: Play Mode
-                case 2: System.out.println("");//TODO: Store Mode
-                case 3: System.out.println("");//TODO: Store Mode
+                case 2: System.out.println("");//TODO: Select Mode
+                case 3: ViewStore store = new ViewStore(); //TODO: Bug where all buttons bar exit seem to open new window
                 case 4: System.out.println("");//TODO: Tutorial Mode
             }
         }
@@ -95,12 +95,6 @@ public class MainPanel extends JPanel implements KeyListener {
     select.setBounds(153, 388, 128, 168); panel.add(select);
     store.setBounds(409, 388, 128, 168); panel.add(store);
     tutorial.setBounds(537, 388, 128, 168); panel.add(tutorial);
-
-//    JLabel modeInfo = new JLabel("Welcome!");
-//    modeInfo.setOpaque(true);
-//    modeInfo.setBackground(Color.WHITE);
-//    modeInfo.setFont(modeInfo.getFont().deriveFont(24f));
-//    modeInfo.setBounds(300, 60, 128, 128); panel.add(modeInfo);
 
     panel.revalidate();
     panel.repaint();

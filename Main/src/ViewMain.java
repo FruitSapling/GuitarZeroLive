@@ -13,10 +13,10 @@ public class ViewMain extends JFrame {
         Graphics2D g2 = (Graphics2D) g;
         g2.setColor(Color.DARK_GRAY);
         g2.fillRect(0, 0, getWidth(), getHeight());
-        buttons(panel);
         guitar(g2);
         new NoteIcon(1, g2);
         menu(g2);
+        buttons(panel);
 
       }
     };
@@ -25,6 +25,8 @@ public class ViewMain extends JFrame {
 
     this.add(panel);
     this.pack();
+    Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+    this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
     this.setDefaultCloseOperation(EXIT_ON_CLOSE);
     this.setVisible(true);
   }
