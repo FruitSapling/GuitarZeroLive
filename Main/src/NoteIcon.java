@@ -5,7 +5,7 @@ public class NoteIcon {
   private int x,y;
   public NoteIcon(int string, Graphics2D g2) {
     int widthOfNote = 40;
-    this.x = 125 + ((string-1)*50) - widthOfNote/2;
+    this.x = 150 + ((string-1)*85) - widthOfNote/2;
     this.y = 100;
 
     g2.setColor(Color.CYAN);

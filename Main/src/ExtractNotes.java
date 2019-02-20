@@ -4,7 +4,7 @@ import javax.sound.midi.*;
 
 public class ExtractNotes {
 
-    final static String FILE = "Wonderwall.mid";
+    final static String FILE = "MrBrightside.mid";
 
     public static void playWithoutGuitar(int n){
         try {

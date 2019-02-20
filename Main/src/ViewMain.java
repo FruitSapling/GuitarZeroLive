@@ -13,7 +13,7 @@ public class ViewMain extends JFrame {
       public void paintComponent(Graphics g) {
         panel.setLayout(null);
         Graphics2D g2 = (Graphics2D) g;
-        g2.setColor(Color.BLACK);
+        g2.setColor(Color.DARK_GRAY);
         g2.fillRect(0, 0, getWidth(), getHeight());
         buttons(panel);
         guitar(g2);
@@ -22,6 +22,8 @@ public class ViewMain extends JFrame {
 
       }
     };
+    panel.addKeyListener(panel);
+    panel.setFocusable(true);
 
     this.add(panel);
     this.pack();
