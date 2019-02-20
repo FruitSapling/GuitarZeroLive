@@ -3,19 +3,11 @@ import javax.sound.midi.*;
 import java.io.*;
 import java.text.*;
 
-/**
- * This is an example of how to get the real time (in ms) of MIDI events in Java.
- * This source code may be used freely but please do not publish it without consent.
- * This source code is provided "as is," without warranty of any kind, express or implied.
- * In no event shall the author or contributors be held liable for any damages arising in
- * any way from the use of this software.
- * Copyright (c) 2009 Robert Macrae
- */
-
 public class msMidi {
-    final static String FILE = "Wonderwall.mid";
+    final static String FILE = "wonderwall.mid";
     static Sequence seq;
     static int currentTrack = 0;
+    static int trackNumber = -1;
     static ArrayList<Integer> nextMessageOf = new ArrayList<Integer>();
 
     public static void main(String[] args) {
@@ -25,10 +17,14 @@ public class msMidi {
             e.printStackTrace();
             System.exit(1);
         }
-        convertMidi2RealTime(seq);
+
+        int leadGuitar = findLeadGuitar(seq);
+        System.out.println(leadGuitar);
+        convertMidi2RealTime(seq, leadGuitar);
+        playWithoutGuitar();
     }
 
-    public static void convertMidi2RealTime(Sequence seq) {
+    public static void convertMidi2RealTime(Sequence seq, int leadGuitar) {
         double currentTempo = 500000;
         int tickOfTempoChange = 0;
         double msb4 = 0;
@@ -36,57 +32,32 @@ public class msMidi {
         int lastTick = 0;
         int count = 0;
         for (int track = 0; track < seq.getTracks().length; track ++) nextMessageOf.add(0);
-        System.out.println();
 
+        NoteFileMaker notes = new NoteFileMaker(FILE + "notes", trackNumber);
+        ArrayList<String> noteList = new ArrayList<String>();
         MidiEvent nextEvent;
         while ((nextEvent = getNextEvent()) != null) {
             int tick = (int)nextEvent.getTick();
             if (noteIsOff(nextEvent)) {
-			/*
-            double time = (msb4+(((currentTempo/seq.getResolution())/1000)*(tick-tickOfTempoChange)));
-            System.out.println("track="+currentTrack+" tick="+tick+" time="+(int)(time+0.5)+"ms "
-                              +" note "+((int)nextEvent.getMessage().getMessage()[1] & 0xFF)+" off");
-			*/
-                // try making a short message then using getdat1 to find instrument name
-			/*
-			MidiMessage msg = nextEvent.getMessage();
-			if ( msg instanceof ShortMessage ) {
-				final ShortMessage smsg = (ShortMessage) msg;
-				final int          dat1 = smsg.getData1();
-				final int          dat2 = smsg.getData2();
-				System.out.println(dat1);
-				System.out.println(dat2);
-			}
 
-			/*
-			int instrumentNumber = (int)nextEvent.getMessage().getMessage()[1];
-			if(instrumentNumber <= 25 && instrumentNumber <= 38){
-				System.out.println(instrumentName(instrumentNumber));
-			}
-			*/
-                int instrumentNumber = (int)nextEvent.getMessage().getMessage()[1];
-                //System.out.println(instrumentName(instrumentNumber));
+                int instrumentNumber = ((int)nextEvent.getMessage().getMessage()[1] & 0xFF) + 1;
 
-                if(instrumentNumber == 36){
-                    System.out.println(instrumentName(instrumentNumber));
+
+                if(instrumentNumber == leadGuitar){
                     double time = (msb4+(((currentTempo/seq.getResolution())/1000)*(tick-tickOfTempoChange)));
-                    System.out.println("track="+currentTrack+" tick="+tick+" time="+(int)(time+0.5)+"ms "
-                            +" note "+((int)nextEvent.getMessage().getMessage()[1] & 0xFF)+" off");
+                    // change instrument number to?
+                    // is instrument number also the same as note number?
+                    noteList.add("OFF," + noteName(instrumentNumber) + "," + (int)(time+0.5));
                 }
             }
             else
             if (noteIsOn(nextEvent)) {
-				/*
-                double time = (msb4+(((currentTempo/seq.getResolution())/1000)*(tick-tickOfTempoChange)));
-                System.out.println("track="+currentTrack+" tick="+tick+" time="+(int)(time+0.5)+"ms "
-                        +" note "+((int)nextEvent.getMessage().getMessage()[1] & 0xFF)+" on");
-				*/
-                int instrumentNumber = (int)nextEvent.getMessage().getMessage()[1];
-                if(instrumentNumber == 25){
-                    System.out.println(instrumentName(instrumentNumber));
+
+                int instrumentNumber = ((int)nextEvent.getMessage().getMessage()[1] & 0xFF) + 1;
+
+                if(instrumentNumber == leadGuitar){
                     double time = (msb4+(((currentTempo/seq.getResolution())/1000)*(tick-tickOfTempoChange)));
-                    System.out.println("track="+currentTrack+" tick="+tick+" time="+(int)(time+0.5)+"ms "
-                            +" note "+((int)nextEvent.getMessage().getMessage()[1] & 0xFF)+" on");
+                    noteList.add("ON," + noteName(instrumentNumber) + "," + (int)(time+0.5));
                 }
             }
             else
@@ -105,6 +76,7 @@ public class msMidi {
                 currentTempo = newTempo;
             }
         }
+        notes.writeSong(noteList);
     }
 
     public static MidiEvent getNextEvent() {
@@ -161,4 +133,99 @@ public class msMidi {
             System.out.println( exn ); System.exit( 1 ); return "";
         }
     }
+
+    public static String noteName( int n ) {
+        final String[] NAMES =
+                { "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B" };
+        final int octave = (n / 12) - 1;
+        final int note   = n % 12;
+        return NAMES[ note ] + octave;
+    }
+
+    public static int findLeadGuitar(Sequence seq){
+        int leadGuitar = -1;
+        int guitarTrack = -1;
+        try {
+            guitarTrack = findFirstGuitar(loopTRACKS( seq ));
+        } catch ( Exception exn ) {
+            System.out.println( exn ); System.exit( 1 );
+        }
+        return guitarTrack;
+    }
+
+    // returns the first guitar number in the track, 0 if no guitar
+    public static int findGuitarInTrack( Track trk ) {
+        for ( int i = 0; i < trk.size(); i = i + 1 ) {
+            MidiEvent   evt  = trk.get( i );
+            MidiMessage msg = evt.getMessage();
+            if ( msg instanceof ShortMessage ) {
+                final long         tick = evt.getTick();
+                final ShortMessage smsg = (ShortMessage) msg;
+                final int          chan = smsg.getChannel();
+                final int          cmd  = smsg.getCommand();
+                final int          dat1 = smsg.getData1() + 1;
+
+                switch( cmd ) {
+                    case ShortMessage.PROGRAM_CHANGE :
+                        if(dat1 >= 25 && dat1 <= 38){
+                            return dat1;
+                        }
+                        break;
+
+                    default :
+                        /* ignore other commands */
+                        break;
+                }
+            }
+        }
+        return 0;
+    }
+
+    // return instrument number of the first guitar
+    public static int findFirstGuitar(ArrayList<Integer> instrumentTracks){
+        for(int i=0; i < instrumentTracks.size(); i++){
+            if(instrumentTracks.get(i) != 0){
+                trackNumber = i;
+                return instrumentTracks.get(i);
+            }
+        }
+        return -1;
+    }
+
+    // returns a list of the first guitar in each track
+    public static ArrayList<Integer> loopTRACKS( Sequence seq ) {
+        Track[] trks = seq.getTracks();
+        ArrayList<Integer> guitarTracks = new ArrayList<Integer>();
+        for ( int i = 0; i < trks.length; i++ ) {
+            guitarTracks.add(findGuitarInTrack( trks[ i ] ));
+        }
+        System.out.println("first guitar on each track: " + guitarTracks);
+        return guitarTracks;
+    }
+
+    public static void playWithoutGuitar(){
+        try {
+            final Sequencer   sequen = MidiSystem.getSequencer();
+            final Transmitter trans  = sequen.getTransmitter();
+
+            sequen.open();
+
+            sequen.setSequence( MidiSystem.getSequence( new File( FILE ) ) );
+
+            //sequen.setTrackMute(trackNumber, true);
+            sequen.setTrackSolo(trackNumber, true);
+
+            sequen.addMetaEventListener( new MetaEventListener() {
+                public void meta( MetaMessage mesg ) {
+                    if ( mesg.getType() == 0x2F /* end-of-track */ ) {
+                        sequen.close();
+                    }
+                }
+            });
+            sequen.start();
+        } catch ( Exception exn ) {
+            System.out.println( exn ); System.exit( 1 );
+        }
+    }
+
 }
