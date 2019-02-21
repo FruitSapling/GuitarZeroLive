@@ -1,7 +1,6 @@
 public class Main {
   public static void main(String[] args) {
-    Thread t = new Thread(new GuitarPollingThread());
-    t.start();
-    ViewMain mainMenu = new ViewMain();
+    GuitarButtonController controller1 = new GuitarButtonController();
+    ViewMain mainMenu = new ViewMain(controller1);
   }
 }

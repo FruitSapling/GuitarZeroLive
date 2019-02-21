@@ -11,26 +11,47 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class MainPanel extends JPanel implements KeyListener, GuitarButtonListener {
+
+  public MainPanel(GuitarButtonController guitarButtonController) {
+    //register this panel as a guitar button press listener
+    guitarButtonController.addListener(this);
+  }
+
   int arrowLoc = 336;
   public void keyTyped(KeyEvent e) {
     //System.out.println("keyTyped: "+e);
   }
   public void keyPressed(KeyEvent e) {
     if(e.getKeyChar() == 'd') {
-      if(arrowLoc < 20+getWidth()-50-128) {
-        arrowLoc += 128;
-      }
+      movePointerRight();
     }else if(e.getKeyChar() == 'e') {
-      if(arrowLoc > 20+128) {
-        arrowLoc -= 128;
-      }
+      movePointerLeft();
+    }
+  }
+
+  public void movePointerLeft() {
+    if(arrowLoc > 20+128) {
+      arrowLoc -= 128;
+    }
+  }
+
+  public void movePointerRight() {
+    if(arrowLoc < 20+getWidth()-50-128) {
+      arrowLoc += 128;
     }
   }
 
   @Override
   public void guitarButtonPressReceived(GuitarButtonPressedEvent e) {
+    System.out.println(e.getValue());
     switch(e.getGuitarButton()) {
-      
+
+      case STRUM:
+        if (e.getValue() == 1.0) {
+          movePointerLeft();
+        } else {
+          movePointerRight();
+        }
     }
   }
 
