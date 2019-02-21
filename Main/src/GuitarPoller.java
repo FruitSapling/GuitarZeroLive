@@ -79,12 +79,11 @@ public class GuitarPoller implements Runnable {
 
                 //generate events for any binary buttons being pressed
                 for (int i: Constants.binaryButtonsIndices) {
-                    if (vals[i] == 1.0) {
+                    if (vals[i] == 1.0 && prevVals[i] == 0.0) {
                         controller.fireGuitarButtonPressedEvent(Constants.INDEX_TO_BUTTON.get(i));
                     }
                 }
 
-                //TODO: check strum index value;
                 int STRUM_INDEX = Constants.BUTTON_TO_INDEX.get(GuitarButton.STRUM);
                 float strumValue = vals[STRUM_INDEX];
                 float prevStrumValue = prevVals[STRUM_INDEX];
