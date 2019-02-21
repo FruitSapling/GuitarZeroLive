@@ -35,14 +35,40 @@ public class ViewStore extends JFrame {
         }
 
         public void labels(StoreManagerPanel panel) {
-            JLabel title = new JLabel("Store Manager Mode");
-            title.setHorizontalAlignment(JLabel.CENTER);
-            title.setVerticalAlignment(JLabel.CENTER);
-            title.setFont(new Font("Arial", Font.PLAIN, 32));
+            JLabel header = new JLabel("Store Manager Mode");
+            header.setHorizontalAlignment(JLabel.CENTER);
+            header.setVerticalAlignment(JLabel.CENTER);
+            header.setFont(new Font("Arial", Font.PLAIN, 32));
 
+            JLabel lTitle = new JLabel("Title:");
+            lTitle.setFont(new Font("Arial", Font.PLAIN, 18));
+            JLabel lCoverArt = new JLabel("Cover Art:");
+            lCoverArt.setFont(new Font("Arial", Font.PLAIN, 18));
+            JLabel lNotes = new JLabel("Music:");
+            lNotes.setFont(new Font("Arial", Font.PLAIN, 18));
 
+            JPanel centrePanel = new JPanel();
+            GridBagLayout gridBag = new GridBagLayout();
+            GridBagConstraints c = new GridBagConstraints();
+            centrePanel.setLayout(gridBag);
+            centrePanel.setBackground(Color.WHITE);
+            c.fill = GridBagConstraints.HORIZONTAL;
+            c.gridx = 0;
+            c.insets = new Insets(12, 0, 12, 0);
 
-            panel.add(title, BorderLayout.NORTH);
+            c.gridy = 0;
+            gridBag.setConstraints(lTitle, c);
+            c.gridy = 1;
+            gridBag.setConstraints(lCoverArt, c);
+            c.gridy = 2;
+            gridBag.setConstraints(lNotes, c);
+
+            centrePanel.add(lTitle);
+            centrePanel.add(lCoverArt);
+            centrePanel.add(lNotes);
+
+            panel.add(centrePanel, BorderLayout.CENTER);
+            panel.add(header, BorderLayout.NORTH);
         }
 
         public JButton generateFileBrowserButton(StoreManagerPanel panel, int mode) {
