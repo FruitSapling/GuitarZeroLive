@@ -47,54 +47,84 @@ public class ExtractNotes{
             MidiMessage msg = nextEvent.getMessage();
             if (msg instanceof ShortMessage) {
                 // final long         tick = evt.getTick();
-                final ShortMessage smsg = (ShortMessage) msg;
-                final int currentChannel = smsg.getChannel();
-                final int cmd = smsg.getCommand();
-                final int dat1 = smsg.getData1();
+                ShortMessage smsg = (ShortMessage) msg;
+                int currentChannel = smsg.getChannel();
+                int cmd = smsg.getCommand();
+                int dat1 = smsg.getData1();
 
-                switch (cmd) {
-                    case ShortMessage.PROGRAM_CHANGE:
-                        instrumentNumber = ((int) nextEvent.getMessage().getMessage()[1] & 0xFF);
-                        if (instrumentNumber == leadGuitar) {
-                            channelNumber = currentChannel;
-                        }
-                        break;
-                    case ShortMessage.NOTE_ON:
-                        if (channelNumber == currentChannel && guitarTrack == currentTrack) {
-                            double time = (msb4 + (((currentTempo / seq.getResolution()) / 1000)
-                                    * (tick - tickOfTempoChange)));
-                            int noteNumber = ((int) nextEvent.getMessage().getMessage()[1] & 0xFF);
-                            noteList.add("ON," + noteName(noteNumber) + "," + (int) (time + 0.5));
-                        }
-                        break;
-                    case ShortMessage.NOTE_OFF:
-                        if (channelNumber == currentChannel && guitarTrack == currentTrack) {
-                            double time = (msb4 + (((currentTempo / seq.getResolution()) / 1000)
-                                    * (tick - tickOfTempoChange)));
-                            int noteNumber = ((int) nextEvent.getMessage().getMessage()[1] & 0xFF);
-                            noteList.add("OFF," + noteName(noteNumber) + "," + (int) (time + 0.5));
-                        }
-                        break;
-                    default:
-                        if (changeTemp(nextEvent)) {
-                            String a = (Integer.toHexString((int) nextEvent.getMessage().getMessage()[3] & 0xFF));
-                            String b = (Integer.toHexString((int) nextEvent.getMessage().getMessage()[4] & 0xFF));
-                            String c = (Integer.toHexString((int) nextEvent.getMessage().getMessage()[5] & 0xFF));
-                            if (a.length() == 1) a = ("0" + a);
-                            if (b.length() == 1) b = ("0" + b);
-                            if (c.length() == 1) c = ("0" + c);
-                            String whole = a + b + c;
-                            int newTempo = Integer.parseInt(whole, 16);
-                            double newTime = (currentTempo / seq.getResolution()) * (tick - tickOfTempoChange);
-                            msb4 += (newTime / 1000);
-                            tickOfTempoChange = tick;
-                            currentTempo = newTempo;
-                        }
-                        break;
+                if(cmd == ShortMessage.PROGRAM_CHANGE){
+                    instrumentNumber = ((int) nextEvent.getMessage().getMessage()[1] & 0xFF);
+                    if (instrumentNumber == leadGuitar) {
+                        channelNumber = currentChannel;
+                    }
+                }
+
+
+                if(noteIsOff(nextEvent)){
+                    if (channelNumber == currentChannel && guitarTrack == currentTrack) {
+                        double time = (msb4 + (((currentTempo / seq.getResolution()) / 1000)
+                                * (tick - tickOfTempoChange)));
+                        int noteNumber = ((int) nextEvent.getMessage().getMessage()[1] & 0xFF);
+                        noteList.add("OFF," + noteName(noteNumber) + "," + (int) (time + 0.5));
+                    }
+                }
+
+                if(noteIsOn(nextEvent)){
+                    if (channelNumber == currentChannel && guitarTrack == currentTrack) {
+                        double time = (msb4 + (((currentTempo / seq.getResolution()) / 1000)
+                                * (tick - tickOfTempoChange)));
+                        int noteNumber = ((int) nextEvent.getMessage().getMessage()[1] & 0xFF);
+                        noteList.add("ON," + noteName(noteNumber) + "," + (int) (time + 0.5));
+                    }
+                }
+                if (changeTemp(nextEvent)) {
+                    String a = (Integer.toHexString((int) nextEvent.getMessage().getMessage()[3] & 0xFF));
+                    String b = (Integer.toHexString((int) nextEvent.getMessage().getMessage()[4] & 0xFF));
+                    String c = (Integer.toHexString((int) nextEvent.getMessage().getMessage()[5] & 0xFF));
+                    if (a.length() == 1) a = ("0" + a);
+                    if (b.length() == 1) b = ("0" + b);
+                    if (c.length() == 1) c = ("0" + c);
+                    String whole = a + b + c;
+                    int newTempo = Integer.parseInt(whole, 16);
+                    double newTime = (currentTempo / seq.getResolution()) * (tick - tickOfTempoChange);
+                    msb4 += (newTime / 1000);
+                    tickOfTempoChange = tick;
+                    currentTempo = newTempo;
                 }
             }
         }
         notes.writeSong(noteList);
+    }
+
+    public static boolean noteIsOff(MidiEvent event) {
+        if (Integer.toString((int)event.getMessage().getStatus(), 16).toUpperCase().charAt(0) == '8' ||
+                (noteIsOn(event) && event.getMessage().getLength() >= 3 && ((int)event.getMessage().getMessage()[2] & 0xFF) == 0)) return true;
+        return false;
+    }
+
+    public static boolean noteIsOn(MidiEvent event) {
+        if (Integer.toString(event.getMessage().getStatus(), 16).toUpperCase().charAt(0) == '9') return true;
+        return false;
+    }
+
+    public static boolean programChange(MidiEvent event){
+        MidiMessage msg = event.getMessage();
+        if ( msg instanceof ShortMessage ) {
+            final long         tick = event.getTick();
+            final ShortMessage smsg = (ShortMessage) msg;
+            final int          chan = smsg.getChannel();
+            final int          cmd  = smsg.getCommand();
+            final int          dat1 = smsg.getData1();
+
+            switch( cmd ) {
+                case ShortMessage.PROGRAM_CHANGE :
+                    return true;
+                default :
+                    /* ignore other commands */
+                    break;
+            }
+        }
+        return false;
     }
 
     public static boolean changeTemp(MidiEvent event) {
