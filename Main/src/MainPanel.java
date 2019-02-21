@@ -10,7 +10,7 @@ import javax.swing.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class MainPanel extends JPanel implements KeyListener {
+public class MainPanel extends JPanel implements KeyListener, GuitarButtonListener {
   int arrowLoc = 336;
   public void keyTyped(KeyEvent e) {
     //System.out.println("keyTyped: "+e);
@@ -26,6 +26,14 @@ public class MainPanel extends JPanel implements KeyListener {
       }
     }
   }
+
+  @Override
+  public void guitarButtonPressReceived(GuitarButtonPressedEvent e) {
+    switch(e.getGuitarButton()) {
+      
+    }
+  }
+
   public void keyReleased(KeyEvent e) {
     //System.out.println("keyReleased: "+e);
   }
@@ -99,7 +107,4 @@ public class MainPanel extends JPanel implements KeyListener {
     panel.revalidate();
     panel.repaint();
   }
-
-
-
 }

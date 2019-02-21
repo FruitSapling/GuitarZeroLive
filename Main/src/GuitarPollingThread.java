@@ -37,11 +37,9 @@ public class GuitarPollingThread implements Runnable {
         Controller ctrl = getGuitarController();
 
         if (ctrl == null) {
-            System.out.println("yalla");
             //TODO: handle case when guitar cannot be found.
             return;
         }
-        System.out.println("WOO GOT THRU");
 
         Component[] cmps = ctrl.getComponents();
         float[]     vals = new float[  cmps.length ];
