@@ -15,7 +15,6 @@ public class FileZipper {
     private static File[] files;
     private Path saveLocation;
 
-
     FileZipper(File[] files, String rootLocation, String fileName) {
         this.files = files;
         this.saveLocation = Paths.get(rootLocation,fileName);
@@ -39,9 +38,9 @@ public class FileZipper {
                 File file = fb.getSelectedFile();
                 if(file != null) {
                     files[mode] = file;
+                    }
                 }
         }
-    }
 
     public static void createZipFile() {
         //TODO: This is called when the save button is hit, so validation and then zipping
