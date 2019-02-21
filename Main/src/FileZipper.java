@@ -24,9 +24,10 @@ public class FileZipper {
     /*
     * Method to zip all the files from the 'files' array into a compressed format and return the '.zip' file.
     */
-    private void zipFiles() {
+    private File zipFiles() {
+        File firstFile = null;
         try {
-            File firstFile = new File(saveLocation.toString());
+            firstFile = new File(saveLocation.toString());
             String zipFileName = firstFile.getName().concat(".zip");
 
             FileOutputStream fileOut = new FileOutputStream(zipFileName);
@@ -46,6 +47,8 @@ public class FileZipper {
         } catch (IOException e) {
             System.err.println("I/O error: " + e);
         }
+
+        return firstFile;
     }
 
 
