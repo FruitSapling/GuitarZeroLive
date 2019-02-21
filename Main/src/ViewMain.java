@@ -4,9 +4,8 @@ import javax.swing.*;
 public class ViewMain extends JFrame {
   private MainPanel mainPanel;
 
-  public ViewMain(GuitarButtonController guitarButtonController) {
-
-    mainPanel = new MainPanel(guitarButtonController) {
+  public ViewMain() {
+    mainPanel = new MainPanel() {
       public void paintComponent(Graphics g) {
         mainPanel.setLayout(null);
         Graphics2D g2 = (Graphics2D) g;
@@ -16,6 +15,7 @@ public class ViewMain extends JFrame {
         new NoteIcon(1, g2);
         menu(g2);
         buttons(mainPanel);
+
       }
     };
     mainPanel.addKeyListener(mainPanel);
