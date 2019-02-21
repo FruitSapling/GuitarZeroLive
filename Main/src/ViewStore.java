@@ -14,7 +14,7 @@ public class ViewStore extends JFrame {
                 Graphics2D g2 = (Graphics2D) g;
                 g2.setColor(Color.WHITE);
                 g2.fillRect(0, 0, getWidth(), getHeight());
-                menuTitle(storePanel);
+                labels(storePanel);
                 buttons(storePanel);
             }
         };
@@ -34,11 +34,13 @@ public class ViewStore extends JFrame {
             return new Dimension(400, 250);
         }
 
-        public void menuTitle(StoreManagerPanel panel) {
+        public void labels(StoreManagerPanel panel) {
             JLabel title = new JLabel("Store Manager Mode");
             title.setHorizontalAlignment(JLabel.CENTER);
             title.setVerticalAlignment(JLabel.CENTER);
             title.setFont(new Font("Arial", Font.PLAIN, 32));
+
+
 
             panel.add(title, BorderLayout.NORTH);
         }
@@ -52,6 +54,7 @@ public class ViewStore extends JFrame {
             });
             return button;
         }
+
         public void buttons(StoreManagerPanel panel){
 
             JButton titleButton = generateFileBrowserButton(panel, 1);
@@ -83,7 +86,6 @@ public class ViewStore extends JFrame {
             gridBag.setConstraints(artButton, c);
             c.gridy = 2;
             gridBag.setConstraints(musicButton, c);
-
 
             eastPanel.add(titleButton);
             eastPanel.add(artButton);
