@@ -10,7 +10,7 @@ import javax.swing.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class MainPanel extends JPanel implements KeyListener {
+public class MainPanel extends JPanel implements KeyListener, GuitarButtonListener {
   int arrowLoc = 336;
   public void keyTyped(KeyEvent e) {
     //System.out.println("keyTyped: "+e);
@@ -26,6 +26,14 @@ public class MainPanel extends JPanel implements KeyListener {
       }
     }
   }
+
+  @Override
+  public void guitarButtonPressReceived(GuitarButtonPressedEvent e) {
+    switch(e.getGuitarButton()) {
+      
+    }
+  }
+
   public void keyReleased(KeyEvent e) {
     //System.out.println("keyReleased: "+e);
   }
@@ -73,10 +81,7 @@ public class MainPanel extends JPanel implements KeyListener {
         public void mouseClicked(MouseEvent e) {
             switch(mode) {
                 case 0: System.exit(0);
-                case 1: System.out.println("");//TODO: Play Mode
-                case 2: System.out.println("");//TODO: Select Mode
-                case 3: ViewStore store = new ViewStore(); //TODO: Bug where all buttons bar exit seem to open new window
-                case 4: System.out.println("");//TODO: Tutorial Mode
+                case 3: ViewStore store = new ViewStore();
             }
         }
     });
@@ -99,7 +104,4 @@ public class MainPanel extends JPanel implements KeyListener {
     panel.revalidate();
     panel.repaint();
   }
-
-
-
 }

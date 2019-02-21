@@ -6,6 +6,8 @@ import net.java.games.input.ControllerEnvironment;
 
 public class GuitarPollingThread implements Runnable {
 
+    private float MIN_BTN_VALUE = 0.05f;
+
     private final ArrayList<GuitarButtonListener> listeners = new ArrayList<GuitarButtonListener>();
 
     /*
@@ -32,16 +34,19 @@ public class GuitarPollingThread implements Runnable {
         }
     }
 
+    public boolean beingPressed(float value) {
+        if (value < MIN_BTN_VALUE && value > -MIN_BTN_VALUE) return true;
+        else return false;
+    }
+
     public void run() {
 
         Controller ctrl = getGuitarController();
 
         if (ctrl == null) {
-            System.out.println("yalla");
             //TODO: handle case when guitar cannot be found.
             return;
         }
-        System.out.println("WOO GOT THRU");
 
         Component[] cmps = ctrl.getComponents();
         float[]     vals = new float[  cmps.length ];
@@ -49,13 +54,9 @@ public class GuitarPollingThread implements Runnable {
         while( true ) {
             if ( ctrl.poll() ) {
 
-                System.out.println("vals[0] is: " + vals[0]);
+                int LAST_BINARY_BUTTON = 0;
 
-                if (vals[ 0 ] == 1.0) {
-
-                }
-
-                for ( int i = 0; i < cmps.length; i = i + 1 ) { /* store */
+                for (int i = 0; i < LAST_BINARY_BUTTON; i++) {
                     float value = cmps[ i ].getPollData();
                     vals[ i ] = value;
 
@@ -65,8 +66,21 @@ public class GuitarPollingThread implements Runnable {
                         System.out.println(Constants.GUITAR_BUTTONS.get(i));
                         fireGuitarButtonPressedEvent(Constants.GUITAR_BUTTONS.get(i));
                     }
-
                 }
+
+                //TODO: check strum index value;
+                int STRUM_INDEX = 0;
+                float strumValue = vals[STRUM_INDEX];
+                if (strumValue != 0.0) {
+                    fireGuitarButtonPressedEvent(Constants.GUITAR_BUTTONS.get(STRUM_INDEX));
+                }
+
+                int WHAMMY_INDEX = 0;
+                float whammy_value = vals[WHAMMY_INDEX];
+                if (beingPressed(whammy_value)) {
+                    fireGuitarButtonPressedEvent(Constants.GUITAR_BUTTONS.get(STRUM_INDEX));
+                }
+
 
             }
 

@@ -1,4 +1,6 @@
 
+import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -10,16 +12,39 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
 public class FileZipper {
-    private File[] files;
+    private static File[] files;
     private Path saveLocation;
-
 
     FileZipper(File[] files, String rootLocation, String fileName) {
         this.files = files;
         this.saveLocation = Paths.get(rootLocation,fileName);
     }
 
+    public static void fileBrowser(JPanel panel, int mode) {
+        JFileChooser fb = new JFileChooser();
+        fb.showOpenDialog(panel);
+        FileNameExtensionFilter filter;
+        switch (mode) {
+            default:
+                //TODO: None of this switch statement works so fuck knows what to do with it
+                filter = null;
+            case 1:
+                filter = new FileNameExtensionFilter("MIDI File", "midi");
+            case 2:
+                filter = new FileNameExtensionFilter("PNG File", "png");
+                //TODO: None of this switch statement works so fuck knows what to do with it
 
+                fb.setFileFilter(filter);
+                File file = fb.getSelectedFile();
+                if(file != null) {
+                    files[mode] = file;
+                    }
+                }
+        }
+
+    public static void createZipFile() {
+        //TODO: This is called when the save button is hit, so validation and then zipping
+    }
 
     /*
     * Method to zip all the files from the 'files' array into a compressed format and return the '.zip' file.
