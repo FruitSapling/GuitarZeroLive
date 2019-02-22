@@ -29,10 +29,6 @@ public class ViewStore extends JFrame {
 
     class StoreManagerPanel extends JPanel {
 
-        JLabel lTitle = new JLabel("Title:");
-        JLabel lCoverArt = new JLabel("Cover Art:");
-        JLabel lNotes = new JLabel("Music:");
-
         @Override
         public Dimension getPreferredSize() {
             return new Dimension(400, 250);
@@ -43,6 +39,10 @@ public class ViewStore extends JFrame {
             header.setHorizontalAlignment(JLabel.CENTER);
             header.setVerticalAlignment(JLabel.CENTER);
             header.setFont(new Font("Arial", Font.PLAIN, 32));
+
+            JLabel lTitle = new JLabel("Title:");
+            JLabel lCoverArt = new JLabel("Cover Art:");
+            JLabel lNotes = new JLabel("Music:");
 
             lTitle.setFont(new Font("Arial", Font.PLAIN, 18));
             lCoverArt.setFont(new Font("Arial", Font.PLAIN, 18));
