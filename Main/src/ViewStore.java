@@ -29,10 +29,6 @@ public class ViewStore extends JFrame {
 
     class StoreManagerPanel extends JPanel {
 
-        JLabel lTitle = new JLabel("Title:");
-        JLabel lCoverArt = new JLabel("Cover Art:");
-        JLabel lNotes = new JLabel("Music:");
-
         @Override
         public Dimension getPreferredSize() {
             return new Dimension(400, 250);
@@ -44,8 +40,11 @@ public class ViewStore extends JFrame {
             header.setVerticalAlignment(JLabel.CENTER);
             header.setFont(new Font("Arial", Font.PLAIN, 32));
 
+            JLabel lTitle = new JLabel("Title:");
             lTitle.setFont(new Font("Arial", Font.PLAIN, 18));
+            JLabel lCoverArt = new JLabel("Cover Art:");
             lCoverArt.setFont(new Font("Arial", Font.PLAIN, 18));
+            JLabel lNotes = new JLabel("Music:");
             lNotes.setFont(new Font("Arial", Font.PLAIN, 18));
 
             JPanel centrePanel = new JPanel();
@@ -55,7 +54,7 @@ public class ViewStore extends JFrame {
             centrePanel.setBackground(Color.WHITE);
             c.fill = GridBagConstraints.HORIZONTAL;
             c.gridx = 0;
-            c.insets = new Insets(12, 5, 12, 0);
+            c.insets = new Insets(12, 0, 12, 0);
 
             c.gridy = 0;
             gridBag.setConstraints(lTitle, c);
@@ -68,7 +67,7 @@ public class ViewStore extends JFrame {
             centrePanel.add(lCoverArt);
             centrePanel.add(lNotes);
 
-            panel.add(centrePanel, BorderLayout.WEST);
+            panel.add(centrePanel, BorderLayout.CENTER);
             panel.add(header, BorderLayout.NORTH);
         }
 
