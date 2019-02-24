@@ -41,8 +41,10 @@ public class FileUnzipper {
             zipIn.read(buffer,0,bufferSize);
             out.write(buffer);
           }
-
+          out.close();
         }
+        zipIn.close();
+        in.close();
       }
       catch (IOException e) {
         System.out.println(e.getMessage());

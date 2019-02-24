@@ -9,11 +9,14 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
 
 public class Client {
-  private Socket socket = null;
+  public Socket socket = null;
   private String ip;
   private int port;
+  private String dir;
 
   Client(String ip, int port) {
     this.ip = ip;
@@ -53,10 +56,12 @@ public class Client {
 
       // Sending of the file
       FileInputStream input = new FileInputStream(file);
-      byte[] buffer = new byte[4096];
+      int bufferSize = 1024;
 
-      while(input.read(buffer) > 0) {
-        dataOut.write(buffer);
+      for (int i = 0; i <= (file.length()/bufferSize); i++) {
+        byte[] buffer = new byte[bufferSize];
+        input.read(buffer,0,bufferSize);
+        dataOut.write(buffer,0,bufferSize);
       }
 
       dataOut.close();
@@ -71,21 +76,30 @@ public class Client {
 
 
   public File[] getFile() {
-    ArrayList<File> files = null;
+    ArrayList<File> files = new ArrayList<>();
     try {
       OutputStream out = this.socket.getOutputStream();
+      InputStream in = this.socket.getInputStream();
 
       // Send initial byte to tell the server that it is a request.
       out.write(0);
 
-      InputStream in = this.socket.getInputStream();
-      DataInputStream inStream = new DataInputStream(in);
 
-      FileOutputStream fileOut = new FileOutputStream("temp.zip");
 
-      byte[] buffer = new byte[4096];
+      // Read files
+
+      ZipInputStream inStream = new ZipInputStream(in);
+      ZipEntry zipfile;
+
+      while ((zipfile = inStream.getNextEntry()) != null) {
+        File file = new File(zipfile.getName());
+      }
+
 
       //TODO: Finish reading in the bytes and convert them into File objects.
+
+      in.close();
+      out.close();
 
     }
     catch (IOException e) {
@@ -99,11 +113,9 @@ public class Client {
   public static void main(String[] args) {
     Client client = new Client("localhost",8888);
     client.connect();
-    try {
-      client.getFile();
-    }
-    catch (NullPointerException e) {
-      System.out.println("Error null pointer: " + e.getMessage());
+
+    if (client.socket != null) {
+      client.sendFile(new File("src.zip"));
     }
 
   }
