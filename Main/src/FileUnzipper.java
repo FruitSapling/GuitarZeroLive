@@ -1,35 +1,59 @@
-import java.io.BufferedReader;
+
 import java.io.File;
-import java.io.FileFilter;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
-import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
 public class FileUnzipper {
-    private File dir;
-    private File[] zippedFolders;
+    private String dir;
 
-    FileUnzipper(String directory) {
-        this.dir = new File(directory);
+
+    FileUnzipper(String saveDirectory) {
+        this.dir = saveDirectory;
     }
 
 
 
+    /*
+    * Method that takes a zip file and unzips it, placing the resulting files in the
+    * dir specified in the FileUnzipper constructor (with there original names/extensions).
+    */
     public File[] unzipFiles(File zippedFile) {
       try {
         FileInputStream in = new FileInputStream(zippedFile);
         ZipInputStream zipIn = new ZipInputStream(in);
 
-        byte[] bytes = Files.readAllBytes(zippedFile.toPath());
-        zipIn.read(bytes,0,bytes.length);
-        // TODO: Implement the unzipping of files
+        int bufferSize = 1024;
+        ZipEntry next;
+
+        while ((next = zipIn.getNextEntry()) != null) {
+          long size = next.getSize();
+          Path path = Paths.get(dir,next.getName().split("/")[1]);
+          File file = new File(path.toString());
+          FileOutputStream out = new FileOutputStream(file);
+
+          for (int i = 0; i < (size/bufferSize)+1; i++) {
+            byte[] buffer = new byte[bufferSize];
+            zipIn.read(buffer,0,bufferSize);
+            out.write(buffer);
+          }
+
+        }
       }
       catch (IOException e) {
         System.out.println(e.getMessage());
       }
       return null;
+    }
+
+
+    public static void main(String[] args) {
+      FileUnzipper zip = new FileUnzipper("");
+      zip.unzipFiles(new File("temp1.zip"));
     }
 
 
