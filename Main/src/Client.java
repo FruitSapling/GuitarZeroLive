@@ -1,4 +1,4 @@
-import java.io.BufferedOutputStream;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
@@ -8,9 +8,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipInputStream;
+import java.nio.file.Paths;
+
+
 
 public class Client {
   public Socket socket = null;
@@ -43,7 +43,7 @@ public class Client {
 
 
   /*
-  * A method to send a file over the connection to the server.
+  * A method to send a file (inc zipped folder) over the connection to the server.
   */
   public void sendFile(File file) {
     try {
@@ -75,41 +75,40 @@ public class Client {
 
 
 
-  public File[] getFile() {
-    ArrayList<File> files = new ArrayList<>();
+  /*
+  * A method to revieve a file (inc zipped folder) over the connection with the server.
+  * The resulting created file is stored in the new zip folder filename + '.zip' in the
+  * root directory for the connection specified in the constructor as 'dir'.
+  * The file returned is this newly created zip file.
+  */
+  private File recieveFile(String fileName) {
+    File outputFile = new File(Paths.get(dir,fileName + ".zip").toString());
+
     try {
-      OutputStream out = this.socket.getOutputStream();
       InputStream in = this.socket.getInputStream();
+      DataInputStream inStream = new DataInputStream(in);
 
-      // Send initial byte to tell the server that it is a request.
-      out.write(0);
+      outputFile.createNewFile();
+      FileOutputStream out = new FileOutputStream(outputFile);
 
+      byte[] buffer = new byte[1024];
 
-
-      // Read files
-
-      ZipInputStream inStream = new ZipInputStream(in);
-      ZipEntry zipfile;
-
-      while ((zipfile = inStream.getNextEntry()) != null) {
-        File file = new File(zipfile.getName());
+      while (inStream.read(buffer,0,buffer.length) != -1) {
+        out.write(buffer);
       }
-
-
-      //TODO: Finish reading in the bytes and convert them into File objects.
-
-      in.close();
       out.close();
+      inStream.close();
+      in.close();
 
     }
     catch (IOException e) {
-      System.out.println("Error getting files: " + e.getMessage());
+      e.printStackTrace();
     }
-
-    return files.size() > 0 ? files.toArray(new File[files.size()]) : null;
+    return outputFile;
   }
 
 
+  /* Test use only
   public static void main(String[] args) {
     Client client = new Client("localhost",8888);
     client.connect();
@@ -119,6 +118,5 @@ public class Client {
     }
 
   }
-
-
+  */
 }

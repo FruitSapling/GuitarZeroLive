@@ -112,6 +112,7 @@ public class FileZipper {
         return files;
     }
 
+    /* EXAMPLE USAGE OF VALIDATION
 
     public static void main(String[] args) {
 
@@ -135,6 +136,7 @@ public class FileZipper {
 
 
     }
+    */
 
     /*
     EXAMPLE USAGE OF ZIPPING

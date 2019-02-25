@@ -5,8 +5,8 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 /*
-* Server must be run separately outside of intellij to allow the client to connect to it.
-*/
+ * Server must be run separately outside of intellij to allow the client to connect to it.
+ */
 public class Server {
   ServerSocket socket;
 
@@ -34,7 +34,7 @@ public class Server {
     try {
       Socket socket = this.socket.accept();
 
-      Thread thread = new Thread(new ConnectionThread(socket));
+      Thread thread = new Thread(new ConnectionThread(socket,"."));
       thread.start();
     }
     catch (IOException e) {
@@ -42,11 +42,15 @@ public class Server {
     }
   }
 
+
+  /* TEST USE OF SERVER
+
   public static void main(String[] args) {
     Server server = new Server();
     while (true) {
       server.acceptConnections();
     }
   }
+  */
 
 }
