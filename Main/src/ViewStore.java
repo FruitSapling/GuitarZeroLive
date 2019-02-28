@@ -40,11 +40,12 @@ public class ViewStore extends JFrame {
             header.setVerticalAlignment(JLabel.CENTER);
             header.setFont(new Font("Arial", Font.PLAIN, 32));
 
-            JLabel lTitle = new JLabel("Title:");
-            lTitle.setFont(new Font("Arial", Font.PLAIN, 18));
+            JLabel lTitle = new JLabel("Title:");                 
             JLabel lCoverArt = new JLabel("Cover Art:");
-            lCoverArt.setFont(new Font("Arial", Font.PLAIN, 18));
             JLabel lNotes = new JLabel("Music:");
+
+            lTitle.setFont(new Font("Arial", Font.PLAIN, 18));
+            lCoverArt.setFont(new Font("Arial", Font.PLAIN, 18));
             lNotes.setFont(new Font("Arial", Font.PLAIN, 18));
 
             JPanel centrePanel = new JPanel();
