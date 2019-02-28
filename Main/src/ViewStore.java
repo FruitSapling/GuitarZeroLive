@@ -55,7 +55,7 @@ public class ViewStore extends JFrame {
             centrePanel.setBackground(Color.WHITE);
             c.fill = GridBagConstraints.HORIZONTAL;
             c.gridx = 0;
-            c.insets = new Insets(12, 5, 12, 0);
+            c.insets = new Insets(12, 0, 12, 0);
 
             c.gridy = 0;
             gridBag.setConstraints(lTitle, c);
@@ -68,7 +68,7 @@ public class ViewStore extends JFrame {
             centrePanel.add(lCoverArt);
             centrePanel.add(lNotes);
 
-            panel.add(centrePanel, BorderLayout.WEST);
+            panel.add(centrePanel, BorderLayout.CENTER);
             panel.add(header, BorderLayout.NORTH);
         }
 

@@ -11,26 +11,69 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class MainPanel extends JPanel implements KeyListener, GuitarButtonListener {
+
   int arrowLoc = 336;
+  int selectedMode = 2;
+
+  public MainPanel(GuitarButtonController guitarButtonController) {
+    //register this panel as a guitar button press listener
+    guitarButtonController.addListener(this);
+  }
+
   public void keyTyped(KeyEvent e) {
     //System.out.println("keyTyped: "+e);
   }
   public void keyPressed(KeyEvent e) {
     if(e.getKeyChar() == 'd') {
-      if(arrowLoc < 20+getWidth()-50-128) {
-        arrowLoc += 128;
-      }
+      movePointerRight();
     }else if(e.getKeyChar() == 'e') {
-      if(arrowLoc > 20+128) {
-        arrowLoc -= 128;
-      }
+      movePointerLeft();
+    }
+  }
+
+  public void movePointerLeft() {
+    if(arrowLoc > 20+128) {
+      arrowLoc -= 128;
+      selectedMode -= 1;
+    }
+  }
+
+  public void movePointerRight() {
+    if(arrowLoc < 20+getWidth()-50-128) {
+      arrowLoc += 128;
+      selectedMode += 1;
+    }
+  }
+
+  public void selectMode(int selectedMode) {
+    switch(selectedMode) {
+      case 0:
+        System.exit(0);
+        break;
+      case 1:
+        break;
+      case 2:
+        break;
+      case 3:
+        ViewStore store = new ViewStore();
+        break;
+      case 4:
+        break;
     }
   }
 
   @Override
   public void guitarButtonPressReceived(GuitarButtonPressedEvent e) {
     switch(e.getGuitarButton()) {
-      
+      case STRUM:
+        if (e.getValue() == 1.0) {
+          movePointerLeft();
+        } else {
+          movePointerRight();
+        }
+        break;
+      case ZERO_POWER:
+        selectMode(selectedMode);
     }
   }
 
@@ -79,10 +122,7 @@ public class MainPanel extends JPanel implements KeyListener, GuitarButtonListen
 
     button.addMouseListener( new MouseAdapter() {
         public void mouseClicked(MouseEvent e) {
-            switch(mode) {
-                case 0: System.exit(0);
-                case 3: ViewStore store = new ViewStore();
-            }
+          selectMode(mode);
         }
     });
     return button;
