@@ -1,13 +1,19 @@
+/* GUI Class that handles the implementation of Store Manager Mode */
+/* Store Manager Mode is a pseudo mode allowing for maintenance of */
+/* the Store Mode, specifically the creation of track 'bundles'    */
+
+/* Primary Class Developer: Morgan Centini */
+/* Secondary Class Developers:             */
+
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.File;
 import javax.swing.*;
 
-public class ViewStore extends JFrame {
+public class ViewStoreManager extends JFrame {
     private StoreManagerPanel storePanel;
 
-    public ViewStore() {
+    public ViewStoreManager() {
         storePanel = new StoreManagerPanel() {
             public void paintComponent(Graphics g) {
                 storePanel.setLayout(new BorderLayout());
@@ -34,7 +40,8 @@ public class ViewStore extends JFrame {
             return new Dimension(400, 250);
         }
 
-        public void labels(StoreManagerPanel panel) {
+        protected void labels(StoreManagerPanel panel) {
+        // Function generates and positions labels onto the SMM GUI
             JLabel header = new JLabel("Store Manager Mode");
             header.setHorizontalAlignment(JLabel.CENTER);
             header.setVerticalAlignment(JLabel.CENTER);
@@ -48,6 +55,7 @@ public class ViewStore extends JFrame {
             lCoverArt.setFont(new Font("Arial", Font.PLAIN, 18));
             lNotes.setFont(new Font("Arial", Font.PLAIN, 18));
 
+            //Internal Layout placed upon primary layout in order to position labels adequately
             JPanel centrePanel = new JPanel();
             GridBagLayout gridBag = new GridBagLayout();
             GridBagConstraints c = new GridBagConstraints();
@@ -72,7 +80,8 @@ public class ViewStore extends JFrame {
             panel.add(header, BorderLayout.NORTH);
         }
 
-        public JButton generateFileBrowserButton(StoreManagerPanel panel, int mode) {
+        protected JButton generateFileBrowserButton(StoreManagerPanel panel, int mode) {
+        // Function generates buttons to be placed on GUI, with generic file browser event handling
             JButton button = new JButton("Browse...");
             button.addMouseListener( new MouseAdapter() {
                 public void mouseClicked(MouseEvent e) {
@@ -82,12 +91,13 @@ public class ViewStore extends JFrame {
             return button;
         }
 
-        public void buttons(StoreManagerPanel panel){
-
+        protected void buttons(StoreManagerPanel panel){
+        // Function generates and positions buttons onto the SMM GUI
             JButton titleButton = generateFileBrowserButton(panel, 1);
             JButton artButton = generateFileBrowserButton(panel, 2);
             JButton musicButton = generateFileBrowserButton(panel, 3);
 
+            // Generate Exit Button which destroys SMM GUI
             JButton saveExit = new JButton("Save");
             saveExit.addMouseListener( new MouseAdapter() {
                 public void mouseClicked(MouseEvent e) {
@@ -98,6 +108,7 @@ public class ViewStore extends JFrame {
             });
             saveExit.setPreferredSize(new Dimension(400, 50));
 
+            //Internal Layout placed upon primary layout in order to position buttons adequately
             JPanel eastPanel = new JPanel();
             GridBagLayout gridBag = new GridBagLayout();
             GridBagConstraints c = new GridBagConstraints();

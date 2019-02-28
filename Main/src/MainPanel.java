@@ -12,8 +12,8 @@ import java.awt.event.MouseEvent;
 
 public class MainPanel extends JPanel implements KeyListener, GuitarButtonListener {
 
-  int arrowLoc = 336;
-  int selectedMode = 2;
+  private int arrowLoc = 336;
+  private int selectedMode = 2;
 
   public MainPanel(GuitarButtonController guitarButtonController) {
     //register this panel as a guitar button press listener
@@ -55,7 +55,8 @@ public class MainPanel extends JPanel implements KeyListener, GuitarButtonListen
       case 2:
         break;
       case 3:
-        ViewStore store = new ViewStore();
+        //TODO: Adjust this for when Store Mode is created
+        ViewStoreManager store = new ViewStoreManager();
         break;
       case 4:
         break;
