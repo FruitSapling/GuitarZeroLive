@@ -21,6 +21,7 @@ public class ViewStoreManager extends JFrame {
                 g2.setColor(Color.WHITE);
                 g2.fillRect(0, 0, getWidth(), getHeight());
                 labels(storePanel);
+                textBoxes(storePanel);
                 buttons(storePanel);
             }
         };
@@ -34,6 +35,9 @@ public class ViewStoreManager extends JFrame {
     }
 
     class StoreManagerPanel extends JPanel {
+
+        //Boolean used to determine whether zipping a bundle should be attempted upon exiting this GUI
+        private boolean allFilesSelected = false;
 
         @Override
         public Dimension getPreferredSize() {
@@ -56,14 +60,14 @@ public class ViewStoreManager extends JFrame {
             lNotes.setFont(new Font("Arial", Font.PLAIN, 18));
 
             //Internal Layout placed upon primary layout in order to position labels adequately
-            JPanel centrePanel = new JPanel();
+            JPanel westPanel = new JPanel();
             GridBagLayout gridBag = new GridBagLayout();
             GridBagConstraints c = new GridBagConstraints();
-            centrePanel.setLayout(gridBag);
-            centrePanel.setBackground(Color.WHITE);
+            westPanel.setLayout(gridBag);
+            westPanel.setBackground(Color.WHITE);
             c.fill = GridBagConstraints.HORIZONTAL;
             c.gridx = 0;
-            c.insets = new Insets(12, 0, 12, 0);
+            c.insets = new Insets(12, 5, 12, 0);
 
             c.gridy = 0;
             gridBag.setConstraints(lTitle, c);
@@ -72,12 +76,46 @@ public class ViewStoreManager extends JFrame {
             c.gridy = 2;
             gridBag.setConstraints(lNotes, c);
 
-            centrePanel.add(lTitle);
-            centrePanel.add(lCoverArt);
-            centrePanel.add(lNotes);
+            westPanel.add(lTitle);
+            westPanel.add(lCoverArt);
+            westPanel.add(lNotes);
+
+            panel.add(westPanel, BorderLayout.WEST);
+            panel.add(header, BorderLayout.NORTH);
+        }
+
+        protected void textBoxes(StoreManagerPanel panel){
+            // Function generates and positions labels onto the SMM GUI
+            JTextField tTitle = new JTextField(20);
+            JTextField tCoverArt = new JTextField(20);
+            JTextField tNotes = new JTextField(20);
+
+            tTitle.setEditable(false);
+            tCoverArt.setEditable(false);
+            tNotes.setEditable(false);
+
+            //Internal Layout placed upon primary layout in order to position labels adequately
+            JPanel centrePanel = new JPanel();
+            GridBagLayout gridBag = new GridBagLayout();
+            GridBagConstraints c = new GridBagConstraints();
+            centrePanel.setLayout(gridBag);
+            centrePanel.setBackground(Color.WHITE);
+            c.fill = GridBagConstraints.HORIZONTAL;
+            c.gridx = 0;
+            c.insets = new Insets(13, 0, 13, 0);
+
+            c.gridy = 0;
+            gridBag.setConstraints(tTitle, c);
+            c.gridy = 1;
+            gridBag.setConstraints(tCoverArt, c);
+            c.gridy = 2;
+            gridBag.setConstraints(tNotes, c);
+
+            centrePanel.add(tTitle);
+            centrePanel.add(tCoverArt);
+            centrePanel.add(tNotes);
 
             panel.add(centrePanel, BorderLayout.CENTER);
-            panel.add(header, BorderLayout.NORTH);
         }
 
         protected JButton generateFileBrowserButton(StoreManagerPanel panel, int mode) {
@@ -101,7 +139,21 @@ public class ViewStoreManager extends JFrame {
             JButton saveExit = new JButton("Save");
             saveExit.addMouseListener( new MouseAdapter() {
                 public void mouseClicked(MouseEvent e) {
-                    FileZipper.createZipFile();
+                    if (allFilesSelected == true) {
+                        try {
+                            FileZipper.createZipFile();
+                        }
+                        catch(Exception ex) {
+                            JOptionPane.showMessageDialog(null, "There was an error creating the bundle!"
+                                    ,"Error", JOptionPane.ERROR_MESSAGE);
+                        }
+                        finally {
+                            JOptionPane.showMessageDialog(null, "Zip Bundle successfully created!"
+                                    ,"", JOptionPane.INFORMATION_MESSAGE);
+                        }
+                    }
+                    JOptionPane.showMessageDialog(null, "All required files not provided: no action taken."
+                            ,"Contents", JOptionPane.INFORMATION_MESSAGE);
                     panel.setVisible(false);
                     dispose();
                 }
