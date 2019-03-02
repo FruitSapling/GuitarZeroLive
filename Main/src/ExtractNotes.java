@@ -1,7 +1,6 @@
 import java.util.*;
 import javax.sound.midi.*;
 import java.io.*;
-import java.text.*;
 
 public class ExtractNotes {
   static final String FILE = "Main/src/Wonderwall.mid";

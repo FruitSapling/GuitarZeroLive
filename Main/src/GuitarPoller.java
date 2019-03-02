@@ -8,8 +8,6 @@ public class GuitarPoller implements Runnable {
     private float MIN_BTN_VALUE = 0.05f;
     private GuitarButtonController controller;
 
-
-
     public GuitarPoller(GuitarButtonController controller) {
         this.controller = controller;
     }

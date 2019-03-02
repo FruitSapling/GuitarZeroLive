@@ -16,12 +16,16 @@ public class ViewMain extends JFrame {
         new NoteIcon(1, g2);
         menu(g2);
         buttons(mainPanel);
+        CarouselMenu carouselMenu = new CarouselMenu();
+        add(carouselMenu);
       }
     };
     mainPanel.addKeyListener(mainPanel);
     mainPanel.setFocusable(true);
 
     this.add(mainPanel);
+
+
     this.pack();
     Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
     this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);

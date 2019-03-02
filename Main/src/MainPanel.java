@@ -14,6 +14,7 @@ public class MainPanel extends JPanel implements KeyListener, GuitarButtonListen
 
   private int arrowLoc = 336;
   private int selectedMode = 2;
+  private CarouselMenu carouselMenu;
 
   public MainPanel(GuitarButtonController guitarButtonController) {
     //register this panel as a guitar button press listener
