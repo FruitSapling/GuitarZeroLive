@@ -1,4 +1,5 @@
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -14,8 +15,14 @@ public class StoreManagerPanel extends JPanel {
     }
 
     //Boolean used to determine whether zipping a bundle should be attempted upon exiting this GUI
-    public boolean allFilesSelected = false;
-    public ArrayList<File> files = new ArrayList<>(3);
+    private boolean areAllFilesSelected(ArrayList<File> arrayList) {
+        for (File file : arrayList) {
+            if (file == null){
+                return false;
+            }
+        }
+        return true;
+    }
 
     @Override
     public Dimension getPreferredSize() {
@@ -93,14 +100,17 @@ public class StoreManagerPanel extends JPanel {
         panel.add(centrePanel, BorderLayout.CENTER);
     }
 
-    protected JButton generateFileBrowserButton(StoreManagerPanel panel, JTextField field, int mode) {
+    protected JButton generateFileBrowserButton(StoreManagerPanel panel, JTextField field, String mode,
+                                                ArrayList<File> files) {
         // Function generates buttons to be placed on GUI, with generic file browser event handling
         JButton button = new JButton("Browse...");
         button.addMouseListener( new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
-                File file = FileZipper.fileBrowser(panel, "png");
+                File file = fileBrowser(panel, mode);
                 if (file.exists()) {
-                    files.set(mode-1, file);
+                    if (mode == "png"){ files.set(0, file); }
+                    if (mode == "midi"){ files.set(1, file); }
+                    if (mode == "txt"){ files.set(2, file); }
                     setTextField(field, file.getName());
                 }
             }
@@ -108,32 +118,45 @@ public class StoreManagerPanel extends JPanel {
         return button;
     }
 
-    protected void buttons(StoreManagerPanel panel, JFrame frame, JTextField tTitle, JTextField tCoverArt, JTextField tNotes){
-        // Function generates and positions buttons onto the SMM GUI
-        JButton titleButton = generateFileBrowserButton(panel, tTitle, 1);
-        JButton artButton = generateFileBrowserButton(panel, tCoverArt, 2);
-        JButton musicButton = generateFileBrowserButton(panel, tNotes, 3);
+    public File fileBrowser(JPanel panel, String mode) {
 
-        files.clear();
-        files.add(null);
-        files.add(null);
-        files.add(null);
+        File file;
+        JFileChooser fb = new JFileChooser();
+
+        if (mode == "png") { fb.setFileFilter(new FileNameExtensionFilter("PNG File", "png")); }
+        if (mode == "midi") { fb.setFileFilter(new FileNameExtensionFilter("MIDI File", "mid", "midi")); }
+
+        int returnVal = fb.showOpenDialog(panel);
+
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+
+            file = fb.getSelectedFile();
+            return file;
+        }
+        return null;
+    }
+
+    protected void buttons(StoreManagerPanel panel, JFrame frame, JTextField tTitle, JTextField tCoverArt, JTextField tNotes,
+                           ArrayList<File> files){
+        // Function generates and positions buttons onto the SMM GUI
+        JButton titleButton = generateFileBrowserButton(panel, tTitle, "png", files);
+        JButton artButton = generateFileBrowserButton(panel, tCoverArt, "midi", files);
+        JButton musicButton = generateFileBrowserButton(panel, tNotes, "txt", files);
 
         // Generate Exit Button which destroys SMM GUI
         JButton saveExit = new JButton("Save");
         saveExit.addMouseListener( new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
-                if (allFilesSelected == true) {
-                    try {
-                        FileZipper.createZipFile();
-                    }
-                    catch(Exception ex) {
-                        JOptionPane.showMessageDialog(null, "There was an error creating the bundle!"
-                                ,"Error", JOptionPane.ERROR_MESSAGE);
-                    }
-                    finally {
+                boolean allFiles = areAllFilesSelected(files);
+                if (allFiles) {
+                    boolean valid = FileZipper.createZipFile(files);
+                    if (valid == true) {
                         JOptionPane.showMessageDialog(null, "Zip Bundle successfully created!"
                                 ,"", JOptionPane.INFORMATION_MESSAGE);
+                    }
+                    else {
+                        JOptionPane.showMessageDialog(null, "There was an error creating the bundle!"
+                                ,"Error", JOptionPane.ERROR_MESSAGE);
                     }
                 }
                 else {
@@ -170,8 +193,6 @@ public class StoreManagerPanel extends JPanel {
         panel.add(eastPanel, BorderLayout.EAST);
         panel.add(saveExit, BorderLayout.SOUTH);
 
-        panel.revalidate();
-        panel.repaint();
     }
 }
 

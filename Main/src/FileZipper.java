@@ -8,46 +8,36 @@ import java.nio.file.FileSystemException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
 public class FileZipper {
-    private static File[] files;
-    private Path saveLocation;
+    private static Path saveLocation;
 
 
-    FileZipper(File[] files, String rootLocation, String fileName) {
-        this.files = files;
-        this.saveLocation = Paths.get(rootLocation,fileName);
-    }
-
-    public static File fileBrowser(JPanel panel, String mode) {
-
-        File file;
-        JFileChooser fb = new JFileChooser();
-
-        if (mode == "png") { fb.setFileFilter(new FileNameExtensionFilter("PNG File", "png")); }
-        if (mode == "midi") { fb.setFileFilter(new FileNameExtensionFilter("MIDI File", "mid", "midi")); }
-
-        int returnVal = fb.showOpenDialog(panel);
-
-        if (returnVal == JFileChooser.APPROVE_OPTION) {
-
-            file = fb.getSelectedFile();
-            return file;
+    public static boolean createZipFile(ArrayList<File> fileList) {
+        boolean valid = false;
+        try {
+            valid = validateFiles(fileList);
         }
-        return null;
-    }
-
-    public static void createZipFile() {
-        //TODO: This is called when the save button is hit, so validation and then zipping
+        catch (FileSystemException e) {
+            System.out.println(e.getMessage());
+        }
+        if (valid == true) {
+            //TODO: Sort out save location
+            //zipFiles(fileList);
+            return true;
+        }
+        return false;
     }
 
     /*
     * Method to zip all the files from the 'files' array into a compressed format and return the '.zip' file.
     */
-    private File zipFiles() {
-        File firstFile = null;
+    private static void zipFiles(ArrayList<File> files) {
+        //TODO: This method needs fixing for array lists
+        File firstFile;
         try {
             firstFile = new File(saveLocation.toString());
             String zipFileName = firstFile.getName().concat(".zip");
@@ -70,7 +60,7 @@ public class FileZipper {
             System.err.println("I/O error: " + e);
         }
 
-        return firstFile;
+        System.out.println("YAY");
     }
 
 
@@ -82,31 +72,27 @@ public class FileZipper {
     *   - The second is a PNG.
     *   - The final is a proprietary format for holding the notes.
     */
-    public static File[] validateFiles(File[] files) throws FileSystemException {
+    public static boolean validateFiles(ArrayList<File> files) throws FileSystemException {
         int ARRAYLENGTH = 3;
 
         //TODO: add third file extension to the extensions array to validate our proprietary format.
-        String[] extensions = new String[]{".midi", ".png", ""};
+        String[] extensions = new String[]{".png", ".mid", ".png"};
 
-        if (files.length == ARRAYLENGTH) {
+        if (files.size() == ARRAYLENGTH) {
 
             //TODO: Remove -1 from (ARRAYLENGTH - 1) when third file extension has been added to extensions array.
             for (int i = 0; i < ARRAYLENGTH - 1; i++) {
 
-                File file = files[i];
+                File file = files.get(i);
 
                 if (!file.getPath().endsWith(extensions[i])) {
                     String errorMessage = String.format("%s is not a valid file format", file.getName());
                     throw new FileSystemException(errorMessage);
                 }
-
                 System.out.println();
-
             }
-
         }
-
-        return files;
+        return true;
     }
 
     /* EXAMPLE USAGE OF VALIDATION
