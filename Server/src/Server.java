@@ -1,4 +1,3 @@
-package Server;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -19,16 +18,6 @@ public class Server {
     }
   }
 
-  /*
-  Server(int port) {
-    try {
-      this.socket = new ServerSocket(port);
-    }
-    catch (IOException e) {
-      System.out.println("Error setting up server: " + e.getMessage());
-    }
-  }
-  */
 
   public void acceptConnections() {
     try {
@@ -43,14 +32,12 @@ public class Server {
   }
 
 
-  /* TEST USE OF SERVER
-
   public static void main(String[] args) {
     Server server = new Server();
     while (true) {
       server.acceptConnections();
     }
   }
-  */
+
 
 }

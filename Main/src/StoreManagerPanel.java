@@ -2,11 +2,20 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.io.File;
 
 public class StoreManagerPanel extends JPanel {
 
+    private void setTextField(JTextField tField, String str) {
+        tField.setText(str);
+        tField.revalidate();
+        tField.repaint();
+    }
+
     //Boolean used to determine whether zipping a bundle should be attempted upon exiting this GUI
     public boolean allFilesSelected = false;
+    public ArrayList<File> files = new ArrayList<>(3);
 
     @Override
     public Dimension getPreferredSize() {
@@ -53,11 +62,8 @@ public class StoreManagerPanel extends JPanel {
         panel.add(header, BorderLayout.NORTH);
     }
 
-    protected void textBoxes(StoreManagerPanel panel){
+    protected void textBoxes(StoreManagerPanel panel, JTextField tTitle, JTextField tCoverArt, JTextField tNotes){
         // Function generates and positions labels onto the SMM GUI
-        JTextField tTitle = new JTextField(20);
-        JTextField tCoverArt = new JTextField(20);
-        JTextField tNotes = new JTextField(20);
 
         tTitle.setEditable(false);
         tCoverArt.setEditable(false);
@@ -87,22 +93,31 @@ public class StoreManagerPanel extends JPanel {
         panel.add(centrePanel, BorderLayout.CENTER);
     }
 
-    protected JButton generateFileBrowserButton(StoreManagerPanel panel, int mode) {
+    protected JButton generateFileBrowserButton(StoreManagerPanel panel, JTextField field, int mode) {
         // Function generates buttons to be placed on GUI, with generic file browser event handling
         JButton button = new JButton("Browse...");
         button.addMouseListener( new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
-                FileZipper.fileBrowser(panel, mode);
+                File file = FileZipper.fileBrowser(panel, "png");
+                if (file.exists()) {
+                    files.set(mode-1, file);
+                    setTextField(field, file.getName());
+                }
             }
         });
         return button;
     }
 
-    protected void buttons(StoreManagerPanel panel, JFrame frame){
+    protected void buttons(StoreManagerPanel panel, JFrame frame, JTextField tTitle, JTextField tCoverArt, JTextField tNotes){
         // Function generates and positions buttons onto the SMM GUI
-        JButton titleButton = generateFileBrowserButton(panel, 1);
-        JButton artButton = generateFileBrowserButton(panel, 2);
-        JButton musicButton = generateFileBrowserButton(panel, 3);
+        JButton titleButton = generateFileBrowserButton(panel, tTitle, 1);
+        JButton artButton = generateFileBrowserButton(panel, tCoverArt, 2);
+        JButton musicButton = generateFileBrowserButton(panel, tNotes, 3);
+
+        files.clear();
+        files.add(null);
+        files.add(null);
+        files.add(null);
 
         // Generate Exit Button which destroys SMM GUI
         JButton saveExit = new JButton("Save");
@@ -121,8 +136,10 @@ public class StoreManagerPanel extends JPanel {
                                 ,"", JOptionPane.INFORMATION_MESSAGE);
                     }
                 }
-                JOptionPane.showMessageDialog(null, "All required files not provided: no action taken."
-                        ,"Contents", JOptionPane.INFORMATION_MESSAGE);
+                else {
+                    JOptionPane.showMessageDialog(null, "All required files not provided: no action taken."
+                            ,"Contents", JOptionPane.INFORMATION_MESSAGE);
+                }
                 panel.setVisible(false);
                 frame.dispose();
             }

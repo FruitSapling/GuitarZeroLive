@@ -1,6 +1,3 @@
-package Server;
-
-import java.io.BufferedInputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
@@ -11,7 +8,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
+import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Arrays;
+import java.util.zip.ZipInputStream;
 
 public class ConnectionThread implements Runnable {
   private Socket client;
@@ -26,26 +26,26 @@ public class ConnectionThread implements Runnable {
   public void run() {
     System.out.println("Connected");
 
-    int task = 2;
+    int task;
     try {
       InputStream inStream = client.getInputStream();
       task = inStream.read();
       //inStream.close();
 
-      // TODO: Write methods to recieve and send files when necessary.
       switch (task) {
         case 0:
           System.out.println("Output");
-          sendFiles();
+          int page = inStream.read();
+          sendFiles(page);
           break;
         case 1:
           System.out.println("Input");
-          recieveFile();
+          receiveFile();
           break;
         default:
           System.out.println("Nothing");
       }
-      //inStream.close();
+      inStream.close();
     }
     catch (IOException e) {
       e.printStackTrace();
@@ -54,7 +54,7 @@ public class ConnectionThread implements Runnable {
 
 
 
-  private File recieveFile() {
+  private File receiveFile() {
     File outputFile = new File(Paths.get(dir.getName(),"src.zip").toString());
 
     try {
@@ -92,15 +92,20 @@ public class ConnectionThread implements Runnable {
   }
 
 
-
-  private void sendFiles() {
+  /*
+  * A method to send a page (5) folders to the client at a time.
+  * This page integer should start at 0 for page 1.
+  */
+  private void sendFiles(int page) {
     try {
       OutputStream out = client.getOutputStream();
       DataOutputStream outputStream = new DataOutputStream(out);
 
-      File[] zippedFolders = getZippedFiles();
+      File[] zippedFolders = Arrays.copyOfRange(getZippedFiles(),(page*5),((page+1)*5));
       FileZipper zipper = new FileZipper(zippedFolders,".","tempZip");
+
       File zippedFolder = zipper.zipFiles();
+      zippedFolder.createNewFile();
 
       FileInputStream input = new FileInputStream(zippedFolder);
       int bufferSize = 1024;
@@ -115,8 +120,8 @@ public class ConnectionThread implements Runnable {
       out.close();
       input.close();
 
-      outputStream.close();
-      out.close();
+      Files.delete(Paths.get("tempZip.zip"));
+
     }
     catch (IOException e) {
       e.printStackTrace();

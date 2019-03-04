@@ -1,31 +1,22 @@
 import java.awt.*;
 import javax.swing.*;
 
-public class ViewMain extends JFrame {
+public class ViewPlay extends JFrame {
   private MainPanel mainPanel;
 
-  public ViewMain(GuitarButtonController guitarButtonController) {
-
-    mainPanel = new MainPanel(guitarButtonController) {
+  public ViewPlay() {
+    mainPanel = new MainPanel() {
       public void paintComponent(Graphics g) {
         mainPanel.setLayout(null);
         Graphics2D g2 = (Graphics2D) g;
         g2.setColor(Color.DARK_GRAY);
         g2.fillRect(0, 0, getWidth(), getHeight());
         guitar(g2);
-<<<<<<< HEAD
-        new NoteIcon(1, g2);
-        mainPanel.revalidate();
-        mainPanel.repaint();
-=======
-        menu(g2);
-        buttons(mainPanel);
-<<<<<<< Updated upstream
-        CarouselMenu carouselMenu = new CarouselMenu();
-        add(carouselMenu);
-=======
->>>>>>> Stashed changes
->>>>>>> 567c49a5ec2e989c1e367f169fa433bfd6a58849
+
+        //drawNotes(g2);
+        //menu(g2);
+        //buttons(mainPanel);
+
       }
     };
     mainPanel.addKeyListener(mainPanel);
@@ -34,7 +25,6 @@ public class ViewMain extends JFrame {
     this.add(mainPanel);
     this.pack();
     Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-    // Place window in the middle of the user's screen
     this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
     this.setDefaultCloseOperation(EXIT_ON_CLOSE);
     this.setVisible(true);
@@ -70,6 +60,10 @@ public class ViewMain extends JFrame {
     g2.drawLine(490, 0, 490, getHeight());
     g2.setStroke(new BasicStroke(2));
     g2.drawLine(575, 0, 575, getHeight());
+  }
+
+  public static void main(String[] args) {
+    ViewPlay vp = new ViewPlay();
   }
 
 }

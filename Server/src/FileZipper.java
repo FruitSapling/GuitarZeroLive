@@ -1,5 +1,3 @@
-package Server;
-
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -26,18 +24,20 @@ public class FileZipper {
   public File zipFiles() {
     File firstFile = null;
     try {
-      firstFile = new File(saveLocation.toString());
-      String zipFileName = firstFile.getName().concat(".zip");
+      firstFile = new File(saveLocation.toString().concat(".zip"));
+      String zipFileName = firstFile.getName();
 
       FileOutputStream fileOut = new FileOutputStream(zipFileName);
       ZipOutputStream zipOut = new ZipOutputStream(fileOut);
 
       for (File file : files) {
-        zipOut.putNextEntry(new ZipEntry(file.getName()));
+        if (file != null) {
+          zipOut.putNextEntry(new ZipEntry(file.getName()));
 
-        byte[] bytes = Files.readAllBytes(file.toPath());
-        zipOut.write(bytes, 0, bytes.length);
-        zipOut.closeEntry();
+          byte[] bytes = Files.readAllBytes(file.toPath());
+          zipOut.write(bytes, 0, bytes.length);
+          zipOut.closeEntry();
+        }
       }
 
       zipOut.close();
@@ -50,29 +50,5 @@ public class FileZipper {
     return firstFile;
   }
 
-
-
-    /*
-    EXAMPLE USAGE OF ZIPPING
-
-    public static void main(String[] args) {
-
-        // Create files in the project root folder '\GuitarZeroLive\'.
-        File file1 = new File("testFileZipper1.txt");
-        File file2 = new File("testFileZipper2.txt");
-        File file3 = new File("testFileZipper3.txt");
-
-        File[] files = new File[]{file1, file2, file3};
-
-        // Specify the save location of the new zip file '\GuitarZeroLive\'.
-        String zipLocation = ".";
-
-
-        FileZipper zipper = new FileZipper(files, zipLocation, "zipper");
-
-        zipper.zipFiles(files);
-
-    }
-    */
 
 }
