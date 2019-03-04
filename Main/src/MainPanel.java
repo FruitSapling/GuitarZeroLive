@@ -5,6 +5,7 @@ import java.awt.Graphics2D;
 import java.awt.Polygon;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseListener;
 import javax.swing.*;
 
 import java.awt.event.MouseAdapter;
@@ -19,6 +20,47 @@ public class MainPanel extends JPanel implements KeyListener, GuitarButtonListen
   public MainPanel(GuitarButtonController guitarButtonController) {
     //register this panel as a guitar button press listener
     guitarButtonController.addListener(this);
+    CarouselButton[] buttons = new CarouselButton[5];
+
+    buttons[0] = new CarouselButton(Constants.EXIT_IMAGE_PATH) {
+      @Override
+      public void onClick() {
+        System.exit(0);
+      }
+    };
+
+    buttons[1] = new CarouselButton(Constants.SELECT_IMAGE_PATH) {
+      @Override
+      public void onClick() {
+
+      }
+    };
+
+    buttons[2] = new CarouselButton(Constants.PLAY_IMAGE_PATH) {
+      @Override
+      public void onClick() {
+
+      }
+    };
+
+    buttons[3] = new CarouselButton(Constants.STORE_IMAGE_PATH) {
+      @Override
+      public void onClick() {
+
+      }
+    };
+
+    buttons[4] = new CarouselButton(Constants.TUTORIAL_IMAGE_PATH) {
+      @Override
+      public void onClick() {
+
+      }
+    };
+
+    this.carouselMenu = new CarouselMenu(buttons, 20, 400);
+    this.carouselMenu.revalidate();
+    this.carouselMenu.repaint();
+    this.add(carouselMenu);
   }
 
   public void keyTyped(KeyEvent e) {
@@ -26,9 +68,11 @@ public class MainPanel extends JPanel implements KeyListener, GuitarButtonListen
   }
   public void keyPressed(KeyEvent e) {
     if(e.getKeyChar() == 'd') {
-      movePointerRight();
+      carouselMenu.cycleRight();
     }else if(e.getKeyChar() == 'e') {
-      movePointerLeft();
+      carouselMenu.cycleLeft();
+    }else if(e.getKeyChar() == KeyEvent.VK_ENTER) {
+      carouselMenu.selectMode();
     }
   }
 
@@ -85,7 +129,7 @@ public class MainPanel extends JPanel implements KeyListener, GuitarButtonListen
 
   @Override
   public Dimension getPreferredSize() {
-    return new Dimension(700, 750);
+    return new Dimension(800, 750);
   }
 
   public void menu(Graphics2D g2) {
@@ -130,20 +174,18 @@ public class MainPanel extends JPanel implements KeyListener, GuitarButtonListen
     return button;
   }
 
-  public void buttons(MainPanel panel){
-    JButton exit = generateButton("Main/src/resources/exit.png", 0);
-    JButton play = generateButton("Main/src/resources/play.png", 1);
-    JButton select = generateButton("Main/src/resources/select.png", 2);
-    JButton store = generateButton("Main/src/resources/store.png", 3);
-    JButton tutorial = generateButton("Main/src/resources/tutorial.png", 4);
+  public CarouselButton makeButton(String imageFileName) {
+    ImageIcon image = new ImageIcon(imageFileName);
+    CarouselButton button = new CarouselButton(imageFileName) {
+      @Override
+      public void onClick() {
+        System.exit(0);
+      }
+    };
+    button.setBackground(Color.WHITE);
+    button.setBorderPainted(false);
 
-    exit.setBounds(25, 388, 128, 168); panel.add(exit);
-    play.setBounds(281, 388, 128, 168); panel.add(play);
-    select.setBounds(153, 388, 128, 168); panel.add(select);
-    store.setBounds(409, 388, 128, 168); panel.add(store);
-    tutorial.setBounds(537, 388, 128, 168); panel.add(tutorial);
-
-    panel.revalidate();
-    panel.repaint();
+    return button;
   }
+
 }

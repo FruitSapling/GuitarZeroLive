@@ -14,20 +14,17 @@ public class ViewMain extends JFrame {
         g2.fillRect(0, 0, getWidth(), getHeight());
         guitar(g2);
         new NoteIcon(1, g2);
-        menu(g2);
-        buttons(mainPanel);
-        CarouselMenu carouselMenu = new CarouselMenu();
-        add(carouselMenu);
+        mainPanel.revalidate();
+        mainPanel.repaint();
       }
     };
     mainPanel.addKeyListener(mainPanel);
     mainPanel.setFocusable(true);
 
     this.add(mainPanel);
-
-
     this.pack();
     Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+    // Place window in the middle of the user's screen
     this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
     this.setDefaultCloseOperation(EXIT_ON_CLOSE);
     this.setVisible(true);

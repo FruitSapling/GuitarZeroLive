@@ -1,7 +1,18 @@
+/* Primary Class Developer: Willem van Gerwen */
+
 import java.util.HashMap;
 
 public class Constants {
-    public static String GUITAR_HERO = "Guitar Hero";
+    public static String    EXIT_IMAGE_PATH = "Main/src/resources/exit.png";
+    public static String    SELECT_IMAGE_PATH = "Main/src/resources/select.png";
+    public static String    PLAY_IMAGE_PATH = "Main/src/resources/play.png";
+    public static String    STORE_IMAGE_PATH = "Main/src/resources/store.png";
+    public static String    TUTORIAL_IMAGE_PATH = "Main/src/resources/tutorial.png";
+    public static int       BUTTON_WIDTH = 128;
+    public static int       BUTTON_HEIGHT = 168;
+    public static int       CAROUSEL_MENU_HEIGHT = 192;
+    public static String    GUITAR_HERO = "Guitar Hero";
+
     public static int GUITAR_POLL_DELAY = 50;
     public static HashMap<Integer, GuitarButton> INDEX_TO_BUTTON = new HashMap<Integer, GuitarButton>() {{
         put(0, GuitarButton.FRET_4);

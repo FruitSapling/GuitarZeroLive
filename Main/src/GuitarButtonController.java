@@ -1,3 +1,5 @@
+/* Primary Class Developer: Willem van Gerwen */
+
 import java.util.ArrayList;
 
 public class GuitarButtonController {
