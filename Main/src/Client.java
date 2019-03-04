@@ -18,9 +18,10 @@ public class Client {
   private int port;
   private String dir;
 
-  Client(String ip, int port) {
+  Client(String ip, String rootDir, int port) {
     this.ip = ip;
     this.port = port;
+    this.dir = rootDir;
   }
 
 
@@ -76,27 +77,30 @@ public class Client {
 
 
   /*
-  * A method to revieve a file (inc zipped folder) over the connection with the server.
+  * A method to receive a file (inc zipped folder) over the connection with the server.
   * The resulting created file is stored in the new zip folder filename + '.zip' in the
   * root directory for the connection specified in the constructor as 'dir'.
   * The file returned is this newly created zip file.
   */
-  private File recieveFile(String fileName) {
+  private File receiveFile(String fileName) {
     File outputFile = new File(Paths.get(dir,fileName + ".zip").toString());
 
     try {
+      OutputStream out = this.socket.getOutputStream();
       InputStream in = this.socket.getInputStream();
       DataInputStream inStream = new DataInputStream(in);
 
-      outputFile.createNewFile();
-      FileOutputStream out = new FileOutputStream(outputFile);
+      out.write(0);
+      out.write(0);
+
+      FileOutputStream fileOut = new FileOutputStream(outputFile);
 
       byte[] buffer = new byte[1024];
 
       while (inStream.read(buffer,0,buffer.length) != -1) {
-        out.write(buffer);
+        fileOut.write(buffer);
       }
-      out.close();
+      fileOut.close();
       inStream.close();
       in.close();
 
@@ -108,15 +112,16 @@ public class Client {
   }
 
 
-  /* Test use only
+
   public static void main(String[] args) {
-    Client client = new Client("localhost",8888);
+    Client client = new Client("localhost",".",8888);
     client.connect();
 
     if (client.socket != null) {
-      client.sendFile(new File("src.zip"));
+      client.receiveFile("srcc");
+      //client.sendFile(new File("src.zip"));
     }
 
   }
-  */
+
 }
