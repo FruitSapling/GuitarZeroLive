@@ -1,6 +1,11 @@
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
+
+/**
+ *
+ * @author Tom
+ */
 public class Model {
 
   public boolean menuOpen = true;
@@ -13,6 +18,10 @@ public class Model {
 
   public void addPropertyChangeListener(PropertyChangeListener pcl) {
     this.support.addPropertyChangeListener(pcl);
+  }
+
+  public void drop() {
+    //Something based on what note / string it is
   }
 
   public void showMenu() {

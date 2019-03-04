@@ -3,6 +3,11 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import javax.swing.*;
 
+/**
+ *
+ * @author Tom
+ * Contributed to by Morgan
+ */
 public class ViewMain extends JFrame implements PropertyChangeListener {
 
   private final int w = 750;

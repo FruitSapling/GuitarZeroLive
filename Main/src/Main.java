@@ -1,5 +1,9 @@
 import javafx.scene.control.Control;
 
+/**
+ *
+ * @author Tom
+ */
 public class Main {
   public static void main(String[] args) {
     GuitarButtonController controller1 = new GuitarButtonController();
