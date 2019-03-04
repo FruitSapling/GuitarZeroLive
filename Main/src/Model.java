@@ -35,7 +35,8 @@ public class Model {
     this.support.firePropertyChange(null,null,null);
   }
   public void strummed() {
-    System.out.println("Strum Me Daddy");
+    //If note is present at the y value of the pick up bar
+    System.out.println("Strummed");
   }
   public void down() {
 
