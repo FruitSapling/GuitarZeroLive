@@ -97,12 +97,11 @@ public class ConnectionThread implements Runnable {
   * This page integer should start at 0 for page 1.
   */
   private void sendFiles(int page) {
-    System.out.println(page);
     try {
       OutputStream out = client.getOutputStream();
       DataOutputStream outputStream = new DataOutputStream(out);
 
-      File[] zippedFolders = getZippedFiles();//Arrays.copyOfRange(getZippedFiles(),(page*5),((page+1)*5));
+      File[] zippedFolders = Arrays.copyOfRange(getZippedFiles(),(page*5),((page+1)*5));
       FileZipper zipper = new FileZipper(zippedFolders,".","tempZip");
 
       File zippedFolder = zipper.zipFiles();

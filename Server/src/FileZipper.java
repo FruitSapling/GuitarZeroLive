@@ -31,11 +31,13 @@ public class FileZipper {
       ZipOutputStream zipOut = new ZipOutputStream(fileOut);
 
       for (File file : files) {
-        zipOut.putNextEntry(new ZipEntry(file.getName()));
+        if (file != null) {
+          zipOut.putNextEntry(new ZipEntry(file.getName()));
 
-        byte[] bytes = Files.readAllBytes(file.toPath());
-        zipOut.write(bytes, 0, bytes.length);
-        zipOut.closeEntry();
+          byte[] bytes = Files.readAllBytes(file.toPath());
+          zipOut.write(bytes, 0, bytes.length);
+          zipOut.closeEntry();
+        }
       }
 
       zipOut.close();

@@ -77,12 +77,13 @@ public class Client {
 
 
   /*
-  * A method to receive a file (inc zipped folder) over the connection with the server.
-  * The resulting created file is stored in the new zip folder filename + '.zip' in the
+  * A method to receive a page(5) worth of files over the connection with the server.
+  * The resulting created zip folder is stored in the new zip folder filename + '.zip' in the
   * root directory for the connection specified in the constructor as 'dir'.
+  * The parameter page is the page on which the user resides, starts at page 0 and goes up.
   * The file returned is this newly created zip file.
   */
-  private File receiveFile(String fileName) {
+  private File receiveFiles(String fileName, int page) {
     File outputFile = new File(Paths.get(dir,fileName + ".zip").toString());
 
     try {
@@ -91,7 +92,7 @@ public class Client {
       DataInputStream inStream = new DataInputStream(in);
 
       out.write(0);
-      out.write(0);
+      out.write(page);
 
       FileOutputStream fileOut = new FileOutputStream(outputFile);
 
@@ -118,7 +119,7 @@ public class Client {
     client.connect();
 
     if (client.socket != null) {
-      client.receiveFile("srcc");
+      client.receiveFiles("srcc",0);
       //client.sendFile(new File("src.zip"));
     }
 
