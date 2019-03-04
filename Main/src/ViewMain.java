@@ -13,10 +13,8 @@ public class ViewMain extends JFrame {
         g2.setColor(Color.DARK_GRAY);
         g2.fillRect(0, 0, getWidth(), getHeight());
         guitar(g2);
-        menu(g2);
-        buttons(mainPanel);
-        CarouselMenu carouselMenu = new CarouselMenu();
-        add(carouselMenu);
+        mainPanel.revalidate();
+        mainPanel.repaint();
       }
     };
     mainPanel.addKeyListener(mainPanel);
