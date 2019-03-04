@@ -1,6 +1,10 @@
+import javafx.scene.control.Control;
+
 public class Main {
   public static void main(String[] args) {
     GuitarButtonController controller1 = new GuitarButtonController();
-    ViewMain mainMenu = new ViewMain(controller1);
+    Model model = new Model();
+    Controller2 controller2 = new Controller2(model);
+    ViewMain mainMenu = new ViewMain(model, controller2, controller1);
   }
 }
