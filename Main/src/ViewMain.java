@@ -13,19 +13,10 @@ public class ViewMain extends JFrame {
         g2.setColor(Color.DARK_GRAY);
         g2.fillRect(0, 0, getWidth(), getHeight());
         guitar(g2);
-<<<<<<< HEAD
-        new NoteIcon(1, g2);
-        mainPanel.revalidate();
-        mainPanel.repaint();
-=======
         menu(g2);
         buttons(mainPanel);
-<<<<<<< Updated upstream
         CarouselMenu carouselMenu = new CarouselMenu();
         add(carouselMenu);
-=======
->>>>>>> Stashed changes
->>>>>>> 567c49a5ec2e989c1e367f169fa433bfd6a58849
       }
     };
     mainPanel.addKeyListener(mainPanel);
