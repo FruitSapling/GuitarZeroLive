@@ -6,8 +6,6 @@
 /* Secondary Class Developers:             */
 
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import javax.swing.*;
 
 public class ViewStoreManager extends JFrame {
@@ -18,13 +16,17 @@ public class ViewStoreManager extends JFrame {
         frame = new JFrame();
         storePanel = new StoreManagerPanel() {
             public void paintComponent(Graphics g) {
+                JTextField tTitle = new JTextField(20);
+                JTextField tCoverArt = new JTextField(20);
+                JTextField tNotes = new JTextField(20);
+
                 storePanel.setLayout(new BorderLayout());
                 Graphics2D g2 = (Graphics2D) g;
                 g2.setColor(Color.WHITE);
                 g2.fillRect(0, 0, getWidth(), getHeight());
                 labels(storePanel);
-                textBoxes(storePanel);
-                buttons(storePanel, frame);
+                textBoxes(storePanel, tTitle, tCoverArt, tNotes);
+                buttons(storePanel, frame, tTitle, tCoverArt, tNotes);
             }
         };
 

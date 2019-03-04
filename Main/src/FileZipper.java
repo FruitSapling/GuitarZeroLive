@@ -21,26 +21,22 @@ public class FileZipper {
         this.saveLocation = Paths.get(rootLocation,fileName);
     }
 
-    public static void fileBrowser(JPanel panel, int mode) {
-        JFileChooser fb = new JFileChooser();
-        fb.showOpenDialog(panel);
-        FileNameExtensionFilter filter;
-        switch (mode) {
-            default:
-                //TODO: None of this switch statement works so fuck knows what to do with it
-                filter = null;
-            case 1:
-                filter = new FileNameExtensionFilter("MIDI File", "midi");
-            case 2:
-                filter = new FileNameExtensionFilter("PNG File", "png");
-                //TODO: None of this switch statement works so fuck knows what to do with it
+    public static File fileBrowser(JPanel panel, String mode) {
 
-                fb.setFileFilter(filter);
-                File file = fb.getSelectedFile();
-                if(file != null) {
-                    files[mode] = file;
-                }
+        File file;
+        JFileChooser fb = new JFileChooser();
+
+        if (mode == "png") { fb.setFileFilter(new FileNameExtensionFilter("PNG File", "png")); }
+        if (mode == "midi") { fb.setFileFilter(new FileNameExtensionFilter("MIDI File", "mid", "midi")); }
+
+        int returnVal = fb.showOpenDialog(panel);
+
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+
+            file = fb.getSelectedFile();
+            return file;
         }
+        return null;
     }
 
     public static void createZipFile() {
