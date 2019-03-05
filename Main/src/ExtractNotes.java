@@ -1,6 +1,7 @@
 import java.util.*;
 import javax.sound.midi.*;
 import java.io.*;
+import java.text.*;
 
 /**
  * This class extracts the notes played by the lead guitar of a song along with their corresponding
@@ -11,7 +12,7 @@ import java.io.*;
  * @since 2019-03-05
  */
 public class ExtractNotes{
-  final static String FILE = "Main/src/MrBrightside.mid"; // TODO input required song
+  final static String FILE = "Main/src/Wonderwall.mid";
   static Sequence seq;
   static int currentTrack = 0;
   static int guitarTrack = -1;
@@ -29,10 +30,9 @@ public class ExtractNotes{
       e.printStackTrace();
     }
 
-    System.out.println(findAllGuitars(seq));
-    //int leadGuitar = findLeadGuitar(findAllGuitars(seq));
-    //System.out.println("The lead guitar is: " + leadGuitar);
-    //convertMidiToNotes(seq, leadGuitar);
+    int leadGuitar = findLeadGuitar(seq);
+    System.out.println("The lead guitar is: " + leadGuitar);
+    convertMidiToNotes(seq, leadGuitar);
   }
 
   /**
@@ -226,6 +226,63 @@ public class ExtractNotes{
   }
 
   /**
+   * Finds the lead guitar out of all the guitars played on the song
+   *
+   * @param seq the midi sequence to search the track for
+   * @return the track number containing the lead guitar
+   */
+  public static int findLeadGuitar(Sequence seq){
+    int guitarNumber = -1;
+    try{
+      guitarNumber = findLeadGuitar(loopTracks(seq));
+    }catch (Exception e){
+      e.printStackTrace();
+    }
+    return guitarNumber;
+  }
+
+  /**
+   * Iterates over every track, calling the method findGuitarInTrack on each
+   *
+   * @param seq the midi sequence to iterate through tracks
+   * @return a list of guitar instrument numbers for their respective track
+   */
+  public static ArrayList<Integer> loopTracks(Sequence seq){
+    Track[] tracks = seq.getTracks();
+    ArrayList<Integer> guitarTracks = new ArrayList<Integer>();
+    for(int i = 0; i < tracks.length; i++){
+      guitarTracks.add(findGuitarInTrack(tracks[i]));
+    }
+    System.out.println("first guitar on each track: " + guitarTracks);
+    return guitarTracks;
+  }
+
+  /**
+   * Find the guitar on each track
+   *
+   * @param track the current track to look for a guitar in
+   * @return the instrument number of the first guitar in the track
+   */
+  public static int findGuitarInTrack(Track track){
+    for(int i=0; i < track.size(); i++){
+      MidiEvent event = track.get(i);
+      MidiMessage msg = event.getMessage();
+      if ( msg instanceof ShortMessage ){
+        final ShortMessage smsg = (ShortMessage) msg;
+        final int cmd = smsg.getCommand();
+        final int dat1 = smsg.getData1();
+
+        if(cmd == ShortMessage.PROGRAM_CHANGE){
+          if(dat1 >= 25 && dat1 <= 38){
+            return dat1;
+          }
+        }
+      }
+    }
+    return 0;
+  }
+
+  /**
    * Finds the lead guitar out of the given instrument numbers
    * @param instrumentTracks an array of instrument numbers where index corresponds to track number
    * @return the instrument number of the lead guitar
@@ -241,51 +298,6 @@ public class ExtractNotes{
       }
     }
     return -1;
-  }
-
-  /**
-   * Iterates over every track, calling the method findGuitarInTrack on each
-   *
-   * @param seq the midi sequence to iterate through tracks
-   * @return a list of guitar instrument numbers for their respective track
-   */
-  public static ArrayList<ArrayList<Integer>> findAllGuitars(Sequence seq){
-    Track[] tracks = seq.getTracks();
-    ArrayList<ArrayList<Integer>> guitarTracks = new ArrayList<ArrayList<Integer>>();
-    for(int i = 0; i < tracks.length; i++){
-      guitarTracks.add(findGuitarInTrack(tracks[i]));
-    }
-    return guitarTracks;
-  }
-
-  /**
-   * Find the guitar on each track
-   *
-   * @param track the current track to look for a guitar in
-   * @return the instrument number of the first guitar in the track
-   */
-  public static ArrayList<Integer> findGuitarInTrack(Track track){
-    // return list of all guitars, not int
-    ArrayList<Integer> guitarsInTrack = new ArrayList<Integer>();
-    for(int i=0; i < track.size(); i++){
-      MidiEvent event = track.get(i);
-      MidiMessage msg = event.getMessage();
-      if ( msg instanceof ShortMessage ){
-        final ShortMessage smsg = (ShortMessage) msg;
-        final int cmd = smsg.getCommand();
-        final int dat1 = smsg.getData1();
-
-        if(cmd == ShortMessage.PROGRAM_CHANGE){
-          if(dat1 >= Constants.FirstGuitar && dat1 <= Constants.LastGuitar && !guitarsInTrack.contains(dat1)){
-            guitarsInTrack.add(dat1);
-            // evaluate guitar?
-            // count occurences? so only record most dominant in track?
-            // should probably record channel number with it
-          }
-        }
-      }
-    }
-    return guitarsInTrack;
   }
 
   public static void playWithoutGuitar(){

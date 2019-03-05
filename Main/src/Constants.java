@@ -13,9 +13,6 @@ public class Constants {
     public static int       CAROUSEL_MENU_HEIGHT = 192;
     public static String    GUITAR_HERO = "Guitar Hero";
 
-    public static int       FirstGuitar = 25;
-    public static int       LastGuitar = 38;
-
     public static int GUITAR_POLL_DELAY = 50;
     public static HashMap<Integer, GuitarButton> INDEX_TO_BUTTON = new HashMap<Integer, GuitarButton>() {{
         put(0, GuitarButton.FRET_4);

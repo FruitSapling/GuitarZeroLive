@@ -6,29 +6,25 @@ import java.awt.Graphics2D;
 import java.awt.Polygon;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import javax.swing.*;
+import javax.swing.JFrame;
+import javax.swing.JLayeredPane;
+import javax.swing.JPanel;
 
 public class ViewMain extends JFrame implements PropertyChangeListener {
 
   private final int w = 750;
   private final int h = 1000;
 
-  private ModelMain model1;
+  private ModelMain model;
   private ControllerMain controller;
-<<<<<<< HEAD
-=======
-  private GuitarButtonController controller2;
-
->>>>>>> d1553563735a9e78d6706ea0c0076e840c35199f
   private JPanel panel;
   private guitar g;
   private CarouselMenu menu;
 
-  public ViewMain(ModelMain model1, ControllerMain controller, GuitarButtonController controller2) {
-    this.model1 = model1;
-    this.model1.addPropertyChangeListener(this);
+  public ViewMain(ModelMain model, ControllerMain controller, GuitarButtonController controller2) {
+    this.model = model;
+    this.model.addPropertyChangeListener(this);
     this.controller = controller;
-    this.controller2 = controller2;
 
     this.g = new guitar(w,h);
 
@@ -83,17 +79,10 @@ public class ViewMain extends JFrame implements PropertyChangeListener {
   }
 
   public void propertyChange(PropertyChangeEvent pce) {
-<<<<<<< HEAD
     if (!model.menuOpen) {
       model.menuOpen = true;
       g.add(menu);
       System.out.println("added menu");
-=======
-    if(!model1.menuOpen) {
-      menu();
-    } else {
-      this.g.remove(menu);
->>>>>>> d1553563735a9e78d6706ea0c0076e840c35199f
     }
     this.pack();
     this.revalidate();
@@ -147,42 +136,24 @@ public class ViewMain extends JFrame implements PropertyChangeListener {
         System.exit(0);
       }
     };
-<<<<<<< HEAD
-=======
-
->>>>>>> d1553563735a9e78d6706ea0c0076e840c35199f
     buttons[1] = new CarouselButton(Constants.SELECT_IMAGE_PATH) {
       @Override
       public void onClick() {
-        dispose();
-        new ViewSelect(model1, controller, controller2);
+
       }
     };
-<<<<<<< HEAD
-=======
-
->>>>>>> d1553563735a9e78d6706ea0c0076e840c35199f
     buttons[2] = new CarouselButton(Constants.PLAY_IMAGE_PATH) {
       @Override
       public void onClick() {
 
       }
     };
-<<<<<<< HEAD
-=======
-
->>>>>>> d1553563735a9e78d6706ea0c0076e840c35199f
     buttons[3] = new CarouselButton(Constants.STORE_IMAGE_PATH) {
       @Override
       public void onClick() {
-        dispose();
-        new ViewStore(model1, controller, controller2);
+
       }
     };
-<<<<<<< HEAD
-=======
-
->>>>>>> d1553563735a9e78d6706ea0c0076e840c35199f
     buttons[4] = new CarouselButton(Constants.TUTORIAL_IMAGE_PATH) {
       @Override
       public void onClick() {
