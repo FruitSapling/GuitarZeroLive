@@ -14,7 +14,6 @@ public class ModelMain {
   public void addPropertyChangeListener(PropertyChangeListener pcl) {
     this.support.addPropertyChangeListener(pcl);
   }
-
   public void showMenu() {
     menuOpen = true;
     System.out.println("Showing Menu");

@@ -37,6 +37,6 @@ public class GuitarButtonController implements GuitarButtonListener {
 
   @Override
   public void guitarButtonPressReceived(GuitarButtonPressedEvent e) {
-    
+
   }
 }

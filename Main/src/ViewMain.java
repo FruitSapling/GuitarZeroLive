@@ -17,9 +17,7 @@ public class ViewMain extends JFrame implements PropertyChangeListener {
 
   private ModelMain model;
   private ControllerMain controller;
-
   private JPanel panel;
-
   private guitar g;
   private menu m;
 

@@ -11,7 +11,6 @@ import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Polygon;
-import javax.swing.JButton;
 import javax.swing.JLayeredPane;
 
 public class CarouselMenu extends JLayeredPane {
