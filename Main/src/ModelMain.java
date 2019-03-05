@@ -1,13 +1,13 @@
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
-public class Model {
+public class ModelMain {
 
   public boolean menuOpen = true;
 
   private PropertyChangeSupport support;
 
-  public Model() {
+  public ModelMain() {
     this.support = new PropertyChangeSupport(this);
   }
 

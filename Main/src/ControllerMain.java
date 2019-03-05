@@ -1,12 +1,12 @@
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-public class Controller2 implements KeyListener {
+public class ControllerMain implements KeyListener {
 
-  private Model model;
+  private ModelMain model;
   public boolean playMode = false;
 
-  public Controller2(Model model) {
+  public ControllerMain(ModelMain model) {
     this.model = model;
   }
 
