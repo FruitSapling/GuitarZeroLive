@@ -27,11 +27,9 @@ public class ViewMain extends JFrame implements PropertyChangeListener {
     this.controller = controller;
 
     this.g = new guitar(w,h);
-    this.m = new menu(500,500);
+    this.m = new menu();
 
-    if(model.menuOpen) {
-      this.g.add(m);
-    }
+    this.g.add(m);
 
     this.panel = new JPanel();
     this.panel.setPreferredSize(new Dimension(w,h));
@@ -45,7 +43,7 @@ public class ViewMain extends JFrame implements PropertyChangeListener {
   }
 
   public void propertyChange(PropertyChangeEvent pce) {
-    if(model.menuOpen) {
+    if(!model.menuOpen) {
       this.g.add(m);
     } else {
       this.g.remove(m);
@@ -60,6 +58,8 @@ public class ViewMain extends JFrame implements PropertyChangeListener {
     public void paintComponent(Graphics g) {
       super.paintComponent(g);
       Graphics2D g2 = (Graphics2D) g;
+
+      g2.setColor(Color.DARK_GRAY);
 
       Polygon board = new Polygon();
       board.addPoint(100, 0);
@@ -78,36 +78,57 @@ public class ViewMain extends JFrame implements PropertyChangeListener {
       g2.drawLine(0, 500, getWidth(), 500);
       g2.fillRect(0, 600, getWidth(), 50);
 
-      g2.setColor(Color.orange);
-      g2.drawLine(150, 0, 150, getHeight());
-      g2.drawLine(235, 0, 235, getHeight());
-      g2.setStroke(new BasicStroke(4));
-      g2.drawLine(320, 0, 320, getHeight());
-      g2.setStroke(new BasicStroke(3));
-      g2.setColor(Color.GRAY);
-      g2.drawLine(405, 0, 405, getHeight());
-      g2.setStroke(new BasicStroke(2));
-      g2.drawLine(490, 0, 490, getHeight());
-      g2.setStroke(new BasicStroke(2));
-      g2.drawLine(575, 0, 575, getHeight());
+      g2.setColor(Color.WHITE);
+      g2.drawLine(200, 0, 200, getHeight());
+      g2.setColor(Color.GREEN);
+      g2.drawLine(375, 0, 375, getHeight());
+      g2.setColor(Color.BLUE);
+      g2.drawLine(550, 0, 550, getHeight());
+
 
       g2.setClip(null);
     }
   }
 
   public class menu extends JLayeredPane {
-    private int x;
-    private int y;
-    public menu(int x, int y) {
-      this.x = x;
-      this.y = y;
-      this.setPreferredSize(new Dimension(750, 100));
-      this.setVisible(true);
-    }
-    public void paintComponent(Graphics g) {
-      super.paintComponent(g);
-      Graphics2D g2 = (Graphics2D) g;
-      g2.fillRect(0,0,750,100);
+    private CarouselMenu menu;
+
+    public menu() {
+      CarouselButton[] buttons = new CarouselButton[5];
+      buttons[0] = new CarouselButton(Constants.EXIT_IMAGE_PATH) {
+        @Override
+        public void onClick() {
+
+        }
+      };
+      buttons[1] = new CarouselButton(Constants.EXIT_IMAGE_PATH) {
+        @Override
+        public void onClick() {
+
+        }
+      };
+      buttons[2] = new CarouselButton(Constants.EXIT_IMAGE_PATH) {
+        @Override
+        public void onClick() {
+
+        }
+      };
+      buttons[3] = new CarouselButton(Constants.EXIT_IMAGE_PATH) {
+        @Override
+        public void onClick() {
+
+        }
+      };
+      buttons[4] = new CarouselButton(Constants.EXIT_IMAGE_PATH) {
+        @Override
+        public void onClick() {
+
+        }
+      };
+
+      this.menu = new CarouselMenu(buttons, 20, 400);
+      this.menu.revalidate();
+      this.menu.repaint();
     }
   }
 }
