@@ -91,8 +91,8 @@ public class CarouselMenu extends JLayeredPane {
   }
 
   public void setButtons() {
-    for (int i = 4; i >= 0; i -= 1) {
-      this.add(buttons[i], 0);
+    for (int i = buttons.length-1; i >= 0; i -= 1) {
+      this.add(buttons[i], 2);
     }
   }
 
