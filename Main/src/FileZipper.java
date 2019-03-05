@@ -13,7 +13,7 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
 public class FileZipper {
-    private static Path saveLocation;
+    private static String saveLocation = "Main/src";
 
 
     public static boolean createZipFile(ArrayList<File> fileList) {
@@ -26,7 +26,7 @@ public class FileZipper {
         }
         if (valid == true) {
             //TODO: Sort out save location
-            //zipFiles(fileList);
+            zipFiles(fileList);
             return true;
         }
         return false;
@@ -37,15 +37,17 @@ public class FileZipper {
     */
     private static void zipFiles(ArrayList<File> files) {
         //TODO: This method needs fixing for array lists
+        File[] filesArray = new File[3];
+        files.toArray(filesArray);
         File firstFile;
         try {
-            firstFile = new File(saveLocation.toString());
+            firstFile = new File(saveLocation);
             String zipFileName = firstFile.getName().concat(".zip");
 
             FileOutputStream fileOut = new FileOutputStream(zipFileName);
             ZipOutputStream zipOut = new ZipOutputStream(fileOut);
 
-            for (File file : files) {
+            for (File file : filesArray) {
                 zipOut.putNextEntry(new ZipEntry(file.getName()));
 
                 byte[] bytes = Files.readAllBytes(file.toPath());
