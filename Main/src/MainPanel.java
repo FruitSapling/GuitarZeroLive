@@ -28,28 +28,24 @@ public class MainPanel extends JPanel implements KeyListener, GuitarButtonListen
         System.exit(0);
       }
     };
-
     buttons[1] = new CarouselButton(Constants.SELECT_IMAGE_PATH) {
       @Override
       public void onClick() {
 
       }
     };
-
     buttons[2] = new CarouselButton(Constants.PLAY_IMAGE_PATH) {
       @Override
       public void onClick() {
 
       }
     };
-
     buttons[3] = new CarouselButton(Constants.STORE_IMAGE_PATH) {
       @Override
       public void onClick() {
 
       }
     };
-
     buttons[4] = new CarouselButton(Constants.TUTORIAL_IMAGE_PATH) {
       @Override
       public void onClick() {

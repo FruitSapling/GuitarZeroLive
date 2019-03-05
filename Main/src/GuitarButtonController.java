@@ -2,7 +2,7 @@
 
 import java.util.ArrayList;
 
-public class GuitarButtonController {
+public class GuitarButtonController implements GuitarButtonListener {
 
   public final ArrayList<GuitarButtonListener> listeners = new ArrayList<GuitarButtonListener>();
   GuitarPoller guitarPoller;
@@ -35,4 +35,8 @@ public class GuitarButtonController {
     }
   }
 
+  @Override
+  public void guitarButtonPressReceived(GuitarButtonPressedEvent e) {
+    
+  }
 }
