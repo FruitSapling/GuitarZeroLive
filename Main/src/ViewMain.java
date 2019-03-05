@@ -15,15 +15,15 @@ public class ViewMain extends JFrame implements PropertyChangeListener {
   private final int w = 750;
   private final int h = 1000;
 
-  private Model model;
-  private Controller2 controller;
+  private ModelMain model;
+  private ControllerMain controller;
 
   private JPanel panel;
 
   private guitar g;
   private menu m;
 
-  public ViewMain(Model model, Controller2 controller, GuitarButtonController controller2) {
+  public ViewMain(ModelMain model, ControllerMain controller, GuitarButtonController controller2) {
     this.model = model;
     this.model.addPropertyChangeListener(this);
     this.controller = controller;
