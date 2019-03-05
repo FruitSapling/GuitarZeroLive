@@ -45,11 +45,6 @@ public class GuitarPoller implements Runnable {
         else return false;
     }
 
-    public static void main(String[] args) {
-        Thread t = new Thread(new GuitarPoller(new GuitarButtonController()));
-        t.start();
-    }
-
     public void run() {
 
         Controller ctrl = getGuitarController();

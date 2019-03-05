@@ -1,16 +1,36 @@
 /* Primary Class Developer: Willem van Gerwen */
 
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
-public class GuitarButtonController implements GuitarButtonListener {
+public class GuitarButtonController implements GuitarButtonListener, KeyListener {
 
+  private ModelMain model;
   public final ArrayList<GuitarButtonListener> listeners = new ArrayList<GuitarButtonListener>();
   GuitarPoller guitarPoller;
 
-  public GuitarButtonController() {
+
+  public GuitarButtonController(ModelMain model) {
+    this.model = model;
     guitarPoller = new GuitarPoller(this);
     Thread t = new Thread(new GuitarPoller(this));
     t.start();
+  }
+
+  @Override
+  public void guitarButtonPressReceived(GuitarButtonPressedEvent e) {
+    switch(e.getGuitarButton()) {
+      case STRUM:
+        if (e.getValue() == 1.0) {
+
+        } else {
+
+        }
+        break;
+      case ZERO_POWER:
+        //select mode
+    }
   }
 
   public synchronized void addListener(GuitarButtonListener listener){
@@ -36,7 +56,23 @@ public class GuitarButtonController implements GuitarButtonListener {
   }
 
   @Override
-  public void guitarButtonPressReceived(GuitarButtonPressedEvent e) {
+  public void keyTyped(KeyEvent e) {
+
+  }
+
+  @Override
+  public void keyPressed(KeyEvent e) {
+    if(e.getKeyChar() == 'e') {
+      model.cycleCarouselRight();
+    }else if(e.getKeyChar() == 'd') {
+      model.cycleCarouselLeft();
+    }else if(e.getKeyChar() == KeyEvent.VK_ENTER) {
+      model.selectMode();
+    }
+  }
+
+  @Override
+  public void keyReleased(KeyEvent e) {
 
   }
 }

@@ -30,9 +30,48 @@ public class ViewMain extends JFrame implements PropertyChangeListener {
 
     this.panel = new JPanel();
     this.panel.setPreferredSize(new Dimension(w,h));
+
+    CarouselButton[] buttons = new CarouselButton[5];
+
+    buttons[0] = new CarouselButton(Constants.EXIT_IMAGE_PATH) {
+      @Override
+      public void onClick() {
+        System.exit(0);
+      }
+    };
+    buttons[1] = new CarouselButton(Constants.SELECT_IMAGE_PATH) {
+      @Override
+      public void onClick() {
+
+      }
+    };
+    buttons[2] = new CarouselButton(Constants.PLAY_IMAGE_PATH) {
+      @Override
+      public void onClick() {
+
+      }
+    };
+    buttons[3] = new CarouselButton(Constants.STORE_IMAGE_PATH) {
+      @Override
+      public void onClick() {
+
+      }
+    };
+    buttons[4] = new CarouselButton(Constants.TUTORIAL_IMAGE_PATH) {
+      @Override
+      public void onClick() {
+
+      }
+    };
+
+    this.menu = new CarouselMenu(buttons, 20, 400);
+
+    model.addPropertyChangeListener(menu);
+
     this.panel.add(g);
 
     this.addKeyListener(controller);
+    this.addKeyListener(controller2);
     this.add(panel);
     this.pack();
     this.setVisible(true);
@@ -40,19 +79,20 @@ public class ViewMain extends JFrame implements PropertyChangeListener {
   }
 
   public void propertyChange(PropertyChangeEvent pce) {
-    if(!model.menuOpen) {
-      menu();
-    } else {
-      this.g.remove(menu);
+    if (!model.menuOpen) {
+      model.menuOpen = true;
+      g.add(menu);
+      System.out.println("added menu");
     }
-    this.repaint();
-    this.revalidate();
     this.pack();
+    this.revalidate();
+    this.repaint();
   }
 
   public class guitar extends JPanel {
     public guitar(int w, int h) {
       this.setPreferredSize(new Dimension(w, h));
+
     }
     public void paintComponent(Graphics g) {
       super.paintComponent(g);
@@ -84,38 +124,37 @@ public class ViewMain extends JFrame implements PropertyChangeListener {
       g2.setColor(Color.BLUE);
       g2.drawLine(550, 0, 550, getHeight());
 
-
       g2.setClip(null);
     }
   }
 
-  public void menu() {
+  public void setMenu() {
     CarouselButton[] buttons = new CarouselButton[5];
     buttons[0] = new CarouselButton(Constants.EXIT_IMAGE_PATH) {
       @Override
       public void onClick() {
-
+        System.exit(0);
       }
     };
-    buttons[1] = new CarouselButton(Constants.EXIT_IMAGE_PATH) {
+    buttons[1] = new CarouselButton(Constants.SELECT_IMAGE_PATH) {
       @Override
       public void onClick() {
 
       }
     };
-    buttons[2] = new CarouselButton(Constants.EXIT_IMAGE_PATH) {
+    buttons[2] = new CarouselButton(Constants.PLAY_IMAGE_PATH) {
       @Override
       public void onClick() {
 
       }
     };
-    buttons[3] = new CarouselButton(Constants.EXIT_IMAGE_PATH) {
+    buttons[3] = new CarouselButton(Constants.STORE_IMAGE_PATH) {
       @Override
       public void onClick() {
 
       }
     };
-    buttons[4] = new CarouselButton(Constants.EXIT_IMAGE_PATH) {
+    buttons[4] = new CarouselButton(Constants.TUTORIAL_IMAGE_PATH) {
       @Override
       public void onClick() {
 
@@ -123,6 +162,5 @@ public class ViewMain extends JFrame implements PropertyChangeListener {
     };
 
     this.menu = new CarouselMenu(buttons, 20, 400);
-    this.g.add(menu);
   }
 }
