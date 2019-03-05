@@ -21,7 +21,7 @@ public class ViewMain extends JFrame implements PropertyChangeListener {
   private JPanel panel;
 
   private guitar g;
-  private menu m;
+  private CarouselMenu menu;
 
   public ViewMain(ModelMain model, ControllerMain controller, GuitarButtonController controller2) {
     this.model = model;
@@ -29,9 +29,6 @@ public class ViewMain extends JFrame implements PropertyChangeListener {
     this.controller = controller;
 
     this.g = new guitar(w,h);
-    this.m = new menu();
-
-    this.g.add(m);
 
     this.panel = new JPanel();
     this.panel.setPreferredSize(new Dimension(w,h));
@@ -46,10 +43,12 @@ public class ViewMain extends JFrame implements PropertyChangeListener {
 
   public void propertyChange(PropertyChangeEvent pce) {
     if(!model.menuOpen) {
-      this.g.add(m);
+      menu();
     } else {
-      this.g.remove(m);
+      this.g.remove(menu);
     }
+    this.repaint();
+    this.revalidate();
     this.pack();
   }
 
@@ -92,45 +91,40 @@ public class ViewMain extends JFrame implements PropertyChangeListener {
     }
   }
 
-  public class menu extends JLayeredPane {
-    private CarouselMenu menu;
+  public void menu() {
+    CarouselButton[] buttons = new CarouselButton[5];
+    buttons[0] = new CarouselButton(Constants.EXIT_IMAGE_PATH) {
+      @Override
+      public void onClick() {
 
-    public menu() {
-      CarouselButton[] buttons = new CarouselButton[5];
-      buttons[0] = new CarouselButton(Constants.EXIT_IMAGE_PATH) {
-        @Override
-        public void onClick() {
+      }
+    };
+    buttons[1] = new CarouselButton(Constants.EXIT_IMAGE_PATH) {
+      @Override
+      public void onClick() {
 
-        }
-      };
-      buttons[1] = new CarouselButton(Constants.EXIT_IMAGE_PATH) {
-        @Override
-        public void onClick() {
+      }
+    };
+    buttons[2] = new CarouselButton(Constants.EXIT_IMAGE_PATH) {
+      @Override
+      public void onClick() {
 
-        }
-      };
-      buttons[2] = new CarouselButton(Constants.EXIT_IMAGE_PATH) {
-        @Override
-        public void onClick() {
+      }
+    };
+    buttons[3] = new CarouselButton(Constants.EXIT_IMAGE_PATH) {
+      @Override
+      public void onClick() {
 
-        }
-      };
-      buttons[3] = new CarouselButton(Constants.EXIT_IMAGE_PATH) {
-        @Override
-        public void onClick() {
+      }
+    };
+    buttons[4] = new CarouselButton(Constants.EXIT_IMAGE_PATH) {
+      @Override
+      public void onClick() {
 
-        }
-      };
-      buttons[4] = new CarouselButton(Constants.EXIT_IMAGE_PATH) {
-        @Override
-        public void onClick() {
+      }
+    };
 
-        }
-      };
-
-      this.menu = new CarouselMenu(buttons, 20, 400);
-      this.menu.revalidate();
-      this.menu.repaint();
-    }
+    this.menu = new CarouselMenu(buttons, 20, 400);
+    this.g.add(menu);
   }
 }
