@@ -6,6 +6,8 @@
 /* Secondary Class Developers:             */
 
 import java.awt.*;
+import java.io.File;
+import java.util.ArrayList;
 import javax.swing.*;
 
 public class ViewStoreManager extends JFrame {
@@ -16,9 +18,14 @@ public class ViewStoreManager extends JFrame {
         frame = new JFrame();
         storePanel = new StoreManagerPanel() {
             public void paintComponent(Graphics g) {
+                ArrayList<File> files = new ArrayList(3);
                 JTextField tTitle = new JTextField(20);
                 JTextField tCoverArt = new JTextField(20);
                 JTextField tNotes = new JTextField(20);
+
+                files.add(null);
+                files.add(null);
+                files.add(null);
 
                 storePanel.setLayout(new BorderLayout());
                 Graphics2D g2 = (Graphics2D) g;
@@ -26,7 +33,9 @@ public class ViewStoreManager extends JFrame {
                 g2.fillRect(0, 0, getWidth(), getHeight());
                 labels(storePanel);
                 textBoxes(storePanel, tTitle, tCoverArt, tNotes);
-                buttons(storePanel, frame, tTitle, tCoverArt, tNotes);
+                buttons(storePanel, frame, tTitle, tCoverArt, tNotes, files);
+                storePanel.revalidate();
+                storePanel.repaint();
             }
         };
 
