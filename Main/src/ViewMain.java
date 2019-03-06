@@ -36,9 +36,48 @@ public class ViewMain extends JFrame implements PropertyChangeListener {
 
     this.panel = new JPanel();
     this.panel.setPreferredSize(new Dimension(w,h));
+
+    CarouselButton[] buttons = new CarouselButton[5];
+
+    buttons[0] = new CarouselButton(Constants.EXIT_IMAGE_PATH) {
+      @Override
+      public void onClick() {
+        System.exit(0);
+      }
+    };
+    buttons[1] = new CarouselButton(Constants.SELECT_IMAGE_PATH) {
+      @Override
+      public void onClick() {
+
+      }
+    };
+    buttons[2] = new CarouselButton(Constants.PLAY_IMAGE_PATH) {
+      @Override
+      public void onClick() {
+
+      }
+    };
+    buttons[3] = new CarouselButton(Constants.STORE_IMAGE_PATH) {
+      @Override
+      public void onClick() {
+
+      }
+    };
+    buttons[4] = new CarouselButton(Constants.TUTORIAL_IMAGE_PATH) {
+      @Override
+      public void onClick() {
+
+      }
+    };
+
+    this.menu = new CarouselMenu(buttons, 20, 400);
+
+    model1.addPropertyChangeListener(menu);
+
     this.panel.add(g);
 
     this.addKeyListener(controller);
+    this.addKeyListener(controller2);
     this.add(panel);
     this.pack();
     this.setVisible(true);
@@ -46,13 +85,13 @@ public class ViewMain extends JFrame implements PropertyChangeListener {
   }
 
   public void propertyChange(PropertyChangeEvent pce) {
-    if(model1.menuOpen) {
-      menu();
-    } else {
-      this.g.remove(menu);
+    if (!model1.menuOpen) {
+      model1.menuOpen = true;
+      g.add(menu);
+      System.out.println("added menu");
     }
-    this.repaint();
     this.revalidate();
+    this.repaint();
     this.pack();
   }
 
@@ -95,7 +134,7 @@ public class ViewMain extends JFrame implements PropertyChangeListener {
     }
   }
 
-  public void menu() {
+  public void setMenu() {
     CarouselButton[] buttons = new CarouselButton[5];
     buttons[0] = new CarouselButton(Constants.EXIT_IMAGE_PATH) {
       @Override
