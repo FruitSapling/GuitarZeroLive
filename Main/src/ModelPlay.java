@@ -28,8 +28,8 @@ public class ModelPlay {
     this.support.firePropertyChange("New Note", null, this.current);
   }
 
-  public void down(int n) {
-    this.support.firePropertyChange("Note Move", null, this.current.getLocation().getY()+n);
-  }
+//  public void down(int n) {
+//    this.support.firePropertyChange("Note Move", null, this.current.getLocation().getY()+n);
+//  }
 }
 

@@ -1,9 +1,6 @@
-/* GUI Class that handles the implementation of Store Manager Mode */
-/* Store Manager Mode is a pseudo mode allowing for maintenance of */
-/* the Store Mode, specifically the creation of track 'bundles'    */
-
-/* Primary Class Developer: Morgan Centini */
-/* Secondary Class Developers:             */
+/**
+ * @author Morgan Centini
+ */
 
 import java.awt.*;
 import java.io.File;

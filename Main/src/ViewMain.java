@@ -45,10 +45,12 @@ public class ViewMain extends JFrame implements PropertyChangeListener {
 
     this.addKeyListener(controller);
     this.addKeyListener(controller2);
+
     this.add(panel);
     this.pack();
     this.setVisible(true);
     this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+
   }
 
   public void propertyChange(PropertyChangeEvent pce) {
@@ -113,35 +115,27 @@ public class ViewMain extends JFrame implements PropertyChangeListener {
     buttons[0] = new CarouselButton(Constants.EXIT_IMAGE_PATH, "Exit") {
       @Override public void onClick() { }
     };
-    buttons[0].addActionListener(new CarouselHandler(buttons[0], frame));
+    buttons[0].addActionListener(new ControllerMain.CarouselHandlerMain(buttons[0], frame));
 
     buttons[1] = new CarouselButton(Constants.SELECT_IMAGE_PATH, "Select") {
       @Override public void onClick() { }
     };
-    buttons[1].addActionListener(new CarouselHandler(buttons[1], frame,
-            model1, controller, controller2));
+    buttons[1].addActionListener(new ControllerMain.CarouselHandlerMain(buttons[1], frame, controller2));
 
     buttons[2] = new CarouselButton(Constants.PLAY_IMAGE_PATH, "Play") {
-      @Override
-      public void onClick() {
-
-      }
+      @Override public void onClick() { }
     };
+    buttons[2].addActionListener(new ControllerMain.CarouselHandlerMain(buttons[1], frame, controller2));
 
     buttons[3] = new CarouselButton(Constants.STORE_IMAGE_PATH, "Store") {
-      @Override
-      public void onClick() {
-        dispose();
-        new ViewStore(model1, controller, controller2);
-      }
+      @Override public void onClick() { }
     };
+    buttons[3].addActionListener(new ControllerMain.CarouselHandlerMain(buttons[1], frame, controller2));
 
     buttons[4] = new CarouselButton(Constants.TUTORIAL_IMAGE_PATH, "Tutorial") {
-      @Override
-      public void onClick() {
-
-      }
+      @Override public void onClick() { }
     };
+    buttons[4].addActionListener(new ControllerMain.CarouselHandlerMain(buttons[1], frame, controller2));
 
     return buttons;
   }

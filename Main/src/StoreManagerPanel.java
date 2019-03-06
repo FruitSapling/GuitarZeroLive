@@ -1,3 +1,7 @@
+/**
+ * @author Morgan Centini
+ */
+
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
