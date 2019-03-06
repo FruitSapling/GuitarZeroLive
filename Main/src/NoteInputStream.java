@@ -6,20 +6,20 @@ import java.io.IOException;
 import java.io.Reader;
 import java.util.ArrayList;
 
-public class NotesInput {
+public class NoteInputStream {
   private File notesFile;
   private NoteInfo[] trackNotes;
   private int trackNumber;
   private int index;
 
-  NotesInput(File notesFile) throws IOException {
+  NoteInputStream(File notesFile) throws IOException {
     FileFilter filter = (pathname) -> pathname.getPath().endsWith(".midnotes");
     if (filter.accept(notesFile)) {
       this.notesFile = notesFile;
       this.trackNotes = extractNotes();
     }
     else {
-      throw new IOException("NotesInput only takes .midnotes files");
+      throw new IOException("NoteInputStream only takes .midnotes files");
     }
   }
 
@@ -43,6 +43,7 @@ public class NotesInput {
         int startTime = Integer.valueOf(splitStartLine[2]);
         int endTime = Integer.valueOf(splitEndLine[2]);
 
+        note = note.substring(0,-1);
         int string = classifyNotes(note);
         notes.add(new NoteInfo(note,startTime,endTime,string));
       }
@@ -65,7 +66,13 @@ public class NotesInput {
 
 
   private int classifyNotes(String note) {
+
+    String stringLeft = "C|C#|Cb|D|D#|Eb";
+    String stringCenter = "E|F|F#|Gb|G";
+    String stringRight = "G#|Ab|A|A#|Bb|B";
+
     switch (note) {
+
 
     }
     return 1;
