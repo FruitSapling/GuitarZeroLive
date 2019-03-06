@@ -42,14 +42,9 @@ public class ViewSelect extends JFrame implements PropertyChangeListener {
     }
 
     public void propertyChange(PropertyChangeEvent pce) {
-        if(!model1.menuOpen) {
-            menu();
-        } else {
-            this.g.remove(menu);
-        }
-        this.repaint();
-        this.revalidate();
-        this.pack();
+        //TODO: Write Controller
+//        this.dispose();
+//        new ViewMain(model1, controller, controller2);
     }
     public class guitar extends JPanel {
         public guitar(int w, int h) {

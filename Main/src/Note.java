@@ -3,8 +3,9 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import javax.swing.JLayeredPane;
+import javax.swing.JPanel;
 
-abstract class Note extends JLayeredPane {
+abstract class Note extends JPanel {
 
   protected Point location;
 
@@ -33,6 +34,7 @@ abstract class Note extends JLayeredPane {
   public void paintComponent(Graphics g) {
     super.paintComponent(g);
     Graphics2D g2 = (Graphics2D) g;
+    g2.setColor(this.color());
     g2.fillOval((int)this.location.getX(), (int)this.location.getY(), 5, 5);
   }
 
