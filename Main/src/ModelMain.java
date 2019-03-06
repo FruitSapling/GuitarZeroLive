@@ -3,7 +3,7 @@ import java.beans.PropertyChangeSupport;
 
 public class ModelMain {
 
-  public boolean menuOpen = true;
+  public boolean menuOpen;
   private PropertyChangeSupport support;
   public CarouselMenu carouselMenu;
 
