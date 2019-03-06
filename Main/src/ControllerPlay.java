@@ -15,7 +15,7 @@ public class ControllerPlay {
 
     timer.schedule(new TimerTask() {
       public void run() {
-        model.down(1);
+        model.drop();
       }
     }, 0 , 1000);
   }
