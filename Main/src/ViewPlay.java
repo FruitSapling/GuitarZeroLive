@@ -8,28 +8,37 @@ import javax.swing.JPanel;
  */
 public class ViewPlay extends JFrame implements PropertyChangeListener {
 
+  private ModelPlay model;
+
   private ViewMain.guitar guitar;
 
   private JPanel panel;
 
-  public ViewPlay() {
-    guitar = new ViewMain.guitar(ViewMain.w, ViewMain.h);
-    panel = new JPanel();
+  public ViewPlay(ModelPlay model) {
+    this.model = model;
 
-    panel.add(guitar);
+    this.guitar = new ViewMain.guitar(ViewMain.w, ViewMain.h);
+    this.panel = new JPanel();
 
-    this.add(panel);
+    this.panel.add(this.guitar);
+
+    this.add(this.panel);
     this.pack();
     this.setVisible(true);
     this.setDefaultCloseOperation(EXIT_ON_CLOSE);
   }
 
   public void propertyChange(PropertyChangeEvent pce) {
-
+    System.out.println("Property Change");
+    if(pce.getPropertyName().equals("note")) {
+      System.out.println("Note Dropped");
+    }
   }
 
   public static void main(String[] args) {
-    ViewPlay vp = new ViewPlay();
+    ModelPlay mp = new ModelPlay();
+    ControllerPlay cp = new ControllerPlay(mp);
+    ViewPlay vp = new ViewPlay(mp);
   }
 
 }

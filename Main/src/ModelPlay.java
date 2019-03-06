@@ -7,14 +7,13 @@ import java.beans.PropertyChangeSupport;
  */
 public class ModelPlay {
 
-  public boolean menuOpen = true;
-
   private PropertyChangeSupport support;
 
   private Note current;
 
   public ModelPlay() {
     this.support = new PropertyChangeSupport(this);
+    //this.drop();
   }
 
   public void addPropertyChangeListener(PropertyChangeListener pcl) {
@@ -22,11 +21,12 @@ public class ModelPlay {
   }
 
   public void drop() {
-    current = Note.pick(new Point(200, 100), "A");
+    this.support.firePropertyChange(null, null,null);
+    this.current = Note.pick(new Point(200, 100), "A");
   }
 
   public void down(int n) {
-    current.move(n);
+    this.current.move(n);
   }
 }
 
