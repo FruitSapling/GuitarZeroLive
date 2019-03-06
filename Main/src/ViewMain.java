@@ -8,6 +8,10 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import javax.swing.*;
 
+/**
+ * @author Tom
+ * Contributed to by Willem
+ */
 public class ViewMain extends JFrame implements PropertyChangeListener {
 
   private final int w = 750;
@@ -42,7 +46,7 @@ public class ViewMain extends JFrame implements PropertyChangeListener {
   }
 
   public void propertyChange(PropertyChangeEvent pce) {
-    if(!model1.menuOpen) {
+    if(model1.menuOpen) {
       menu();
     } else {
       this.g.remove(menu);

@@ -1,6 +1,9 @@
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
+/**
+ * @author Tom
+ */
 public class ModelMain {
 
   public boolean menuOpen = true;
