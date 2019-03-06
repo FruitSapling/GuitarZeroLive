@@ -85,10 +85,16 @@ public class ViewMain extends JFrame implements PropertyChangeListener {
   }
 
   public void propertyChange(PropertyChangeEvent pce) {
-    if (!model1.menuOpen) {
-      model1.menuOpen = true;
-      g.add(menu);
-      System.out.println("added menu");
+    if (pce.getPropertyName() == null) {
+      if (!model1.menuOpen) {
+        model1.menuOpen = true;
+        g.add(menu);
+        System.out.println("added menu");
+      } else if (model1.menuOpen) {
+        model1.menuOpen = false;
+        g.remove(menu);
+        System.out.println("removed menu");
+      }
     }
     this.revalidate();
     this.repaint();
