@@ -37,41 +37,8 @@ public class ViewMain extends JFrame implements PropertyChangeListener {
     this.panel = new JPanel();
     this.panel.setPreferredSize(new Dimension(w,h));
 
-    CarouselButton[] buttons = new CarouselButton[5];
-
-    buttons[0] = new CarouselButton(Constants.EXIT_IMAGE_PATH) {
-      @Override
-      public void onClick() {
-        System.exit(0);
-      }
-    };
-    buttons[1] = new CarouselButton(Constants.SELECT_IMAGE_PATH) {
-      @Override
-      public void onClick() {
-
-      }
-    };
-    buttons[2] = new CarouselButton(Constants.PLAY_IMAGE_PATH) {
-      @Override
-      public void onClick() {
-
-      }
-    };
-    buttons[3] = new CarouselButton(Constants.STORE_IMAGE_PATH) {
-      @Override
-      public void onClick() {
-
-      }
-    };
-    buttons[4] = new CarouselButton(Constants.TUTORIAL_IMAGE_PATH) {
-      @Override
-      public void onClick() {
-
-      }
-    };
-
+    CarouselButton[] buttons = setMenu(this);
     this.menu = new CarouselMenu(buttons, 20, 400);
-
     model1.addPropertyChangeListener(menu);
 
     this.panel.add(g);
@@ -140,31 +107,28 @@ public class ViewMain extends JFrame implements PropertyChangeListener {
     }
   }
 
-  public void setMenu() {
+  public CarouselButton[] setMenu(JFrame frame) {
     CarouselButton[] buttons = new CarouselButton[5];
-    buttons[0] = new CarouselButton(Constants.EXIT_IMAGE_PATH) {
-      @Override
-      public void onClick() {
-        System.exit(0);
-      }
-    };
 
-    buttons[1] = new CarouselButton(Constants.SELECT_IMAGE_PATH) {
-      @Override
-      public void onClick() {
-        dispose();
-        new ViewSelect(model1, controller, controller2);
-      }
+    buttons[0] = new CarouselButton(Constants.EXIT_IMAGE_PATH, "Exit") {
+      @Override public void onClick() { }
     };
+    buttons[0].addActionListener(new CarouselHandler(buttons[0], frame));
 
-    buttons[2] = new CarouselButton(Constants.PLAY_IMAGE_PATH) {
+    buttons[1] = new CarouselButton(Constants.SELECT_IMAGE_PATH, "Select") {
+      @Override public void onClick() { }
+    };
+    buttons[1].addActionListener(new CarouselHandler(buttons[1], frame,
+            model1, controller, controller2));
+
+    buttons[2] = new CarouselButton(Constants.PLAY_IMAGE_PATH, "Play") {
       @Override
       public void onClick() {
 
       }
     };
 
-    buttons[3] = new CarouselButton(Constants.STORE_IMAGE_PATH) {
+    buttons[3] = new CarouselButton(Constants.STORE_IMAGE_PATH, "Store") {
       @Override
       public void onClick() {
         dispose();
@@ -172,14 +136,13 @@ public class ViewMain extends JFrame implements PropertyChangeListener {
       }
     };
 
-    buttons[4] = new CarouselButton(Constants.TUTORIAL_IMAGE_PATH) {
+    buttons[4] = new CarouselButton(Constants.TUTORIAL_IMAGE_PATH, "Tutorial") {
       @Override
       public void onClick() {
 
       }
     };
 
-    this.menu = new CarouselMenu(buttons, 20, 400);
-    this.g.add(menu);
+    return buttons;
   }
 }
