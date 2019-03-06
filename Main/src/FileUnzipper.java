@@ -16,8 +16,6 @@ public class FileUnzipper {
         this.dir = saveDirectory;
     }
 
-
-
     /*
     * Method that takes a zip file and unzips it, placing the resulting files in the
     * dir specified in the FileUnzipper constructor (with there original names/extensions).
