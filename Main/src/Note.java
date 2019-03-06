@@ -1,31 +1,26 @@
-import java.awt.Color;
-import java.awt.Point;
+public class Note {
+  private String note;
+  private int startTime, finishTime;
 
-abstract class Note {
-
-  protected Point location;
-
-  public static Note pick(Point pt, String note) {
-    switch(note) {
-      case "A":
-        return new NoteWhite(pt);
-      case "B":
-        return new NoteWhite(pt);
-      case "C":
-        return new NoteWhite(pt);
-      case "D":
-        return new NoteBlack(pt);
-      case "E":
-        return new NoteBlack(pt);
-      case "F":
-        return new NoteBlack(pt);
-    }
-    return null;
+  Note(String note, int startTime, int finishTime) {
+    this.note = note;
+    this.startTime = startTime;
+    this.finishTime = finishTime;
   }
 
-  public void move(int n) {
-    location = new Point(location.x, location.y + n);
+  public long getStartTime() {
+    return startTime;
   }
 
-  public abstract Color color();
+  public long getFinishTime() {
+    return finishTime;
+  }
+
+  public long getDuration() {
+    return finishTime-startTime;
+  }
+
+  public String getNote() {
+    return note;
+  }
 }
