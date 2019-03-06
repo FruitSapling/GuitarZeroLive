@@ -26,13 +26,14 @@ public class GuitarButtonController implements GuitarButtonListener, KeyListener
     switch(e.getGuitarButton()) {
       case STRUM:
         if (e.getValue() == 1.0) {
-
+          cycleCarouselRight();
         } else {
-
+          cycleCarouselLeft();
         }
         break;
       case ZERO_POWER:
-        //select mode
+        selectMode();
+        break;
     }
   }
 
@@ -59,6 +60,18 @@ public class GuitarButtonController implements GuitarButtonListener, KeyListener
     }
   }
 
+  public void cycleCarouselRight() {
+    model.cycleCarouselRight();
+  }
+
+  public void cycleCarouselLeft() {
+    model.cycleCarouselRight();
+  }
+
+  public void selectMode() {
+    model.selectMode();
+  }
+
   @Override
   public void keyTyped(KeyEvent e) {
 
@@ -67,11 +80,11 @@ public class GuitarButtonController implements GuitarButtonListener, KeyListener
   @Override
   public void keyPressed(KeyEvent e) {
     if(e.getKeyChar() == 'e') {
-      model.cycleCarouselRight();
+      cycleCarouselRight();
     }else if(e.getKeyChar() == 'd') {
-      model.cycleCarouselLeft();
+      cycleCarouselLeft();
     }else if(e.getKeyChar() == KeyEvent.VK_ENTER) {
-      model.selectMode();
+      selectMode();
     }
   }
 
