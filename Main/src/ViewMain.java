@@ -14,8 +14,8 @@ import javax.swing.*;
  */
 public class ViewMain extends JFrame implements PropertyChangeListener {
 
-  private final int w = 750;
-  private final int h = 1000;
+  public static final int w = 750;
+  public static final int h = 1000;
 
   private ModelMain model1;
   private ControllerMain controller;
@@ -56,7 +56,7 @@ public class ViewMain extends JFrame implements PropertyChangeListener {
     this.pack();
   }
 
-  public class guitar extends JPanel {
+  public static class guitar extends JPanel {
     public guitar(int w, int h) {
       this.setPreferredSize(new Dimension(w, h));
     }
