@@ -1,3 +1,4 @@
+import java.awt.Point;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import javax.swing.JFrame;
@@ -16,6 +17,7 @@ public class ViewPlay extends JFrame implements PropertyChangeListener {
 
   public ViewPlay(ModelPlay model) {
     this.model = model;
+    this.model.addPropertyChangeListener(this);
 
     this.guitar = new ViewMain.guitar(ViewMain.w, ViewMain.h);
     this.panel = new JPanel();
@@ -29,9 +31,15 @@ public class ViewPlay extends JFrame implements PropertyChangeListener {
   }
 
   public void propertyChange(PropertyChangeEvent pce) {
-    System.out.println("Property Change");
-    if(pce.getPropertyName().equals("note")) {
-      System.out.println("Note Dropped");
+    if(pce.getPropertyName().equals("New Note")) {
+      Note note = (Note) pce.getNewValue();
+      System.out.println(note.getLocation().getY());
+    } else if(pce.getPropertyName().equals("Note Move")) {
+      this.guitar.add(Note.pick(new Point(200,(int)pce.getNewValue()), "A"));
+      this.revalidate();
+      this.repaint();
+      this.pack();
+      System.out.println("Moved?");
     }
   }
 

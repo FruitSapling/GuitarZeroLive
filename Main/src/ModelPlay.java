@@ -9,11 +9,9 @@ public class ModelPlay {
 
   private PropertyChangeSupport support;
 
-  private Note current;
-
   public ModelPlay() {
     this.support = new PropertyChangeSupport(this);
-    //this.drop();
+    this.drop();
   }
 
   public void addPropertyChangeListener(PropertyChangeListener pcl) {
@@ -21,12 +19,11 @@ public class ModelPlay {
   }
 
   public void drop() {
-    this.support.firePropertyChange(null, null,null);
-    this.current = Note.pick(new Point(200, 100), "A");
+    this.support.firePropertyChange("New Note", null, 0);
   }
 
   public void down(int n) {
-    this.current.move(n);
+    this.support.firePropertyChange("Note Move", null, 100);
   }
 }
 
