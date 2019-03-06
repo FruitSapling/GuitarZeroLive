@@ -3,6 +3,8 @@ import java.beans.PropertyChangeSupport;
 
 /**
  * @author Tom
+ * Contributed to by:
+ * Willem - All the code to update the carousel menu
  */
 public class ModelMain {
 

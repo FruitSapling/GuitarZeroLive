@@ -10,7 +10,9 @@ import javax.swing.*;
 
 /**
  * @author Tom
- * Contributed to by Willem
+ * Contributed to by:
+ * Willem - All the code for the Carousel Menu
+ *
  */
 public class ViewMain extends JFrame implements PropertyChangeListener {
 
@@ -142,7 +144,6 @@ public class ViewMain extends JFrame implements PropertyChangeListener {
         System.exit(0);
       }
     };
-
     buttons[1] = new CarouselButton(Constants.SELECT_IMAGE_PATH) {
       @Override
       public void onClick() {
@@ -150,14 +151,12 @@ public class ViewMain extends JFrame implements PropertyChangeListener {
         new ViewSelect(model1, controller, controller2);
       }
     };
-
     buttons[2] = new CarouselButton(Constants.PLAY_IMAGE_PATH) {
       @Override
       public void onClick() {
 
       }
     };
-
     buttons[3] = new CarouselButton(Constants.STORE_IMAGE_PATH) {
       @Override
       public void onClick() {
@@ -165,7 +164,6 @@ public class ViewMain extends JFrame implements PropertyChangeListener {
         new ViewStore(model1, controller, controller2);
       }
     };
-
     buttons[4] = new CarouselButton(Constants.TUTORIAL_IMAGE_PATH) {
       @Override
       public void onClick() {

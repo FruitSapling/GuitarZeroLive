@@ -1,13 +1,17 @@
-/* Primary Class Developer: Willem van Gerwen */
-
 import java.util.ArrayList;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+/**
+ * A 'controller' in the MVC design pattern, manipulating the model when
+ * sending guitar button presses and key presses.
+ *
+ * @author Willem
+ */
 public class GuitarButtonController implements GuitarButtonListener, KeyListener {
 
   private ModelMain model;
-  public final ArrayList<GuitarButtonListener> listeners = new ArrayList<GuitarButtonListener>();
+  public final ArrayList<GuitarButtonListener> listeners = new ArrayList<>();
   GuitarPoller guitarPoller;
 
   public GuitarButtonController(ModelMain model) {
