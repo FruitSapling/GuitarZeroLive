@@ -35,7 +35,8 @@ public class ViewPlay extends JFrame implements PropertyChangeListener {
       Note note = (Note) pce.getNewValue();
       System.out.println(note.getLocation().getY());
     } else if(pce.getPropertyName().equals("Note Move")) {
-      this.guitar.add(Note.pick(new Point(200,(int)pce.getNewValue()), "A"));
+      NoteWhite nw = new NoteWhite(new Point(200, (int)pce.getNewValue()));
+      this.guitar.add(nw);
       this.revalidate();
       this.repaint();
       this.pack();
