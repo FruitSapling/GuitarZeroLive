@@ -14,11 +14,10 @@ public class ControllerPlay {
     this.timer = new Timer();
 
     timer.schedule(new TimerTask() {
-      @Override
       public void run() {
-        model.down(1);
+        model.drop();
       }
-    }, 0 , 10);
+    }, 0 , 1000);
   }
 
 }
