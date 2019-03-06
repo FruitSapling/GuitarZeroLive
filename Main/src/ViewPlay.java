@@ -3,6 +3,9 @@ import java.beans.PropertyChangeListener;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+/**
+ * @author Tom
+ */
 public class ViewPlay extends JFrame implements PropertyChangeListener {
 
   private ViewMain.guitar guitar;
