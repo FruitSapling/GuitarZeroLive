@@ -16,7 +16,7 @@ public class SelectView extends JFrame implements PropertyChangeListener {
 
     public static String intendedTrack = "";
 
-    private SelectModel model1;
+    private SelectModel model;
     private SelectController controller;
     private GuitarButtonController controller2;
 
@@ -25,9 +25,9 @@ public class SelectView extends JFrame implements PropertyChangeListener {
     private MainView.guitar g;
     private CarouselMenu menu;
 
-    public SelectView(SelectModel model1, SelectController controller, GuitarButtonController controller2) {
-        this.model1 = model1;
-        this.model1.addPropertyChangeListener(this);
+    public SelectView(SelectModel model, SelectController controller, GuitarButtonController controller2) {
+        this.model = model;
+        this.model.addPropertyChangeListener(this);
         this.controller = controller;
         this.controller2 = controller2;
 
@@ -37,8 +37,8 @@ public class SelectView extends JFrame implements PropertyChangeListener {
         this.panel.setPreferredSize(new Dimension(Constants.w,Constants.h));
 
         CarouselButton[] buttons = setMenu(this);
-        this.menu = new CarouselMenu(buttons, 20, 400);
-        model1.addPropertyChangeListener(menu);
+        this.model.carouselMenu = new CarouselMenu(buttons, 20, 400);
+        model.addPropertyChangeListener(this.model.carouselMenu);
 
         this.panel.add(g);
 
@@ -53,12 +53,12 @@ public class SelectView extends JFrame implements PropertyChangeListener {
 
     public void propertyChange(PropertyChangeEvent pce) {
         if (pce.getPropertyName() == null) {
-            if (!model1.menuOpen) {
-                model1.menuOpen = true;
-                g.add(menu);
-            } else if (model1.menuOpen) {
-                model1.menuOpen = false;
-                g.remove(menu);
+            if (!model.menuOpen) {
+                model.menuOpen = true;
+                g.add(model.carouselMenu);
+            } else if (model.menuOpen) {
+                model.menuOpen = false;
+                g.remove(model.carouselMenu);
             }
         }
         this.revalidate();
