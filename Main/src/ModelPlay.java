@@ -29,7 +29,7 @@ public class ModelPlay {
   }
   
   public void down(int n) {
-   this.support.firePropertyChange("Note Move", null, this.current.getLocation().getY()+n);
+   //this.support.firePropertyChange("Note Move", null, this.current.getLocation().getY()+n);
   }
 }
 
