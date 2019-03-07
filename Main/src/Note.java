@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-
-=======
->>>>>>> f63706832fb9ff2112d6a5b9f3330008410c3254
 public class Note {
 
   private int colour;

@@ -33,6 +33,7 @@ public class CarouselMenu extends JLayeredPane implements PropertyChangeListener
     this.revalidate();
   }
 
+  //Constructor used if no buttons array is available
   public CarouselMenu(int xPos, int yPos) {
     this.buttons = getEmptyButtons();
     this.xPos = xPos;
@@ -47,7 +48,7 @@ public class CarouselMenu extends JLayeredPane implements PropertyChangeListener
     this.addButtons();
     this.revalidate();
   }
-
+  // Returns 5 CarouselButtons with the exit image.
   public CarouselButton[] getEmptyButtons() {
     CarouselButton[] buttons = new CarouselButton[5];
     for (int i = 0; i < 5; i++) {
@@ -61,6 +62,7 @@ public class CarouselMenu extends JLayeredPane implements PropertyChangeListener
     return buttons;
   }
 
+  // Cycle the carousel to the right
   public void cycleRight() {
     CarouselButton last = buttons[buttons.length-1];
     System.arraycopy(buttons, 0, buttons, 1, buttons.length-1 );
@@ -68,6 +70,7 @@ public class CarouselMenu extends JLayeredPane implements PropertyChangeListener
     this.addButtons();
   }
 
+  // Cycle the carousel to the left
   public void cycleLeft() {
     CarouselButton first = buttons[0];
     System.arraycopy(buttons, 1, buttons, 0, buttons.length-1 );
@@ -83,6 +86,7 @@ public class CarouselMenu extends JLayeredPane implements PropertyChangeListener
     this.buttons = buttons;
   }
 
+  // This method draws the menu surrounding the carousel items, including the arrows.
   @Override
   public void paintComponent(Graphics g) {
     super.paintComponent(g);
@@ -123,6 +127,7 @@ public class CarouselMenu extends JLayeredPane implements PropertyChangeListener
     }
   }
 
+  // Listen for propertyChange events
   @Override
   public void propertyChange(PropertyChangeEvent evt) {
     //assuming change in carousel items order

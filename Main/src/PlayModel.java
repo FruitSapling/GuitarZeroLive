@@ -1,11 +1,12 @@
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
-import java.util.ConcurrentModificationException;
 import java.util.Random;
 
 /**
  * @author Tom
+ * Contributed to by:
+ * Willem - Planned the PlayModel structure (following MVC) with Tom, and did some pair programming.
  */
 public class PlayModel {
 

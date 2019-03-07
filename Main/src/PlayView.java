@@ -6,6 +6,8 @@ import javax.swing.JFrame;
 
 /**
  * @author Tom
+ * Contributed to by:
+ * Willem - Planned the Play mode MVC with Tom, and did some pair programming.
  */
 public class PlayView extends JFrame implements PropertyChangeListener {
 
