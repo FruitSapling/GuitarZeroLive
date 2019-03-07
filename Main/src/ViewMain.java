@@ -14,9 +14,6 @@ import javax.swing.*;
  */
 public class ViewMain extends JFrame implements PropertyChangeListener {
 
-  public static final int w = 750;
-  public static final int h = 1000;
-
   private ModelMain model1;
   private ControllerMain controller;
   private GuitarButtonController gbController;
@@ -32,10 +29,10 @@ public class ViewMain extends JFrame implements PropertyChangeListener {
     this.controller = controller;
     this.gbController = gbController;
 
-    this.g = new guitar(w,h);
+    this.g = new guitar(Constants.w,Constants.h);
 
     this.panel = new JPanel();
-    this.panel.setPreferredSize(new Dimension(w,h));
+    this.panel.setPreferredSize(new Dimension(Constants.w,Constants.h));
 
     CarouselButton[] buttons = setMenu(this);
     this.menu = new CarouselMenu(buttons, 20, 400);

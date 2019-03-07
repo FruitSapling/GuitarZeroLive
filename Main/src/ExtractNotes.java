@@ -45,12 +45,12 @@ public class ExtractNotes{
       System.exit(1);
     }
 
-    System.out.println(seq.getTracks().length);
+    //playBackingTrack("AllTheSmallThings");
+
     Guitar leadGuitar = findLeadGuitar(findAllGuitars(seq));
     guitarTrack = leadGuitar.getTrackNumber();
-    System.out.println("The lead guitar is: " + leadGuitar.getInstrumentNumber() + ", on track " + leadGuitar.getTrackNumber() + ", channel " + leadGuitar.getChannelNumber());
-    convertMidiToNotes(seq, leadGuitar.getInstrumentNumber());
-    playWithoutGuitar(leadGuitar);
+    //convertMidiToNotes(seq, leadGuitar.getInstrumentNumber());
+    playGuitar(leadGuitar);
   }
 
   /**
@@ -306,7 +306,73 @@ public class ExtractNotes{
     return guitarsInTracks;
   }
 
-  public static void playWithoutGuitar(Guitar leadGuitar){
+  public static void playBackingTrack(String filename){
+    try{
+      seq = MidiSystem.getSequence(new File( "Main/src/" + filename + ".mid"));
+    } catch (Exception e){
+      e.printStackTrace();
+      System.exit(1);
+    }
+    Guitar leadGuitar = findLeadGuitar(findAllGuitars(seq));
+    guitarTrack = leadGuitar.getTrackNumber();
+
+    try {
+      final Sequencer sequen = MidiSystem.getSequencer();
+      final Transmitter trans  = sequen.getTransmitter();
+
+      sequen.open();
+
+      sequen.setSequence( MidiSystem.getSequence( new File( "Main/src/" + filename + ".mid" ) ) );
+      sequen.setTrackMute(leadGuitar.getTrackNumber(), true);
+
+      sequen.addMetaEventListener( new MetaEventListener() {
+        public void meta( MetaMessage mesg ) {
+          if ( mesg.getType() == 0x2F /* end-of-track */ ) {
+            sequen.close();
+          }
+        }
+      });
+      sequen.start();
+    } catch ( Exception exn ) {
+      System.out.println( exn );
+      System.exit( 1 );
+    }
+  }
+
+  public static void playSoloGuitar(String filename){
+    try{
+      seq = MidiSystem.getSequence(new File( "Main/src/" + filename + ".mid"));
+    } catch (Exception e){
+      e.printStackTrace();
+      System.exit(1);
+    }
+    Guitar leadGuitar = findLeadGuitar(findAllGuitars(seq));
+    guitarTrack = leadGuitar.getTrackNumber();
+
+    try {
+      final Sequencer sequen = MidiSystem.getSequencer();
+      final Transmitter trans  = sequen.getTransmitter();
+
+      sequen.open();
+
+      sequen.setSequence( MidiSystem.getSequence( new File( "Main/src/" + filename + ".mid" ) ) );
+      sequen.setTrackSolo(leadGuitar.getTrackNumber(), true);
+
+      sequen.addMetaEventListener( new MetaEventListener() {
+        public void meta( MetaMessage mesg ) {
+          if ( mesg.getType() == 0x2F /* end-of-track */ ) {
+            sequen.close();
+          }
+        }
+      });
+      sequen.start();
+    } catch ( Exception exn ) {
+      System.out.println( exn );
+      System.exit( 1 );
+    }
+  }
+
+  public static void playGuitar(Guitar leadGuitar){
     try {
       final Sequencer sequen = MidiSystem.getSequencer();
       final Transmitter trans  = sequen.getTransmitter();

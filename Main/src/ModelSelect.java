@@ -1,6 +1,6 @@
 /**
- * @author Morgan
- * Skeleton code of ModelMain used to create class
+ * @author Tom
+ * Refactored for Select Mode from Slash Mode by @Morgan
  */
 
 import java.beans.PropertyChangeListener;

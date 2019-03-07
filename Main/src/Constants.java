@@ -18,6 +18,9 @@ public class Constants {
     public static int       FirstGuitar = 25;
     public static int       LastGuitar = 38;
 
+    public static int       w = 750;
+    public static int       h = 1000;
+
     public static int GUITAR_POLL_DELAY = 50;
     public static HashMap<Integer, GuitarButton> INDEX_TO_BUTTON = new HashMap<Integer, GuitarButton>() {{
         put(0, GuitarButton.FRET_4);
