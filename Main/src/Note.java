@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 
+=======
+>>>>>>> f63706832fb9ff2112d6a5b9f3330008410c3254
 public class Note {
 
   private int colour;
@@ -17,6 +20,9 @@ public class Note {
 
   public int getY() {
     return this.y;
+  }
+  public void setY(int y) {
+    this.y = y;
   }
 
   public int getColour() {

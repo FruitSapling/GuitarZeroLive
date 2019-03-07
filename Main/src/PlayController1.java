@@ -17,8 +17,9 @@ public class PlayController1 {
       public void run() {
         model.fireNotes();
         model.move();
+        model.flip();
       }
-    }, 0 , 70);
+    }, 0 , 10);
   }
 
 }
