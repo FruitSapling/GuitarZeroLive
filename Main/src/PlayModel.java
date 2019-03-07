@@ -10,10 +10,10 @@ public class PlayModel {
 
   private PropertyChangeSupport support;
 
-  private Note current;
+  private NoteWhite current;
 
   public PlayModel() {
-    this.current = Note.pick(new Point(100, 100), "A");
+    this.current = new NoteWhite(new Point(0, 100));
     this.support = new PropertyChangeSupport(this);
     this.drop();
   }

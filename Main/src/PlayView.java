@@ -1,3 +1,4 @@
+import java.awt.GridLayout;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import javax.swing.JFrame;
@@ -12,6 +13,7 @@ public class PlayView extends JFrame implements PropertyChangeListener {
   private PlayModel model;
 
   private ViewMain.guitar guitar;
+  private JPanel jp1,jp2,jp3;
 
   public PlayView(PlayModel model) {
     this.model = model;
@@ -19,6 +21,18 @@ public class PlayView extends JFrame implements PropertyChangeListener {
 
     this.guitar = new ViewMain.guitar(ViewMain.w, ViewMain.h);
     this.guitar.setOpaque(false);
+    this.guitar.setLayout(new GridLayout(1,3));
+
+    this.jp1 = new JPanel();
+    this.jp2 = new JPanel();
+    this.jp3 = new JPanel();
+    this.jp1.setOpaque(false);
+    this.jp2.setOpaque(false);
+    this.jp3.setOpaque(false);
+
+    this.guitar.add(jp1);
+    this.guitar.add(jp2);
+    this.guitar.add(jp3);
 
     this.add(this.guitar);
     this.pack();
@@ -29,12 +43,12 @@ public class PlayView extends JFrame implements PropertyChangeListener {
 
   public void propertyChange(PropertyChangeEvent pce) {
     if(pce.getPropertyName().equals("Note Move")) {
-      Note note = (Note) pce.getNewValue();
-      System.out.println(note.getLocation().getY());
+      //Note note = (Note) pce.getNewValue();
+      //System.out.println(note.getLocation().getY());
     } else if(pce.getPropertyName().equals("New Note")) {
-      Note note = (Note)pce.getNewValue();
-      note.setLocation(note.getLocation());
-      this.guitar.add(note);
+      NoteWhite note = (NoteWhite)pce.getNewValue();
+      //note.setLocation(note.getLocation());
+      this.jp1.add(note);
       this.revalidate();
       this.repaint();
       this.pack();

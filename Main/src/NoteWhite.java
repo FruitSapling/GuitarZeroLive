@@ -5,10 +5,13 @@ import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javax.imageio.ImageIO;
+import javax.swing.JLayeredPane;
 
-public class NoteWhite extends Note {
+public class NoteWhite extends JLayeredPane {
 
   private BufferedImage bi;
+
+  private Point location;
 
   public NoteWhite(Point pt) {
     this.location = pt;
