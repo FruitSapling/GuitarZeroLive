@@ -41,6 +41,9 @@ public class FileZipper {
   }
 
 
+  /*
+  * Method to retrieve all the zip files in  the folder location.
+  */
   public static File[] getZippedFiles(String location) {
     FileFilter filter = (pathname) -> pathname.getPath().endsWith(".zip");
     File[] zippedFolders = new File(location).listFiles(filter);
@@ -81,12 +84,13 @@ public class FileZipper {
       System.err.println("I/O error: " + e);
     }
 
-    System.out.println("YAY");
+    System.out.println("Success");
   }
 
 
   /*
    * Method to zip all the files from the 'files' array into a compressed format and return the '.zip' file.
+   * Needed to be seperate to other zipping method as different usage.
    */
   public File zipFiles() {
     File firstFile = null;
@@ -123,7 +127,7 @@ public class FileZipper {
    *   - The files array is of length 3.
    *   - The first file is PNG.
    *   - The second is a MIDI.
-   *   - The first file is PNG.
+   *   - The first file is TXT.
    */
   public static boolean validateFiles(ArrayList<File> files) throws FileSystemException {
     int ARRAYLENGTH = 3;
@@ -145,6 +149,5 @@ public class FileZipper {
     }
     return true;
   }
-
 
 }
