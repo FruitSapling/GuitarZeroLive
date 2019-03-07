@@ -5,10 +5,6 @@
 import java.awt.Dimension;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.io.File;
-import java.nio.file.Files;
-import java.util.ArrayList;
-import java.util.Arrays;
 import javax.swing.*;
 
 public class ViewSelect extends JFrame implements PropertyChangeListener {
@@ -48,8 +44,6 @@ public class ViewSelect extends JFrame implements PropertyChangeListener {
         this.pack();
         this.setVisible(true);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-
-        inputAllFilesTest();
     }
 
     public void propertyChange(PropertyChangeEvent pce) {
@@ -69,12 +63,6 @@ public class ViewSelect extends JFrame implements PropertyChangeListener {
 
 
     public CarouselButton[] setMenu(JFrame frame) {
-        ArrayList<File> list = inputAllFiles();
-
-
-
-
-
         //TODO: Make Select Mode actually select mode
         CarouselButton[] buttons = new CarouselButton[5];
         for (int i = 0; i < 5; i++) {
@@ -84,36 +72,4 @@ public class ViewSelect extends JFrame implements PropertyChangeListener {
         }
         return buttons;
     }
-
-    public ArrayList<File> inputAllFiles() {
-        File folder = new File(Constants.ZIP_FILE_PATH + "/");
-        ArrayList<File> list = new ArrayList<File>(Arrays.asList(folder.listFiles()));
-
-        for (int i = 0; i < list.size(); i++) {
-            int index = list.get(i).getName().lastIndexOf('.');
-            if (list.get(i).getName().substring(index + 1) != "zip") {
-                list.remove(i);
-            }
-        }
-        return list;
-    }
-
-    public void inputAllFilesTest() {
-        File folder = new File(Constants.ZIP_FILE_PATH + "/");
-        File[] list = folder.listFiles();
-        int count = 0;
-        for (int i = 0; i < list.length; i++){
-            if (list[i] != null){
-                count++;
-            }
-        }
-        System.out.println(count);
-
-        for (File file : list) {
-            if (file.isFile()) {
-                System.out.println(file.getName());
-            }
-        }
-    }
-
 }

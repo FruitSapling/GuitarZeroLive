@@ -1,8 +1,3 @@
-/*
-* Class that is run as a thread to create a connection to a client.
-* @author Mark Newell
-*/
-
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
@@ -16,6 +11,7 @@ import java.net.Socket;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Arrays;
+import java.util.zip.ZipInputStream;
 
 public class ConnectionThread implements Runnable {
   private Socket client;
@@ -58,11 +54,6 @@ public class ConnectionThread implements Runnable {
 
 
 
-  /*
-  * Method to retrieve the next files from the client,
-  * Deprecated so maybe not needed.
-  */
-  @Deprecated
   private File receiveFile() {
     File outputFile = new File(Paths.get(dir.getName(),"src.zip").toString());
 

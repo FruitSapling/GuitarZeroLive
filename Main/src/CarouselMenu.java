@@ -1,3 +1,9 @@
+/*
+  CarouselMenu is a class, intended as a pluggable component to show a carousel menu.
+ */
+
+/* Primary Class Developer: Willem van Gerwen */
+
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -9,10 +15,6 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import javax.swing.JLayeredPane;
 
-/**
- * @author Willem
- *
- */
 public class CarouselMenu extends JLayeredPane implements PropertyChangeListener {
 
   public CarouselButton[] buttons;

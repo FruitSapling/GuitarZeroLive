@@ -15,11 +15,9 @@ public class PlayController1 {
 
     timer.schedule(new TimerTask() {
       public void run() {
-        model.fireNotes();
-        model.move();
-        model.flip();
+        model.drop();
       }
-    }, 0 , 10);
+    }, 0 , 1000);
   }
 
 }

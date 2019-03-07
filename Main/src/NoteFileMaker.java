@@ -38,7 +38,6 @@ public class NoteFileMaker {
       // write track guitar is played on at top of the file
     } catch (IOException e) {
       e.printStackTrace();
-      System.exit(1);
     }
   }
 
@@ -55,7 +54,6 @@ public class NoteFileMaker {
       this.bw.close();
     } catch (IOException e) {
       e.printStackTrace();
-      System.exit(1);
     }
   }
 }

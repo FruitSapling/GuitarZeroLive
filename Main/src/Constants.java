@@ -13,8 +13,6 @@ public class Constants {
     public static int       CAROUSEL_MENU_HEIGHT = 192;
     public static String    GUITAR_HERO = "Guitar Hero";
 
-    public static String    ZIP_FILE_PATH = "Music";
-
     public static int       FirstGuitar = 25;
     public static int       LastGuitar = 38;
 

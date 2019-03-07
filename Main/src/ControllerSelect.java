@@ -3,6 +3,9 @@
  * Skeleton code of ControllerMain used to create class
  */
 
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -32,4 +35,28 @@ public class ControllerSelect implements KeyListener {
         }
     }
 
+    /**
+     * @Author Morgan
+     */
+    public static class CarouselHandlerSelect implements ActionListener {
+        private JFrame frame;
+        private CarouselButton button;
+        private GuitarButtonController gbController;
+
+        public CarouselHandlerSelect(CarouselButton button, JFrame frame) {
+            this.button = button;
+            this.frame = frame;
+        }
+
+        public CarouselHandlerSelect(CarouselButton button, JFrame frame, GuitarButtonController gbController) {
+            this.button = button;
+            this.frame = frame;
+            this.gbController = gbController;
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            //TODO: Select Mode Handling
+        }
+    }
 }

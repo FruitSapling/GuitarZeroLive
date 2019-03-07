@@ -19,18 +19,18 @@ public class ViewMain extends JFrame implements PropertyChangeListener {
 
   private ModelMain model1;
   private ControllerMain controller;
-  private GuitarButtonController gbController;
+  private GuitarButtonController controller2;
 
   private JPanel panel;
 
   private guitar g;
   private CarouselMenu menu;
 
-  public ViewMain(ModelMain model1, ControllerMain controller, GuitarButtonController gbController) {
+  public ViewMain(ModelMain model1, ControllerMain controller, GuitarButtonController controller2) {
     this.model1 = model1;
     this.model1.addPropertyChangeListener(this);
     this.controller = controller;
-    this.gbController = gbController;
+    this.controller2 = controller2;
 
     this.g = new guitar(w,h);
 
@@ -44,7 +44,7 @@ public class ViewMain extends JFrame implements PropertyChangeListener {
     this.panel.add(g);
 
     this.addKeyListener(controller);
-    this.addKeyListener(gbController);
+    this.addKeyListener(controller2);
 
     this.add(panel);
     this.pack();
@@ -81,10 +81,10 @@ public class ViewMain extends JFrame implements PropertyChangeListener {
       g2.setColor(Color.DARK_GRAY);
 
       Polygon board = new Polygon();
-      board.addPoint(0, 0);
-      board.addPoint(0, getHeight());
-      board.addPoint(getWidth(), getHeight());
-      board.addPoint(getWidth(), 0);
+      board.addPoint(100, 0);
+      board.addPoint(100, getHeight());
+      board.addPoint(getWidth()-100, getHeight());
+      board.addPoint(getWidth()-100, 0);
       g2.setClip(board);
       g2.fillPolygon(board);
 
@@ -98,11 +98,11 @@ public class ViewMain extends JFrame implements PropertyChangeListener {
       g2.fillRect(0, 600, getWidth(), 50);
 
       g2.setColor(Color.WHITE);
-      g2.drawLine(125, 0, 125, getHeight());
+      g2.drawLine(200, 0, 200, getHeight());
       g2.setColor(Color.GREEN);
       g2.drawLine(375, 0, 375, getHeight());
       g2.setColor(Color.BLUE);
-      g2.drawLine(624, 0, 624, getHeight());
+      g2.drawLine(550, 0, 550, getHeight());
 
 
       g2.setClip(null);
@@ -113,42 +113,29 @@ public class ViewMain extends JFrame implements PropertyChangeListener {
     CarouselButton[] buttons = new CarouselButton[5];
 
     buttons[0] = new CarouselButton(Constants.EXIT_IMAGE_PATH, "Exit") {
-      @Override public void onClick() {
-        System.exit(0);
-      }
+      @Override public void onClick() { }
     };
+    buttons[0].addActionListener(new ControllerMain.CarouselHandlerMain(buttons[0], frame));
 
     buttons[1] = new CarouselButton(Constants.SELECT_IMAGE_PATH, "Select") {
-      @Override public void onClick() {
-        frame.dispose();
-        ModelSelect model = new ModelSelect();
-        ControllerSelect controller = new ControllerSelect(model);
-        new ViewSelect(model, controller, gbController);
-      }
+      @Override public void onClick() { }
     };
+    buttons[1].addActionListener(new ControllerMain.CarouselHandlerMain(buttons[1], frame, controller2));
 
     buttons[2] = new CarouselButton(Constants.PLAY_IMAGE_PATH, "Play") {
-      @Override public void onClick() {
-        frame.dispose();
-        PlayModel model = new PlayModel();
-        PlayController1 controller = new PlayController1(model);
-        PlayController2 controller2 = new PlayController2(model);
-        new PlayView(model, controller2);
-      }
+      @Override public void onClick() { }
     };
+    buttons[2].addActionListener(new ControllerMain.CarouselHandlerMain(buttons[1], frame, controller2));
 
     buttons[3] = new CarouselButton(Constants.STORE_IMAGE_PATH, "Store") {
-      @Override public void onClick() {
-        frame.dispose();
-        ModelStore model = new ModelStore();
-        ControllerStore controller = new ControllerStore(model);
-        new ViewStore(model, controller, gbController);
-      }
+      @Override public void onClick() { }
     };
+    buttons[3].addActionListener(new ControllerMain.CarouselHandlerMain(buttons[1], frame, controller2));
 
     buttons[4] = new CarouselButton(Constants.TUTORIAL_IMAGE_PATH, "Tutorial") {
       @Override public void onClick() { }
     };
+    buttons[4].addActionListener(new ControllerMain.CarouselHandlerMain(buttons[1], frame, controller2));
 
     return buttons;
   }

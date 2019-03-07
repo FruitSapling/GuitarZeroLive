@@ -1,3 +1,4 @@
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
@@ -9,10 +10,8 @@ import java.io.OutputStream;
 import java.net.Socket;
 import java.nio.file.Paths;
 
-/**
- *
- * @author Mark
- */
+
+
 public class Client {
   public Socket socket = null;
   private String ip;
@@ -36,7 +35,6 @@ public class Client {
         this.socket = new Socket(ip, port);
       } catch (IOException e) {
         System.out.println("Error connecting to server: " + e.getMessage());
-        System.exit(1);
       }
     }
     else {
@@ -73,7 +71,6 @@ public class Client {
     }
     catch (IOException e) {
       System.out.println("Error sending file: " + e);
-      System.exit(1);
     }
   }
 
@@ -111,7 +108,6 @@ public class Client {
     }
     catch (IOException e) {
       e.printStackTrace();
-      System.exit(1);
     }
     return outputFile;
   }
