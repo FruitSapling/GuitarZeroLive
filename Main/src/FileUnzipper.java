@@ -48,6 +48,7 @@ public class FileUnzipper {
       }
       catch (IOException e) {
         System.out.println(e.getMessage());
+        System.exit(1);
       }
       return null;
     }

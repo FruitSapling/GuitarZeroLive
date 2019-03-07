@@ -1,8 +1,8 @@
+import java.awt.GridLayout;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.OverlayLayout;
 
 /**
  * @author Tom
@@ -10,15 +10,31 @@ import javax.swing.OverlayLayout;
 public class PlayView extends JFrame implements PropertyChangeListener {
 
   private PlayModel model;
+  private PlayController2 controller;
 
   private ViewMain.guitar guitar;
+  private LanePanel jp1,jp2,jp3;
 
-  public PlayView(PlayModel model) {
+  public PlayView(PlayModel model, PlayController2 controller) {
+    this.controller = controller;
+    this.addKeyListener(controller);
+
     this.model = model;
     this.model.addPropertyChangeListener(this);
+    this.model.testFill(50);
 
     this.guitar = new ViewMain.guitar(ViewMain.w, ViewMain.h);
     this.guitar.setOpaque(false);
+    this.guitar.setLayout(new GridLayout(1,3));
+
+    ArrayList<Note> blank = new ArrayList<>();
+    this.jp1 = new LanePanel(blank,0);
+    this.jp2 = new LanePanel(blank,1);
+    this.jp3 = new LanePanel(blank,2);
+
+    this.guitar.add(jp1);
+    this.guitar.add(jp2);
+    this.guitar.add(jp3);
 
     this.add(this.guitar);
     this.pack();
@@ -28,24 +44,20 @@ public class PlayView extends JFrame implements PropertyChangeListener {
   }
 
   public void propertyChange(PropertyChangeEvent pce) {
-    if(pce.getPropertyName().equals("Note Move")) {
-      Note note = (Note) pce.getNewValue();
-      System.out.println(note.getLocation().getY());
-    } else if(pce.getPropertyName().equals("New Note")) {
-      Note note = (Note)pce.getNewValue();
-      note.setLocation(note.getLocation());
-      this.guitar.add(note);
-      this.revalidate();
-      this.repaint();
-      this.pack();
-      System.out.println("Moved?");
-    }
+    this.jp1.setNotes((ArrayList<Note>)pce.getNewValue());
+    this.jp2.setNotes((ArrayList<Note>)pce.getNewValue());
+    this.jp3.setNotes((ArrayList<Note>)pce.getNewValue());
+
+    this.revalidate();
+    this.repaint();
+    this.pack();
   }
 
   public static void main(String[] args) {
     PlayModel mp = new PlayModel();
+    PlayController2 cp2 = new PlayController2(mp);
+    PlayView vp = new PlayView(mp,cp2);
     PlayController1 cp = new PlayController1(mp);
-    PlayView vp = new PlayView(mp);
   }
 
 }
