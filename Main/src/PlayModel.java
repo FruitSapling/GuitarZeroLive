@@ -2,6 +2,8 @@ import java.awt.Point;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
+import java.util.Random;
 
 /**
  * @author Tom
@@ -10,24 +12,48 @@ public class PlayModel {
 
   private PropertyChangeSupport support;
 
-  private Note current;
+  private ArrayList<Note> current;
 
   public PlayModel() {
-    this.current = Note.pick(new Point(100, 100), "A");
+    this.current = new ArrayList<>();
     this.support = new PropertyChangeSupport(this);
-    this.drop();
   }
 
   public void addPropertyChangeListener(PropertyChangeListener pcl) {
     this.support.addPropertyChangeListener(pcl);
   }
 
-  public void drop() {
-    this.support.firePropertyChange("New Note", null, this.current);
+  public void testFill(int n) {
+    Random rand = new Random();
+    for(int i = 0; i < n; i++) {
+      current.add(new Note(rand.nextInt(3), rand.nextInt(500), rand.nextInt(2)));
+    }
   }
-  
-  public void down(int n) {
-   //this.support.firePropertyChange("Note Move", null, this.current.getLocation().getY()+n);
+
+  public void move() {
+    for(Note n : this.current) {
+      n.move();
+    }
   }
+
+  public void fireNotes() {
+    support.firePropertyChange("Notes", null, this.current);
+  }
+
+  public void strum() {
+    for(Note n : this.current) {
+      if(n.getY() > 600 && n.getY() < 650) {
+        this.current.remove(n);
+      }
+    }
+  }
+  public void flip() {
+    for(Note n : this.current) {
+      if(n.getY() == ViewMain.h) {
+        n.setY(0);
+      }
+    }
+  }
+
 }
 

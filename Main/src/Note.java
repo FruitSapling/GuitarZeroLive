@@ -1,40 +1,31 @@
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Point;
-import javax.swing.JButton;
-import javax.swing.JLayeredPane;
-import javax.swing.JPanel;
+public class Note {
 
-abstract class Note extends JLayeredPane {
+  private int colour;
+  private int lane;
+  private int y;
 
-  protected Point location;
-
-  public static Note pick(Point pt, String note) {
-    switch(note) {
-      case "A":
-        return new NoteWhite(pt);
-      case "B":
-        return new NoteWhite(pt);
-      case "C":
-        return new NoteWhite(pt);
-      case "D":
-        return new NoteBlack(pt);
-      case "E":
-        return new NoteBlack(pt);
-      case "F":
-        return new NoteBlack(pt);
-    }
-    return null;
+  public Note(int lane, int y, int colour) {
+    this.lane = lane;
+    this.y = y;
+    this.colour = colour;
   }
 
-  public Point getLocation() {
-    return this.location;
+  public int getLane() {
+    return this.lane;
   }
 
-  public void move(int n) {
-    location = new Point(location.x, location.y + n);
+  public int getY() {
+    return this.y;
+  }
+  public void setY(int y) {
+    this.y = y;
   }
 
-  public abstract Color color();
+  public int getColour() {
+    return this.colour;
+  }
+
+  public void move() {
+    this.y = this.y + 1;
+  }
 }

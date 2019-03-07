@@ -27,6 +27,7 @@ public class FileZipper {
         }
         catch (FileSystemException e) {
             System.out.println(e.getMessage());
+            System.exit(1);
         }
         if (valid == true) {
             zipFiles(fileList);
@@ -63,6 +64,7 @@ public class FileZipper {
 
         } catch (IOException e) {
             System.err.println("I/O error: " + e);
+            System.exit(1);
         }
 
         System.out.println("YAY");

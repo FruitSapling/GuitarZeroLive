@@ -5,10 +5,13 @@ import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javax.imageio.ImageIO;
+import javax.swing.JLayeredPane;
 
-public class NoteWhite extends Note {
+public class NoteWhite extends JLayeredPane {
 
   private BufferedImage bi;
+
+  private Point location;
 
   public NoteWhite(Point pt) {
     this.location = pt;
@@ -16,7 +19,8 @@ public class NoteWhite extends Note {
     try {
       this.bi = ImageIO.read(getClass().getResource("resources/pick.png"));
     }catch(IOException e) {
-
+      System.out.println("Could not find pick image");
+      System.exit(1);
     }
   }
 

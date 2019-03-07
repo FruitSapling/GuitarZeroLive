@@ -1,13 +1,17 @@
-/* Primary Class Developer: Willem van Gerwen */
-
 import java.util.ArrayList;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+/**
+ * A 'controller' in the MVC design pattern, manipulating the model when
+ * sending guitar button presses and key presses.
+ *
+ * @author Willem
+ */
 public class GuitarButtonController implements GuitarButtonListener, KeyListener {
 
   private ModelMain model;
-  public final ArrayList<GuitarButtonListener> listeners = new ArrayList<GuitarButtonListener>();
+  public final ArrayList<GuitarButtonListener> listeners = new ArrayList<>();
   GuitarPoller guitarPoller;
 
   public GuitarButtonController(ModelMain model) {
@@ -22,13 +26,14 @@ public class GuitarButtonController implements GuitarButtonListener, KeyListener
     switch(e.getGuitarButton()) {
       case STRUM:
         if (e.getValue() == 1.0) {
-
+          cycleCarouselRight();
         } else {
-
+          cycleCarouselLeft();
         }
         break;
       case ZERO_POWER:
-        //select mode
+        selectMode();
+        break;
     }
   }
 
@@ -55,6 +60,18 @@ public class GuitarButtonController implements GuitarButtonListener, KeyListener
     }
   }
 
+  public void cycleCarouselRight() {
+    model.cycleCarouselRight();
+  }
+
+  public void cycleCarouselLeft() {
+    model.cycleCarouselLeft();
+  }
+
+  public void selectMode() {
+    model.selectMode();
+  }
+
   @Override
   public void keyTyped(KeyEvent e) {
 
@@ -63,11 +80,11 @@ public class GuitarButtonController implements GuitarButtonListener, KeyListener
   @Override
   public void keyPressed(KeyEvent e) {
     if(e.getKeyChar() == 'e') {
-      model.cycleCarouselRight();
+      cycleCarouselRight();
     }else if(e.getKeyChar() == 'd') {
-      model.cycleCarouselLeft();
+      cycleCarouselLeft();
     }else if(e.getKeyChar() == KeyEvent.VK_ENTER) {
-      model.selectMode();
+      selectMode();
     }
   }
 
