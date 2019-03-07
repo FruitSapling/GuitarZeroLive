@@ -6,13 +6,13 @@ import java.util.ArrayList;
 /**
  * @author Tom
  */
-public class ModelPlay {
+public class PlayModel {
 
   private PropertyChangeSupport support;
 
   private ArrayList<Note> current;
 
-  public ModelPlay() {
+  public PlayModel() {
     for(int i = 0; i < 10; i++) {
       this.current.add(Note.pick(new Point(200, 100), "A"));
     }

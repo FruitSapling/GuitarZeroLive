@@ -7,15 +7,15 @@ import javax.swing.JPanel;
 /**
  * @author Tom
  */
-public class ViewPlay extends JFrame implements PropertyChangeListener {
+public class PlayView extends JFrame implements PropertyChangeListener {
 
-  private ModelPlay model;
+  private PlayModel model;
 
   private ViewMain.guitar guitar;
 
   private JPanel panel;
 
-  public ViewPlay(ModelPlay model) {
+  public PlayView(PlayModel model) {
     this.model = model;
     this.model.addPropertyChangeListener(this);
 
@@ -44,9 +44,9 @@ public class ViewPlay extends JFrame implements PropertyChangeListener {
   }
 
   public static void main(String[] args) {
-    ModelPlay mp = new ModelPlay();
-    ControllerPlay cp = new ControllerPlay(mp);
-    ViewPlay vp = new ViewPlay(mp);
+    PlayModel mp = new PlayModel();
+    PlayController1 cp = new PlayController1(mp);
+    PlayView vp = new PlayView(mp);
   }
 
 }

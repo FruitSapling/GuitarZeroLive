@@ -4,12 +4,12 @@ import java.util.TimerTask;
 /**
  * @author Tom
  */
-public class ControllerPlay {
+public class PlayController1 {
 
-  private ModelPlay model;
+  private PlayModel model;
   private Timer timer;
 
-  public ControllerPlay(ModelPlay model) {
+  public PlayController1(PlayModel model) {
     this.model = model;
     this.timer = new Timer();
 
