@@ -5,13 +5,13 @@
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
-public class ModelStore {
+public class StoreModel {
     public boolean menuOpen;
 
     private PropertyChangeSupport support;
     public CarouselMenu carouselMenu;
 
-    public ModelStore() {
+    public StoreModel() {
         this.support = new PropertyChangeSupport(this);
         support.addPropertyChangeListener(carouselMenu);
     }

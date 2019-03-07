@@ -7,24 +7,24 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import javax.swing.*;
 
-public class ViewStore extends JFrame implements PropertyChangeListener {
+public class StoreView extends JFrame implements PropertyChangeListener {
 
-    private ModelStore model1;
-    private ControllerStore controller;
+    private StoreModel model1;
+    private StoreController controller;
     private GuitarButtonController controller2;
 
     private JPanel panel;
 
-    private ViewMain.guitar g;
+    private MainView.guitar g;
     private CarouselMenu menu;
 
-    public ViewStore(ModelStore model1, ControllerStore controller, GuitarButtonController controller2) {
+    public StoreView(StoreModel model1, StoreController controller, GuitarButtonController controller2) {
         this.model1 = model1;
         this.model1.addPropertyChangeListener(this);
         this.controller = controller;
         this.controller2 = controller2;
 
-        this.g = new ViewMain.guitar(Constants.w,Constants.h);
+        this.g = new MainView.guitar(Constants.w,Constants.h);
 
         this.panel = new JPanel();
         this.panel.setPreferredSize(new Dimension(Constants.w,Constants.h));

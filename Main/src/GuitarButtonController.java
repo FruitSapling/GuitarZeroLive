@@ -10,11 +10,11 @@ import java.awt.event.KeyListener;
  */
 public class GuitarButtonController implements GuitarButtonListener, KeyListener {
 
-  private ModelMain model;
+  private MainModel model;
   public final ArrayList<GuitarButtonListener> listeners = new ArrayList<>();
   GuitarPoller guitarPoller;
 
-  public GuitarButtonController(ModelMain model) {
+  public GuitarButtonController(MainModel model) {
     this.model = model;
     guitarPoller = new GuitarPoller(this);
     Thread t = new Thread(new GuitarPoller(this));

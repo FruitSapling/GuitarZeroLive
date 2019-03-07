@@ -6,13 +6,13 @@
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
-public class ModelSelect {
+public class SelectModel {
     public boolean menuOpen;
 
     private PropertyChangeSupport support;
     public CarouselMenu carouselMenu;
 
-    public ModelSelect() {
+    public SelectModel() {
         this.support = new PropertyChangeSupport(this);
         support.addPropertyChangeListener(carouselMenu);
     }
