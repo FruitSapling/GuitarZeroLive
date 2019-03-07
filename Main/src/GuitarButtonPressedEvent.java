@@ -1,5 +1,9 @@
-/* Primary Class Developer: Willem van Gerwen */
-
+/**
+ * A custom event class representing a guitar button press
+ *
+ * @author Willem
+ *
+ */
 public class GuitarButtonPressedEvent extends java.util.EventObject {
 
     private GuitarButton guitarButton;

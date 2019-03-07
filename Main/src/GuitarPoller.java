@@ -1,10 +1,15 @@
-/* Primary Class Developer: Willem van Gerwen */
-
 import net.java.games.input.Component;
 import net.java.games.input.Controller;
 import net.java.games.input.ControllerEnvironment;
 
-
+/**
+ * A class to generate guitar button press events.
+ * This class polls the guitar with a while-loop, and when it detects a button press
+ * in the guitar, it generates this event and tells controller to fire an event.
+ *
+ * @author Willem
+ *
+ */
 public class GuitarPoller implements Runnable {
 
     private float MIN_BTN_VALUE = 0.05f;
@@ -67,11 +72,6 @@ public class GuitarPoller implements Runnable {
                     float value = cmps[ i ].getPollData();
                     vals[i] = value;
                 }
-
-//                for (int i = 0; i < cmps.length; i++) {
-//                    System.out.println(i + " is " + vals[i]);
-//                }
-
                 //generate events for any binary buttons being pressed
                 for (int i: Constants.binaryButtonsIndices) {
                     if (vals[i] == 1.0 && prevVals[i] == 0.0) {
