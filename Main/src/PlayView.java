@@ -1,3 +1,4 @@
+import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -23,12 +24,9 @@ public class PlayView extends JFrame implements PropertyChangeListener {
     this.guitar.setOpaque(false);
     this.guitar.setLayout(new GridLayout(1,3));
 
-    this.jp1 = new JPanel();
-    this.jp2 = new JPanel();
-    this.jp3 = new JPanel();
-    this.jp1.setOpaque(false);
-    this.jp2.setOpaque(false);
-    this.jp3.setOpaque(false);
+    this.jp1 = new LanePanel();
+    this.jp2 = new LanePanel();
+    this.jp3 = new LanePanel();
 
     this.guitar.add(jp1);
     this.guitar.add(jp2);
@@ -48,7 +46,7 @@ public class PlayView extends JFrame implements PropertyChangeListener {
     } else if(pce.getPropertyName().equals("New Note")) {
       NoteWhite note = (NoteWhite)pce.getNewValue();
       //note.setLocation(note.getLocation());
-      this.jp1.add(note);
+      //this.jp1.add(note);
       this.revalidate();
       this.repaint();
       this.pack();
@@ -60,6 +58,15 @@ public class PlayView extends JFrame implements PropertyChangeListener {
     PlayModel mp = new PlayModel();
     PlayController1 cp = new PlayController1(mp);
     PlayView vp = new PlayView(mp);
+  }
+
+  public class LanePanel extends JPanel {
+    public LanePanel() {
+      this.setOpaque(false);
+    }
+    public void paintComponent(Graphics g) {
+      g.fillOval(200,100, 20,20);
+    }
   }
 
 }
