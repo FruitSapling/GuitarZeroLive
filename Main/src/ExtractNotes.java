@@ -26,7 +26,7 @@ import javax.sound.midi.Transmitter;
  * @since 2019-03-05
  */
 public class ExtractNotes{
-  final static String FILE = "Main/src/Wonderwall.mid"; // TODO input required song
+  final static String FILE = "Main/src/AllTheSmallThings.mid"; // TODO input required song
   static Sequence seq;
   static int currentTrack = 0;
   static int guitarTrack = -1;
@@ -45,11 +45,12 @@ public class ExtractNotes{
       System.exit(1);
     }
 
+    System.out.println(seq.getTracks().length);
     Guitar leadGuitar = findLeadGuitar(findAllGuitars(seq));
     guitarTrack = leadGuitar.getTrackNumber();
     System.out.println("The lead guitar is: " + leadGuitar.getInstrumentNumber() + ", on track " + leadGuitar.getTrackNumber() + ", channel " + leadGuitar.getChannelNumber());
     convertMidiToNotes(seq, leadGuitar.getInstrumentNumber());
-    //playWithoutGuitar(leadGuitar);
+    playWithoutGuitar(leadGuitar);
   }
 
   /**
@@ -272,12 +273,12 @@ public class ExtractNotes{
   public static HashMap<Integer, Guitar> findAllGuitars(Sequence seq){
     Track[] tracks = seq.getTracks();
     HashMap<Integer, Guitar> guitarsInTracks = new HashMap<Integer, Guitar>();
-    for(int currentTrack = 0; currentTrack < tracks.length; currentTrack++){
+    for(int i = 0; i < tracks.length - 1; i++){
       int currentGuitar = -1;
-      int currentInstrument = -1;
+      int currentInstrument = -2;
 
-      for(int i=0; i < tracks[currentTrack].size(); i++){
-        MidiEvent event = tracks[currentTrack].get(i);
+      for(int j=0; j < tracks[i].size() - 1; j++){
+        MidiEvent event = tracks[i].get(j);
         MidiMessage msg = event.getMessage();
         if ( msg instanceof ShortMessage ){
           final ShortMessage smsg = (ShortMessage) msg;
@@ -289,7 +290,7 @@ public class ExtractNotes{
           if(cmd == ShortMessage.PROGRAM_CHANGE){
             currentInstrument = dat1;
             if(dat1 >= Constants.FirstGuitar && dat1 <= Constants.LastGuitar && !guitarsInTracks.containsKey(dat1)){
-              Guitar newGuitar = new Guitar(i, chan, dat1);
+              Guitar newGuitar = new Guitar(j, chan, dat1);
               guitarsInTracks.put(dat1, newGuitar);
               currentGuitar = dat1;
             }
@@ -317,7 +318,7 @@ public class ExtractNotes{
       MidiChannel[] channels = MidiSystem.getSynthesizer().getChannels();
       //channels[leadGuitar.getChannelNumber()].setMute(true);
       //channels[leadGuitar.getChannelNumber()].setSolo(true);
-      //sequen.setTrackSolo(leadGuitar.getTrackNumber(), true);
+      sequen.setTrackSolo(leadGuitar.getTrackNumber(), true);
       //sequen.setTrackMute(leadGuitar.getTrackNumber(), true);
 
       sequen.addMetaEventListener( new MetaEventListener() {
