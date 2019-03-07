@@ -1,15 +1,8 @@
-import java.awt.Graphics;
 import java.awt.GridLayout;
-import java.awt.Point;
-import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.util.ArrayList;
-import javax.imageio.ImageIO;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 
 /**
  * @author Tom
@@ -17,14 +10,18 @@ import javax.swing.JPanel;
 public class PlayView extends JFrame implements PropertyChangeListener {
 
   private PlayModel model;
+  private PlayController2 controller;
 
   private ViewMain.guitar guitar;
   private LanePanel jp1,jp2,jp3;
 
-  public PlayView(PlayModel model) {
+  public PlayView(PlayModel model, PlayController2 controller) {
+    this.controller = controller;
+    this.addKeyListener(controller);
+
     this.model = model;
     this.model.addPropertyChangeListener(this);
-    this.model.testFill(20);
+    this.model.testFill(50);
 
     this.guitar = new ViewMain.guitar(ViewMain.w, ViewMain.h);
     this.guitar.setOpaque(false);
@@ -58,7 +55,8 @@ public class PlayView extends JFrame implements PropertyChangeListener {
 
   public static void main(String[] args) {
     PlayModel mp = new PlayModel();
-    PlayView vp = new PlayView(mp);
+    PlayController2 cp2 = new PlayController2(mp);
+    PlayView vp = new PlayView(mp,cp2);
     PlayController1 cp = new PlayController1(mp);
   }
 

@@ -2,6 +2,7 @@ import java.awt.Point;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
 import java.util.Random;
 
 /**
@@ -38,5 +39,21 @@ public class PlayModel {
   public void fireNotes() {
     support.firePropertyChange("Notes", null, this.current);
   }
+
+  public void strum() {
+    for(Note n : this.current) {
+      if(n.getY() > 600 && n.getY() < 650) {
+        this.current.remove(n);
+      }
+    }
+  }
+  public void flip() {
+    for(Note n : this.current) {
+      if(n.getY() == ViewMain.h) {
+        n.setY(0);
+      }
+    }
+  }
+
 }
 

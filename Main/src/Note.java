@@ -1,5 +1,3 @@
-import java.awt.Color;
-
 public class Note {
 
   private int colour;
@@ -18,6 +16,9 @@ public class Note {
 
   public int getY() {
     return this.y;
+  }
+  public void setY(int y) {
+    this.y = y;
   }
 
   public int getColour() {

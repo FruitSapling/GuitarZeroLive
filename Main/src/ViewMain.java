@@ -132,7 +132,8 @@ public class ViewMain extends JFrame implements PropertyChangeListener {
         frame.dispose();
         PlayModel model = new PlayModel();
         PlayController1 controller = new PlayController1(model);
-        new PlayView(model);
+        PlayController2 controller2 = new PlayController2(model);
+        new PlayView(model, controller2);
       }
     };
 
