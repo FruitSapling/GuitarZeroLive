@@ -16,6 +16,9 @@ public class PlayView extends JFrame implements PropertyChangeListener {
   private LanePanel jp1,jp2,jp3;
 
   public PlayView(PlayModel model, PlayController2 controller) {
+    ExtractNotes.playBackingTrack("MrBrightside");
+    ExtractNotes.playSoloGuitar("MrBrightside");
+
     this.controller = controller;
     this.addKeyListener(controller);
 
@@ -27,6 +30,7 @@ public class PlayView extends JFrame implements PropertyChangeListener {
     this.guitar.setOpaque(false);
     this.guitar.setLayout(new GridLayout(1,3));
 
+    //Initialize panels to avoid null pointers
     ArrayList<Note> blank = new ArrayList<>();
     this.jp1 = new LanePanel(blank,0);
     this.jp2 = new LanePanel(blank,1);
