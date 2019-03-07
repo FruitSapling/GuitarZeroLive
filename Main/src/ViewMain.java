@@ -81,10 +81,10 @@ public class ViewMain extends JFrame implements PropertyChangeListener {
       g2.setColor(Color.DARK_GRAY);
 
       Polygon board = new Polygon();
-      board.addPoint(100, 0);
-      board.addPoint(100, getHeight());
-      board.addPoint(getWidth()-100, getHeight());
-      board.addPoint(getWidth()-100, 0);
+      board.addPoint(0, 0);
+      board.addPoint(0, getHeight());
+      board.addPoint(getWidth(), getHeight());
+      board.addPoint(getWidth(), 0);
       g2.setClip(board);
       g2.fillPolygon(board);
 
@@ -98,11 +98,11 @@ public class ViewMain extends JFrame implements PropertyChangeListener {
       g2.fillRect(0, 600, getWidth(), 50);
 
       g2.setColor(Color.WHITE);
-      g2.drawLine(200, 0, 200, getHeight());
+      g2.drawLine(125, 0, 125, getHeight());
       g2.setColor(Color.GREEN);
       g2.drawLine(375, 0, 375, getHeight());
       g2.setColor(Color.BLUE);
-      g2.drawLine(550, 0, 550, getHeight());
+      g2.drawLine(624, 0, 624, getHeight());
 
 
       g2.setClip(null);

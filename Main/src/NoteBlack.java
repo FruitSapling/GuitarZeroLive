@@ -19,7 +19,8 @@ public class NoteBlack extends JLayeredPane {
     try {
       this.bi = ImageIO.read(getClass().getResource("resources/pick.png"));
     }catch(IOException e) {
-
+      System.out.println("Could not find pick image");
+      System.exit(1);
     }
   }
 

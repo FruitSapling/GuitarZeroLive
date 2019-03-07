@@ -1,5 +1,6 @@
 
 import java.io.File;
+import java.io.FileFilter;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.FileSystemException;
@@ -41,16 +42,29 @@ public class FileZipper {
 
 
   /*
+  * Method to retrieve all the zip files in  the folder location.
+  */
+  public static File[] getZippedFiles(String location) {
+    FileFilter filter = (pathname) -> pathname.getPath().endsWith(".zip");
+    File[] zippedFolders = new File(location).listFiles(filter);
+    return zippedFolders;
+  }
+
+
+  /*
    * Method to zip all the files from the 'files' ArrayList into a compressed format.
    */
   private static void zipFiles(ArrayList<File> files) {
 
     File[] filesArray = new File[3];
     files.toArray(filesArray);
+
+    int fileCount = getZippedFiles("Server/src/resources").length;
+
     File firstFile;
     try {
-      firstFile = new File(saveLocation.toString());
-      String zipFileName = firstFile.getName().concat(".zip");
+      firstFile = new File("Server/src/resources/song" + fileCount);
+      String zipFileName = firstFile.getPath().concat(".zip");
 
       FileOutputStream fileOut = new FileOutputStream(zipFileName);
       ZipOutputStream zipOut = new ZipOutputStream(fileOut);
@@ -70,12 +84,13 @@ public class FileZipper {
       System.err.println("I/O error: " + e);
     }
 
-    System.out.println("YAY");
+    System.out.println("Success");
   }
 
 
   /*
    * Method to zip all the files from the 'files' array into a compressed format and return the '.zip' file.
+   * Needed to be seperate to other zipping method as different usage.
    */
   public File zipFiles() {
     File firstFile = null;
@@ -112,12 +127,12 @@ public class FileZipper {
    *   - The files array is of length 3.
    *   - The first file is PNG.
    *   - The second is a MIDI.
-   *   - The first file is PNG.
+   *   - The first file is TXT.
    */
   public static boolean validateFiles(ArrayList<File> files) throws FileSystemException {
     int ARRAYLENGTH = 3;
 
-    String[] extensions = new String[]{".png", ".mid", ".png"};
+    String[] extensions = new String[]{".png", ".mid", ".txt"};
 
     if (files.size() == ARRAYLENGTH) {
 
@@ -134,6 +149,5 @@ public class FileZipper {
     }
     return true;
   }
-
 
 }

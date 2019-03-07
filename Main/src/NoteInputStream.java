@@ -25,6 +25,9 @@ public class NoteInputStream {
       this.trackNotes = extractNotes();
     }
     else {
+      /*TODO: when using this class, if you get this exception, then prompt user for a new file
+        or system exit.
+       */
       throw new IOException("NoteInputStream only takes .midnotes files");
     }
   }
@@ -62,6 +65,7 @@ public class NoteInputStream {
     }
     catch (IOException e) {
       System.out.println("Error reading file");
+      System.exit(1);
     }
 
     return notes.toArray(new NoteInfo[notes.size()]);
