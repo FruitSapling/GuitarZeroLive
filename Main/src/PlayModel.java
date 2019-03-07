@@ -23,6 +23,7 @@ public class PlayModel {
     this.support.addPropertyChangeListener(pcl);
   }
 
+  //Test function to randomly generate some notes
   public void testFill(int n) {
     Random rand = new Random();
     for(int i = 0; i < n; i++) {
@@ -30,16 +31,21 @@ public class PlayModel {
     }
   }
 
+  public void genNotes
+
+  //Moves the notes down the screen
   public void move() {
     for(Note n : this.current) {
       n.move();
     }
   }
 
+  //Refreshes the notes
   public void fireNotes() {
     support.firePropertyChange("Notes", null, this.current);
   }
 
+  //Removes the note if in range of pickup
   public void strum() {
     for(Note n : this.current) {
       if(n.getY() > 600 && n.getY() < 650) {
@@ -47,6 +53,8 @@ public class PlayModel {
       }
     }
   }
+
+  //Test function to loop the notes back to y=0
   public void flip() {
     for(Note n : this.current) {
       if(n.getY() == ViewMain.h) {
