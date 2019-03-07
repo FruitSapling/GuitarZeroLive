@@ -7,6 +7,9 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import javax.imageio.ImageIO;
@@ -68,7 +71,11 @@ public class ViewSelect extends JFrame implements PropertyChangeListener {
 
 
     public CarouselButton[] setMenu(JFrame frame) {
+        /**
+         * @author Morgan
+         */
         ArrayList<File> list = inputAllFiles();
+        System.out.println(list.size());
 
         if (list.size() < 5) {
             //TODO: Handle Carousel Menu with less than 5 buttons
@@ -79,47 +86,62 @@ public class ViewSelect extends JFrame implements PropertyChangeListener {
         else {
             CarouselButton[] buttons = new CarouselButton[5];
             for (int i = 0; i < list.size(); i++) {
+                String zipName = list.get(i).getName();
+                System.out.println(zipName);
+                String[] strarr = zipName.split("\\.");
+                System.out.println(strarr.length);
+                //TODO: Carry on validation of this method from here once FileUnzipper issue is resolved
                 FileUnzipper zip = new FileUnzipper(Constants.ZIP_FILE_PATH + "/"
-                + list.get(i).getName());
+                + zipName + "/" + strarr[0]);
                 zip.unzipFiles(list.get(i));
 
                 File folder = new File(Constants.ZIP_FILE_PATH + "/"
-                        + list.get(i).getName() + "/");
+                        + zipName + "/");
                 ArrayList<File> unzippedList = new ArrayList<File>(Arrays.asList(folder.listFiles()));
+                File img = new File(Constants.DEFAULT_WHITE_IMAGE_PATH);
                 for (int j = 0; j < 3; j++) {
                     int index = unzippedList.get(j).getName().lastIndexOf('.');
-                    if (unzippedList.get(j).getName().substring(index + 1) != "png") {
-                        try {
-                            Image img = ImageIO.read(list.get(j));
-                            ImageIcon icon = new ImageIcon(img);
-                        }
-                        catch (IOException e) {
-                            System.exit(0);
-                        }
+                    if (unzippedList.get(j).getName().substring(index + 1) == "png") {
+                        img = unzippedList.get(j);
+                        System.out.println(unzippedList.get(j).getName());
+                        break;
                     }
                 }
+                try {
+                    Image image = ImageIO.read(img);
+                    Image newImage = image.getScaledInstance(
+                            Constants.BUTTON_WIDTH,
+                            Constants.BUTTON_HEIGHT,
+                            Image.SCALE_DEFAULT
+                    );
+                    ImageIcon icon = new ImageIcon(newImage);
+                    buttons[i] = new CarouselButton(icon, zipName) {
+                        @Override
+                        public void onClick() {
+                            System.out.println(zipName);
+                        }
+                    };
+                }
+                catch (IOException e) {
+                    System.exit(0);
+                }
             }
+            return buttons;
         }
-        //TODO: Make Select Mode actually select mode
-        CarouselButton[] buttons = new CarouselButton[5];
-        for (int i = 0; i < 5; i++) {
-            buttons[i] = new CarouselButton(Constants.EXIT_IMAGE_PATH, "Empty") {
-                @Override public void onClick() {}
-            };
-        }
-        return buttons;
+        return null;
     }
 
     public ArrayList<File> inputAllFiles() {
         File folder = new File(Constants.ZIP_FILE_PATH + "/");
         ArrayList<File> list = new ArrayList<File>(Arrays.asList(folder.listFiles()));
+        System.out.println(list.size());
 
-        for (int i = 0; i < list.size(); i++) {
-            int index = list.get(i).getName().lastIndexOf('.');
-            if (list.get(i).getName().substring(index + 1) != "zip") {
-                list.remove(i);
-            }
-        }
+//        for (int i = 0; i < list.size(); i++) {
+//            int index = list.get(i).getName().lastIndexOf('.');
+//            if (list.get(i).getName().substring(index) != "zip") {
+//                list.remove(i);
+//            }
+//        }
         return list;
     }
 

@@ -60,18 +60,15 @@ public class ViewStore extends JFrame implements PropertyChangeListener {
 
 
     public CarouselButton[] setMenu(JFrame frame) {
-        //TODO: Make Select Mode actually select mode
         CarouselButton[] buttons = new CarouselButton[5];
 
         buttons[0] = new CarouselButton(Constants.EXIT_IMAGE_PATH, "Exit") {
             @Override public void onClick() { }
         };
-        //buttons[0].addActionListener(new CarouselHandler(buttons[0], frame));
 
         buttons[1] = new CarouselButton(Constants.SELECT_IMAGE_PATH, "Select") {
             @Override public void onClick() { }
         };
-        //buttons[1].addActionListener(new CarouselHandler(buttons[1], frame));
 
         buttons[2] = new CarouselButton(Constants.PLAY_IMAGE_PATH, "Play") {
             @Override public void onClick() { }

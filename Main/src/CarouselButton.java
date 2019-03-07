@@ -16,6 +16,11 @@ public abstract class CarouselButton extends JButton {
     this.buttonName = buttonName;
   }
 
+  public CarouselButton(ImageIcon image, String buttonName) {
+    this.setIcon(image);
+    this.buttonName = buttonName;
+  }
+
   public String getButtonName() {
     return buttonName;
   }

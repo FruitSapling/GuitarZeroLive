@@ -8,12 +8,13 @@ public class Constants {
     public static String    PLAY_IMAGE_PATH = "Main/src/resources/play.png";
     public static String    STORE_IMAGE_PATH = "Main/src/resources/store.png";
     public static String    TUTORIAL_IMAGE_PATH = "Main/src/resources/tutorial.png";
+    public static String    DEFAULT_WHITE_IMAGE_PATH = "Main/src/resources/exit.png";
     public static int       BUTTON_WIDTH = 128;
     public static int       BUTTON_HEIGHT = 168;
     public static int       CAROUSEL_MENU_HEIGHT = 192;
     public static String    GUITAR_HERO = "Guitar Hero";
 
-    public static String    ZIP_FILE_PATH = "Music";
+    public static String    ZIP_FILE_PATH = "Main/src/Music";
 
     public static int       FirstGuitar = 25;
     public static int       LastGuitar = 38;

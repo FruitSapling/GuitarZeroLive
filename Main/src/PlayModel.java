@@ -31,8 +31,6 @@ public class PlayModel {
     }
   }
 
-  public void genNotes
-
   //Moves the notes down the screen
   public void move() {
     for(Note n : this.current) {
@@ -57,7 +55,7 @@ public class PlayModel {
   //Test function to loop the notes back to y=0
   public void flip() {
     for(Note n : this.current) {
-      if(n.getY() == ViewMain.h) {
+      if(n.getY() == Constants.h) {
         n.setY(0);
       }
     }
