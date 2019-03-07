@@ -6,7 +6,7 @@ import javax.swing.JButton;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 
-abstract class Note extends JButton {
+abstract class Note extends JLayeredPane {
 
   protected Point location;
 

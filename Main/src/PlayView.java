@@ -1,10 +1,8 @@
-import java.awt.Point;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.util.ArrayList;
-import javafx.scene.shape.Rectangle;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.OverlayLayout;
 
 /**
  * @author Tom
@@ -15,20 +13,17 @@ public class PlayView extends JFrame implements PropertyChangeListener {
 
   private ViewMain.guitar guitar;
 
-  private JPanel panel;
-
   public PlayView(PlayModel model) {
     this.model = model;
     this.model.addPropertyChangeListener(this);
 
     this.guitar = new ViewMain.guitar(ViewMain.w, ViewMain.h);
-    this.panel = new JPanel();
+    this.guitar.setOpaque(false);
 
-    this.panel.add(this.guitar);
-
-    this.add(this.panel);
+    this.add(this.guitar);
     this.pack();
     this.setVisible(true);
+    this.setLocationRelativeTo(null);
     this.setDefaultCloseOperation(EXIT_ON_CLOSE);
   }
 
@@ -37,7 +32,11 @@ public class PlayView extends JFrame implements PropertyChangeListener {
       Note note = (Note) pce.getNewValue();
       System.out.println(note.getLocation().getY());
     } else if(pce.getPropertyName().equals("New Note")) {
-      this.panel.add((Note)pce.getNewValue());
+      Note note = (Note)pce.getNewValue();
+      note.setLocation(note.getLocation());
+      this.guitar.add(note);
+      this.revalidate();
+      this.repaint();
       this.pack();
       System.out.println("Moved?");
     }

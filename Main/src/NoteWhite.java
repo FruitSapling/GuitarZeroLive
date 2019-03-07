@@ -1,15 +1,28 @@
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.Point;
-import javax.swing.ImageIcon;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 
 public class NoteWhite extends Note {
+
+  private BufferedImage bi;
+
   public NoteWhite(Point pt) {
     this.location = pt;
-    ImageIcon img = new ImageIcon(getClass().getResource("resources/pick.png"));
-    this.setIcon(img);
     this.setPreferredSize(new Dimension(100,115));
-    this.setOpaque(true);
+    try {
+      this.bi = ImageIO.read(getClass().getResource("resources/pick.png"));
+    }catch(IOException e) {
+
+    }
+  }
+
+  public void paintComponent(Graphics g) {
+    super.paintComponent(g);
+    g.drawImage(this.bi, 200, 100, null);
   }
 
   public Color color() {
