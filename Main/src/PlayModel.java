@@ -39,7 +39,6 @@ public class PlayModel {
     }
   }
 
-<<<<<<< HEAD
   public ArrayList<int[]> genNotes(String file) {
     try {
       ArrayList<int[]> results = new ArrayList<>();
@@ -96,9 +95,6 @@ public class PlayModel {
     }
     return null;
   }
-=======
-//  public void genNotes
->>>>>>> origin/master
 
   //Moves the notes down the screen
   public void move() {
@@ -124,7 +120,7 @@ public class PlayModel {
   //Test function to loop the notes back to y=0
   public void flip() {
     for(Note n : this.current) {
-      if(n.getY() == MainView.h) {
+      if(n.getY() == Constants.h) {
         n.setY(0);
       }
     }
