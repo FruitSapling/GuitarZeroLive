@@ -1,6 +1,6 @@
 /**
- * @author Morgan
- * Skeleton code of ViewMain used to create class
+ * @author Tom
+ * Refactored for Store Mode from Slash Mode by @Morgan
  */
 import java.awt.Dimension;
 import java.beans.PropertyChangeEvent;
@@ -8,9 +8,6 @@ import java.beans.PropertyChangeListener;
 import javax.swing.*;
 
 public class ViewStore extends JFrame implements PropertyChangeListener {
-
-    public static final int w = 750;
-    public static final int h = 1000;
 
     private ModelStore model1;
     private ControllerStore controller;
@@ -27,10 +24,10 @@ public class ViewStore extends JFrame implements PropertyChangeListener {
         this.controller = controller;
         this.controller2 = controller2;
 
-        this.g = new ViewMain.guitar(w,h);
+        this.g = new ViewMain.guitar(Constants.w,Constants.h);
 
         this.panel = new JPanel();
-        this.panel.setPreferredSize(new Dimension(w,h));
+        this.panel.setPreferredSize(new Dimension(Constants.w,Constants.h));
 
         CarouselButton[] buttons = setMenu(this);
         this.menu = new CarouselMenu(buttons, 20, 400);

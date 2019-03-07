@@ -1,8 +1,7 @@
 /**
- * @author Morgan
- * Skeleton code of ModelMain used to create class
+ * @author Tom
+ * Refactored for Store Mode from Slash Mode by @Morgan
  */
-
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 

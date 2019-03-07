@@ -1,8 +1,7 @@
 /**
- * @author Morgan
- * Skeleton code of ControllerMain used to create class
+ * @author Tom
+ * Refactored for Store Mode from Slash Mode by @Morgan
  */
-
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
