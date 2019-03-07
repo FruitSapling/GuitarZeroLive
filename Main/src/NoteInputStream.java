@@ -59,7 +59,8 @@ public class NoteInputStream {
 
         note = note.substring(0,(note.length())-1);
         int string = classifyNotes(note);
-        notes.add(new NoteInfo(note,startTime,endTime,string));
+        int colour = colourNotes(note);
+        notes.add(new NoteInfo(note,startTime,endTime,string,colour));
       }
     }
     catch (IOException e) {
@@ -91,7 +92,7 @@ public class NoteInputStream {
   */
   private int classifyNotes(String note) {
 
-    String stringLeft = "C|C#|Cb|D|D#|Eb";
+    String stringLeft = "C|C#|Db|D|D#|Eb";
     String stringCenter = "E|F|F#|Gb|G";
     String stringRight = "G#|Ab|A|A#|Bb|B";
 
@@ -105,6 +106,24 @@ public class NoteInputStream {
       return 2;
     }
     return 3;
+  }
+
+  /*
+  * Method to specify what colour the note will be, this is either black or white.
+  * Black is defined as a 0;
+  * White is defined as a 1.
+  */
+  private int colourNotes(String note) {
+    String black = "C|C#|Db|E|F|G#|Ab|A";
+    String white = "D|D#|Eb|F#|Gb|G|A#|Bb|B";
+
+    if (note.matches(black)) {
+      return 0;
+    }
+    if (note.matches(white)) {
+      return 1;
+    }
+    return 0;
   }
 
 }
