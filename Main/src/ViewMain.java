@@ -19,18 +19,18 @@ public class ViewMain extends JFrame implements PropertyChangeListener {
 
   private ModelMain model1;
   private ControllerMain controller;
-  private GuitarButtonController controller2;
+  private GuitarButtonController gbController;
 
   private JPanel panel;
 
   private guitar g;
   private CarouselMenu menu;
 
-  public ViewMain(ModelMain model1, ControllerMain controller, GuitarButtonController controller2) {
+  public ViewMain(ModelMain model1, ControllerMain controller, GuitarButtonController gbController) {
     this.model1 = model1;
     this.model1.addPropertyChangeListener(this);
     this.controller = controller;
-    this.controller2 = controller2;
+    this.gbController = gbController;
 
     this.g = new guitar(w,h);
 
@@ -44,7 +44,7 @@ public class ViewMain extends JFrame implements PropertyChangeListener {
     this.panel.add(g);
 
     this.addKeyListener(controller);
-    this.addKeyListener(controller2);
+    this.addKeyListener(gbController);
 
     this.add(panel);
     this.pack();
@@ -113,29 +113,41 @@ public class ViewMain extends JFrame implements PropertyChangeListener {
     CarouselButton[] buttons = new CarouselButton[5];
 
     buttons[0] = new CarouselButton(Constants.EXIT_IMAGE_PATH, "Exit") {
-      @Override public void onClick() { }
+      @Override public void onClick() {
+        System.exit(0);
+      }
     };
-    buttons[0].addActionListener(new ControllerMain.CarouselHandlerMain(buttons[0], frame));
 
     buttons[1] = new CarouselButton(Constants.SELECT_IMAGE_PATH, "Select") {
-      @Override public void onClick() { }
+      @Override public void onClick() {
+        frame.dispose();
+        ModelSelect model = new ModelSelect();
+        ControllerSelect controller = new ControllerSelect(model);
+        new ViewSelect(model, controller, gbController);
+      }
     };
-    buttons[1].addActionListener(new ControllerMain.CarouselHandlerMain(buttons[1], frame, controller2));
 
     buttons[2] = new CarouselButton(Constants.PLAY_IMAGE_PATH, "Play") {
-      @Override public void onClick() { }
+      @Override public void onClick() {
+        frame.dispose();
+        PlayModel model = new PlayModel();
+        PlayController1 controller = new PlayController1(model);
+        new PlayView(model);
+      }
     };
-    buttons[2].addActionListener(new ControllerMain.CarouselHandlerMain(buttons[1], frame, controller2));
 
     buttons[3] = new CarouselButton(Constants.STORE_IMAGE_PATH, "Store") {
-      @Override public void onClick() { }
+      @Override public void onClick() {
+        frame.dispose();
+        ModelStore model = new ModelStore();
+        ControllerStore controller = new ControllerStore(model);
+        new ViewStore(model, controller, gbController);
+      }
     };
-    buttons[3].addActionListener(new ControllerMain.CarouselHandlerMain(buttons[1], frame, controller2));
 
     buttons[4] = new CarouselButton(Constants.TUTORIAL_IMAGE_PATH, "Tutorial") {
       @Override public void onClick() { }
     };
-    buttons[4].addActionListener(new ControllerMain.CarouselHandlerMain(buttons[1], frame, controller2));
 
     return buttons;
   }
