@@ -102,7 +102,8 @@ public class GuitarPoller implements Runnable {
             try { /* delay */
                 Thread.sleep( Constants.GUITAR_POLL_DELAY );
             } catch ( Exception exn ) {
-                System.out.println( exn ); System.exit( 1 );
+                System.out.println( exn );
+                System.exit( 1 );
             }
         }
     }

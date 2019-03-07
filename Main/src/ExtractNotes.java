@@ -27,6 +27,7 @@ public class ExtractNotes{
       seq = MidiSystem.getSequence(new File( FILE));
     } catch (Exception e){
       e.printStackTrace();
+      System.exit(1);
     }
 
     System.out.println(findAllGuitars(seq));
@@ -309,7 +310,8 @@ public class ExtractNotes{
       });
       sequen.start();
     } catch ( Exception exn ) {
-      System.out.println( exn ); System.exit( 1 );
+      System.out.println( exn );
+      System.exit( 1 );
     }
   }
 }
