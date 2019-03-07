@@ -6,13 +6,15 @@ import javax.swing.JFrame;
 
 /**
  * @author Tom
+ * Contributed to by:
+ * Willem - Planned the Play mode MVC with Tom, and did some pair programming.
  */
 public class PlayView extends JFrame implements PropertyChangeListener {
 
   private PlayModel model;
   private PlayController2 controller;
 
-  private ViewMain.guitar guitar;
+  private MainView.guitar guitar;
   private LanePanel jp1,jp2,jp3;
 
   public PlayView(PlayModel model, PlayController2 controller) {
@@ -26,7 +28,7 @@ public class PlayView extends JFrame implements PropertyChangeListener {
     this.model.addPropertyChangeListener(this);
     this.model.testFill(50);
 
-    this.guitar = new ViewMain.guitar(ViewMain.w, ViewMain.h);
+    this.guitar = new MainView.guitar(Constants.w, Constants.h);
     this.guitar.setOpaque(false);
     this.guitar.setLayout(new GridLayout(1,3));
 

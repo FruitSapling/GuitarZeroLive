@@ -1,4 +1,3 @@
-import java.awt.Point;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.BufferedReader;
@@ -7,11 +6,12 @@ import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.ConcurrentModificationException;
 import java.util.Random;
 
 /**
  * @author Tom
+ * Contributed to by:
+ * Willem - Planned the PlayModel structure (following MVC) with Tom, and did some pair programming.
  */
 public class PlayModel {
 
@@ -39,6 +39,7 @@ public class PlayModel {
     }
   }
 
+<<<<<<< HEAD
   public ArrayList<int[]> genNotes(String file) {
     try {
       ArrayList<int[]> results = new ArrayList<>();
@@ -95,6 +96,9 @@ public class PlayModel {
     }
     return null;
   }
+=======
+//  public void genNotes
+>>>>>>> origin/master
 
   //Moves the notes down the screen
   public void move() {
@@ -120,7 +124,7 @@ public class PlayModel {
   //Test function to loop the notes back to y=0
   public void flip() {
     for(Note n : this.current) {
-      if(n.getY() == ViewMain.h) {
+      if(n.getY() == MainView.h) {
         n.setY(0);
       }
     }
