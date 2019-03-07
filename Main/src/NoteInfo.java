@@ -1,3 +1,7 @@
+/*
+* @author Mark Newell
+*/
+
 public class NoteInfo {
   private String note;
   private int startTime, finishTime, string;

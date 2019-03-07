@@ -38,6 +38,7 @@ public class ViewMain extends JFrame implements PropertyChangeListener {
     this.panel = new JPanel();
     this.panel.setPreferredSize(new Dimension(w,h));
 
+<<<<<<< HEAD
     CarouselButton[] buttons = new CarouselButton[5];
 
     buttons[0] = new CarouselButton(Constants.EXIT_IMAGE_PATH) {
@@ -73,15 +74,22 @@ public class ViewMain extends JFrame implements PropertyChangeListener {
 
     // Add the the CarouselMenu in the model as a property change listener
     model.addPropertyChangeListener(this.model.carouselMenu);
+=======
+    CarouselButton[] buttons = setMenu(this);
+    this.menu = new CarouselMenu(buttons, 20, 400);
+    model1.addPropertyChangeListener(menu);
+>>>>>>> 8c74af09f731128c939a50d5cc467a8cb5abafc4
 
     this.panel.add(g);
 
     this.addKeyListener(controller);
     this.addKeyListener(controller2);
+
     this.add(panel);
     this.pack();
     this.setVisible(true);
     this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+
   }
 
   public void propertyChange(PropertyChangeEvent pce) {
@@ -140,8 +148,9 @@ public class ViewMain extends JFrame implements PropertyChangeListener {
     }
   }
 
-  public void setMenu() {
+  public CarouselButton[] setMenu(JFrame frame) {
     CarouselButton[] buttons = new CarouselButton[5];
+<<<<<<< HEAD
     buttons[0] = new CarouselButton(Constants.EXIT_IMAGE_PATH) {
       @Override
       public void onClick() {
@@ -171,11 +180,39 @@ public class ViewMain extends JFrame implements PropertyChangeListener {
     buttons[4] = new CarouselButton(Constants.TUTORIAL_IMAGE_PATH) {
       @Override
       public void onClick() {
+=======
 
-      }
+    buttons[0] = new CarouselButton(Constants.EXIT_IMAGE_PATH, "Exit") {
+      @Override public void onClick() { }
     };
+    buttons[0].addActionListener(new ControllerMain.CarouselHandlerMain(buttons[0], frame));
 
+    buttons[1] = new CarouselButton(Constants.SELECT_IMAGE_PATH, "Select") {
+      @Override public void onClick() { }
+    };
+    buttons[1].addActionListener(new ControllerMain.CarouselHandlerMain(buttons[1], frame, controller2));
+
+    buttons[2] = new CarouselButton(Constants.PLAY_IMAGE_PATH, "Play") {
+      @Override public void onClick() { }
+    };
+    buttons[2].addActionListener(new ControllerMain.CarouselHandlerMain(buttons[1], frame, controller2));
+
+    buttons[3] = new CarouselButton(Constants.STORE_IMAGE_PATH, "Store") {
+      @Override public void onClick() { }
+    };
+    buttons[3].addActionListener(new ControllerMain.CarouselHandlerMain(buttons[1], frame, controller2));
+>>>>>>> 8c74af09f731128c939a50d5cc467a8cb5abafc4
+
+    buttons[4] = new CarouselButton(Constants.TUTORIAL_IMAGE_PATH, "Tutorial") {
+      @Override public void onClick() { }
+    };
+    buttons[4].addActionListener(new ControllerMain.CarouselHandlerMain(buttons[1], frame, controller2));
+
+<<<<<<< HEAD
     this.model.carouselMenu = new CarouselMenu(buttons, 20, 400);
     this.g.add(this.model.carouselMenu);
+=======
+    return buttons;
+>>>>>>> 8c74af09f731128c939a50d5cc467a8cb5abafc4
   }
 }

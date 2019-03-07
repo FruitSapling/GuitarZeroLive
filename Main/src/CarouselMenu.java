@@ -51,7 +51,7 @@ public class CarouselMenu extends JLayeredPane implements PropertyChangeListener
   public CarouselButton[] getEmptyButtons() {
     CarouselButton[] buttons = new CarouselButton[5];
     for (int i = 0; i < 5; i++) {
-      buttons[i] = new CarouselButton(Constants.EXIT_IMAGE_PATH) {
+      buttons[i] = new CarouselButton(Constants.EXIT_IMAGE_PATH, "Empty") {
         @Override
         public void onClick() {
           System.exit(0);
