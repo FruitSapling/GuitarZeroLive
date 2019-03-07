@@ -1,4 +1,4 @@
-/**
+/*
  * @author Morgan Centini
  */
 
@@ -6,6 +6,7 @@ import java.awt.*;
 import java.io.File;
 import java.util.ArrayList;
 import javax.swing.*;
+import javax.swing.text.View;
 
 public class ViewStoreManager extends JFrame {
     private JFrame frame;
@@ -46,6 +47,11 @@ public class ViewStoreManager extends JFrame {
 
     public JFrame getFrame() {
         return frame;
+    }
+
+
+    public static void main(String[] args) {
+        ViewStoreManager view = new ViewStoreManager();
     }
 
 
