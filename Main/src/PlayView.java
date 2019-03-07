@@ -1,15 +1,8 @@
-import java.awt.Graphics;
 import java.awt.GridLayout;
-import java.awt.Point;
-import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.util.ArrayList;
-import javax.imageio.ImageIO;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 
 /**
  * @author Tom
