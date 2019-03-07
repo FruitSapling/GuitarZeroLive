@@ -10,12 +10,10 @@ public class PlayModel {
 
   private PropertyChangeSupport support;
 
-  private ArrayList<Note> current;
+  private Note current;
 
   public PlayModel() {
-    for(int i = 0; i < 10; i++) {
-      this.current.add(Note.pick(new Point(200, 100), "A"));
-    }
+    this.current = Note.pick(new Point(100, 100), "A");
     this.support = new PropertyChangeSupport(this);
     this.drop();
   }

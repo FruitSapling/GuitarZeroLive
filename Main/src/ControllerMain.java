@@ -69,8 +69,8 @@ public class ControllerMain implements KeyListener{
       }
       if (button.getButtonName() == "Play") {
         frame.dispose();
-        ModelPlay model = new ModelPlay();
-        new ViewPlay(model);
+        PlayModel model = new PlayModel();
+        new PlayView(model);
       }
       if (button.getButtonName() == "Store") {
         frame.dispose();
