@@ -24,7 +24,7 @@ public class PlayView extends JFrame implements PropertyChangeListener {
   public PlayView(PlayModel model) {
     this.model = model;
     this.model.addPropertyChangeListener(this);
-    this.model.testFill(1000);
+    this.model.testFill(20);
 
     this.guitar = new ViewMain.guitar(ViewMain.w, ViewMain.h);
     this.guitar.setOpaque(false);
