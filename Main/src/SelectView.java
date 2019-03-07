@@ -15,26 +15,26 @@ import java.util.Arrays;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
-public class ViewSelect extends JFrame implements PropertyChangeListener {
+public class SelectView extends JFrame implements PropertyChangeListener {
 
     public static String intendedTrack = "";
 
-    private ModelSelect model1;
-    private ControllerSelect controller;
+    private SelectModel model1;
+    private SelectController controller;
     private GuitarButtonController controller2;
 
     private JPanel panel;
 
-    private ViewMain.guitar g;
+    private MainView.guitar g;
     private CarouselMenu menu;
 
-    public ViewSelect(ModelSelect model1, ControllerSelect controller, GuitarButtonController controller2) {
+    public SelectView(SelectModel model1, SelectController controller, GuitarButtonController controller2) {
         this.model1 = model1;
         this.model1.addPropertyChangeListener(this);
         this.controller = controller;
         this.controller2 = controller2;
 
-        this.g = new ViewMain.guitar(Constants.w,Constants.h);
+        this.g = new MainView.guitar(Constants.w,Constants.h);
 
         this.panel = new JPanel();
         this.panel.setPreferredSize(new Dimension(Constants.w,Constants.h));

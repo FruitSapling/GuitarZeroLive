@@ -1,3 +1,6 @@
+/**
+ * @author Tom
+ */
 public class Note {
 
   private int colour;

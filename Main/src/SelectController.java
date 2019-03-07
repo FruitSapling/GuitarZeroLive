@@ -6,11 +6,11 @@
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-public class ControllerSelect implements KeyListener {
+public class SelectController implements KeyListener {
 
-    private ModelSelect model;
+    private SelectModel model;
 
-    public ControllerSelect(ModelSelect model) {
+    public SelectController(SelectModel model) {
         this.model = model;
     }
 

@@ -6,14 +6,14 @@ import java.beans.PropertyChangeSupport;
  * Contributed to by:
  * Willem - All the code to update the carousel menu
  */
-public class ModelMain {
+public class MainModel {
 
   public boolean menuOpen;
 
   private PropertyChangeSupport support;
   public CarouselMenu carouselMenu;
 
-  public ModelMain() {
+  public MainModel() {
 
     this.support = new PropertyChangeSupport(this);
     support.addPropertyChangeListener(carouselMenu);

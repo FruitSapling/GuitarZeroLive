@@ -5,11 +5,11 @@
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-public class ControllerStore implements KeyListener {
+public class StoreController implements KeyListener {
 
-    private ModelStore model;
+    private StoreModel model;
 
-    public ControllerStore(ModelStore model) {
+    public StoreController(StoreModel model) {
         this.model = model;
     }
 

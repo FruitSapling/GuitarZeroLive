@@ -6,6 +6,11 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
+/**
+ * @author Tom
+ * Contributed to by:
+ * Willem - Planned the structure of lanes on the guitar (following MVC) with Tom
+ */
 public class LanePanel extends JPanel {
   private ArrayList<Note> notes;
   private BufferedImage white;

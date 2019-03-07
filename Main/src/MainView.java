@@ -12,10 +12,10 @@ import javax.swing.*;
  * @author Tom
  * Contributed to by Willem
  */
-public class ViewMain extends JFrame implements PropertyChangeListener {
+public class MainView extends JFrame implements PropertyChangeListener {
 
-  private ModelMain model1;
-  private ControllerMain controller;
+  private MainModel model1;
+  private MainController controller;
   private GuitarButtonController gbController;
 
   private JPanel panel;
@@ -23,7 +23,7 @@ public class ViewMain extends JFrame implements PropertyChangeListener {
   private guitar g;
   private CarouselMenu menu;
 
-  public ViewMain(ModelMain model1, ControllerMain controller, GuitarButtonController gbController) {
+  public MainView(MainModel model1, MainController controller, GuitarButtonController gbController) {
     this.model1 = model1;
     this.model1.addPropertyChangeListener(this);
     this.controller = controller;
@@ -118,9 +118,9 @@ public class ViewMain extends JFrame implements PropertyChangeListener {
     buttons[1] = new CarouselButton(Constants.SELECT_IMAGE_PATH, "Select") {
       @Override public void onClick() {
         frame.dispose();
-        ModelSelect model = new ModelSelect();
-        ControllerSelect controller = new ControllerSelect(model);
-        new ViewSelect(model, controller, gbController);
+        SelectModel model = new SelectModel();
+        SelectController controller = new SelectController(model);
+        new SelectView(model, controller, gbController);
       }
     };
 
@@ -137,9 +137,9 @@ public class ViewMain extends JFrame implements PropertyChangeListener {
     buttons[3] = new CarouselButton(Constants.STORE_IMAGE_PATH, "Store") {
       @Override public void onClick() {
         frame.dispose();
-        ModelStore model = new ModelStore();
-        ControllerStore controller = new ControllerStore(model);
-        new ViewStore(model, controller, gbController);
+        StoreModel model = new StoreModel();
+        StoreController controller = new StoreController(model);
+        new StoreView(model, controller, gbController);
       }
     };
 
