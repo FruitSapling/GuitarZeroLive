@@ -65,7 +65,7 @@ public class GuitarButtonController implements GuitarButtonListener, KeyListener
   }
 
   public void cycleCarouselLeft() {
-    model.cycleCarouselRight();
+    model.cycleCarouselLeft();
   }
 
   public void selectMode() {
