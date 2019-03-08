@@ -19,7 +19,7 @@ public class PlayView extends JFrame implements PropertyChangeListener {
 
   public PlayView(PlayModel model, PlayController2 controller) {
     //ExtractNotes.playBackingTrack("MrBrightside");
-    ExtractNotes.playSoloGuitar("MrBrightside");
+    //ExtractNotes.playSoloGuitar("MrBrightside");
 
     this.controller = controller;
     this.addKeyListener(controller);
