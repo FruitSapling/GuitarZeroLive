@@ -21,6 +21,11 @@ public class SelectController implements KeyListener {
     }
 
     public void keyPressed(KeyEvent evt) {
+        if(evt.getKeyChar() == 'e') {
+            model.cycleCarouselRight();
+        }else if(evt.getKeyChar() == 'd') {
+            model.cycleCarouselLeft();
+        }
         switch (evt.getKeyCode()) {
             case KeyEvent.VK_ESCAPE:
                 if (model.menuOpen) {

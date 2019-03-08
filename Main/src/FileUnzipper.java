@@ -17,7 +17,8 @@ public class FileUnzipper {
         this.dir = saveDirectory;
         Path path = Paths.get(saveDirectory);
         if (!Files.exists(path)) {
-            new File(saveDirectory);
+            File file = new File(saveDirectory);
+            file.mkdir();
         }
     }
 
@@ -39,6 +40,8 @@ public class FileUnzipper {
           long size = next.getSize();
           Path path = Paths.get(dir,next.getName().split("/")[1]);
           File file = new File(path.toString());
+          System.out.println(file.getName());
+          //TODO: Debug!!
           FileOutputStream out = new FileOutputStream(file);
 
           for (int i = 0; i < (size/bufferSize)+1; i++) {
@@ -53,6 +56,7 @@ public class FileUnzipper {
       }
       catch (IOException e) {
         System.out.println(e.getMessage());
+        e.printStackTrace();
         System.exit(1);
       }
       return null;

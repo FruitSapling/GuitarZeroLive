@@ -1,10 +1,12 @@
-/**
- * @author Tom
- * Refactored for Store Mode from Slash Mode by @Morgan
- */
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+/**
+ * @author Tom
+ * Contributed to by:
+ * Morgan - Refactored for Store Mode from Slash Mode
+ * Willem - Made the carousel menu work in Store Mode
+ */
 public class StoreController implements KeyListener {
 
     private StoreModel model;
@@ -18,6 +20,11 @@ public class StoreController implements KeyListener {
     public void keyReleased(KeyEvent e) { }
 
     public void keyPressed(KeyEvent evt) {
+        if(evt.getKeyChar() == 'e') {
+            model.cycleCarouselRight();
+        }else if(evt.getKeyChar() == 'd') {
+            model.cycleCarouselLeft();
+        }
         switch(evt.getKeyCode()) {
             case KeyEvent.VK_ESCAPE :
                 if(model.menuOpen) {

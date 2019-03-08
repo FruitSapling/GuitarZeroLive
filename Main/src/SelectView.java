@@ -16,7 +16,7 @@ public class SelectView extends JFrame implements PropertyChangeListener {
 
     public static String intendedTrack = "";
 
-    private SelectModel model1;
+    private SelectModel model;
     private SelectController controller;
     private GuitarButtonController controller2;
 
@@ -25,9 +25,9 @@ public class SelectView extends JFrame implements PropertyChangeListener {
     private MainView.guitar g;
     private CarouselMenu menu;
 
-    public SelectView(SelectModel model1, SelectController controller, GuitarButtonController controller2) {
-        this.model1 = model1;
-        this.model1.addPropertyChangeListener(this);
+    public SelectView(SelectModel model, SelectController controller, GuitarButtonController controller2) {
+        this.model = model;
+        this.model.addPropertyChangeListener(this);
         this.controller = controller;
         this.controller2 = controller2;
 
@@ -37,8 +37,8 @@ public class SelectView extends JFrame implements PropertyChangeListener {
         this.panel.setPreferredSize(new Dimension(Constants.w,Constants.h));
 
         CarouselButton[] buttons = setMenu(this);
-        this.menu = new CarouselMenu(buttons, 20, 400);
-        model1.addPropertyChangeListener(menu);
+        this.model.carouselMenu = new CarouselMenu(buttons, 20, 400);
+        model.addPropertyChangeListener(this.model.carouselMenu);
 
         this.panel.add(g);
 
@@ -53,12 +53,12 @@ public class SelectView extends JFrame implements PropertyChangeListener {
 
     public void propertyChange(PropertyChangeEvent pce) {
         if (pce.getPropertyName() == null) {
-            if (!model1.menuOpen) {
-                model1.menuOpen = true;
-                g.add(menu);
-            } else if (model1.menuOpen) {
-                model1.menuOpen = false;
-                g.remove(menu);
+            if (!model.menuOpen) {
+                model.menuOpen = true;
+                g.add(model.carouselMenu);
+            } else if (model.menuOpen) {
+                model.menuOpen = false;
+                g.remove(model.carouselMenu);
             }
         }
         this.revalidate();
@@ -68,6 +68,9 @@ public class SelectView extends JFrame implements PropertyChangeListener {
 
 
     public CarouselButton[] setMenu(JFrame frame) {
+        /**
+         * @author Morgan
+         */
         ArrayList<File> list = inputAllFiles();
 
         if (list.size() < 5) {
@@ -79,47 +82,69 @@ public class SelectView extends JFrame implements PropertyChangeListener {
         else {
             CarouselButton[] buttons = new CarouselButton[5];
             for (int i = 0; i < list.size(); i++) {
-                FileUnzipper zip = new FileUnzipper(Constants.ZIP_FILE_PATH + "/"
-                + list.get(i).getName());
-                zip.unzipFiles(list.get(i));
 
-                File folder = new File(Constants.ZIP_FILE_PATH + "/"
-                        + list.get(i).getName() + "/");
+                String zipName = list.get(i).getName();
+                String zipPath = list.get(i).getPath();
+
+                //TODO: Carry on validation of this method from here once FileUnzipper issue is resolved
+//                FileUnzipper zip = new FileUnzipper(Constants.ZIP_FILE_PATH + "/"
+//                + zipName + "/" + zipName.split("\\.")[0]);
+//                zip.unzipFiles(list.get(i));
+
+                //NOTE: File Unzipper replaced with temporary solution
+
+
+                File folder = new File(Constants.ZIP_FILE_PATH + "/" +
+                        zipName + "/");
+
                 ArrayList<File> unzippedList = new ArrayList<File>(Arrays.asList(folder.listFiles()));
-                for (int j = 0; j < 3; j++) {
-                    int index = unzippedList.get(j).getName().lastIndexOf('.');
-                    if (unzippedList.get(j).getName().substring(index + 1) != "png") {
-                        try {
-                            Image img = ImageIO.read(list.get(j));
-                            ImageIcon icon = new ImageIcon(img);
-                        }
-                        catch (IOException e) {
-                            System.exit(0);
-                        }
+
+                String imagePath = Constants.DEFAULT_WHITE_IMAGE_PATH;
+                for (int j = 0; j < 2; j++) {
+                    if (unzippedList.get(j).getName().split("\\.")[1].equals("jpg")) {
+                        imagePath = unzippedList.get(j).getPath();
                     }
                 }
+                File img = new File(imagePath);
+
+                try {
+                    Image image = ImageIO.read(img);
+                    Image newImage = image.getScaledInstance(
+                            Constants.BUTTON_WIDTH,
+                            Constants.BUTTON_HEIGHT,
+                            Image.SCALE_DEFAULT
+                    );
+
+                    ImageIcon icon = new ImageIcon(newImage);
+                    buttons[i] = new CarouselButton(icon, zipName) {
+                        @Override
+                        public void onClick() {
+                            IntendedTrack.intendedTrack = zipPath;
+                            JOptionPane.showMessageDialog(null,
+                                    "Selected track has become:" + zipName
+                                    ,"", JOptionPane.INFORMATION_MESSAGE);
+                        }
+                    };
+                }
+                catch (IOException e) {
+                    System.exit(0);
+                }
             }
+            return buttons;
         }
-        //TODO: Make Select Mode actually select mode
-        CarouselButton[] buttons = new CarouselButton[5];
-        for (int i = 0; i < 5; i++) {
-            buttons[i] = new CarouselButton(Constants.EXIT_IMAGE_PATH, "Empty") {
-                @Override public void onClick() {}
-            };
-        }
-        return buttons;
+        return null;
     }
 
     public ArrayList<File> inputAllFiles() {
         File folder = new File(Constants.ZIP_FILE_PATH + "/");
         ArrayList<File> list = new ArrayList<File>(Arrays.asList(folder.listFiles()));
 
-        for (int i = 0; i < list.size(); i++) {
-            int index = list.get(i).getName().lastIndexOf('.');
-            if (list.get(i).getName().substring(index + 1) != "zip") {
-                list.remove(i);
-            }
-        }
+//        for (int i = 0; i < list.size(); i++) {
+//            int index = list.get(i).getName().lastIndexOf('.');
+//            if (list.get(i).getName().substring(index) != "zip") {
+//                list.remove(i);
+//            }
+//        }
         return list;
     }
 

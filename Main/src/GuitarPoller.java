@@ -55,8 +55,8 @@ public class GuitarPoller implements Runnable {
         Controller ctrl = getGuitarController();
 
         if (ctrl == null) {
-            //TODO: handle case when guitar cannot be found.
-            return;
+            //TODO: make user-friendly GUI to ask user to connect guitar.
+            return; //end the thread,
         }
 
         Component[] cmps        = ctrl.getComponents();
@@ -67,6 +67,7 @@ public class GuitarPoller implements Runnable {
         while( true ) {
             if ( ctrl.poll() ) {
                 int LAST_BINARY_BUTTON = 0;
+
                 //loop to populate the 'vals' array
                 for (int i = 0; i < cmps.length; i++) {
                     float value = cmps[ i ].getPollData();

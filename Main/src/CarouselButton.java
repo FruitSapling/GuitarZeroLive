@@ -1,3 +1,4 @@
+import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
@@ -12,7 +13,17 @@ public abstract class CarouselButton extends JButton {
   private String buttonName;
 
   public CarouselButton(String imageFileName, String buttonName) {
-    this.setIcon(new ImageIcon(imageFileName));
+    ImageIcon imageIcon = new ImageIcon(imageFileName); // load the image to a imageIcon
+    Image image = imageIcon.getImage(); // transform it
+    Image newimg = image.getScaledInstance(128, 168,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
+    imageIcon = new ImageIcon(newimg);
+
+    this.setIcon(imageIcon);
+    this.buttonName = buttonName;
+  }
+
+  public CarouselButton(ImageIcon image, String buttonName) {
+    this.setIcon(image);
     this.buttonName = buttonName;
   }
 

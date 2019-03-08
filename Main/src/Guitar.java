@@ -1,5 +1,12 @@
 import java.util.ArrayList;
 
+/**
+ * This stores information about each guitar found on the midi file
+ *
+ * @author Luke Sykes
+ * @version 1.0
+ * @since 2019-03-07
+ */
 public class Guitar {
   private int instrumentNumber;
   private int trackNumber;
@@ -7,11 +14,33 @@ public class Guitar {
   private int noteCount;
   private ArrayList<String> notes = new ArrayList<String>();
 
+  /**
+   * Assigns information about the current guitar
+   * @param trackNumber the track the guitar is played on
+   * @param channelNumber the channel the guitar is played on
+   * @param instrumentNumber the instrument number of the guitar being played
+   */
   public Guitar(int trackNumber, int channelNumber, int instrumentNumber){
     this.trackNumber = trackNumber;
     this.channelNumber = channelNumber;
     this.instrumentNumber = instrumentNumber;
-    this.noteCount = 1;
+    this.noteCount = 0;
+  }
+
+  /**
+   * Add the given note to the notes array if its not already in there
+   * @param note the note being played
+   */
+  public void addNote(String note){
+    if(!notes.contains(note))
+       this.notes.add(note);
+  }
+
+  /**
+   * Increase the note count by 1
+   */
+  public void incrementNoteCount(){
+    this.noteCount += 1;
   }
 
   public int getInstrumentNumber(){
@@ -20,11 +49,6 @@ public class Guitar {
 
   public void setInstrumentNumber(int instrumentNumber){
     this.instrumentNumber = instrumentNumber;
-  }
-
-  public void addNote(String note){
-    if(!notes.contains(note))
-       this.notes.add(note);
   }
 
   public ArrayList<String> getNotes(){
@@ -39,9 +63,7 @@ public class Guitar {
     return this.channelNumber;
   }
 
-  public void incrementNoteCount(){
-    this.noteCount += 1;
+  public int getNoteCount() {
+    return this.noteCount;
   }
-
-  public int getNoteCount() { return this.noteCount; }
 }

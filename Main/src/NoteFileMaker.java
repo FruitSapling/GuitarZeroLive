@@ -23,6 +23,7 @@ public class NoteFileMaker {
 
   /**
    * This method creates a new note file and writes the track number to the first line
+   *
    * @param FILE_NAME what the new file should be called
    * @param trackNumber the track number the notes are recorded from
    */

@@ -1,19 +1,28 @@
-/* Primary Class Developer: Willem van Gerwen */
-
 import java.util.HashMap;
 
+/**
+ * The Constants class keeps all constants used throughout the code.
+ *
+ * @author Willem
+ */
 public class Constants {
     public static String    EXIT_IMAGE_PATH = "Main/src/resources/exit.png";
     public static String    SELECT_IMAGE_PATH = "Main/src/resources/select.png";
     public static String    PLAY_IMAGE_PATH = "Main/src/resources/play.png";
     public static String    STORE_IMAGE_PATH = "Main/src/resources/store.png";
     public static String    TUTORIAL_IMAGE_PATH = "Main/src/resources/tutorial.png";
+    public static String    AMERICAN_IDIOT_IMAGE_PATH = "Main/src/resources/american_idiot.jpg";
+    public static String    CHAMPAGNE_SUPERNOVA_IMAGE_PATH = "Main/src/resources/champagne_supernova.jpg";
+    public static String    MR_BRIGHTSIDE_IMAGE_PATH = "Main/src/resources/mr_brightside.jpg";
+    public static String    SEPTEMBER_IMAGE_PATH = "Main/src/resources/september.jpg";
+    public static String    WONDERWALL_IMAGE_PATH = "Main/src/resources/wonderwall.jpg";
+    public static String    DEFAULT_WHITE_IMAGE_PATH = "Main/src/resources/exit.png";
     public static int       BUTTON_WIDTH = 128;
     public static int       BUTTON_HEIGHT = 168;
     public static int       CAROUSEL_MENU_HEIGHT = 192;
     public static String    GUITAR_HERO = "Guitar Hero";
 
-    public static String    ZIP_FILE_PATH = "Music";
+    public static String    ZIP_FILE_PATH = "Main/src/Music";
 
     public static int       FirstGuitar = 25;
     public static int       LastGuitar = 38;

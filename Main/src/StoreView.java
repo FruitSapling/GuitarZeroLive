@@ -1,26 +1,28 @@
-/**
- * @author Tom
- * Refactored for Store Mode from Slash Mode by @Morgan
- */
 import java.awt.Dimension;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import javax.swing.*;
 
+/**
+ * @author Tom
+ * Contributed to by:
+ * Morgan - Refactored for Store Mode from Slash Mode
+ * Willem - Making the carousel work in store mode, mock store mode carousel menu
+ */
+
 public class StoreView extends JFrame implements PropertyChangeListener {
 
-    private StoreModel model1;
+    private StoreModel model;
     private StoreController controller;
     private GuitarButtonController controller2;
 
     private JPanel panel;
 
     private MainView.guitar g;
-    private CarouselMenu menu;
 
-    public StoreView(StoreModel model1, StoreController controller, GuitarButtonController controller2) {
-        this.model1 = model1;
-        this.model1.addPropertyChangeListener(this);
+    public StoreView(StoreModel model, StoreController controller, GuitarButtonController controller2) {
+        this.model = model;
+        this.model.addPropertyChangeListener(this);
         this.controller = controller;
         this.controller2 = controller2;
 
@@ -30,8 +32,8 @@ public class StoreView extends JFrame implements PropertyChangeListener {
         this.panel.setPreferredSize(new Dimension(Constants.w,Constants.h));
 
         CarouselButton[] buttons = setMenu(this);
-        this.menu = new CarouselMenu(buttons, 20, 400);
-        model1.addPropertyChangeListener(menu);
+        this.model.carouselMenu = new CarouselMenu(buttons, 20, 400);
+        model.addPropertyChangeListener(this.model.carouselMenu);
 
         this.panel.add(g);
 
@@ -45,12 +47,12 @@ public class StoreView extends JFrame implements PropertyChangeListener {
 
     public void propertyChange(PropertyChangeEvent pce) {
         if (pce.getPropertyName() == null) {
-            if (!model1.menuOpen) {
-                model1.menuOpen = true;
-                g.add(menu);
-            } else if (model1.menuOpen) {
-                model1.menuOpen = false;
-                g.remove(menu);
+            if (!model.menuOpen) {
+                model.menuOpen = true;
+                g.add(model.carouselMenu);
+            } else if (model.menuOpen) {
+                model.menuOpen = false;
+                g.remove(model.carouselMenu);
             }
         }
         this.revalidate();
@@ -60,28 +62,25 @@ public class StoreView extends JFrame implements PropertyChangeListener {
 
 
     public CarouselButton[] setMenu(JFrame frame) {
-        //TODO: Make Select Mode actually select mode
         CarouselButton[] buttons = new CarouselButton[5];
 
-        buttons[0] = new CarouselButton(Constants.EXIT_IMAGE_PATH, "Exit") {
-            @Override public void onClick() { }
-        };
-        //buttons[0].addActionListener(new CarouselHandler(buttons[0], frame));
-
-        buttons[1] = new CarouselButton(Constants.SELECT_IMAGE_PATH, "Select") {
-            @Override public void onClick() { }
-        };
-        //buttons[1].addActionListener(new CarouselHandler(buttons[1], frame));
-
-        buttons[2] = new CarouselButton(Constants.PLAY_IMAGE_PATH, "Play") {
+        buttons[0] = new CarouselButton(Constants.WONDERWALL_IMAGE_PATH, "Exit") {
             @Override public void onClick() { }
         };
 
-        buttons[3] = new CarouselButton(Constants.STORE_IMAGE_PATH, "Store") {
+        buttons[1] = new CarouselButton(Constants.SEPTEMBER_IMAGE_PATH, "Select") {
             @Override public void onClick() { }
         };
 
-        buttons[4] = new CarouselButton(Constants.TUTORIAL_IMAGE_PATH, "Tutorial") {
+        buttons[2] = new CarouselButton(Constants.AMERICAN_IDIOT_IMAGE_PATH, "Play") {
+            @Override public void onClick() { }
+        };
+
+        buttons[3] = new CarouselButton(Constants.CHAMPAGNE_SUPERNOVA_IMAGE_PATH, "Store") {
+            @Override public void onClick() { }
+        };
+
+        buttons[4] = new CarouselButton(Constants.MR_BRIGHTSIDE_IMAGE_PATH, "Tutorial") {
             @Override public void onClick() { }
         };
 
