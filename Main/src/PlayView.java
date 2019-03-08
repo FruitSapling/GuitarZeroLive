@@ -18,8 +18,9 @@ public class PlayView extends JFrame implements PropertyChangeListener {
   private LanePanel jp1,jp2,jp3;
 
   public PlayView(PlayModel model, PlayController2 controller) {
-    //ExtractNotes.playBackingTrack("MrBrightside");
-    ExtractNotes.playSoloGuitar("MrBrightside");
+    // 1 is the lead guitar on MrBrightside, should be read from notes file in future
+    //ExtractNotes.playSong("MrBrightside.mid", 1, true, false);
+    ExtractNotes.playSong("MrBrightside.mid", 1,false, true);
 
     this.controller = controller;
     this.addKeyListener(controller);
