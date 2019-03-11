@@ -27,22 +27,8 @@ public class ExtractNotes{
 
   public static void main(String[] args){
     // code below is all for showcase
-    String filename = "MrBrightside.mid";
-    makeNotesFile("MrBrightside.mid");
-
-    try{
-      seq = MidiSystem.getSequence(new File( "Main/src/" + filename ));
-    } catch (Exception e){
-      e.printStackTrace();
-      System.exit(1);
-    }
-
-    Guitar leadGuitar = findLeadGuitar(findAllGuitars(seq));
-    int trackNumber = leadGuitar.getTrackNumber();
-
-    playSong(filename, trackNumber, false, false);
-    playSong(filename, trackNumber, true, false);
-    playSong(filename, trackNumber, false, true);
+    makeNotesFile("ChampagneSupernova.mid");
+    playSong("ChampagneSupernova.mid", 0, false, false);
   }
 
   /**
@@ -160,6 +146,7 @@ public class ExtractNotes{
     int currentInstrumentNumber = -1;
 
     NoteFileMaker notes = new NoteFileMaker( filename + "notes", leadGuitar.getTrackNumber());
+    System.out.println(notes.FILE_NAME);
     ArrayList<String> noteList = new ArrayList<>();
 
     for (int track=0; track < seq.getTracks().length; track++)

@@ -26,6 +26,11 @@ public class Constants {
 
     public static int       FirstGuitar = 25;
     public static int       LastGuitar = 38;
+    public static int       scoreMultiplier = 2;
+    public static int       streakMultiple = 10;
+    public static int       scoreMultiple = 500;
+    public static int       maxInGameCurrency = 5;
+    public static int       noteValue = 50;
 
     public static int       w = 750;
     public static int       h = 1000;
