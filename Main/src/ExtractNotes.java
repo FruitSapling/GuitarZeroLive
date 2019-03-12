@@ -145,8 +145,7 @@ public class ExtractNotes{
     int currentChannel = -1;
     int currentInstrumentNumber = -1;
 
-    NoteFileMaker notes = new NoteFileMaker( filename + "notes", leadGuitar.getTrackNumber());
-    System.out.println(notes.FILE_NAME);
+    NoteFileMaker notes = new NoteFileMaker( "./Main/src/" + filename + "notes", leadGuitar.getTrackNumber());
     ArrayList<String> noteList = new ArrayList<>();
 
     for (int track=0; track < seq.getTracks().length; track++)

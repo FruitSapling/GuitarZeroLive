@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * @author Tom
@@ -15,15 +17,22 @@ public class PlayModel {
 
   private PropertyChangeSupport support;
 
-  private ArrayList<Note> current;
+  private CopyOnWriteArrayList<Note> current;
+
+  private Scoring score;
 
   public PlayModel() {
-    this.current = new ArrayList<>();
+    this.current = new CopyOnWriteArrayList<>();
     this.support = new PropertyChangeSupport(this);
+    this.score = new Scoring();
   }
 
   public void addPropertyChangeListener(PropertyChangeListener pcl) {
     this.support.addPropertyChangeListener(pcl);
+  }
+
+  public Scoring getScore() {
+    return this.score;
   }
 
   //Test function to randomly generate some notes
@@ -108,9 +117,16 @@ public class PlayModel {
 
   //Removes the note if in range of pickup
   public void strum() {
-    for(Note n : this.current) {
-      if(n.getY() > 600 && n.getY() < 650) {
-        this.current.remove(n);
+    Iterator<Note> it = this.current.iterator();
+    while(it.hasNext()) {
+      Note currentNote = it.next();
+      if(currentNote.getY() > 600 && currentNote.getY() < 650) {
+        // if two/three notes at once, call noteHit() twice/three times
+        this.current.remove(currentNote);
+        this.score.noteHit();
+        // TODO play midi sound of current note
+      } else {
+        this.score.noteMissed();
       }
     }
   }
