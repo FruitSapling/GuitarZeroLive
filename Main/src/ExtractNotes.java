@@ -27,8 +27,8 @@ public class ExtractNotes{
 
   public static void main(String[] args){
     // code below is all for showcase
-    makeNotesFile("ChampagneSupernova.mid");
-    playSong("ChampagneSupernova.mid", 0, false, false);
+    makeNotesFile("MrBrightside.mid");
+    playSong("MrBrightside.mid", 0, false, false);
   }
 
   /**

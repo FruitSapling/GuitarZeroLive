@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.concurrent.CopyOnWriteArrayList;
+import javax.sound.midi.Instrument;
+import javax.sound.midi.MidiChannel;
 
 /**
  * @author Tom
@@ -124,7 +126,7 @@ public class PlayModel {
         // if two/three notes at once, call noteHit() twice/three times
         this.current.remove(currentNote);
         this.score.noteHit();
-        // TODO play midi sound of current note
+
       } else {
         this.score.noteMissed();
       }
