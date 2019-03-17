@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import net.java.games.input.Component;
 import net.java.games.input.Controller;
 import net.java.games.input.ControllerEnvironment;
@@ -13,9 +14,9 @@ import net.java.games.input.ControllerEnvironment;
 public class GuitarPoller implements Runnable {
 
     private float MIN_BTN_VALUE = 0.05f;
-    private GuitarButtonController controller;
+    private GuitarController controller;
 
-    public GuitarPoller(GuitarButtonController controller) {
+    public GuitarPoller(GuitarController controller) {
         this.controller = controller;
     }
 
@@ -37,16 +38,19 @@ public class GuitarPoller implements Runnable {
         return null;
     }
 
-    public synchronized void addListener(GuitarButtonListener listener){
-        controller.listeners.add(listener);
-    }
 
-    public synchronized void removeListener(GuitarButtonListener listener){
-        controller.listeners.remove(listener);
-    }
+//    public synchronized void addListener(GuitarButtonListener listener){
+//        controller.listeners.add(listener);
+//    }
+//
+//    public synchronized void removeListener(GuitarButtonListener listener){
+//        controller.listeners.remove(listener);
+//    }
 
     public boolean beingPressed(float value) {
-        if (value < (-1 * MIN_BTN_VALUE) || value > MIN_BTN_VALUE) return true;
+        if (value < (-1 * MIN_BTN_VALUE) || value > MIN_BTN_VALUE) {
+            return true;
+        }
         else return false;
     }
 
@@ -58,6 +62,12 @@ public class GuitarPoller implements Runnable {
             //TODO: make user-friendly GUI to ask user to connect guitar.
             return; //end the thread,
         }
+
+        //TODO:
+        // find which buttons are being pressed
+        // send them to controller
+
+        ArrayList<GuitarButton> buttonsPressed = new ArrayList<>();
 
         Component[] cmps        = ctrl.getComponents();
         float[]     vals        = new float[  cmps.length ];
@@ -75,8 +85,9 @@ public class GuitarPoller implements Runnable {
                 }
                 //generate events for any binary buttons being pressed
                 for (int i: Constants.binaryButtonsIndices) {
-                    if (vals[i] == 1.0 && prevVals[i] == 0.0) {
-                        controller.fireGuitarButtonPressedEvent(Constants.INDEX_TO_BUTTON.get(i));
+                    if (vals[i] == 1.0) {
+                        buttonsPressed.add(Constants.INDEX_TO_BUTTON.get(i));
+//                        controller.fireGuitarButtonPressedEvent(Constants.INDEX_TO_BUTTON.get(i));
                     }
                 }
 
@@ -84,14 +95,16 @@ public class GuitarPoller implements Runnable {
                 float strumValue = vals[STRUM_INDEX];
                 float prevStrumValue = prevVals[STRUM_INDEX];
 
+                // If the guitar was just strummed...
                 if ((!beingPressed(strumValue)) && (beingPressed(prevStrumValue))) {
-                    controller.fireGuitarButtonPressedEvent(Constants.INDEX_TO_BUTTON.get(STRUM_INDEX), prevStrumValue);
+                    controller.guitarStrummed(buttonsPressed);
+//                    controller.fireGuitarButtonPressedEvent(Constants.INDEX_TO_BUTTON.get(STRUM_INDEX), prevStrumValue);
                 }
 
                 int WHAMMY_INDEX = 0;
                 float whammy_value = vals[WHAMMY_INDEX];
                 if (beingPressed(whammy_value)) {
-                    controller.fireGuitarButtonPressedEvent(Constants.INDEX_TO_BUTTON.get(STRUM_INDEX), whammy_value);
+//                    controller.fireGuitarButtonPressedEvent(Constants.INDEX_TO_BUTTON.get(STRUM_INDEX), whammy_value);
                 }
             }
 

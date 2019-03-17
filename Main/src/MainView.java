@@ -16,14 +16,14 @@ public class MainView extends JFrame implements PropertyChangeListener {
 
   private MainModel model1;
   private MainController controller;
-  private GuitarButtonController gbController;
+  private MainGuitarController gbController;
 
   private JPanel panel;
 
   private guitar g;
   private CarouselMenu menu;
 
-  public MainView(MainModel model1, MainController controller, GuitarButtonController gbController) {
+  public MainView(MainModel model1, MainController controller, MainGuitarController gbController) {
     this.model1 = model1;
     this.model1.addPropertyChangeListener(this);
     this.controller = controller;
@@ -42,6 +42,8 @@ public class MainView extends JFrame implements PropertyChangeListener {
 
     this.addKeyListener(controller);
     this.addKeyListener(gbController);
+
+    gbController.addListener(gbController);
 
     this.add(panel);
     this.pack();

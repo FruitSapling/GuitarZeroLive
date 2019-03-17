@@ -17,7 +17,7 @@
 //  private int selectedMode = 2;
 //  private CarouselMenu carouselMenu;
 //
-//  public MainPanel(GuitarButtonController guitarButtonController) {
+//  public MainPanel(MainGuitarController guitarButtonController) {
 //    //register this panel as a guitar button press listener
 //    guitarButtonController.addListener(this);
 //    CarouselButton[] buttons = new CarouselButton[5];

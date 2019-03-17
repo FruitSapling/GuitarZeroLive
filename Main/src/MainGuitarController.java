@@ -3,22 +3,22 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 /**
- * A 'controller' in the MVC design pattern, manipulating the model when
+ * A controller following the MVC design pattern, manipulating the model when
  * sending guitar button presses and key presses.
  *
  * @author Willem
  */
-public class GuitarButtonController implements GuitarButtonListener, KeyListener {
+public class MainGuitarController extends GuitarController implements GuitarButtonListener, KeyListener {
 
   private MainModel model;
   public final ArrayList<GuitarButtonListener> listeners = new ArrayList<>();
   GuitarPoller guitarPoller;
 
-  public GuitarButtonController(MainModel model) {
+  public MainGuitarController(MainModel model) {
     this.model = model;
-    guitarPoller = new GuitarPoller(this);
-    Thread t = new Thread(new GuitarPoller(this));
-    t.start();
+//    guitarPoller = new GuitarPoller(this);
+//    Thread t = new Thread(new GuitarPoller(this));
+//    t.start();
   }
 
   @Override
@@ -36,7 +36,6 @@ public class GuitarButtonController implements GuitarButtonListener, KeyListener
         break;
     }
   }
-
 
   public synchronized void addListener(GuitarButtonListener listener){
     listeners.add(listener);
@@ -93,4 +92,8 @@ public class GuitarButtonController implements GuitarButtonListener, KeyListener
 
   }
 
+  @Override
+  public void guitarStrummed(ArrayList<GuitarButton> buttonsPressed) {
+
+  }
 }

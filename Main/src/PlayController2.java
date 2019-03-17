@@ -1,5 +1,6 @@
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.ArrayList;
 import javax.sound.midi.Instrument;
 
 public class PlayController2 implements KeyListener {
@@ -25,6 +26,10 @@ public class PlayController2 implements KeyListener {
           ex.printStackTrace();
         }
         model.strum();
+        ArrayList<GuitarButton> buttonsPressed = new ArrayList<>();
+        buttonsPressed.add(GuitarButton.WHITE_1);
+        buttonsPressed.add(GuitarButton.WHITE_3);
+        model.guitarStrummed(buttonsPressed);
         break;
     }
   }

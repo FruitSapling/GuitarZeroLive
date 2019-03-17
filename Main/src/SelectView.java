@@ -18,14 +18,13 @@ public class SelectView extends JFrame implements PropertyChangeListener {
 
     private SelectModel model;
     private SelectController controller;
-    private GuitarButtonController controller2;
+    private MainGuitarController controller2;
 
     private JPanel panel;
 
     private MainView.guitar g;
-    private CarouselMenu menu;
 
-    public SelectView(SelectModel model, SelectController controller, GuitarButtonController controller2) {
+    public SelectView(SelectModel model, SelectController controller, MainGuitarController controller2) {
         this.model = model;
         this.model.addPropertyChangeListener(this);
         this.controller = controller;

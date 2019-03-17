@@ -10,6 +10,11 @@ import java.beans.PropertyChangeListener;
 import javax.swing.JLayeredPane;
 
 /**
+ * CarouselMenu holds a number of CarouselButtons, which can be cycled through and selected.
+ * To use this menu, create a CarouselMenu and register it as a PropertyChangeListener.
+ * It will listen for the property name "cycleCarousel" to cycle the carousel, and "selectMode"
+ * to call the CarouselButton's "onClick" method.
+ *
  * @author Willem
  *
  */

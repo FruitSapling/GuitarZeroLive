@@ -7,8 +7,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.concurrent.CopyOnWriteArrayList;
-import javax.sound.midi.Instrument;
-import javax.sound.midi.MidiChannel;
 
 /**
  * @author Tom
@@ -133,6 +131,48 @@ public class PlayModel {
     }
   }
 
+  private boolean isInBar(Note note) {
+    if (note.getY() > 600 && note.getY() < 650) return true;
+    else return false;
+  }
+
+  private boolean wasPressed(Note note, ArrayList<GuitarButton> buttonsPressed) {
+    int lane = note.getLane();
+    boolean pressed = false;
+
+    for (GuitarButton g: buttonsPressed) {
+        if (note.getColour() == 0) { // If the note is white
+          if ((lane == 0 && g == GuitarButton.WHITE_1)
+              || (lane == 1 && g == GuitarButton.WHITE_2)
+              || (lane == 2 && g == GuitarButton.WHITE_3)) {
+            pressed = true;
+          }
+        } else { // If the note is black
+          if ((lane == 0 && g == GuitarButton.BLACK_1)
+              || (lane == 1 && g == GuitarButton.BLACK_2)
+              || (lane == 2 && g == GuitarButton.BLACK_3)) {
+            pressed = true;
+          }
+        }
+      }
+      return pressed;
+  }
+
+  public void guitarStrummed(ArrayList<GuitarButton> buttonsPressed) {
+    Iterator<Note> it = this.current.iterator();
+    while(it.hasNext()) {
+      Note currentNote = it.next();
+
+      if (wasPressed(currentNote, buttonsPressed) && isInBar(currentNote)) {
+        // if two/three notes at once, call noteHit() twice/three times
+        this.current.remove(currentNote);
+        this.score.noteHit();
+      } else {
+        this.score.noteMissed();
+      }
+    }
+  }
+
   //Test function to loop the notes back to y=0
   public void flip() {
     for(Note n : this.current) {
@@ -143,4 +183,3 @@ public class PlayModel {
   }
 
 }
-
