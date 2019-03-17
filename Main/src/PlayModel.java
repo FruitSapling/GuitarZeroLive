@@ -41,7 +41,7 @@ public class PlayModel {
     //for(int i = 0; i < n; i++) {
       //current.add(new Note(rand.nextInt(3), rand.nextInt(500), rand.nextInt(2)));
     //}
-    for(int[] arr : genNotes("Main/src/MrBrightside.midnotes")) {
+    for(int[] arr : genNotes(IntendedTrack.getIntendedTrack())) {
       current.add(new Note(arr[0], 0-arr[2]+550, arr[1]));
     }
   }
@@ -132,8 +132,7 @@ public class PlayModel {
   }
 
   private boolean isInBar(Note note) {
-    if (note.getY() > 600 && note.getY() < 650) return true;
-    else return false;
+    return note.getY() > 600 && note.getY() < 650;
   }
 
   private boolean wasPressed(Note note, ArrayList<GuitarButton> buttonsPressed) {

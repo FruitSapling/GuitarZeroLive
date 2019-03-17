@@ -128,11 +128,17 @@ public class MainView extends JFrame implements PropertyChangeListener {
 
     buttons[2] = new CarouselButton(Constants.PLAY_IMAGE_PATH, "Play") {
       @Override public void onClick() {
-        frame.dispose();
-        PlayModel model = new PlayModel();
-        PlayController1 controller = new PlayController1(model);
-        PlayController2 controller2 = new PlayController2(model);
-        new PlayView(model, controller2);
+        if (IntendedTrack.getIntendedTrack().equals("")) {
+          JOptionPane.showMessageDialog(null, "You must select a track before attempting to play!"
+                  , "Selection Error", JOptionPane.ERROR_MESSAGE);
+        }
+        else {
+          frame.dispose();
+          PlayModel model = new PlayModel();
+          PlayController1 controller = new PlayController1(model);
+          PlayController2 controller2 = new PlayController2(model);
+          new PlayView(model, controller2);
+        }
       }
     };
 
