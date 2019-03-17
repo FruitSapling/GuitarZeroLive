@@ -1,7 +1,6 @@
 import java.awt.GridLayout;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.util.ArrayList;
 import java.util.concurrent.CopyOnWriteArrayList;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -17,13 +16,13 @@ public class PlayView extends JFrame implements PropertyChangeListener {
   private PlayModel model;
   private PlayController2 controller;
 
-  private MainView.guitar guitar;
+  private MainView.Guitar guitar;
   private LanePanel jp1,jp2,jp3;
   private JPanel jpScore;
   private JLabel scoreLabel;
 
   public PlayView(PlayModel model, PlayController2 controller) {
-    // 1 is the lead guitar on MrBrightside, should be read from notes file in future
+    // 1 is the lead Guitar on MrBrightside, should be read from notes file in future
     //ExtractNotes.playSong("MrBrightside.mid", 1, true, false);
     //ExtractNotes.playSong("MrBrightside.mid", 1,false, true);
 
@@ -34,7 +33,7 @@ public class PlayView extends JFrame implements PropertyChangeListener {
     this.model.addPropertyChangeListener(this);
     this.model.testFill(50);
 
-    this.guitar = new MainView.guitar(Constants.w, Constants.h);
+    this.guitar = new MainView.Guitar(Constants.w, Constants.h);
     this.guitar.setOpaque(false);
     this.guitar.setLayout(new GridLayout(1,3));
 

@@ -25,7 +25,7 @@ public class PlayController2 implements KeyListener {
         } catch (InterruptedException ex) {
           ex.printStackTrace();
         }
-        model.strum();
+//        model.strum();
         ArrayList<GuitarButton> buttonsPressed = new ArrayList<>();
         buttonsPressed.add(GuitarButton.WHITE_1);
         buttonsPressed.add(GuitarButton.WHITE_3);

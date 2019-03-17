@@ -141,7 +141,7 @@ public class PlayModel {
     boolean pressed = false;
 
     for (GuitarButton g: buttonsPressed) {
-        if (note.getColour() == 0) { // If the note is white
+        if (note.getColour() == 1) { // If the note is white
           if ((lane == 0 && g == GuitarButton.WHITE_1)
               || (lane == 1 && g == GuitarButton.WHITE_2)
               || (lane == 2 && g == GuitarButton.WHITE_3)) {

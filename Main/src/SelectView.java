@@ -22,7 +22,7 @@ public class SelectView extends JFrame implements PropertyChangeListener {
 
     private JPanel panel;
 
-    private MainView.guitar g;
+    private MainView.Guitar g;
 
     public SelectView(SelectModel model, SelectController controller, MainGuitarController controller2) {
         this.model = model;
@@ -30,7 +30,7 @@ public class SelectView extends JFrame implements PropertyChangeListener {
         this.controller = controller;
         this.controller2 = controller2;
 
-        this.g = new MainView.guitar(Constants.w,Constants.h);
+        this.g = new MainView.Guitar(Constants.w,Constants.h);
 
         this.panel = new JPanel();
         this.panel.setPreferredSize(new Dimension(Constants.w,Constants.h));
@@ -47,7 +47,6 @@ public class SelectView extends JFrame implements PropertyChangeListener {
         this.pack();
         this.setVisible(true);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-
     }
 
     public void propertyChange(PropertyChangeEvent pce) {

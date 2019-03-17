@@ -13,7 +13,7 @@ import javax.sound.midi.ShortMessage;
 import javax.sound.midi.Track;
 
 /**
- * This class extracts the notes played by the lead guitar of a song along with their corresponding
+ * This class extracts the notes played by the lead Guitar of a song along with their corresponding
  * time, in milliseconds
  *
  * @author Luke Sykes
@@ -32,7 +32,7 @@ public class ExtractNotes{
   }
 
   /**
-   * Finds a lead guitar from the file and then uses this to extract the appropiate notes
+   * Finds a lead Guitar from the file and then uses this to extract the appropiate notes
    * @param filename the name of the midifile to be played
    */
   public static void makeNotesFile(String filename){
@@ -48,7 +48,7 @@ public class ExtractNotes{
   /**
    * Iterates over every track, calling the method findGuitarInTrack on each
    * @param seq the midi sequence to iterate through tracks
-   * @return a list of guitar instrument numbers for their respective track
+   * @return a list of Guitar instrument numbers for their respective track
    */
   private static HashMap<Integer, Guitar> findAllGuitars(Sequence seq){
     Track[] tracks = seq.getTracks();
@@ -92,10 +92,10 @@ public class ExtractNotes{
   }
 
   /**
-   * Finds the lead guitar out of the given instrument numbers
-   * The most significant guitar is notes played multipled by range of notes
+   * Finds the lead Guitar out of the given instrument numbers
+   * The most significant Guitar is notes played multipled by range of notes
    * @param instrumentTracks an array of instrument numbers where index corresponds to track number
-   * @return the instrument number of the lead guitar
+   * @return the instrument number of the lead Guitar
    */
   private static Guitar findLeadGuitar(HashMap<Integer, Guitar> instrumentTracks){
     int highestScore = 0;
@@ -130,7 +130,7 @@ public class ExtractNotes{
   /**
    * This method recognises changes when playing the midi file and takes appropiate action
    * @param seq the midi file being played
-   * @param leadGuitar the track number the lead guitar is played on
+   * @param leadGuitar the track number the lead Guitar is played on
    */
   private static void convertMidiToNotes(Sequence seq, Guitar leadGuitar, String filename){
     int count = 0;

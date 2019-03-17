@@ -4,9 +4,9 @@ import net.java.games.input.Controller;
 import net.java.games.input.ControllerEnvironment;
 
 /**
- * A class to generate guitar button press events.
- * This class polls the guitar with a while-loop, and when it detects a button press
- * in the guitar, it generates this event and tells controller to fire an event.
+ * A class to generate Guitar button press events.
+ * This class polls the Guitar with a while-loop, and when it detects a button press
+ * in the Guitar, it generates this event and tells controller to fire an event.
  *
  * @author Willem
  *
@@ -21,7 +21,7 @@ public class GuitarPoller implements Runnable {
     }
 
     /*
-    Returns the guitar controller if it can be found,
+    Returns the Guitar controller if it can be found,
     else it returns null.
     Code using this method must check for null and handle this appropriately.
      */
@@ -31,7 +31,7 @@ public class GuitarPoller implements Runnable {
 
         for ( Controller ctrl : ctrls ) {
             if ( ctrl.getName().contains( Constants.GUITAR_HERO ) ) {
-                System.out.println("Connected to guitar");
+                System.out.println("Connected to Guitar");
                 return ctrl;
             }
         }
@@ -59,7 +59,7 @@ public class GuitarPoller implements Runnable {
         Controller ctrl = getGuitarController();
 
         if (ctrl == null) {
-            //TODO: make user-friendly GUI to ask user to connect guitar.
+            //TODO: make user-friendly GUI to ask user to connect Guitar.
             return; //end the thread,
         }
 
@@ -95,7 +95,7 @@ public class GuitarPoller implements Runnable {
                 float strumValue = vals[STRUM_INDEX];
                 float prevStrumValue = prevVals[STRUM_INDEX];
 
-                // If the guitar was just strummed...
+                // If the Guitar was just strummed...
                 if ((!beingPressed(strumValue)) && (beingPressed(prevStrumValue))) {
                     controller.guitarStrummed(buttonsPressed);
 //                    controller.fireGuitarButtonPressedEvent(Constants.INDEX_TO_BUTTON.get(STRUM_INDEX), prevStrumValue);

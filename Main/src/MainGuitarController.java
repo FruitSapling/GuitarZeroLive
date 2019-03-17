@@ -4,7 +4,7 @@ import java.awt.event.KeyListener;
 
 /**
  * A controller following the MVC design pattern, manipulating the model when
- * sending guitar button presses and key presses.
+ * sending Guitar button presses and key presses.
  *
  * @author Willem
  */

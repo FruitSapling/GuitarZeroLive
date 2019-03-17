@@ -20,7 +20,7 @@ public class MainView extends JFrame implements PropertyChangeListener {
 
   private JPanel panel;
 
-  private guitar g;
+  private Guitar g;
   private CarouselMenu menu;
 
   public MainView(MainModel model1, MainController controller, MainGuitarController gbController) {
@@ -29,7 +29,7 @@ public class MainView extends JFrame implements PropertyChangeListener {
     this.controller = controller;
     this.gbController = gbController;
 
-    this.g = new guitar(Constants.w,Constants.h);
+    this.g = new Guitar(Constants.w,Constants.h);
 
     this.panel = new JPanel();
     this.panel.setPreferredSize(new Dimension(Constants.w,Constants.h));
@@ -69,8 +69,8 @@ public class MainView extends JFrame implements PropertyChangeListener {
     this.pack();
   }
 
-  public static class guitar extends JPanel {
-    public guitar(int w, int h) {
+  public static class Guitar extends JPanel {
+    public Guitar(int w, int h) {
       this.setPreferredSize(new Dimension(w, h));
     }
     public void paintComponent(Graphics g) {
@@ -146,7 +146,12 @@ public class MainView extends JFrame implements PropertyChangeListener {
     };
 
     buttons[4] = new CarouselButton(Constants.TUTORIAL_IMAGE_PATH, "Tutorial") {
-      @Override public void onClick() { }
+      @Override public void onClick() {
+        frame.dispose();
+        TutorialModel model = new TutorialModel();
+        TutorialController controller = new TutorialController(model);
+        new TutorialView(model, controller);
+      }
     };
 
     return buttons;

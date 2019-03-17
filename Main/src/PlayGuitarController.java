@@ -10,7 +10,7 @@ public class PlayGuitarController extends GuitarController {
 
   @Override
   public void guitarStrummed(ArrayList<GuitarButton> buttonsPressed) {
-    // Tell the model which buttons were pressed when the guitar was strummed.
+    // Tell the model which buttons were pressed when the Guitar was strummed.
     model.guitarStrummed(buttonsPressed);
   }
 

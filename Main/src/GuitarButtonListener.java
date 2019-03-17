@@ -1,5 +1,5 @@
 /**
- * The guitar button press event listener class
+ * The Guitar button press event listener class
  *
  * @author Willem
  */

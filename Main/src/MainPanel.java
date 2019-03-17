@@ -18,7 +18,7 @@
 //  private CarouselMenu carouselMenu;
 //
 //  public MainPanel(MainGuitarController guitarButtonController) {
-//    //register this panel as a guitar button press listener
+//    //register this panel as a Guitar button press listener
 //    guitarButtonController.addListener(this);
 //    CarouselButton[] buttons = new CarouselButton[5];
 //

@@ -65,6 +65,6 @@ public class Constants {
         put(GuitarButton.WHAMMY, 17);
     }};
 
-    //The indices of the binary buttons on the guitar controller
+    //The indices of the binary buttons on the Guitar controller
     public static int[] binaryButtonsIndices = new int[] {0,1,2,3,4,5,8,10,12};
 }
