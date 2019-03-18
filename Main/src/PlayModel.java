@@ -42,7 +42,7 @@ public class PlayModel {
       //current.add(new Note(rand.nextInt(3), rand.nextInt(500), rand.nextInt(2)));
     //}
     for(int[] arr : genNotes(IntendedTrack.getIntendedTrack())) {
-      current.add(new Note(arr[0], 0-arr[2], arr[1]));
+      current.add(new Note(arr[0], 0-arr[2]/2, arr[1]));
     }
   }
 
