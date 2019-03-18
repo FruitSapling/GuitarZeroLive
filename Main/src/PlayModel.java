@@ -111,7 +111,7 @@ public class PlayModel {
   public void move() {
     for(Note n : this.current) {
       n.move();
-      if(n.getY() > 650) {
+      if(n.getY() > 622) {
         this.score.noteMissed();
         this.current.remove(n);
       }
@@ -139,7 +139,7 @@ public class PlayModel {
   }
 
   private boolean isInBar(Note note) {
-    return note.getY() > 600 && note.getY() < 650;
+    return note.getY() > 572 && note.getY() < 622;
   }
 
   private boolean wasPressed(Note note, ArrayList<GuitarButton> buttonsPressed) {

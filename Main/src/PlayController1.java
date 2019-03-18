@@ -15,11 +15,8 @@ public class PlayController1 {
 
     timer.scheduleAtFixedRate(new TimerTask() {
       public void run() {
-//        long time = System.currentTimeMillis();
-//        System.out.println(time);
         model.fireNotes();
         model.move();
-        //model.flip();
       }
     }, 0 , 1);
   }
