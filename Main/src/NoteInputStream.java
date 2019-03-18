@@ -87,7 +87,7 @@ public class NoteInputStream {
 
 
   /*
-  * A method to bind a note to the appropriate string on the guitar.
+  * A method to bind a note to the appropriate string on the Guitar.
   * Takes in a note string and returns the integer index of the appropriate string.
   */
   private int classifyNotes(String note) {

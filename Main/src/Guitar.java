@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 /**
- * This stores information about each guitar found on the midi file
+ * This stores information about each Guitar found on the midi file
  *
  * @author Luke Sykes
  * @version 1.0
@@ -15,10 +15,10 @@ public class Guitar {
   private ArrayList<String> notes = new ArrayList<String>();
 
   /**
-   * Assigns information about the current guitar
-   * @param trackNumber the track the guitar is played on
-   * @param channelNumber the channel the guitar is played on
-   * @param instrumentNumber the instrument number of the guitar being played
+   * Assigns information about the current Guitar
+   * @param trackNumber the track the Guitar is played on
+   * @param channelNumber the channel the Guitar is played on
+   * @param instrumentNumber the instrument number of the Guitar being played
    */
   public Guitar(int trackNumber, int channelNumber, int instrumentNumber){
     this.trackNumber = trackNumber;

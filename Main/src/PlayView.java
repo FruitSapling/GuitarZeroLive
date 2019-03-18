@@ -1,11 +1,8 @@
 import java.awt.GridLayout;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.util.ArrayList;
 import java.util.concurrent.CopyOnWriteArrayList;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
 
 /**
  * @author Tom
@@ -17,16 +14,11 @@ public class PlayView extends JFrame implements PropertyChangeListener {
   private PlayModel model;
   private PlayController2 controller;
 
-  private MainView.guitar guitar;
+  private MainView.Guitar guitar;
   private LanePanel jp1,jp2,jp3;
-  private JPanel jpScore;
-  private JLabel scoreLabel;
 
   public PlayView(PlayModel model, PlayController2 controller) {
-    // 1 is the lead guitar on MrBrightside, should be read from notes file in future
-    //ExtractNotes.playSong("MrBrightside.mid", 1, true, false);
-    ExtractNotes.playSong("AllTheSmallThings.mid", 1,false, true);
-    // TODO get correct track from first line of notes file
+    // 1 is the lead Guitar on MrBrightside, should be read from notes file in future
 
     this.controller = controller;
     this.addKeyListener(controller);
@@ -35,7 +27,7 @@ public class PlayView extends JFrame implements PropertyChangeListener {
     this.model.addPropertyChangeListener(this);
     this.model.testFill(50);
 
-    this.guitar = new MainView.guitar(Constants.w, Constants.h);
+    this.guitar = new MainView.Guitar(Constants.w, Constants.h);
     this.guitar.setOpaque(false);
     this.guitar.setLayout(new GridLayout(1,3));
 
@@ -54,6 +46,9 @@ public class PlayView extends JFrame implements PropertyChangeListener {
     this.setVisible(true);
     this.setLocationRelativeTo(null);
     this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+
+    ExtractNotes.playSong("AllTheSmallThings.mid", 1,false, true);
+    //ExtractNotes.playSong("AllTheSmallThings.mid", 1, true, false);
   }
 
   public void propertyChange(PropertyChangeEvent pce) {

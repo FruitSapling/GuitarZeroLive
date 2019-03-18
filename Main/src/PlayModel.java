@@ -7,8 +7,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.concurrent.CopyOnWriteArrayList;
-import javax.sound.midi.Instrument;
-import javax.sound.midi.MidiChannel;
 
 /**
  * @author Tom
@@ -46,8 +44,8 @@ public class PlayModel {
     //for(int i = 0; i < n; i++) {
       //current.add(new Note(rand.nextInt(3), rand.nextInt(500), rand.nextInt(2)));
     //}
-    for(int[] arr : genNotes("Main/src/AllTheSmallThings.midnotes")) {
-      current.add(new Note(arr[0], 0-arr[2]+550, arr[1]));
+    for(int[] arr : genNotes(IntendedTrack.getIntendedTrack())) {
+      current.add(new Note(arr[0], 0-arr[2], arr[1]));
     }
   }
 
@@ -64,6 +62,9 @@ public class PlayModel {
           continue;
         }
         String[] split = line.split(",");
+        if(split[0].equals("OFF")) {
+          continue;
+        }
         String noteString = split[1];
         char note = noteString.charAt(0);
         int[] result = new int[3];
@@ -112,6 +113,11 @@ public class PlayModel {
   public void move() {
     for(Note n : this.current) {
       n.move();
+      if(n.getY() > 600) {
+        System.out.println("NOTE OFF BAR ");
+        this.score.noteMissed();
+        this.current.remove(n);
+      }
     }
   }
 
@@ -129,14 +135,47 @@ public class PlayModel {
         // if two/three notes at once, call noteHit() twice/three times
         this.current.remove(currentNote);
         this.score.noteHit();
-        // TODO get note number, octave and duration from note file
-        try {
-          PlayGuitar.playNote(g,"G#",4,207);
-        } catch (InterruptedException ex) {
-          ex.printStackTrace();
-        }
       } else {
         this.score.noteMissed();
+      }
+    }
+  }
+
+  private boolean isInBar(Note note) {
+    return note.getY() > 550 && note.getY() < 600;
+  }
+
+  private boolean wasPressed(Note note, ArrayList<GuitarButton> buttonsPressed) {
+    int lane = note.getLane();
+    boolean pressed = false;
+
+    for (GuitarButton g: buttonsPressed) {
+        if (note.getColour() == 1) { // If the note is white
+          if ((lane == 0 && g == GuitarButton.WHITE_1)
+              || (lane == 1 && g == GuitarButton.WHITE_2)
+              || (lane == 2 && g == GuitarButton.WHITE_3)) {
+            pressed = true;
+          }
+        } else { // If the note is black
+          if ((lane == 0 && g == GuitarButton.BLACK_1)
+              || (lane == 1 && g == GuitarButton.BLACK_2)
+              || (lane == 2 && g == GuitarButton.BLACK_3)) {
+            pressed = true;
+          }
+        }
+      }
+      return pressed;
+  }
+
+  public void guitarStrummed(ArrayList<GuitarButton> buttonsPressed) {
+    Iterator<Note> it = this.current.iterator();
+    while(it.hasNext()) {
+      Note currentNote = it.next();
+
+      if (wasPressed(currentNote, buttonsPressed) && isInBar(currentNote)) {
+        // if two/three notes at once, call noteHit() twice/three times
+        this.current.remove(currentNote);
+        this.score.noteHit();
       }
     }
   }
@@ -151,4 +190,3 @@ public class PlayModel {
   }
 
 }
-

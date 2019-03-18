@@ -14,7 +14,7 @@ import javax.swing.JPanel;
 /**
  * @author Tom
  * Contributed to by:
- * Willem - Planned the structure of lanes on the guitar (following MVC) with Tom
+ * Willem - Planned the structure of lanes on the Guitar (following MVC) with Tom
  */
 public class LanePanel extends JPanel {
   private CopyOnWriteArrayList<Note> notes;

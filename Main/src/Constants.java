@@ -37,12 +37,12 @@ public class Constants {
 
     public static int GUITAR_POLL_DELAY = 50;
     public static HashMap<Integer, GuitarButton> INDEX_TO_BUTTON = new HashMap<Integer, GuitarButton>() {{
-        put(0, GuitarButton.FRET_4);
-        put(1, GuitarButton.FRET_1);
-        put(2, GuitarButton.FRET_2);
-        put(3, GuitarButton.FRET_3);
-        put(4, GuitarButton.FRET_5);
-        put(5, GuitarButton.FRET_6);
+        put(0, GuitarButton.WHITE_1);
+        put(1, GuitarButton.BLACK_1);
+        put(2, GuitarButton.BLACK_2);
+        put(3, GuitarButton.BLACK_3);
+        put(4, GuitarButton.WHITE_2);
+        put(5, GuitarButton.WHITE_3);
         put(8, GuitarButton.ZERO_POWER);
         put(10, GuitarButton.ESCAPE);
         put(12, GuitarButton.BENDER_BUTTON);
@@ -51,12 +51,12 @@ public class Constants {
         put(17, GuitarButton.WHAMMY);
     }};
     public static HashMap<GuitarButton, Integer> BUTTON_TO_INDEX = new HashMap<GuitarButton, Integer>() {{
-        put(GuitarButton.FRET_4, 0);
-        put(GuitarButton.FRET_1, 1);
-        put(GuitarButton.FRET_2, 2);
-        put(GuitarButton.FRET_3, 3);
-        put(GuitarButton.FRET_5, 5);
-        put(GuitarButton.FRET_6, 6);
+        put(GuitarButton.BLACK_1, 0);
+        put(GuitarButton.BLACK_1, 1);
+        put(GuitarButton.BLACK_2, 2);
+        put(GuitarButton.BLACK_3, 3);
+        put(GuitarButton.BLACK_2, 5);
+        put(GuitarButton.BLACK_3, 6);
         put(GuitarButton.ZERO_POWER, 8);
         put(GuitarButton.ESCAPE, 10);
         put(GuitarButton.BENDER_BUTTON, 12);
@@ -65,6 +65,6 @@ public class Constants {
         put(GuitarButton.WHAMMY, 17);
     }};
 
-    //The indices of the binary buttons on the guitar controller
+    //The indices of the binary buttons on the Guitar controller
     public static int[] binaryButtonsIndices = new int[] {0,1,2,3,4,5,8,10,12};
 }

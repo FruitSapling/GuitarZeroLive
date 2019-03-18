@@ -36,7 +36,7 @@ public class NoteFileMaker {
       this.bw = new BufferedWriter(fw);
       this.bw.write(Integer.toString(trackNumber));
       this.bw.newLine();
-      // write track guitar is played on at top of the file
+      // write track Guitar is played on at top of the file
     } catch (IOException e) {
       e.printStackTrace();
       System.exit(1);

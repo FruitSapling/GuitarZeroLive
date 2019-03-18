@@ -1,7 +1,4 @@
-/**
- * @author Tom
- * Refactored for Select Mode from Slash Mode by @Morgan
- */
+
 import java.awt.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -12,26 +9,30 @@ import java.util.Arrays;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
+/**
+ * @author Tom
+ * Refactored for Select Mode from Slash Mode by @Morgan
+ */
+
 public class SelectView extends JFrame implements PropertyChangeListener {
 
     public static String intendedTrack = "";
 
     private SelectModel model;
     private SelectController controller;
-    private GuitarButtonController controller2;
+    private MainGuitarController controller2;
 
     private JPanel panel;
 
-    private MainView.guitar g;
-    private CarouselMenu menu;
+    private MainView.Guitar g;
 
-    public SelectView(SelectModel model, SelectController controller, GuitarButtonController controller2) {
+    public SelectView(SelectModel model, SelectController controller, MainGuitarController controller2) {
         this.model = model;
         this.model.addPropertyChangeListener(this);
         this.controller = controller;
         this.controller2 = controller2;
 
-        this.g = new MainView.guitar(Constants.w,Constants.h);
+        this.g = new MainView.Guitar(Constants.w,Constants.h);
 
         this.panel = new JPanel();
         this.panel.setPreferredSize(new Dimension(Constants.w,Constants.h));
@@ -48,7 +49,6 @@ public class SelectView extends JFrame implements PropertyChangeListener {
         this.pack();
         this.setVisible(true);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-
     }
 
     public void propertyChange(PropertyChangeEvent pce) {
@@ -67,7 +67,7 @@ public class SelectView extends JFrame implements PropertyChangeListener {
     }
 
 
-    public CarouselButton[] setMenu(JFrame frame) {
+    private CarouselButton[] setMenu(JFrame frame) {
         /**
          * @author Morgan
          */
@@ -119,10 +119,10 @@ public class SelectView extends JFrame implements PropertyChangeListener {
                     buttons[i] = new CarouselButton(icon, zipName) {
                         @Override
                         public void onClick() {
-                            IntendedTrack.intendedTrack = zipPath;
+                            IntendedTrack.setIntendedTrack(zipPath);
                             JOptionPane.showMessageDialog(null,
                                     "Selected track has become:" + zipName
-                                    ,"", JOptionPane.INFORMATION_MESSAGE);
+                                    ,"Selection Info", JOptionPane.INFORMATION_MESSAGE);
                         }
                     };
                 }
@@ -135,17 +135,17 @@ public class SelectView extends JFrame implements PropertyChangeListener {
         return null;
     }
 
-    public ArrayList<File> inputAllFiles() {
+    private ArrayList<File> inputAllFiles() {
         File folder = new File(Constants.ZIP_FILE_PATH + "/");
-        ArrayList<File> list = new ArrayList<File>(Arrays.asList(folder.listFiles()));
 
+        //TODO: Figure out why this validation check isnt working
 //        for (int i = 0; i < list.size(); i++) {
 //            int index = list.get(i).getName().lastIndexOf('.');
 //            if (list.get(i).getName().substring(index) != "zip") {
 //                list.remove(i);
 //            }
 //        }
-        return list;
+        return new ArrayList<File>(Arrays.asList(folder.listFiles()));
     }
 
 }

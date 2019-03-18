@@ -1,5 +1,5 @@
 /**
- * A custom event class representing a guitar button press
+ * A custom event class representing a Guitar button press
  *
  * @author Willem
  *

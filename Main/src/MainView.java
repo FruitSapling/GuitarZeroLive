@@ -16,20 +16,20 @@ public class MainView extends JFrame implements PropertyChangeListener {
 
   private MainModel model1;
   private MainController controller;
-  private GuitarButtonController gbController;
+  private MainGuitarController gbController;
 
   private JPanel panel;
 
-  private guitar g;
+  private Guitar g;
   private CarouselMenu menu;
 
-  public MainView(MainModel model1, MainController controller, GuitarButtonController gbController) {
+  public MainView(MainModel model1, MainController controller, MainGuitarController gbController) {
     this.model1 = model1;
     this.model1.addPropertyChangeListener(this);
     this.controller = controller;
     this.gbController = gbController;
 
-    this.g = new guitar(Constants.w,Constants.h);
+    this.g = new Guitar(Constants.w,Constants.h);
 
     this.panel = new JPanel();
     this.panel.setPreferredSize(new Dimension(Constants.w,Constants.h));
@@ -42,6 +42,8 @@ public class MainView extends JFrame implements PropertyChangeListener {
 
     this.addKeyListener(controller);
     this.addKeyListener(gbController);
+
+    gbController.addListener(gbController);
 
     this.add(panel);
     this.pack();
@@ -67,8 +69,8 @@ public class MainView extends JFrame implements PropertyChangeListener {
     this.pack();
   }
 
-  public static class guitar extends JPanel {
-    public guitar(int w, int h) {
+  public static class Guitar extends JPanel {
+    public Guitar(int w, int h) {
       this.setPreferredSize(new Dimension(w, h));
     }
     public void paintComponent(Graphics g) {
@@ -126,11 +128,17 @@ public class MainView extends JFrame implements PropertyChangeListener {
 
     buttons[2] = new CarouselButton(Constants.PLAY_IMAGE_PATH, "Play") {
       @Override public void onClick() {
-        frame.dispose();
-        PlayModel model = new PlayModel();
-        PlayController1 controller = new PlayController1(model);
-        PlayController2 controller2 = new PlayController2(model);
-        new PlayView(model, controller2);
+        if (IntendedTrack.getIntendedTrack().equals("")) {
+          JOptionPane.showMessageDialog(null, "You must select a track before attempting to play!"
+                  , "Selection Error", JOptionPane.ERROR_MESSAGE);
+        }
+        else {
+          frame.dispose();
+          PlayModel model = new PlayModel();
+          PlayController1 controller = new PlayController1(model);
+          PlayController2 controller2 = new PlayController2(model);
+          new PlayView(model, controller2);
+        }
       }
     };
 
@@ -144,7 +152,12 @@ public class MainView extends JFrame implements PropertyChangeListener {
     };
 
     buttons[4] = new CarouselButton(Constants.TUTORIAL_IMAGE_PATH, "Tutorial") {
-      @Override public void onClick() { }
+      @Override public void onClick() {
+        frame.dispose();
+        TutorialModel model = new TutorialModel();
+        TutorialController controller = new TutorialController(model);
+        new TutorialView(model, controller);
+      }
     };
 
     return buttons;
