@@ -96,4 +96,19 @@ public class MainGuitarController extends GuitarController implements GuitarButt
   public void guitarStrummed(ArrayList<GuitarButton> buttonsPressed) {
 
   }
+
+  @Override
+  public void strumUp() {
+    cycleCarouselRight();
+  }
+
+  @Override
+  public void strumDown() {
+    cycleCarouselLeft();
+  }
+
+  @Override
+  public void zeroPowerPressed() {
+    selectMode();
+  }
 }

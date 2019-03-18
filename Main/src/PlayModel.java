@@ -111,7 +111,6 @@ public class PlayModel {
     for(Note n : this.current) {
       n.move();
       if(n.getY() > 600) {
-        System.out.println("NOTE OFF BAR ");
         this.score.noteMissed();
         this.current.remove(n);
       }
@@ -165,6 +164,12 @@ public class PlayModel {
   }
 
   public void guitarStrummed(ArrayList<GuitarButton> buttonsPressed) {
+
+    for (GuitarButton g: buttonsPressed) {
+      System.out.println(g);
+    }
+
+
     Iterator<Note> it = this.current.iterator();
     while(it.hasNext()) {
       Note currentNote = it.next();

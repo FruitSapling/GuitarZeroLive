@@ -48,10 +48,8 @@ public class MainModel {
     this.support.firePropertyChange(null,null,null);
   }
   public void strummed() {
-    System.out.println("Strum Me Daddy");
   }
   public void down() {
-
   }
 }
 
