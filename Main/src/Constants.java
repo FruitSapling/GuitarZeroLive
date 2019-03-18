@@ -1,4 +1,5 @@
 import java.util.HashMap;
+import java.lang.Math;
 
 /**
  * The Constants class keeps all constants used throughout the code.
@@ -34,6 +35,8 @@ public class Constants {
 
     public static int       w = 750;
     public static int       h = 1000;
+
+    public static double    tanTheta = 240/750;
 
     public static int GUITAR_POLL_DELAY = 50;
     public static HashMap<Integer, GuitarButton> INDEX_TO_BUTTON = new HashMap<Integer, GuitarButton>() {{

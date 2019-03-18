@@ -42,7 +42,17 @@ public class PlayModel {
     //current.add(new Note(rand.nextInt(3), rand.nextInt(500), rand.nextInt(2)));
     //}
     for (int[] arr : genNotes(IntendedTrack.getIntendedTrack())) {
-      current.add(new Note(arr[0], 0 - arr[2] + 600, arr[1]));
+      switch (arr[0]) {
+        case 0:
+          current.add(new Note(arr[0], 0 - arr[2] + 600, 250, arr[1]));
+          break;
+        case 1:
+          current.add(new Note(arr[0], 0 - arr[2] + 600, 125, arr[1]));
+          break;
+        case 2:
+          current.add(new Note(arr[0], 0 - arr[2] + 600, 0, arr[1]));
+          break;
+      }
     }
   }
 
@@ -56,7 +66,7 @@ public class PlayModel {
 
       String line;
       while((line = bw.readLine()) != null) {
-        if(line.equals("3") || line.equals("zero power mode started") || line.equals("zero power mode finished")) {
+        if(line.equals("10") || line.equals("zero power mode started") || line.equals("zero power mode finished")) {
           continue;
         }
         String[] split = line.split(",");
@@ -123,21 +133,6 @@ public class PlayModel {
     support.firePropertyChange("Notes", null, this.current);
   }
 
-  //Removes the note if in range of pickup
-  public void strum() {
-    Iterator<Note> it = this.current.iterator();
-    while(it.hasNext()) {
-      Note currentNote = it.next();
-      if(currentNote.getY() > 600 && currentNote.getY() < 650) {
-        // if two/three notes at once, call noteHit() twice/three times
-        this.current.remove(currentNote);
-        this.score.noteHit();
-      } else {
-        this.score.noteMissed();
-      }
-    }
-  }
-
   private boolean isInBar(Note note) {
     return note.getY() > 572 && note.getY() < 622;
   }
@@ -165,12 +160,6 @@ public class PlayModel {
   }
 
   public void guitarStrummed(ArrayList<GuitarButton> buttonsPressed) {
-
-    for (GuitarButton g: buttonsPressed) {
-      System.out.println(g);
-    }
-
-
     Iterator<Note> it = this.current.iterator();
     while(it.hasNext()) {
       Note currentNote = it.next();
@@ -182,14 +171,4 @@ public class PlayModel {
       }
     }
   }
-
-  //Test function to loop the notes back to y=0
-  public void flip() {
-    for(Note n : this.current) {
-      if(n.getY() == Constants.h) {
-        n.setY(0);
-      }
-    }
-  }
-
 }
