@@ -21,13 +21,10 @@ public class PlayModel {
 
   private Scoring score;
 
-  private Instrument g;
-
   public PlayModel() {
     this.current = new CopyOnWriteArrayList<>();
     this.support = new PropertyChangeSupport(this);
     this.score = new Scoring();
-    this.g = PlayGuitar.play(29); // TODO read this number from first line of notes file
   }
 
   public void addPropertyChangeListener(PropertyChangeListener pcl) {
@@ -58,7 +55,7 @@ public class PlayModel {
 
       String line;
       while((line = bw.readLine()) != null) {
-        if(line.equals("1")) {
+        if(line.equals("5") || line.equals("zero power mode started") || line.equals("zero power mode finished")) {
           continue;
         }
         String[] split = line.split(",");
