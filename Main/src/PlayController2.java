@@ -6,11 +6,9 @@ import javax.sound.midi.Instrument;
 public class PlayController2 implements KeyListener {
 
   private PlayModel model;
-  private Instrument g;
 
   public PlayController2(PlayModel model) {
     this.model = model;
-    g = PlayGuitar.play(29);
   }
 
   public void keyTyped(KeyEvent e) { }
