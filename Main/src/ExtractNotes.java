@@ -29,7 +29,7 @@ public class ExtractNotes{
 
   public static void main(String[] args){
     // code below is all for showcase
-    makeNotesFile("SweetChildOMine.mid");
+    makeNotesFile("SmokeOnTheWater.mid");
     //playSong("AllTheSmallThings.mid", 0, false, false);
   }
 
