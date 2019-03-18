@@ -12,4 +12,10 @@ public abstract class GuitarController {
 
   public abstract void guitarStrummed(ArrayList<GuitarButton> buttonsPressed);
 
+  public abstract void strumUp();
+
+  public abstract void strumDown();
+
+  public abstract void zeroPowerPressed();
+
 }

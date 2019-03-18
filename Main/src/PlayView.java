@@ -17,7 +17,7 @@ public class PlayView extends JFrame implements PropertyChangeListener {
   private MainView.Guitar guitar;
   private LanePanel jp1,jp2,jp3;
 
-  public PlayView(PlayModel model, PlayController2 controller) {
+  public PlayView(PlayModel model, PlayController2 controller, PlayGuitarController guitarController) {
     // 1 is the lead Guitar on MrBrightside, should be read from notes file in future
 
     this.controller = controller;
@@ -47,8 +47,8 @@ public class PlayView extends JFrame implements PropertyChangeListener {
     this.setLocationRelativeTo(null);
     this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-    ExtractNotes.playSong("AllTheSmallThings.mid", 1,false, true);
-    //ExtractNotes.playSong("AllTheSmallThings.mid", 1, true, false);
+    //ExtractNotes.playSong("AllTheSmallThings.mid", 5,false, true);
+    ExtractNotes.playSong("SmokeOnTheWater.mid", 5, false, false);
   }
 
   public void propertyChange(PropertyChangeEvent pce) {
@@ -68,7 +68,8 @@ public class PlayView extends JFrame implements PropertyChangeListener {
   public static void main(String[] args) {
     PlayModel mp = new PlayModel();
     PlayController2 cp2 = new PlayController2(mp);
-    PlayView vp = new PlayView(mp,cp2);
+    PlayGuitarController gp = new PlayGuitarController(mp);
+    PlayView vp = new PlayView(mp,cp2,gp);
     PlayController1 cp = new PlayController1(mp);
   }
 
