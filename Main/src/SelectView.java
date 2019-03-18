@@ -3,6 +3,7 @@ import java.awt.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.File;
+import java.io.FileFilter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -26,6 +27,8 @@ public class SelectView extends JFrame implements PropertyChangeListener {
 
     private MainView.Guitar g;
 
+    private CarouselMenu menu;
+
     public SelectView(SelectModel model, SelectController controller, MainGuitarController controller2) {
         this.model = model;
         this.model.addPropertyChangeListener(this);
@@ -38,8 +41,8 @@ public class SelectView extends JFrame implements PropertyChangeListener {
         this.panel.setPreferredSize(new Dimension(Constants.w,Constants.h));
 
         CarouselButton[] buttons = setMenu(this);
-        this.model.carouselMenu = new CarouselMenu(buttons, 20, 400);
-        model.addPropertyChangeListener(this.model.carouselMenu);
+        this.menu = new CarouselMenu(buttons, 20, 400);
+        this.model.addPropertyChangeListener(menu);
 
         this.panel.add(g);
 
@@ -55,10 +58,10 @@ public class SelectView extends JFrame implements PropertyChangeListener {
         if (pce.getPropertyName() == null) {
             if (!model.menuOpen) {
                 model.menuOpen = true;
-                g.add(model.carouselMenu);
+                g.add(menu);
             } else if (model.menuOpen) {
                 model.menuOpen = false;
-                g.remove(model.carouselMenu);
+                g.remove(menu);
             }
         }
         this.revalidate();
@@ -71,68 +74,75 @@ public class SelectView extends JFrame implements PropertyChangeListener {
         /**
          * @author Morgan
          */
-        ArrayList<File> list = inputAllFiles();
+        File folder = new File(Constants.ZIP_FILE_PATH + "/");
+        File[] list = folder.listFiles(new FileFilter() {
+            @Override
+            public boolean accept(File file) { return file.isDirectory(); }
+        });
 
-        if (list.size() < 5) {
+        if (list.length < 5) {
             //TODO: Handle Carousel Menu with less than 5 buttons
         }
-        else if (list.size() > 5) {
+        else if (list.length > 5) {
             //TODO: Handle Carousel Menu with more than 5 buttons
         }
         else {
-            CarouselButton[] buttons = new CarouselButton[5];
-            for (int i = 0; i < list.size(); i++) {
-
-                String zipName = list.get(i).getName();
-                String zipPath = list.get(i).getPath();
-
-                //TODO: Carry on validation of this method from here once FileUnzipper issue is resolved
-//                FileUnzipper zip = new FileUnzipper(Constants.ZIP_FILE_PATH + "/"
-//                + zipName + "/" + zipName.split("\\.")[0]);
-//                zip.unzipFiles(list.get(i));
-
-                //NOTE: File Unzipper replaced with temporary solution
-
-
-                File folder = new File(Constants.ZIP_FILE_PATH + "/" +
-                        zipName + "/");
-
-                ArrayList<File> unzippedList = new ArrayList<File>(Arrays.asList(folder.listFiles()));
-
-                String imagePath = Constants.DEFAULT_WHITE_IMAGE_PATH;
-                for (int j = 0; j < 2; j++) {
-                    if (unzippedList.get(j).getName().split("\\.")[1].equals("jpg")) {
-                        imagePath = unzippedList.get(j).getPath();
-                    }
-                }
-                File img = new File(imagePath);
-
-                try {
-                    Image image = ImageIO.read(img);
-                    Image newImage = image.getScaledInstance(
-                            Constants.BUTTON_WIDTH,
-                            Constants.BUTTON_HEIGHT,
-                            Image.SCALE_DEFAULT
-                    );
-
-                    ImageIcon icon = new ImageIcon(newImage);
-                    buttons[i] = new CarouselButton(icon, zipName) {
-                        @Override
-                        public void onClick() {
-                            IntendedTrack.setIntendedTrack(zipPath);
-                            JOptionPane.showMessageDialog(null,
-                                    "Selected track has become:" + zipName
-                                    ,"Selection Info", JOptionPane.INFORMATION_MESSAGE);
-                        }
-                    };
-                }
-                catch (IOException e) {
-                    System.exit(0);
-                }
-            }
-            return buttons;
+            return menuHasFive(frame, new ArrayList<File>(Arrays.asList(list)));
         }
         return null;
+    }
+
+    private CarouselButton[] menuHasFive(JFrame frame, ArrayList<File> list) {
+        CarouselButton[] buttons = new CarouselButton[5];
+        for (int i = 0; i < list.size(); i++) {
+
+            String zipName = list.get(i).getName();
+            String zipPath = list.get(i).getPath();
+
+            File folder = new File(Constants.ZIP_FILE_PATH + "/" +
+                    zipName + "/");
+
+            ArrayList<File> unzippedList = new ArrayList<File>(Arrays.asList(folder.listFiles()));
+
+            String imagePath = Constants.DEFAULT_WHITE_IMAGE_PATH;
+            for (int j = 0; j < unzippedList.size(); j++) {
+                if (unzippedList.get(j).getName().split("\\.")[1].equals("jpg")) {
+                    imagePath = unzippedList.get(j).getPath();
+                }
+            }
+            File img = new File(imagePath);
+
+            try {
+                Image image = ImageIO.read(img);
+                Image newImage = image.getScaledInstance(
+                        Constants.BUTTON_WIDTH,
+                        Constants.BUTTON_HEIGHT,
+                        Image.SCALE_DEFAULT
+                );
+
+                ImageIcon icon = new ImageIcon(newImage);
+                buttons[i] = new CarouselButton(icon, zipName) {
+                    @Override
+                    public void onClick() {
+                        IntendedTrack.setIntendedTrack(zipPath);
+                        System.out.println(IntendedTrack.getIntendedTrack());
+                        JOptionPane.showMessageDialog(null,
+                                "Selected track has become:" + zipName
+                                ,"Selection Info", JOptionPane.INFORMATION_MESSAGE);
+                        frame.dispose();
+                        MainModel model = new MainModel();
+                        MainGuitarController controller1 = new MainGuitarController(model);
+                        MainController controller2 = new MainController(model);
+                        new MainView(model, controller2, controller1);
+
+                    }
+                };
+            }
+            catch (IOException e) {
+                System.exit(0);
+            }
+        }
+        return buttons;
     }
 
     private ArrayList<File> inputAllFiles() {

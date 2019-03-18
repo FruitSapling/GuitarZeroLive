@@ -49,7 +49,7 @@ public class MainModel {
   }
   public void strummed() {
     System.out.println("Strum Me Daddy");
-  }
+  } //TODO: Take this out on friday ;)
   public void down() {
 
   }
