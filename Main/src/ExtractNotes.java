@@ -29,7 +29,7 @@ public class ExtractNotes{
 
   public static void main(String[] args){
     // code below is all for showcase
-    makeNotesFile("AllTheSmallThings.mid");
+    makeNotesFile("SweetChildOMine.mid");
     //playSong("AllTheSmallThings.mid", 0, false, false);
   }
 
@@ -184,7 +184,7 @@ public class ExtractNotes{
               noteList.add("ON," + noteName(noteNumber) + "," + (int) (time + 0.5));
               zeroPower.add((int) (time + 0.5));
               if(zeroPower.get(maxNotes-1) - zeroPower.get(0) < lengthOfHighPoint && zeroPower.get(maxNotes-1) - zeroPower.get(0) > 0){
-                noteList.add("zero power mode finished");
+                //noteList.add("zero power mode finished");
                 for(int i=0; i <= maxNotes; i++){
                   zeroPower.add(Integer.MAX_VALUE);
                 }
