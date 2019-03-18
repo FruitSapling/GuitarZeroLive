@@ -56,7 +56,7 @@ public class PlayModel {
 
       String line;
       while((line = bw.readLine()) != null) {
-        if(line.equals("5") || line.equals("zero power mode started") || line.equals("zero power mode finished")) {
+        if(line.equals("3") || line.equals("zero power mode started") || line.equals("zero power mode finished")) {
           continue;
         }
         String[] split = line.split(",");
