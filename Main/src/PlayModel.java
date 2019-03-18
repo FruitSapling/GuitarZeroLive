@@ -23,10 +23,13 @@ public class PlayModel {
 
   private Scoring score;
 
+  private Instrument g;
+
   public PlayModel() {
     this.current = new CopyOnWriteArrayList<>();
     this.support = new PropertyChangeSupport(this);
     this.score = new Scoring();
+    this.g = PlayGuitar.play(29); // TODO read this number from first line of notes file
   }
 
   public void addPropertyChangeListener(PropertyChangeListener pcl) {
@@ -43,7 +46,7 @@ public class PlayModel {
     //for(int i = 0; i < n; i++) {
       //current.add(new Note(rand.nextInt(3), rand.nextInt(500), rand.nextInt(2)));
     //}
-    for(int[] arr : genNotes("Main/src/MrBrightside.midnotes")) {
+    for(int[] arr : genNotes("Main/src/AllTheSmallThings.midnotes")) {
       current.add(new Note(arr[0], 0-arr[2]+550, arr[1]));
     }
   }
@@ -126,7 +129,12 @@ public class PlayModel {
         // if two/three notes at once, call noteHit() twice/three times
         this.current.remove(currentNote);
         this.score.noteHit();
-
+        // TODO get note number, octave and duration from note file
+        try {
+          PlayGuitar.playNote(g,"G#",4,207);
+        } catch (InterruptedException ex) {
+          ex.printStackTrace();
+        }
       } else {
         this.score.noteMissed();
       }

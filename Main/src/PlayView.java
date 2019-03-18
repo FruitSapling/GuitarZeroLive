@@ -25,7 +25,8 @@ public class PlayView extends JFrame implements PropertyChangeListener {
   public PlayView(PlayModel model, PlayController2 controller) {
     // 1 is the lead guitar on MrBrightside, should be read from notes file in future
     //ExtractNotes.playSong("MrBrightside.mid", 1, true, false);
-    //ExtractNotes.playSong("MrBrightside.mid", 1,false, true);
+    ExtractNotes.playSong("AllTheSmallThings.mid", 1,false, true);
+    // TODO get correct track from first line of notes file
 
     this.controller = controller;
     this.addKeyListener(controller);

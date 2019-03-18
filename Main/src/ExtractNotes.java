@@ -1,7 +1,9 @@
 import java.io.File;
+import java.nio.Buffer;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Queue;
 import javax.sound.midi.MetaEventListener;
 import javax.sound.midi.MetaMessage;
 import javax.sound.midi.MidiEvent;
@@ -27,8 +29,8 @@ public class ExtractNotes{
 
   public static void main(String[] args){
     // code below is all for showcase
-    makeNotesFile("MrBrightside.mid");
-    playSong("MrBrightside.mid", 0, false, false);
+    makeNotesFile("AllTheSmallThings.mid");
+    //playSong("AllTheSmallThings.mid", 0, false, false);
   }
 
   /**
@@ -145,6 +147,13 @@ public class ExtractNotes{
     int currentChannel = -1;
     int currentInstrumentNumber = -1;
 
+    final int lengthOfHighPoint = 10000; // duration notes occur in
+    final int maxNotes = 50;
+    LimitedQueue<Integer> zeroPower = new LimitedQueue<Integer>(maxNotes);
+    for(int i=0; i <= maxNotes; i++){
+      zeroPower.add(Integer.MAX_VALUE);
+    }
+
     NoteFileMaker notes = new NoteFileMaker( "./Main/src/" + filename + "notes", leadGuitar.getTrackNumber());
     ArrayList<String> noteList = new ArrayList<>();
 
@@ -158,9 +167,6 @@ public class ExtractNotes{
 
       if(programChange(nextEvent)){
         currentInstrumentNumber = ((int) nextEvent.getMessage().getMessage()[1] & 0xFF);
-				/*if (currentInstrumentNumber == leadGuitar.getInstrumentNumber()){
-					channelNumber = currentChannel;
-				}*/
       } else {
         if(noteIsOff(nextEvent)){
           if (leadGuitar.getChannelNumber() == currentChannel && leadGuitar.getTrackNumber() == currentTrack){
@@ -176,6 +182,13 @@ public class ExtractNotes{
                   * (tick - tickOfTempoChange)));
               int noteNumber = ((int) nextEvent.getMessage().getMessage()[1] & 0xFF);
               noteList.add("ON," + noteName(noteNumber) + "," + (int) (time + 0.5));
+              zeroPower.add((int) (time + 0.5));
+              if(zeroPower.get(maxNotes-1) - zeroPower.get(0) < lengthOfHighPoint && zeroPower.get(maxNotes-1) - zeroPower.get(0) > 0){
+                noteList.add("zero power mode finished");
+                for(int i=0; i <= maxNotes; i++){
+                  zeroPower.add(Integer.MAX_VALUE);
+                }
+              }
             }
           } else {
             if (changeTemp(nextEvent)) {
@@ -198,6 +211,13 @@ public class ExtractNotes{
 
     }
     notes.writeSong(noteList);
+  }
+
+  private static ArrayList<String> findHighPoints(ArrayList<String> noteList){
+    for(String note : noteList){
+      String[] line = note.split(",");
+    }
+    return noteList;
   }
 
   /**

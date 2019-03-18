@@ -125,5 +125,4 @@ public class NoteInputStream {
     }
     return 0;
   }
-
 }
