@@ -13,8 +13,10 @@ public class PlayController1 {
     this.model = model;
     this.timer = new Timer();
 
-    timer.schedule(new TimerTask() {
+    timer.scheduleAtFixedRate(new TimerTask() {
       public void run() {
+//        long time = System.currentTimeMillis();
+//        System.out.println(time);
         model.fireNotes();
         model.move();
         //model.flip();

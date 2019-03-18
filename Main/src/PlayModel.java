@@ -45,7 +45,7 @@ public class PlayModel {
       //current.add(new Note(rand.nextInt(3), rand.nextInt(500), rand.nextInt(2)));
     //}
     for(int[] arr : genNotes(IntendedTrack.getIntendedTrack())) {
-      current.add(new Note(arr[0], 0-arr[2], arr[1]));
+      current.add(new Note(arr[0], 0-arr[2]+600, arr[1]));
     }
   }
 
@@ -113,7 +113,7 @@ public class PlayModel {
   public void move() {
     for(Note n : this.current) {
       n.move();
-      if(n.getY() > 600) {
+      if(n.getY() > 650) {
         this.score.noteMissed();
         this.current.remove(n);
       }
@@ -141,7 +141,7 @@ public class PlayModel {
   }
 
   private boolean isInBar(Note note) {
-    return note.getY() > 550 && note.getY() < 600;
+    return note.getY() > 600 && note.getY() < 650;
   }
 
   private boolean wasPressed(Note note, ArrayList<GuitarButton> buttonsPressed) {
