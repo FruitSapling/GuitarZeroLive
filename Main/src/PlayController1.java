@@ -19,7 +19,7 @@ public class PlayController1 {
         model.move();
         //model.flip();
       }
-    }, 0 , 10);
+    }, 0 , 1);
   }
 
 }

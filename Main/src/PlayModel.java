@@ -42,7 +42,7 @@ public class PlayModel {
       //current.add(new Note(rand.nextInt(3), rand.nextInt(500), rand.nextInt(2)));
     //}
     for(int[] arr : genNotes(IntendedTrack.getIntendedTrack())) {
-      current.add(new Note(arr[0], 0-arr[2]+550, arr[1]));
+      current.add(new Note(arr[0], 0-arr[2], arr[1]));
     }
   }
 
@@ -59,6 +59,9 @@ public class PlayModel {
           continue;
         }
         String[] split = line.split(",");
+        if(split[0].equals("OFF")) {
+          continue;
+        }
         String noteString = split[1];
         char note = noteString.charAt(0);
         int[] result = new int[3];
@@ -107,6 +110,11 @@ public class PlayModel {
   public void move() {
     for(Note n : this.current) {
       n.move();
+      if(n.getY() > 600) {
+        System.out.println("NOTE OFF BAR ");
+        this.score.noteMissed();
+        this.current.remove(n);
+      }
     }
   }
 
@@ -124,7 +132,6 @@ public class PlayModel {
         // if two/three notes at once, call noteHit() twice/three times
         this.current.remove(currentNote);
         this.score.noteHit();
-
       } else {
         this.score.noteMissed();
       }
@@ -132,7 +139,7 @@ public class PlayModel {
   }
 
   private boolean isInBar(Note note) {
-    return note.getY() > 600 && note.getY() < 650;
+    return note.getY() > 550 && note.getY() < 600;
   }
 
   private boolean wasPressed(Note note, ArrayList<GuitarButton> buttonsPressed) {
@@ -166,8 +173,6 @@ public class PlayModel {
         // if two/three notes at once, call noteHit() twice/three times
         this.current.remove(currentNote);
         this.score.noteHit();
-      } else {
-        this.score.noteMissed();
       }
     }
   }
