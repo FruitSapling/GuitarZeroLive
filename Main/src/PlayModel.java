@@ -21,13 +21,10 @@ public class PlayModel {
 
   private Scoring score;
 
-  //private Instrument g;
-
   public PlayModel() {
     this.current = new CopyOnWriteArrayList<>();
     this.support = new PropertyChangeSupport(this);
     this.score = new Scoring();
-    //this.g = PlayGuitar.play(29); // TODO read this number from first line of notes file
   }
 
   public void addPropertyChangeListener(PropertyChangeListener pcl) {
@@ -42,12 +39,13 @@ public class PlayModel {
   public void testFill(int n) {
     //Random rand = new Random();
     //for(int i = 0; i < n; i++) {
-      //current.add(new Note(rand.nextInt(3), rand.nextInt(500), rand.nextInt(2)));
+    //current.add(new Note(rand.nextInt(3), rand.nextInt(500), rand.nextInt(2)));
     //}
-    for(int[] arr : genNotes(IntendedTrack.getIntendedTrack())) {
-      current.add(new Note(arr[0], 0-arr[2], arr[1]));
+    for (int[] arr : genNotes(IntendedTrack.getIntendedTrack())) {
+      current.add(new Note(arr[0], 0 - arr[2] + 600, arr[1]));
     }
   }
+
 
   public ArrayList<int[]> genNotes(String file) {
     try {
@@ -58,7 +56,7 @@ public class PlayModel {
 
       String line;
       while((line = bw.readLine()) != null) {
-        if(line.equals("3")) {
+        if(line.equals("5") || line.equals("zero power mode started") || line.equals("zero power mode finished")) {
           continue;
         }
         String[] split = line.split(",");
@@ -113,8 +111,7 @@ public class PlayModel {
   public void move() {
     for(Note n : this.current) {
       n.move();
-      if(n.getY() > 600) {
-        System.out.println("NOTE OFF BAR ");
+      if(n.getY() > 650) {
         this.score.noteMissed();
         this.current.remove(n);
       }
@@ -142,7 +139,7 @@ public class PlayModel {
   }
 
   private boolean isInBar(Note note) {
-    return note.getY() > 550 && note.getY() < 600;
+    return note.getY() > 600 && note.getY() < 650;
   }
 
   private boolean wasPressed(Note note, ArrayList<GuitarButton> buttonsPressed) {
@@ -168,6 +165,12 @@ public class PlayModel {
   }
 
   public void guitarStrummed(ArrayList<GuitarButton> buttonsPressed) {
+
+    for (GuitarButton g: buttonsPressed) {
+      System.out.println(g);
+    }
+
+
     Iterator<Note> it = this.current.iterator();
     while(it.hasNext()) {
       Note currentNote = it.next();

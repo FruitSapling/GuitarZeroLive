@@ -19,6 +19,7 @@ public class Scoring {
     currentMultiplier = 1;
   }
 
+  // If current streak is multiple of streakMultiple, multiply multiplier by 2
   private boolean checkStreak(){
     return currentStreak % Constants.streakMultiple == 0;
   }
