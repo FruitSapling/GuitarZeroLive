@@ -3,8 +3,6 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.concurrent.CopyOnWriteArrayList;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
 
 /**
  * @author Tom
@@ -18,8 +16,6 @@ public class PlayView extends JFrame implements PropertyChangeListener {
 
   private MainView.Guitar guitar;
   private LanePanel jp1,jp2,jp3;
-  private JPanel jpScore;
-  private JLabel scoreLabel;
 
   public PlayView(PlayModel model, PlayController2 controller) {
     // 1 is the lead Guitar on MrBrightside, should be read from notes file in future
