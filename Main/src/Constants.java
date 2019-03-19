@@ -38,7 +38,8 @@ public class Constants {
     public static int       w = 750;
     public static int       h = 1000;
 
-    public static double    tanTheta = 240/750;
+    //Used for perspective added by Tom
+    public static double    tanTheta = 0.32;
 
     public static int GUITAR_POLL_DELAY = 50;
     public static HashMap<Integer, GuitarButton> INDEX_TO_BUTTON = new HashMap<Integer, GuitarButton>() {{

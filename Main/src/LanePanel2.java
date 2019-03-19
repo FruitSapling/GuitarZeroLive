@@ -37,7 +37,6 @@ public class LanePanel2 extends JPanel {
   public void setStreak(int streak) { this.streak = streak; }
 
   public void paintComponent(Graphics g) {
-    System.out.println(getWidth());
     Graphics2D g2 = (Graphics2D) g;
     g2.setColor(Color.PINK);
     g2.setFont(new Font("TimesRoman", Font.PLAIN, 50));

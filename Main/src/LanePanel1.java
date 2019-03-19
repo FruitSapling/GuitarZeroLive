@@ -70,9 +70,6 @@ public class LanePanel1 extends JPanel {
       case 3:
         g2.drawImage(mult3, 0, 600, null);
         break;
-//      case 4:
-//        g2.drawImage(mult4, 0, 650, null);
-//        break;
     }
     for(Note n : this.notes) {
       if(n.getLane() == 0) {
