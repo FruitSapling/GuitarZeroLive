@@ -30,7 +30,7 @@ public class LanePanel1 extends JPanel {
       this.mult = mult;
       this.white = ImageIO.read(new FileInputStream("Main/src/resources/pick.png"));
       this.black = ImageIO.read(new FileInputStream("Main/src/resources/pick1.png"));
-      this.star = ImageIO.read(new FileInputStream("Main/src/resources/currency.jpg"));
+      this.star = ImageIO.read(new FileInputStream("Main/src/resources/currency.png"));
       this.mult1 = ImageIO.read(new FileInputStream("Main/src/resources/1.png"));
       this.mult2 = ImageIO.read(new FileInputStream("Main/src/resources/2.png"));
       this.mult3 = ImageIO.read(new FileInputStream("Main/src/resources/3.png"));
