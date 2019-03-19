@@ -48,6 +48,7 @@ public class Client {
   /*
   * A method to send a file (inc zipped folder) over the connection to the server.
   */
+  @Deprecated
   public void sendFile(File file) {
     try {
       OutputStream out = this.socket.getOutputStream();
@@ -86,7 +87,7 @@ public class Client {
   * The parameter page is the page on which the user resides, starts at page 0 and goes up.
   * The file returned is this newly created zip file.
   */
-  private File receiveFiles(String fileName, int page) {
+  public File receiveFiles(String fileName, int page) {
     File outputFile = new File(Paths.get(dir,fileName + ".zip").toString());
 
     try {
@@ -114,19 +115,6 @@ public class Client {
       System.exit(1);
     }
     return outputFile;
-  }
-
-
-
-  public static void main(String[] args) {
-    Client client = new Client("localhost",".",8888);
-    client.connect();
-
-    if (client.socket != null) {
-      client.receiveFiles("srcc",0);
-      //client.sendFile(new File("src.zip"));
-    }
-
   }
 
 }

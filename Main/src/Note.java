@@ -1,5 +1,6 @@
 /**
  * @author Tom
+ * Updated to add perspective by Tom
  */
 public class Note {
 
@@ -36,9 +37,10 @@ public class Note {
   public void move() {
     this.y = this.y + 1;
     if(this.lane == 0) {
-      this.x = this.x - (this.y * (int) Constants.tanTheta);
+      //TODO: 19/03/2019 make this work for string 0
+      //this.x = (int) ((this.y * (-Constants.tanTheta)) - this.x + 50);
     } else if(this.lane == 2) {
-      this.x = this.x + (this.y * (int) Constants.tanTheta);
+      this.x = (int) ((this.y * Constants.tanTheta) - this.x);
     }
   }
 }

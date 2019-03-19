@@ -37,17 +37,13 @@ public class PlayModel {
 
   //Test function to randomly generate some notes
   public void testFill(int n) {
-    //Random rand = new Random();
-    //for(int i = 0; i < n; i++) {
-    //current.add(new Note(rand.nextInt(3), rand.nextInt(500), rand.nextInt(2)));
-    //}
     for (int[] arr : genNotes(IntendedTrack.getIntendedTrack())) {
       switch (arr[0]) {
         case 0:
-          current.add(new Note(arr[0], 0 - arr[2] + 600, 250, arr[1]));
+          current.add(new Note(arr[0], 0 - arr[2] + 600, 200, arr[1]));
           break;
         case 1:
-          current.add(new Note(arr[0], 0 - arr[2] + 600, 125, arr[1]));
+          current.add(new Note(arr[0], 0 - arr[2] + 600, 100, arr[1]));
           break;
         case 2:
           current.add(new Note(arr[0], 0 - arr[2] + 600, 0, arr[1]));
@@ -66,7 +62,7 @@ public class PlayModel {
 
       String line;
       while((line = bw.readLine()) != null) {
-        if(line.equals("10") || line.equals("zero power mode started") || line.equals("zero power mode finished")) {
+        if(line.equals("5") || line.equals("zero power mode started") || line.equals("zero power mode finished")) {
           continue;
         }
         String[] split = line.split(",");
