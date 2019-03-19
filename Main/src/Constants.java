@@ -24,6 +24,8 @@ public class Constants {
     public static String    GUITAR_HERO = "Guitar Hero";
 
     public static String    ZIP_FILE_PATH = "Main/src/Music";
+    public static String    STORE_FILE_PATH = "Main/src/Store";
+    public static int       CLIENT_PORT_NUMBER = 8888;
 
     public static int       FirstGuitar = 25;
     public static int       LastGuitar = 38;
