@@ -1,3 +1,7 @@
+/**
+ * @author Luke
+ */
+
 public class Scoring {
   private String playerName;
   private int score = 0;
