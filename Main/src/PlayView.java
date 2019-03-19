@@ -15,7 +15,9 @@ public class PlayView extends JFrame implements PropertyChangeListener {
   private PlayController2 controller;
 
   private MainView.Guitar guitar;
-  private LanePanel jp1,jp2,jp3;
+  private LanePanel1 jp1;
+  private LanePanel2 jp2;
+  private LanePanel3 jp3;
 
   public PlayView(PlayModel model, PlayController2 controller, PlayGuitarController guitarController) {
     // 1 is the lead Guitar on MrBrightside, should be read from notes file in future
@@ -33,9 +35,9 @@ public class PlayView extends JFrame implements PropertyChangeListener {
 
     //Initialize panels to avoid null pointers
     CopyOnWriteArrayList<Note> blank = new CopyOnWriteArrayList<>();
-    this.jp1 = new LanePanel(blank, 0, model.getScore().getScore());
-    this.jp2 = new LanePanel(blank,1, model.getScore().getCurrentStreak());
-    this.jp3 = new LanePanel(blank,2, model.getScore().getInGameCurrency());
+    this.jp1 = new LanePanel1(blank, model.getScore().getScore(), model.getScore().getInGameCurrency(), model.getScore().getCurrentMultiplier());
+    this.jp2 = new LanePanel2(blank, model.getScore().getCurrentStreak());
+    this.jp3 = new LanePanel3(blank);
 
     this.guitar.add(jp1);
     this.guitar.add(jp2);
@@ -48,7 +50,7 @@ public class PlayView extends JFrame implements PropertyChangeListener {
     this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
     //ExtractNotes.playSong("AllTheSmallThings.mid", 5,false, true);
-    ExtractNotes.playSong("SmokeOnTheWater.mid", 3, false, true);
+    ExtractNotes.playSong("Wonderwall.mid", 1, false, false);
   }
 
   public void propertyChange(PropertyChangeEvent pce) {
@@ -57,12 +59,11 @@ public class PlayView extends JFrame implements PropertyChangeListener {
     this.jp3.setNotes((CopyOnWriteArrayList<Note>)pce.getNewValue());
 
     this.jp1.setScore(model.getScore().getScore());
-    this.jp2.setScore(model.getScore().getCurrentStreak());
-    this.jp3.setScore(model.getScore().getInGameCurrency());
+    this.jp1.setCurrency(model.getScore().getInGameCurrency());
+    this.jp1.setMult(model.getScore().getCurrentMultiplier());
+    this.jp2.setStreak(model.getScore().getCurrentStreak());
 
-    this.revalidate();
     this.repaint();
-    this.pack();
   }
 
   public static void main(String[] args) {

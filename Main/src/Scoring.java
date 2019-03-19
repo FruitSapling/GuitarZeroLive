@@ -45,4 +45,6 @@ public class Scoring {
   public int getInGameCurrency(){
     return this.inGameCurrency;
   }
+
+  public int getCurrentMultiplier() { return this.currentMultiplier; }
 }

@@ -4,7 +4,7 @@
 
 public class IntendedTrack {
 
-    public static String intendedTrack = "Main/src/SmokeOnTheWater.midnotes"; //default put in by Tom
+    public static String intendedTrack = "Main/src/Wonderwall.midnotes"; //default put in by Tom
 
     public static String getIntendedTrack() {
         return intendedTrack;
