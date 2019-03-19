@@ -122,7 +122,8 @@ public class MainView extends JFrame implements PropertyChangeListener {
         frame.dispose();
         SelectModel model = new SelectModel();
         SelectController controller = new SelectController(model);
-        new SelectView(model, controller, gbController);
+        SelectGuitarController controller2 = new SelectGuitarController(model);
+        new SelectView(model, controller, controller2);
       }
     };
 
