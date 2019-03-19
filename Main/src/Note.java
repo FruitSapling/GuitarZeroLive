@@ -37,8 +37,8 @@ public class Note {
   public void move() {
     this.y = this.y + 1;
     if(this.lane == 0) {
-      //TODO: 19/03/2019 make this work for string 0
-      this.x = (int) ((200-this.x) + (this.y * -Constants.tanTheta) + this.x);
+      //Likely can be done neater but this functions.
+      this.x = (int) ((200-this.x) - (this.y * (Constants.tanTheta-0.15)) + this.x);
     } else if(this.lane == 2) {
       this.x = (int) ((this.y * Constants.tanTheta) - this.x);
     }
