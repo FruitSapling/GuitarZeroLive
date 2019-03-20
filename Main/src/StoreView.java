@@ -8,6 +8,7 @@ import javax.swing.*;
  * Contributed to by:
  * Morgan - Refactored for Store Mode from Slash Mode
  * Willem - Making the carousel work in store mode, mock store mode carousel menu
+ * Mark - Adding functionality from model to display the correct files
  */
 
 public class StoreView extends JFrame implements PropertyChangeListener {
@@ -33,7 +34,7 @@ public class StoreView extends JFrame implements PropertyChangeListener {
         this.panel = new JPanel();
         this.panel.setPreferredSize(new Dimension(Constants.w,Constants.h));
 
-        CarouselButton[] buttons = this.model.getFilesFromServer(0);
+        CarouselButton[] buttons = this.model.getFilesFromServer(0, this);
         this.model.carouselMenu = new CarouselMenu(buttons, 20, 400);
         model.addPropertyChangeListener(this.model.carouselMenu);
 

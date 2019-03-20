@@ -31,13 +31,12 @@ public class FileUnzipper {
     * Method that takes a zip file and unzips it, placing the resulting files in the
     * dir specified in the FileUnzipper constructor (with there original names/extensions).
     */
-    public File[] unzipFiles(File zippedFile) {
-        ArrayList<File> files = new ArrayList<>();
+    public void unzipFiles(File zippedFile) {
         byte[] buffer = new byte[1024];
 
         try{
 
-          //create output directory is not exists
+          //create output directory if not exists
           File folder = new File(Constants.STORE_FILE_PATH);
           if(!folder.exists()){
             folder.mkdir();
@@ -53,9 +52,6 @@ public class FileUnzipper {
 
             String fileName = ze.getName();
             File newFile = new File(Constants.STORE_FILE_PATH + File.separator + fileName);
-            files.add(newFile);
-
-            System.out.println("file unzip : "+ newFile.getAbsoluteFile());
 
             //create all non exists folders
             //else you will hit FileNotFoundException for compressed folder
@@ -75,38 +71,10 @@ public class FileUnzipper {
           zis.closeEntry();
           zis.close();
 
-          System.out.println("Done");
 
         }catch(IOException ex){
           ex.printStackTrace();
         }
-        return files.toArray(new File[files.size()]);
       }
-
-
-      public File unzipFilesToFolder(File zippedFolder) {
-        File[] files = unzipFiles(zippedFolder);
-        String name = zippedFolder.getName().split("[.]")[0];
-
-        System.out.println(name);
-
-        Path newFolder = Paths.get(Constants.STORE_FILE_PATH,name);
-
-        File folder = new File(name);
-        folder.mkdir();
-
-        for (File file:files) {
-          Path newPath = Paths.get(Constants.STORE_FILE_PATH,name,file.getName());
-          try {
-            Files.move(file.toPath(),newPath);
-          }
-          catch (IOException e) {
-            System.out.println(e.getMessage());
-            System.exit(0);
-          }
-
-        }
-      return folder;
-    }
 
 }
