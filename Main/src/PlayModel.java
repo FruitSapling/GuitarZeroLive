@@ -5,6 +5,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -54,6 +55,12 @@ public class PlayModel {
         case 2:
           current.add(new Note(arr[0], 0 - arr[2] + 600, 0, arr[1]));
           break;
+        case 3:
+          zeroPowerMode = true;
+          break;
+        case 4:
+          zeroPowerMode = false;
+          break;
       }
     }
   }
@@ -67,15 +74,17 @@ public class PlayModel {
 
       String line;
       while((line = bw.readLine()) != null) {
-        if(line.equals("4")){
+        if(line.equals("5")){
           continue;
         }else{
           if(line.equals("zero power mode started")){
-            zeroPowerMode = true;
+            int[] zeroNote = new int[] {3, 3, -1};
+            results.add(zeroNote);
             continue;
           }else{
             if(line.equals("zero power mode finished")){
-              zeroPowerMode = false;
+              int [] zeroNote = new int[] {4, 3, -1};
+              results.add(zeroNote);
               continue;
             }
           }

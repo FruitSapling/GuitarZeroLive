@@ -27,8 +27,6 @@ public class Constants {
     public static String    STORE_FILE_PATH = "Main/src/Store";
     public static int       CLIENT_PORT_NUMBER = 8888;
 
-    public static int       FirstGuitar = 25;
-    public static int       LastGuitar = 38;
     public static int       scoreMultiplier = 2;
     public static int       streakMultiple = 10;
     public static int       scoreMultiple = 500;
