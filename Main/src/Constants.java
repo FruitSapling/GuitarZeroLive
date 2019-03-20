@@ -18,7 +18,7 @@ public class Constants {
     public static String    MR_BRIGHTSIDE_IMAGE_PATH = "Main/src/resources/mr_brightside.jpg";
     public static String    SEPTEMBER_IMAGE_PATH = "Main/src/resources/september.jpg";
     public static String    WONDERWALL_IMAGE_PATH = "Main/src/resources/wonderwall.jpg";
-    public static String    DEFAULT_WHITE_IMAGE_PATH = "Main/src/resources/exit.png";
+    public static String    DEFAULT_WHITE_IMAGE_PATH = "Main/src/resources/white.png";
     public static int       BUTTON_WIDTH = 128;
     public static int       BUTTON_HEIGHT = 168;
     public static int       CAROUSEL_MENU_HEIGHT = 192;

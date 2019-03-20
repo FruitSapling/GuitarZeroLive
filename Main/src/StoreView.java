@@ -8,32 +8,31 @@ import javax.swing.*;
  * Contributed to by:
  * Morgan - Refactored for Store Mode from Slash Mode
  * Willem - Making the carousel work in store mode, mock store mode carousel menu
+ * Mark - Adding functionality from model to display the correct files
  */
 
 public class StoreView extends JFrame implements PropertyChangeListener {
 
     private StoreModel model;
     private StoreController controller;
-    private MainGuitarController controller2;
+    private StoreGuitarController controller2;
 
     private JPanel panel;
 
     private MainView.Guitar g;
 
-    public StoreView(StoreModel model, StoreController controller, MainGuitarController controller2) {
+    public StoreView(StoreModel model, StoreController controller, StoreGuitarController controller2) {
         this.model = model;
         this.model.addPropertyChangeListener(this);
         this.controller = controller;
         this.controller2 = controller2;
-
-        controller2.addListener(controller2);
 
         this.g = new MainView.Guitar(Constants.w,Constants.h);
 
         this.panel = new JPanel();
         this.panel.setPreferredSize(new Dimension(Constants.w,Constants.h));
 
-        CarouselButton[] buttons = setMenu(this);
+        CarouselButton[] buttons = this.model.getFilesFromServer(0, this);
         this.model.carouselMenu = new CarouselMenu(buttons, 20, 400);
         model.addPropertyChangeListener(this.model.carouselMenu);
 
@@ -60,32 +59,5 @@ public class StoreView extends JFrame implements PropertyChangeListener {
         this.revalidate();
         this.repaint();
         this.pack();
-    }
-
-
-    public CarouselButton[] setMenu(JFrame frame) {
-        CarouselButton[] buttons = new CarouselButton[5];
-
-        buttons[0] = new CarouselButton(Constants.WONDERWALL_IMAGE_PATH, "Exit") {
-            @Override public void onClick() { }
-        };
-
-        buttons[1] = new CarouselButton(Constants.SEPTEMBER_IMAGE_PATH, "Select") {
-            @Override public void onClick() { }
-        };
-
-        buttons[2] = new CarouselButton(Constants.AMERICAN_IDIOT_IMAGE_PATH, "Play") {
-            @Override public void onClick() { }
-        };
-
-        buttons[3] = new CarouselButton(Constants.CHAMPAGNE_SUPERNOVA_IMAGE_PATH, "Store") {
-            @Override public void onClick() { }
-        };
-
-        buttons[4] = new CarouselButton(Constants.MR_BRIGHTSIDE_IMAGE_PATH, "Tutorial") {
-            @Override public void onClick() { }
-        };
-
-        return buttons;
     }
 }

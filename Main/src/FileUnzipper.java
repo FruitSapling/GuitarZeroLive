@@ -1,4 +1,5 @@
 
+import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -6,6 +7,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
@@ -28,45 +31,50 @@ public class FileUnzipper {
     * Method that takes a zip file and unzips it, placing the resulting files in the
     * dir specified in the FileUnzipper constructor (with there original names/extensions).
     */
-    public File[] unzipFiles(File zippedFile) {
-      try {
-        FileInputStream in = new FileInputStream(zippedFile);
-        ZipInputStream zipIn = new ZipInputStream(in);
+    public void unzipFiles(File zippedFile) {
+        byte[] buffer = new byte[1024];
 
-        int bufferSize = 1024;
-        ZipEntry next;
+        try{
 
-        while ((next = zipIn.getNextEntry()) != null) {
-          long size = next.getSize();
-          Path path = Paths.get(dir,next.getName().split("/")[1]);
-          File file = new File(path.toString());
-          System.out.println(file.getName());
-          //TODO: Debug!!
-          FileOutputStream out = new FileOutputStream(file);
-
-          for (int i = 0; i < (size/bufferSize)+1; i++) {
-            byte[] buffer = new byte[bufferSize];
-            zipIn.read(buffer,0,bufferSize);
-            out.write(buffer);
+          //create output directory if not exists
+          File folder = new File(Constants.STORE_FILE_PATH);
+          if(!folder.exists()){
+            folder.mkdir();
           }
-          out.close();
+
+          //get the zip file content
+          ZipInputStream zis =
+              new ZipInputStream(new FileInputStream(zippedFile));
+          //get the zipped file list entry
+          ZipEntry ze = zis.getNextEntry();
+
+          while(ze!=null){
+
+            String fileName = ze.getName();
+            File newFile = new File(Constants.STORE_FILE_PATH + File.separator + fileName);
+
+            //create all non exists folders
+            //else you will hit FileNotFoundException for compressed folder
+            new File(newFile.getParent()).mkdirs();
+
+            FileOutputStream fos = new FileOutputStream(newFile);
+
+            int len;
+            while ((len = zis.read(buffer)) > 0) {
+              fos.write(buffer, 0, len);
+            }
+
+            fos.close();
+            ze = zis.getNextEntry();
+          }
+
+          zis.closeEntry();
+          zis.close();
+
+
+        }catch(IOException ex){
+          ex.printStackTrace();
         }
-        zipIn.close();
-        in.close();
       }
-      catch (IOException e) {
-        System.out.println(e.getMessage());
-        e.printStackTrace();
-        System.exit(1);
-      }
-      return null;
-    }
-
-
-    public static void main(String[] args) {
-      FileUnzipper zip = new FileUnzipper("");
-      zip.unzipFiles(new File("temp1.zip"));
-    }
-
 
 }

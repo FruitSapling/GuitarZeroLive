@@ -95,7 +95,7 @@ public class SelectModel {
          * @author Morgan
          */
         String zipName = list.get(count).getName();
-        String zipPath = Constants.ZIP_FILE_PATH + "/" + list.get(count).getName() + zipName + "/" + ".midnotes";
+        String zipPath = Constants.ZIP_FILE_PATH + "/" + list.get(count).getName() + "/" + zipName + ".midnotes";
 
         File folder = new File(Constants.ZIP_FILE_PATH + "/" + zipName + "/");
         ArrayList<File> unzippedList = new ArrayList<>(Arrays.asList(folder.listFiles()));
