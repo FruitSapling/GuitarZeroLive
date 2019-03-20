@@ -109,5 +109,10 @@ public class SelectGuitarController extends GuitarController implements GuitarBu
     public void zeroPowerPressed() {
         selectMode();
     }
+
+    @Override
+    public void zeroPowerWhammyOrBenderPressed() {
+
+    }
 }
 

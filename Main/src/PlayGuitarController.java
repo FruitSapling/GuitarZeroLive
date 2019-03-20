@@ -23,4 +23,9 @@ public class PlayGuitarController extends GuitarController {
   @Override
   public void zeroPowerPressed() { }
 
+  @Override
+  public void zeroPowerWhammyOrBenderPressed() {
+
+  }
+
 }

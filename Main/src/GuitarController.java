@@ -18,4 +18,6 @@ public abstract class GuitarController {
 
   public abstract void zeroPowerPressed();
 
+  public abstract void zeroPowerWhammyOrBenderPressed();
+
 }

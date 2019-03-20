@@ -111,4 +111,9 @@ public class MainGuitarController extends GuitarController implements GuitarButt
   public void zeroPowerPressed() {
     selectMode();
   }
+
+  @Override
+  public void zeroPowerWhammyOrBenderPressed() {
+
+  }
 }

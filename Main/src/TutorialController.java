@@ -51,4 +51,9 @@ public class TutorialController extends GuitarController implements KeyListener 
   public void zeroPowerPressed() {
     model.nextStep();
   }
+
+  @Override
+  public void zeroPowerWhammyOrBenderPressed() {
+
+  }
 }

@@ -38,6 +38,8 @@ public class Constants {
     public static int       w = 750;
     public static int       h = 1000;
 
+    public static float     WHAMMY_RESTING_VALUE = 0.05f;
+
     //Used for perspective added by Tom
     public static double    tanTheta = 0.32;
 

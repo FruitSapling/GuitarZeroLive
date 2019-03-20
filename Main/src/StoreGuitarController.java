@@ -109,4 +109,9 @@ public class StoreGuitarController extends GuitarController implements GuitarBut
     public void zeroPowerPressed() {
         selectMode();
     }
+
+    @Override
+    public void zeroPowerWhammyOrBenderPressed() {
+
+    }
 }

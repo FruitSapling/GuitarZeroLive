@@ -109,6 +109,15 @@ public class GuitarPoller implements Runnable {
                     controller.guitarStrummed(buttonsPressed);
                 }
 
+                int WHAMMY_INDEX = Constants.BUTTON_TO_INDEX.get(GuitarButton.WHAMMY);
+                float whammyValue = vals[WHAMMY_INDEX];
+
+                // If either the whammy, bender joystick or strum bar was pressed
+                if (beingPressed(strumValue)
+                    || vals[BENDER_INDEX]>0.0
+                    || whammyValue > Constants.WHAMMY_RESTING_VALUE) {
+                    controller.zeroPowerWhammyOrBenderPressed();
+                }
 
                 // If the Guitar was just strummed...
                 if ((!beingPressed(strumValue)) && (beingPressed(prevStrumValue))) {
@@ -122,12 +131,7 @@ public class GuitarPoller implements Runnable {
                     controller.guitarStrummed(buttonsPressed);
 //                    controller.fireGuitarButtonPressedEvent(Constants.INDEX_TO_BUTTON.get(STRUM_INDEX), prevStrumValue);
                 }
-
-                int WHAMMY_INDEX = 0;
-                float whammy_value = vals[WHAMMY_INDEX];
-                if (beingPressed(whammy_value)) {
-//                    controller.fireGuitarButtonPressedEvent(Constants.INDEX_TO_BUTTON.get(STRUM_INDEX), whammy_value);
-                }
+                
             }
 
             //set prevVals to current vals
