@@ -98,10 +98,11 @@ public class PlayModel {
 
       String line;
       while((line = bw.readLine()) != null) {
-        if(line.equals("5")){
+        if(line.equals("3")){
           continue;
         }else{
           if(line.split(",")[0].equals("zero power mode started")){
+            System.out.println(line.split(""));
             results.put(new NoteInfo[]{NoteInfo.ZERO_ON, NoteInfo.ZERO}, Integer.parseInt(line.split(",")[1]));
             continue;
           }else if(line.split(",")[0].equals("zero power mode finished")){
