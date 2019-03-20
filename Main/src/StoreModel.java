@@ -50,7 +50,8 @@ public class StoreModel {
         this.support.firePropertyChange(null,null,null);
     }
 
-    public void getFilesFromServer(int page) {
+    public CarouselButton[] getFilesFromServer(int page) {
+      CarouselButton[] buttons = new CarouselButton[5];
         Client client = new Client("localhost",Constants.STORE_FILE_PATH,Constants.CLIENT_PORT_NUMBER);
 
         client.connect();
@@ -61,7 +62,7 @@ public class StoreModel {
 
             File[] unzippedFiles = unzipper.unzipFiles(zippedFiles);
 
-            CarouselButton[] buttons = getButtonsFromFiles(unzippedFiles);
+            buttons = getButtonsFromFiles(unzippedFiles);
 
             setCarouselMenu(buttons);
         }
@@ -70,24 +71,24 @@ public class StoreModel {
             System.exit(0);
         }
 
+        return buttons;
     }
 
     private CarouselButton[] getButtonsFromFiles(File[] files) {
-        CarouselButton[] buttons = new CarouselButton[5];
+        ArrayList<CarouselButton> buttons = new ArrayList<>();
 
         for (int i = 0; i < files.length; i++) {
 
             File file = files[i];
             FileUnzipper unzipper = new FileUnzipper(Constants.STORE_FILE_PATH);
-            FileFilter filter = (pathname) -> pathname.getName().endsWith(".png");
-            File[] posImageFile = unzipper.unzipFiles(file);
-            File imageFile = null;
 
-            for (File image: posImageFile) {
-                if (filter.accept(image)) {
-                    imageFile = image;
-                }
-            }
+            FileFilter filter = (pathname) ->
+                pathname.getName().endsWith(".jpg")
+                || pathname.getName().endsWith(".png");
+
+            File folder = unzipper.unzipFiles(file)[0].getParentFile();
+
+            File imageFile = folder.listFiles(filter)[0];
 
             String filePath = Constants.STORE_FILE_PATH + "/song" + i + imageFile.getName();
 
@@ -98,11 +99,11 @@ public class StoreModel {
                 }
             };
 
-            buttons[i] = button;
+            buttons.add(button);
 
         }
 
-        return buttons;
+        return buttons.toArray(new CarouselButton[buttons.size()]);
 
     }
 
