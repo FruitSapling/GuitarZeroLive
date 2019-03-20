@@ -32,7 +32,7 @@ public class StoreView extends JFrame implements PropertyChangeListener {
         this.panel = new JPanel();
         this.panel.setPreferredSize(new Dimension(Constants.w,Constants.h));
 
-        CarouselButton[] buttons = this.model.getFilesFromServer(0, this);
+        CarouselButton[] buttons = this.model.getFilesFromServer(this);
         this.model.carouselMenu = new CarouselMenu(buttons, 20, 400);
         model.addPropertyChangeListener(this.model.carouselMenu);
 
@@ -56,6 +56,10 @@ public class StoreView extends JFrame implements PropertyChangeListener {
                 g.remove(model.carouselMenu);
             }
         }
+        else if (pce.getPropertyName() == "carouselUpdate") {
+
+        }
+
         this.revalidate();
         this.repaint();
         this.pack();
