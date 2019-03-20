@@ -131,7 +131,7 @@ public class GuitarPoller implements Runnable {
                     controller.guitarStrummed(buttonsPressed);
 //                    controller.fireGuitarButtonPressedEvent(Constants.INDEX_TO_BUTTON.get(STRUM_INDEX), prevStrumValue);
                 }
-                
+
             }
 
             //set prevVals to current vals
