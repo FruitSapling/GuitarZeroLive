@@ -6,27 +6,24 @@ import javax.imageio.ImageIO;
 
 public class TutorialModel {
 
-  public TutorialStep currentStep;
+  public BufferedImage currentStep;
   public int currentStepIndex = 0;
   private PropertyChangeSupport support;
-  private TutorialStep[] steps;
-  private BufferedImage[] stepImages;
+  private BufferedImage[] steps;
 
   public TutorialModel() {
     this.support      = new PropertyChangeSupport(this);
-    this.steps        = new TutorialStep[Constants.tutorialStepsPaths.length];
-    this.stepImages   = new BufferedImage[Constants.tutorialStepsPaths.length];
+    this.steps        = new BufferedImage[Constants.tutorialStepsPaths.length];
 
     for (int i = 0; i < Constants.tutorialStepsPaths.length; i++) {
       try {
-        steps[i] = new TutorialStep(ImageIO.read(new File(Constants.tutorialStepsPaths[i])),
-                                      Constants.stepLocations[i]);
+        steps[i] = ImageIO.read(new File(Constants.tutorialStepsPaths[i]));
       } catch (Exception e) {
         e.printStackTrace();
       }
     }
-
-    this.currentStep = this.steps[0];
+    // Initialise Tutorial mode with the first step
+    this.currentStep = steps[0];
   }
 
   // Call this method when the model should move to the next tutorial step.
