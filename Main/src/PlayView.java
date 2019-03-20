@@ -35,7 +35,7 @@ public class PlayView extends JFrame implements PropertyChangeListener {
     CopyOnWriteArrayList<Note> blank = new CopyOnWriteArrayList<>();
     this.jp1 = new LanePanel1(blank, model.getScore().getScore(), model.getScore().getInGameCurrency(), model.getScore().getCurrentMultiplier());
     this.jp2 = new LanePanel2(blank, model.getScore().getCurrentStreak());
-    this.jp3 = new LanePanel3(blank);
+    this.jp3 = new LanePanel3(blank, model.isZeroPowerMode());
 
     this.guitar.add(jp1);
     this.guitar.add(jp2);
@@ -60,6 +60,7 @@ public class PlayView extends JFrame implements PropertyChangeListener {
     this.jp1.setCurrency(model.getScore().getInGameCurrency());
     this.jp1.setMult(model.getScore().getCurrentMultiplier());
     this.jp2.setStreak(model.getScore().getCurrentStreak());
+    this.jp3.setZeroPowerMode(model.isZeroPowerMode());
 
     this.repaint();
   }

@@ -37,6 +37,10 @@ public class PlayModel {
     return this.score;
   }
 
+  public boolean isZeroPowerMode() {
+    return this.zeroPowerMode;
+  }
+
   //Test function to randomly generate some notes
   public void testFill(int n) {
     for (int[] arr : genNotes(IntendedTrack.getIntendedTrack())) {
