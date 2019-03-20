@@ -212,14 +212,13 @@ public class ExtractNotes{
 
     int size = noteList.size()-1;
     for(int i = 0; i <= size; i++){
-      // TODO make it for only NOTE ON messages
       String[] line = new String[2];
       line = noteList.get(i).split(",");
       if(line[0].equals("ON")){
         zeroPower.add(Integer.parseInt(line[2]));
         if(zeroPower.get(averageNotes-1) - zeroPower.get(0) < songHighPointLength && zeroPower.get(averageNotes-1) - zeroPower.get(0) > 0){
-          noteList.add(i-averageNotes+1, "zero power mode started");
-          noteList.add(i, "zero power mode finished");
+          noteList.add(i-averageNotes+1, "zero power mode started" + "," + noteList.get(i-averageNotes+1).split(",")[2]);
+          noteList.add(i, "zero power mode finished" + "," + line[2]);
           i += averageNotes;
         }
       }
