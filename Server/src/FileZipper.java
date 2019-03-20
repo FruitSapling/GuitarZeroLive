@@ -1,3 +1,9 @@
+/**
+* @author Mark Newell
+ *
+ * A class to perform different types of copression and validation.
+* */
+
 
 import java.io.File;
 import java.io.FileFilter;
@@ -23,7 +29,7 @@ public class FileZipper {
   /*
    * A method to create a zip file of note files, the fileList is all the
    * files to be contained with the new zip. Firstly the files are validated
-   * then they are put into the zip file.
+   * then a notes file is extracted before all four files are put into the zip file.
    */
   public static boolean createZipFile(ArrayList<File> fileList) {
     boolean valid = false;
@@ -34,7 +40,23 @@ public class FileZipper {
       System.out.println(e.getMessage());
     }
     if (valid == true) {
+      // Make the notes file
+      ExtractNotes.makeNotesFile(fileList.get(1));
+      File notesFile = new File("Server/src/resources/" + fileList.get(1).getName() + "notes");
+      fileList.add(notesFile);
+
+      // Zip the files
       zipFiles(fileList);
+
+      // Clean up resources folder
+      try {
+        Files.delete(notesFile.toPath());
+      }
+      catch (IOException e) {
+        System.out.println(e.getMessage());
+        System.exit(0);
+      }
+
       return true;
     }
     return false;
@@ -56,7 +78,7 @@ public class FileZipper {
    */
   private static void zipFiles(ArrayList<File> files) {
 
-    File[] filesArray = new File[3];
+    File[] filesArray = new File[4];
     files.toArray(filesArray);
 
     int fileCount = getZippedFiles("Server/src/resources").length;
@@ -90,7 +112,7 @@ public class FileZipper {
 
   /*
    * Method to zip all the files from the 'files' array into a compressed format and return the '.zip' file.
-   * Needed to be seperate to other zipping method as different usage.
+   * Needed to be separate to other zipping method as different usage.
    */
   public File zipFiles() {
     File firstFile = null;

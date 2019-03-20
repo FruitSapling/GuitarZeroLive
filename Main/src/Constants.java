@@ -5,8 +5,9 @@ import java.lang.Math;
 /**
  * The Constants class keeps all constants used throughout the code.
  *
- * @author Willem
+ * @author Willem & Everyone
  */
+
 public class Constants {
     public static String    EXIT_IMAGE_PATH = "Main/src/resources/exit.png";
     public static String    SELECT_IMAGE_PATH = "Main/src/resources/select.png";
@@ -28,6 +29,7 @@ public class Constants {
     public static String    ZIP_FILE_PATH = "Main/src/Music";
     public static String    STORE_FILE_PATH = "Main/src/Store";
     public static int       CLIENT_PORT_NUMBER = 8888;
+    public static String    SERVER_IP_ADDRESS = "localhost";
 
     public static int       scoreMultiplier = 2;
     public static int       streakMultiple = 10;

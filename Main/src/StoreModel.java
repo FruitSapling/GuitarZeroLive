@@ -1,5 +1,5 @@
 /**
- * @author Tom
+ * @author Tom & Mark
  * Refactored for Store Mode from Slash Mode by @Morgan
  * Wrote functionality to get files from server @Mark
  */
@@ -9,7 +9,6 @@ import java.nio.file.StandardCopyOption;
 import javax.swing.*;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-import java.io.CharArrayReader;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.IOException;
@@ -59,9 +58,15 @@ public class StoreModel {
         this.support.firePropertyChange(null,null,null);
     }
 
+    /**
+     * @author Mark
+     * Method to use Client to connect to the server,
+     * recieve the zipped files,
+     * unzip them and create buttons for the carousel respectivly.
+     * */
     public CarouselButton[] getFilesFromServer(JFrame frame) {
       CarouselButton[] buttons = new CarouselButton[5];
-        Client client = new Client("localhost",Constants.STORE_FILE_PATH,Constants.CLIENT_PORT_NUMBER);
+        Client client = new Client(Constants.SERVER_IP_ADDRESS,Constants.STORE_FILE_PATH,Constants.CLIENT_PORT_NUMBER);
 
         client.connect();
 
@@ -69,8 +74,10 @@ public class StoreModel {
             File zippedFiles = client.receiveFiles("zipped",page);
             FileUnzipper unzipper = new FileUnzipper(Constants.STORE_FILE_PATH);
 
+            // Unzip received zipfile
             unzipper.unzipFiles(zippedFiles);
 
+            // If there are less than 3 files sent there wont be any more so can't have another page.
             File[] files = getFolders(Constants.STORE_FILE_PATH,".zip");
             this.anotherPage = files.length < 3 ? false : true;
 
@@ -81,6 +88,10 @@ public class StoreModel {
             buttons = getButtonsFromFiles(frame);
 
             setCarouselMenu(buttons);
+
+            // Get rid of useless zip folders
+            // In future would look into keeping zip folders to store more files locally
+            // with only a small disk space usage. Ran out of time to implement this.
             cleanUpStoreFolder(".zip");
         }
         else {
@@ -91,17 +102,23 @@ public class StoreModel {
         return buttons;
     }
 
+    /**
+     * @author Mark
+     * A method to create the buttons from the extracted files using their images.
+     * */
     private CarouselButton[] getButtonsFromFiles(JFrame frame) {
         ArrayList<CarouselButton> buttons = new ArrayList<>();
 
         File[] files = getFolders(Constants.STORE_FILE_PATH,"dir");
 
+        // Make only 3 buttons with actual images even if too many are in the folder
         int limiter = files.length > 3 ? 3 : files.length;
 
         for (int i = 0; i < limiter; i++) {
 
             File file = files[i];
 
+            // Accept both image types just in case
             FileFilter filter = (pathname) ->
                 pathname.getName().endsWith(".jpg")
                 || pathname.getName().endsWith(".png");
@@ -117,6 +134,7 @@ public class StoreModel {
                     JOptionPane.showMessageDialog(null, "You have bought: " + getButtonName(),
                             "Selection Info", JOptionPane.INFORMATION_MESSAGE);
 
+                    // Move the track's folder to the Music folder and remove it from the Store folder.
                     moveSelectedTrack(getButtonName());
                     backToMain(frame);
 
@@ -155,9 +173,14 @@ public class StoreModel {
 
 
 
+    /**
+     * @author Mark
+     * A simple method to get an array of child files at a given location
+     * of the given extension.
+     * */
     public File[] getFolders(String parentPath, String extension) {
         File file = new File(parentPath);
-        FileFilter filter = null;
+        FileFilter filter;
         if (extension.equals("dir")) {
             filter = new FileFilter() {
                 @Override
@@ -180,6 +203,10 @@ public class StoreModel {
     }
 
 
+    /**
+     * @author Mark
+     * A simple method to remove files/folders from the Store folder.
+     * */
     public void cleanUpStoreFolder(String extension) {
         File[] zipFolders = getFolders(Constants.STORE_FILE_PATH,extension);
 
@@ -195,6 +222,10 @@ public class StoreModel {
         }
     }
 
+    /**
+     * @author Mark
+     * Simple method to end the current frame and create a new Main frame.
+     * */
     private void backToMain(JFrame frame) {
       frame.dispose();
       MainModel model = new MainModel();
@@ -205,6 +236,10 @@ public class StoreModel {
 
 
 
+    /**
+     * @author Mark
+     * Move a folder of the given folderName (in the Store folder) to the Music folder.
+     * */
     private void moveSelectedTrack(String folderName) {
 
       Path source = Paths.get(Constants.STORE_FILE_PATH,folderName);
@@ -223,6 +258,10 @@ public class StoreModel {
     }
 
 
+    /**
+     * @author Mark
+     * Take the user to the next page of results if there are more files than can be viewed at once.
+     * */
     private void nextPage(JFrame frame) {
 
       if (anotherPage) {
