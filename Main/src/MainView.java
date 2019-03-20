@@ -103,7 +103,6 @@ public class MainView extends JFrame implements PropertyChangeListener {
       g2.setColor(Color.BLUE);
       g2.drawLine(500, 20, 625, getHeight());
 
-
       g2.setClip(null);
     }
   }

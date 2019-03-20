@@ -1,3 +1,4 @@
+import java.awt.Point;
 import java.util.HashMap;
 import java.lang.Math;
 
@@ -73,4 +74,16 @@ public class Constants {
 
     //The indices of the binary buttons on the Guitar controller
     public static int[] binaryButtonsIndices = new int[] {0,1,2,3,4,5,8,10,12};
+
+    public static String[] tutorialStepsPaths = new String[] {
+        "Main/src/resources/step1.png",
+        "Main/src/resources/step2.png",
+        "Main/src/resources/step3.png"
+    };
+
+    public static Point[] stepLocations = new Point[] {
+        new Point(100, 100),
+        new Point(100, 200),
+        new Point(100, 300)
+    };
 }
