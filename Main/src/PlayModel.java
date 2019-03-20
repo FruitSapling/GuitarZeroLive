@@ -26,34 +26,47 @@ public class PlayModel {
   private boolean zeroPowerMode = false;
 
   public PlayModel() {
+
     this.current = new CopyOnWriteArrayList<>();
     this.support = new PropertyChangeSupport(this);
     this.score = new Scoring();
+
   }
 
   public void addPropertyChangeListener(PropertyChangeListener pcl) {
+
     this.support.addPropertyChangeListener(pcl);
+
   }
 
   public Scoring getScore() {
+
     return this.score;
+
   }
 
   public boolean isZeroPowerMode() {
+
     return this.zeroPowerMode;
+
   }
 
   public void setZeroPowerMode(boolean zeroPowerMode) {
+
     this.zeroPowerMode = zeroPowerMode;
+
   }
 
   public void generateNotes() {
+
     HashMap<NoteInfo[], Integer> fromNoteFile = readNotesFile(IntendedTrack.getIntendedTrack());
     Iterator it = fromNoteFile.entrySet().iterator();
+
     while(it.hasNext()){
       Map.Entry note = (Map.Entry) it.next();
       NoteInfo[] landAndColour = (NoteInfo[]) note.getKey();
       int timeSig = (int) note.getValue();
+
       switch (landAndColour[0]) {
         case LANE_ONE:
           current.add(new Note(landAndColour[0], 0 - timeSig + 600, 200, landAndColour[1]));
@@ -75,6 +88,7 @@ public class PlayModel {
   }
 
   public HashMap<NoteInfo[], Integer> readNotesFile(String file) {
+
     try {
       HashMap<NoteInfo[], Integer> results = new HashMap<>();
       File fileObj = new File(file);
@@ -99,33 +113,44 @@ public class PlayModel {
         if(split[0].equals("OFF")) {
           continue;
         }
+
         String noteString = split[1];
         char note = noteString.charAt(0);
+
         if((note == 'A') || (note == 'B')) {
           results.put(new NoteInfo[]{NoteInfo.LANE_ONE, NoteInfo.BLACK}, Integer.parseInt(split[2]));
-        } else if((note == 'C')) {
+        }
+        else if((note == 'C')) {
           results.put(new NoteInfo[]{NoteInfo.LANE_ONE, NoteInfo.WHITE}, Integer.parseInt(split[2]));
-        } else if((note == 'D')) {
+        }
+        else if((note == 'D')) {
           results.put(new NoteInfo[]{NoteInfo.LANE_TWO, NoteInfo.BLACK}, Integer.parseInt(split[2]));
-        } else if((note == 'E')) {
+        }
+        else if((note == 'E')) {
           results.put(new NoteInfo[]{NoteInfo.LANE_TWO, NoteInfo.WHITE}, Integer.parseInt(split[2]));
-        } else if((note == 'F')) {
+        }
+        else if((note == 'F')) {
           results.put(new NoteInfo[]{NoteInfo.LANE_THREE, NoteInfo.BLACK}, Integer.parseInt(split[2]));
-        } else {
+        }
+        else {
           results.put(new NoteInfo[]{NoteInfo.LANE_THREE, NoteInfo.WHITE}, Integer.parseInt(split[2]));
         }
       }
+
       bw.close();
       return results;
+
     }catch(IOException e) {
       System.out.println(e.getMessage());
       System.exit(1);
     }
+
     return null;
   }
 
   //Moves the notes down the screen
   public void move() {
+
     for(Note n : this.current) {
       n.move();
       if(n.getY() == 0) {
@@ -135,6 +160,7 @@ public class PlayModel {
           setZeroPowerMode(false);
         }
       }
+
       if(n.getY() > 622) {
         this.score.noteMissed();
         this.current.remove(n);
@@ -144,14 +170,19 @@ public class PlayModel {
 
   //Refreshes the notes
   public void fireNotes() {
+
     support.firePropertyChange("Notes", null, this.current);
+
   }
 
   private boolean isInBar(Note note) {
+
     return note.getY() > 572 && note.getY() < 622;
+
   }
 
   private boolean wasPressed(Note note, ArrayList<GuitarButton> buttonsPressed) {
+
     NoteInfo lane = note.getLane();
     boolean pressed = false;
 
@@ -161,19 +192,22 @@ public class PlayModel {
           if ((lane.equals(NoteInfo.LANE_ONE) && g == GuitarButton.WHITE_1)
               || (lane.equals(NoteInfo.LANE_TWO) && g == GuitarButton.WHITE_2)
               || (lane.equals(NoteInfo.LANE_THREE) && g == GuitarButton.WHITE_3)) {
+
             pressed = true;
+
           }
         } else { // If the note is black
           if ((lane.equals(NoteInfo.LANE_ONE) && g == GuitarButton.BLACK_1)
               || (lane.equals(NoteInfo.LANE_TWO) && g == GuitarButton.BLACK_2)
               || (lane.equals(NoteInfo.LANE_THREE) && g == GuitarButton.BLACK_3)) {
+
             pressed = true;
+
           }
         }
       }
     } else{
       for(GuitarButton g: buttonsPressed){
-        System.out.println(g);
         if(g == GuitarButton.ZERO_POWER || g == GuitarButton.BENDER || g == GuitarButton.WHAMMY || g == GuitarButton.BENDER_JOYSTICK){
           pressed = true;
         }
