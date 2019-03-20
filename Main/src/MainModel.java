@@ -14,7 +14,6 @@ public class MainModel {
   public CarouselMenu carouselMenu;
 
   public MainModel() {
-
     this.support = new PropertyChangeSupport(this);
     support.addPropertyChangeListener(carouselMenu);
   }
