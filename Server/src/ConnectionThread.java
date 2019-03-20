@@ -1,4 +1,4 @@
-/*
+/**
 * Class that is run as a thread to create a connection to a client.
 * @author Mark Newell
 */
@@ -102,7 +102,7 @@ public class ConnectionThread implements Runnable {
 
 
   /*
-  * A method to send a page (5) folders to the client at a time.
+  * A method to send a page (3) folders to the client at a time.
   * This page integer should start at 0 for page 1.
   */
   private void sendFiles(int page) {
@@ -110,8 +110,8 @@ public class ConnectionThread implements Runnable {
       OutputStream out = client.getOutputStream();
       DataOutputStream outputStream = new DataOutputStream(out);
 
-      File[] zippedFolders = Arrays.copyOfRange(getZippedFiles(),(page*5),((page+1)*5));
-      FileZipper zipper = new FileZipper(zippedFolders,".","tempZip");
+      File[] zippedFolders = Arrays.copyOfRange(getZippedFiles(),(page*3),((page+1)*3));
+      FileZipper zipper = new FileZipper(zippedFolders,"Server/src/resources","tempZip");
 
       File zippedFolder = zipper.zipFiles();
       zippedFolder.createNewFile();

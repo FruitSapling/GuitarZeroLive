@@ -38,13 +38,28 @@ public class ExtractNotes{
    */
   public static void makeNotesFile(String filename){
     try{
-      seq = MidiSystem.getSequence(new File("Main/src/" + filename));
+      seq = MidiSystem.getSequence(new File("Server/src/resources/" + filename));
     } catch (Exception e){
       System.exit(1);
     }
     Guitar leadGuitar = findLeadGuitar(findAllGuitars(seq));
     convertMidiToNotes(seq, leadGuitar, filename);
   }
+
+
+    /**
+     * Finds a lead Guitar from the file and then uses this to extract the appropiate notes
+     * @param file the name of the midifile to be played
+     */
+    public static void makeNotesFile(File file){
+        try{
+            seq = MidiSystem.getSequence(file);
+        } catch (Exception e){
+            System.exit(1);
+        }
+        Guitar leadGuitar = findLeadGuitar(findAllGuitars(seq));
+        convertMidiToNotes(seq, leadGuitar, file.getName());
+    }
 
   /**
    * Iterates over every track, calling the method findGuitarInTrack on each
@@ -147,7 +162,7 @@ public class ExtractNotes{
     int currentChannel = -1;
     int currentInstrumentNumber = -1;
 
-    NoteFileMaker notes = new NoteFileMaker( "./Main/src/" + filename + "notes", leadGuitar.getTrackNumber());
+    NoteFileMaker notes = new NoteFileMaker( "./Server/src/resources/" + filename + "notes", leadGuitar.getTrackNumber());
     ArrayList<String> noteList = new ArrayList<>();
 
     for (int track=0; track < seq.getTracks().length; track++)

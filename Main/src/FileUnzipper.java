@@ -1,5 +1,11 @@
+/**
+ * @author Mark Newell & Morgan Centini
+ *
+ * A class to perform all jobs to do with unzipping folders and putting the resulting files in a folder.
+ *
+ * */
 
-import java.io.BufferedInputStream;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -7,17 +13,13 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
 public class FileUnzipper {
-    private String dir;
 
 
     FileUnzipper(String saveDirectory) {
-        this.dir = saveDirectory;
         Path path = Paths.get(saveDirectory);
         if (!Files.exists(path)) {
             File file = new File(saveDirectory);

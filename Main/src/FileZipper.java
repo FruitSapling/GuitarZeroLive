@@ -1,4 +1,4 @@
-/*
+/**
 * @author Mark Newell
 */
 
@@ -12,7 +12,6 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
 public class FileZipper {
-    private static String saveLocation = "Main/src";
 
 
     /*
@@ -45,7 +44,7 @@ public class FileZipper {
         files.toArray(filesArray);
         File firstFile;
         try {
-            firstFile = new File(saveLocation);
+            firstFile = new File(Constants.STORE_FILE_PATH);
             String zipFileName = firstFile.getName().concat(".zip");
 
             FileOutputStream fileOut = new FileOutputStream(zipFileName);

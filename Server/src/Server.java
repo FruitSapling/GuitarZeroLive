@@ -1,3 +1,10 @@
+/**
+ * @author Mark Newell
+ *
+ * A basic TCP server that allows multiple clients (game clients) to connect.
+ * It then takes commands from the client machines as to when to send the zip folders of songs for the store mode
+ * */
+
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -19,6 +26,9 @@ public class Server {
   }
 
 
+  /*
+  * Make a new thread for each connection so the server can take many connections
+  * */
   public void acceptConnections() {
     try {
       Socket socket = this.socket.accept();

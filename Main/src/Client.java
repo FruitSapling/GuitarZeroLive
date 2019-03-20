@@ -10,9 +10,11 @@ import java.net.Socket;
 import java.nio.file.Paths;
 
 /**
- *
  * @author Mark
- */
+ *
+ * Class to connect to the server in order to recieve the files it sends when using the store mode.
+ * Uses basic TCP connection standards.
+ **/
 public class Client {
   public Socket socket = null;
   private String ip;
