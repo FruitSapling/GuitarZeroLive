@@ -42,10 +42,10 @@ public class LanePanel2 extends JPanel {
     g2.setFont(new Font("TimesRoman", Font.PLAIN, 50));
     g2.drawString("Streak: " + Integer.toString(streak), getWidth()/2-110, 100);
     for(Note n : this.notes) {
-      if(n.getLane() == 1) {
-        if(n.getColour() == 1) {
+      if(n.getLane().equals(NoteInfo.LANE_TWO)) {
+        if(n.getColour().equals(NoteInfo.WHITE)) {
           g.drawImage(white, n.getX(), n.getY(), null);
-        } else {
+        } else if(n.getColour().equals(NoteInfo.BLACK)) {
           g.drawImage(black, n.getX(), n.getY(), null);
         }
       }

@@ -4,19 +4,19 @@
  */
 public class Note {
 
-  private int colour;
-  private int lane;
+  private NoteInfo colour;
+  private NoteInfo lane;
   private int y;
   private int x;
 
-  public Note(int lane, int y, int x, int colour) {
+  public Note(NoteInfo lane, int y, int x, NoteInfo colour) {
     this.lane = lane;
     this.y = y;
     this.x = x;
     this.colour = colour;
   }
 
-  public int getLane() {
+  public NoteInfo getLane() {
     return this.lane;
   }
 
@@ -30,16 +30,16 @@ public class Note {
   public int getX() { return this.x; }
   public void setX(int x) { this.x = x; }
 
-  public int getColour() {
+  public NoteInfo getColour() {
     return this.colour;
   }
 
   public void move() {
     this.y = this.y + 1;
-    if(this.lane == 0) {
+    if(this.lane.equals(NoteInfo.LANE_ONE)) {
       //Likely can be done neater but this functions.
       this.x = (int) ((200-this.x) - (this.y * (Constants.tanTheta-0.15)) + this.x);
-    } else if(this.lane == 2) {
+    } else if(this.lane.equals(NoteInfo.LANE_THREE)) {
       this.x = (int) ((this.y * Constants.tanTheta) - this.x);
     }
   }

@@ -96,10 +96,10 @@ public class LanePanel1 extends JPanel {
     //g.drawImage(album, 0, 0, null);
 
     for(Note n : this.notes) {
-      if(n.getLane() == 0) {
-        if(n.getColour() == 1) {
+      if(n.getLane().equals(NoteInfo.LANE_ONE)) {
+        if(n.getColour().equals(NoteInfo.WHITE)) {
           g.drawImage(white, n.getX(), n.getY(), null);
-        } else {
+        } else if(n.getColour().equals(NoteInfo.BLACK)) {
           g.drawImage(black, n.getX(), n.getY(), null);
         }
       }

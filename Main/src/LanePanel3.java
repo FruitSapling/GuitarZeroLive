@@ -44,10 +44,10 @@ public class LanePanel3 extends JPanel {
       g.drawImage(zeroPowerIcon, 200, 600, null);
     }
     for(Note n : this.notes) {
-      if(n.getLane() == 2) {
-        if(n.getColour() == 1) {
+      if(n.getLane().equals(NoteInfo.LANE_THREE)) {
+        if(n.getColour().equals(NoteInfo.WHITE)) {
           g.drawImage(white, n.getX(), n.getY(), null);
-        } else {
+        } else if(n.getColour().equals(NoteInfo.BLACK)) {
           g.drawImage(black, n.getX(), n.getY(), null);
         }
       }
