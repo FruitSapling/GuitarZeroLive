@@ -29,8 +29,8 @@ public class ExtractNotes{
 
   public static void main(String[] args){
     // code below is all for showcase
-    makeNotesFile("SmokeOnTheWater.mid");
-    //playSong("AllTheSmallThings.mid", 0, false, false);
+    makeNotesFile("HeyBrother.mid");
+    playSong("HeyBrother.mid", 4, false, true);
   }
 
   /**
@@ -143,16 +143,10 @@ public class ExtractNotes{
     double division = seq.getResolution();
     MidiEvent nextEvent;
 
+    // TODO dont do this
     int channelNumber = -2;
     int currentChannel = -1;
     int currentInstrumentNumber = -1;
-
-    final int lengthOfHighPoint = 10000; // duration notes occur in
-    final int maxNotes = 50;
-    LimitedQueue<Integer> zeroPower = new LimitedQueue<Integer>(maxNotes);
-    for(int i=0; i <= maxNotes; i++){
-      zeroPower.add(Integer.MAX_VALUE);
-    }
 
     NoteFileMaker notes = new NoteFileMaker( "./Main/src/" + filename + "notes", leadGuitar.getTrackNumber());
     ArrayList<String> noteList = new ArrayList<>();
@@ -182,13 +176,6 @@ public class ExtractNotes{
                   * (tick - tickOfTempoChange)));
               int noteNumber = ((int) nextEvent.getMessage().getMessage()[1] & 0xFF);
               noteList.add("ON," + noteName(noteNumber) + "," + (int) (time + 0.5));
-              zeroPower.add((int) (time + 0.5));
-              if(zeroPower.get(maxNotes-1) - zeroPower.get(0) < lengthOfHighPoint && zeroPower.get(maxNotes-1) - zeroPower.get(0) > 0){
-                //noteList.add("zero power mode finished");
-                for(int i=0; i <= maxNotes; i++){
-                  zeroPower.add(Integer.MAX_VALUE);
-                }
-              }
             }
           } else {
             if (changeTemp(nextEvent)) {
@@ -210,12 +197,34 @@ public class ExtractNotes{
       }
 
     }
-    notes.writeSong(noteList);
+    notes.writeSong(findHighPoints(noteList));
   }
 
   private static ArrayList<String> findHighPoints(ArrayList<String> noteList){
-    for(String note : noteList){
-      String[] line = note.split(",");
+
+    int songHighPointLength = 10000;
+    int averageNotes = 49;
+
+    LimitedQueue<Integer> zeroPower = new LimitedQueue<Integer>(averageNotes);
+
+    for(int n=0; n <= averageNotes; n++){
+      zeroPower.add(Integer.MAX_VALUE);
+    }
+
+    int size = noteList.size()-1;
+    for(int i = 0; i <= size; i++){
+      // TODO make it for only NOTE ON messages
+      String[] line = new String[2];
+      line = noteList.get(i).split(",");
+      if(line[0].equals("ON")){
+        zeroPower.add(Integer.parseInt(line[2]));
+        if(zeroPower.get(averageNotes-1) - zeroPower.get(0) < songHighPointLength && zeroPower.get(averageNotes-1) - zeroPower.get(0) > 0){
+          noteList.add(i-averageNotes+1, "zero power mode started");
+          noteList.add(i, "zero power mode finished");
+          i += averageNotes;
+        }
+      }
+
     }
     return noteList;
   }
@@ -268,6 +277,7 @@ public class ExtractNotes{
    * @return whether the current event is a program change
    */
   private static boolean programChange(MidiEvent event){
+    // TODO make less clumsy
     MidiMessage msg = event.getMessage();
     if ( msg instanceof ShortMessage ) {
       final long         tick = event.getTick();

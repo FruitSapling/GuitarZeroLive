@@ -13,7 +13,7 @@ public class Constants {
     public static String    STORE_IMAGE_PATH = "Main/src/resources/store.png";
     public static String    TUTORIAL_IMAGE_PATH = "Main/src/resources/tutorial.png";
     public static String    AMERICAN_IDIOT_IMAGE_PATH = "Main/src/resources/american_idiot.jpg";
-    public static String    CHAMPAGNE_SUPERNOVA_IMAGE_PATH = "Main/src/resources/champagne_supernova.jpg";
+    public static String    CHAMPAGNE_SUPERNOVA_IMAGE_PATH = "Main/src/resources/ChampagneSupernova.jpg";
     public static String    MR_BRIGHTSIDE_IMAGE_PATH = "Main/src/resources/mr_brightside.jpg";
     public static String    SEPTEMBER_IMAGE_PATH = "Main/src/resources/september.jpg";
     public static String    WONDERWALL_IMAGE_PATH = "Main/src/resources/wonderwall.jpg";

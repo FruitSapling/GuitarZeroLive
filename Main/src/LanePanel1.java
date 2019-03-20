@@ -3,6 +3,8 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -22,6 +24,7 @@ public class LanePanel1 extends JPanel {
   private BufferedImage black;
   private BufferedImage star;
   private BufferedImage mult1,mult2,mult3;
+  private BufferedImage album;
   private int score, currency, mult;
   public LanePanel1(CopyOnWriteArrayList<Note> notes, int score, int currency, int mult) {
     try{
@@ -30,10 +33,27 @@ public class LanePanel1 extends JPanel {
       this.mult = mult;
       this.white = ImageIO.read(new FileInputStream("Main/src/resources/pick.png"));
       this.black = ImageIO.read(new FileInputStream("Main/src/resources/pick1.png"));
-      this.star = ImageIO.read(new FileInputStream("Main/src/resources/currency.jpg"));
+      this.star = ImageIO.read(new FileInputStream("Main/src/resources/currency.png"));
       this.mult1 = ImageIO.read(new FileInputStream("Main/src/resources/1.png"));
       this.mult2 = ImageIO.read(new FileInputStream("Main/src/resources/2.png"));
       this.mult3 = ImageIO.read(new FileInputStream("Main/src/resources/3.png"));
+
+      String track = IntendedTrack.getIntendedTrack();
+      String trackName = track.split("\\.")[0];
+      String[] trackNameSplit = trackName.split("/");
+      //this.album = ImageIO.read(new FileInputStream(trackNameSplit[0] + "/" + trackNameSplit[1] + "/resources/" + trackNameSplit[2] + ".jpg"));
+
+      //Scale the album art to the desired size (Tom)
+      //int w = album.getWidth();
+      //int h = album.getHeight();
+      //BufferedImage after = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
+      //AffineTransform at = new AffineTransform();
+      //at.scale(0.75, 0.75);
+      //AffineTransformOp scaleOp =
+         // new AffineTransformOp(at, AffineTransformOp.TYPE_BILINEAR);
+     // after = scaleOp.filter(album, after);
+      //this.album = after;
+
     }catch(IOException e) {
       System.out.println(e.getMessage());
       System.exit(1);
@@ -60,6 +80,7 @@ public class LanePanel1 extends JPanel {
       g2.drawImage(star, interval, 650, null);
       interval += 50;
     }
+
     switch(mult) {
       case 1:
         g2.drawImage(mult1, 0, 600, null);
@@ -71,6 +92,9 @@ public class LanePanel1 extends JPanel {
         g2.drawImage(mult3, 0, 600, null);
         break;
     }
+
+    //g.drawImage(album, 0, 0, null);
+
     for(Note n : this.notes) {
       if(n.getLane() == 0) {
         if(n.getColour() == 1) {

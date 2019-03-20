@@ -1,3 +1,4 @@
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.BufferedReader;
@@ -20,6 +21,7 @@ public class PlayModel {
   private CopyOnWriteArrayList<Note> current;
 
   private Scoring score;
+  private boolean zeroPowerMode = false;
 
   public PlayModel() {
     this.current = new CopyOnWriteArrayList<>();
@@ -52,7 +54,6 @@ public class PlayModel {
     }
   }
 
-
   public ArrayList<int[]> genNotes(String file) {
     try {
       ArrayList<int[]> results = new ArrayList<>();
@@ -62,9 +63,20 @@ public class PlayModel {
 
       String line;
       while((line = bw.readLine()) != null) {
-        if(line.equals("5") || line.equals("zero power mode started") || line.equals("zero power mode finished")) {
+        if(line.equals("4")){
           continue;
+        }else{
+          if(line.equals("zero power mode started")){
+            zeroPowerMode = true;
+            continue;
+          }else{
+            if(line.equals("zero power mode finished")){
+              zeroPowerMode = false;
+              continue;
+            }
+          }
         }
+
         String[] split = line.split(",");
         if(split[0].equals("OFF")) {
           continue;
@@ -137,7 +149,8 @@ public class PlayModel {
     int lane = note.getLane();
     boolean pressed = false;
 
-    for (GuitarButton g: buttonsPressed) {
+    if(!zeroPowerMode){
+      for (GuitarButton g: buttonsPressed) {
         if (note.getColour() == 1) { // If the note is white
           if ((lane == 0 && g == GuitarButton.WHITE_1)
               || (lane == 1 && g == GuitarButton.WHITE_2)
@@ -152,7 +165,14 @@ public class PlayModel {
           }
         }
       }
-      return pressed;
+    } else{
+      for(GuitarButton g: buttonsPressed){
+        if(g == GuitarButton.ZERO_POWER || g == GuitarButton.BENDER || g == GuitarButton.WHAMMY || g == GuitarButton.BENDER_JOYSTICK){
+          pressed = true;
+        }
+      }
+    }
+    return pressed;
   }
 
   public void guitarStrummed(ArrayList<GuitarButton> buttonsPressed) {
@@ -161,7 +181,6 @@ public class PlayModel {
       Note currentNote = it.next();
 
       if (wasPressed(currentNote, buttonsPressed) && isInBar(currentNote)) {
-        // if two/three notes at once, call noteHit() twice/three times
         this.current.remove(currentNote);
         this.score.noteHit();
       }
