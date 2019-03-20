@@ -14,11 +14,16 @@ public class LanePanel3 extends JPanel {
   private CopyOnWriteArrayList<Note> notes;
   private BufferedImage white;
   private BufferedImage black;
+  private BufferedImage zeroPowerIcon;
 
-  public LanePanel3(CopyOnWriteArrayList<Note> notes) {
+  private boolean zeroPowerMode;
+
+  public LanePanel3(CopyOnWriteArrayList<Note> notes, boolean zeroPowerMode) {
     try {
       this.white = ImageIO.read(new FileInputStream("Main/src/resources/pick.png"));
       this.black = ImageIO.read(new FileInputStream("Main/src/resources/pick1.png"));
+      this.zeroPowerIcon = ImageIO.read(new FileInputStream("Main/src/resources/ZeroPower.png"));
+      this.zeroPowerMode = zeroPowerMode;
     }catch(IOException e) {
       System.out.println(e.getMessage());
       System.exit(1);
@@ -30,13 +35,19 @@ public class LanePanel3 extends JPanel {
   public void setNotes(CopyOnWriteArrayList<Note> notes) {
     this.notes = notes;
   }
+  public void setZeroPowerMode(boolean zeroPowerMode) {
+    this.zeroPowerMode = zeroPowerMode;
+  }
 
   public void paintComponent(Graphics g) {
+    if(zeroPowerMode) {
+      g.drawImage(zeroPowerIcon, 200, 600, null);
+    }
     for(Note n : this.notes) {
-      if(n.getLane() == 2) {
-        if(n.getColour() == 1) {
+      if(n.getLane().equals(NoteInfo.LANE_THREE)) {
+        if(n.getColour().equals(NoteInfo.WHITE)) {
           g.drawImage(white, n.getX(), n.getY(), null);
-        } else {
+        } else if(n.getColour().equals(NoteInfo.BLACK)) {
           g.drawImage(black, n.getX(), n.getY(), null);
         }
       }

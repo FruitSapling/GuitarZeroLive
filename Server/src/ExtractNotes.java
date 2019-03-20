@@ -29,8 +29,7 @@ public class ExtractNotes{
 
   public static void main(String[] args){
     // code below is all for showcase
-    makeNotesFile("HeyBrother.mid");
-    playSong("HeyBrother.mid", 4, false, true);
+    makeNotesFile("AllTheSmallThings.mid");
   }
 
   /**
@@ -213,14 +212,13 @@ public class ExtractNotes{
 
     int size = noteList.size()-1;
     for(int i = 0; i <= size; i++){
-      // TODO make it for only NOTE ON messages
       String[] line = new String[2];
       line = noteList.get(i).split(",");
       if(line[0].equals("ON")){
         zeroPower.add(Integer.parseInt(line[2]));
         if(zeroPower.get(averageNotes-1) - zeroPower.get(0) < songHighPointLength && zeroPower.get(averageNotes-1) - zeroPower.get(0) > 0){
-          noteList.add(i-averageNotes+1, "zero power mode started");
-          noteList.add(i, "zero power mode finished");
+          noteList.add(i-averageNotes+1, "zero power mode started" + "," + noteList.get(i-averageNotes+1).split(",")[2]);
+          noteList.add(i, "zero power mode finished" + "," + line[2]);
           i += averageNotes;
         }
       }
@@ -331,29 +329,4 @@ public class ExtractNotes{
         && Integer.toString((int)event.getMessage().getMessage()[2],16).toUpperCase().equals("3")) return true;
     return false;
   }
-
-  /**
-   * Plays the song specified, muting or soloing the track given if required
-   */
-  public static void playSong(String filename, int trackNumber, boolean mute, boolean solo){
-    try {
-      final Sequencer sequen = MidiSystem.getSequencer();
-
-      sequen.open();
-      sequen.setSequence( MidiSystem.getSequence( new File( "Main/src/" + filename ) ) );
-      if(mute) sequen.setTrackMute(trackNumber, true);
-      if(solo) sequen.setTrackSolo(trackNumber, true);
-      sequen.addMetaEventListener( new MetaEventListener() {
-        public void meta( MetaMessage mesg ) {
-          if ( mesg.getType() == 0x2F /* end-of-track */ ) {
-            sequen.close();
-          }
-        }
-      });
-      sequen.start();
-    } catch ( Exception e ) {
-      System.exit( 1 );
-    }
-  }
-
 }

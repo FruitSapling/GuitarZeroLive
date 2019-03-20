@@ -25,7 +25,7 @@ public class PlayView extends JFrame implements PropertyChangeListener {
 
     this.model = model;
     this.model.addPropertyChangeListener(this);
-    this.model.testFill(50);
+    this.model.generateNotes();
 
     this.guitar = new MainView.Guitar(Constants.w, Constants.h);
     this.guitar.setOpaque(false);
@@ -35,7 +35,7 @@ public class PlayView extends JFrame implements PropertyChangeListener {
     CopyOnWriteArrayList<Note> blank = new CopyOnWriteArrayList<>();
     this.jp1 = new LanePanel1(blank, model.getScore().getScore(), model.getScore().getInGameCurrency(), model.getScore().getCurrentMultiplier());
     this.jp2 = new LanePanel2(blank, model.getScore().getCurrentStreak());
-    this.jp3 = new LanePanel3(blank);
+    this.jp3 = new LanePanel3(blank, model.isZeroPowerMode());
 
     this.guitar.add(jp1);
     this.guitar.add(jp2);
@@ -47,8 +47,7 @@ public class PlayView extends JFrame implements PropertyChangeListener {
     this.setLocationRelativeTo(null);
     this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-    //ExtractNotes.playSong("AllTheSmallThings.mid", 5,false, true);
-    ExtractNotes.playSong("AllTheSmallThings.mid", 8, false, false);
+    PlaySong.playMidi("AllTheSmallThings.mid", 5, false, false);
   }
 
   public void propertyChange(PropertyChangeEvent pce) {
@@ -60,6 +59,7 @@ public class PlayView extends JFrame implements PropertyChangeListener {
     this.jp1.setCurrency(model.getScore().getInGameCurrency());
     this.jp1.setMult(model.getScore().getCurrentMultiplier());
     this.jp2.setStreak(model.getScore().getCurrentStreak());
+    this.jp3.setZeroPowerMode(model.isZeroPowerMode());
 
     this.repaint();
   }

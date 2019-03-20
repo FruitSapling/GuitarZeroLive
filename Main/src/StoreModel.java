@@ -3,6 +3,9 @@
  * Refactored for Store Mode from Slash Mode by @Morgan
  * Wrote functionality to get files from server @Mark
  */
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import javax.swing.*;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -15,13 +18,16 @@ import java.util.ArrayList;
 
 public class StoreModel {
     public boolean menuOpen;
+    public boolean anotherPage;
 
     private PropertyChangeSupport support;
     public CarouselMenu carouselMenu;
+    public int page;
 
     public StoreModel() {
         this.support = new PropertyChangeSupport(this);
         support.addPropertyChangeListener(carouselMenu);
+        this.page = 0;
     }
 
     public void setCarouselMenu(CarouselButton[] buttons) {
@@ -53,7 +59,7 @@ public class StoreModel {
         this.support.firePropertyChange(null,null,null);
     }
 
-    public CarouselButton[] getFilesFromServer(int page, JFrame frame) {
+    public CarouselButton[] getFilesFromServer(JFrame frame) {
       CarouselButton[] buttons = new CarouselButton[5];
         Client client = new Client("localhost",Constants.STORE_FILE_PATH,Constants.CLIENT_PORT_NUMBER);
 
@@ -65,14 +71,17 @@ public class StoreModel {
 
             unzipper.unzipFiles(zippedFiles);
 
-            for(File file: getFolders(Constants.STORE_FILE_PATH,".zip")) {
+            File[] files = getFolders(Constants.STORE_FILE_PATH,".zip");
+            this.anotherPage = files.length < 3 ? false : true;
+
+            for(File file: files) {
                 unzipper.unzipFiles(file);
             }
 
             buttons = getButtonsFromFiles(frame);
 
             setCarouselMenu(buttons);
-            cleanUpStoreFolder();
+            cleanUpStoreFolder(".zip");
         }
         else {
             System.out.println("Cannot connect to server");
@@ -87,7 +96,9 @@ public class StoreModel {
 
         File[] files = getFolders(Constants.STORE_FILE_PATH,"dir");
 
-        for (int i = 0; i < files.length; i++) {
+        int limiter = files.length > 3 ? 3 : files.length;
+
+        for (int i = 0; i < limiter; i++) {
 
             File file = files[i];
 
@@ -103,10 +114,11 @@ public class StoreModel {
             CarouselButton button = new CarouselButton(filePath,imageFile.getName().split("[.]")[0]) {
                 @Override
                 public void onClick() {
-                    JOptionPane.showMessageDialog(null, "Selected track has become: " + getButtonName(),
+                    JOptionPane.showMessageDialog(null, "You have bought: " + getButtonName(),
                             "Selection Info", JOptionPane.INFORMATION_MESSAGE);
 
-                    //SelectedTrack(getButtonName());
+                    moveSelectedTrack(getButtonName());
+                    backToMain(frame);
 
                 }
             };
@@ -115,15 +127,27 @@ public class StoreModel {
 
         }
 
-        for (int i = buttons.size(); i < 5; i++) {
+        for (int i = buttons.size(); i < 3; i++) {
             CarouselButton button = new CarouselButton(Constants.DEFAULT_WHITE_IMAGE_PATH,"none") {
                 @Override
-                public void onClick() {
-                    System.out.println(getButtonName());
-                }
+                public void onClick() {}
             };
             buttons.add(button);
         }
+
+        buttons.add(new CarouselButton(Constants.EXIT_IMAGE_PATH,"exit") {
+            @Override
+            public void onClick() {
+              backToMain(frame);
+            }
+        });
+
+      buttons.add(new CarouselButton(Constants.DEFAULT_NEXT_IMAGE_PATH,"nextPage") {
+        @Override
+        public void onClick() {
+          nextPage(frame);
+        }
+      });
 
         return buttons.toArray(new CarouselButton[buttons.size()]);
 
@@ -156,8 +180,8 @@ public class StoreModel {
     }
 
 
-    public void cleanUpStoreFolder() {
-        File[] zipFolders = getFolders(Constants.STORE_FILE_PATH,".zip");
+    public void cleanUpStoreFolder(String extension) {
+        File[] zipFolders = getFolders(Constants.STORE_FILE_PATH,extension);
 
         for (File folder: zipFolders) {
             try {
@@ -170,5 +194,43 @@ public class StoreModel {
 
         }
     }
+
+    private void backToMain(JFrame frame) {
+      frame.dispose();
+      MainModel model = new MainModel();
+      MainController controller1 = new MainController(model);
+      MainGuitarController controller2 = new MainGuitarController(model);
+      new MainView(model, controller1, controller2);
+    }
+
+
+
+    private void moveSelectedTrack(String folderName) {
+
+      Path source = Paths.get(Constants.STORE_FILE_PATH,folderName);
+      Path destination = Paths.get(Constants.ZIP_FILE_PATH,folderName);
+
+      if (!Files.exists(destination)) {
+        try {
+          Files.move(source, destination, StandardCopyOption.REPLACE_EXISTING);
+        }
+        catch (IOException e) {
+          System.out.println(e.getMessage());
+          System.exit(0);
+        }
+      }
+
+    }
+
+
+    private void nextPage(JFrame frame) {
+
+      if (anotherPage) {
+        page++;
+        //TODO: Make this update the menu
+      }
+
+    }
+
 
 }

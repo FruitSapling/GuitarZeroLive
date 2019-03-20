@@ -19,6 +19,7 @@ public class Constants {
     public static String    SEPTEMBER_IMAGE_PATH = "Main/src/resources/september.jpg";
     public static String    WONDERWALL_IMAGE_PATH = "Main/src/resources/wonderwall.jpg";
     public static String    DEFAULT_WHITE_IMAGE_PATH = "Main/src/resources/white.png";
+    public static String    DEFAULT_NEXT_IMAGE_PATH = "Main/src/resources/next.png";
     public static int       BUTTON_WIDTH = 128;
     public static int       BUTTON_HEIGHT = 168;
     public static int       CAROUSEL_MENU_HEIGHT = 192;
@@ -28,8 +29,6 @@ public class Constants {
     public static String    STORE_FILE_PATH = "Main/src/Store";
     public static int       CLIENT_PORT_NUMBER = 8888;
 
-    public static int       FirstGuitar = 25;
-    public static int       LastGuitar = 38;
     public static int       scoreMultiplier = 2;
     public static int       streakMultiple = 10;
     public static int       scoreMultiple = 500;

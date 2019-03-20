@@ -51,7 +51,7 @@ public class LanePanel1 extends JPanel {
       //at.scale(0.75, 0.75);
       //AffineTransformOp scaleOp =
          // new AffineTransformOp(at, AffineTransformOp.TYPE_BILINEAR);
-     // after = scaleOp.filter(album, after);
+      // after = scaleOp.filter(album, after);
       //this.album = after;
 
     }catch(IOException e) {
@@ -96,10 +96,10 @@ public class LanePanel1 extends JPanel {
     //g.drawImage(album, 0, 0, null);
 
     for(Note n : this.notes) {
-      if(n.getLane() == 0) {
-        if(n.getColour() == 1) {
+      if(n.getLane().equals(NoteInfo.LANE_ONE)) {
+        if(n.getColour().equals(NoteInfo.WHITE)) {
           g.drawImage(white, n.getX(), n.getY(), null);
-        } else {
+        } else if(n.getColour().equals(NoteInfo.BLACK)) {
           g.drawImage(black, n.getX(), n.getY(), null);
         }
       }
