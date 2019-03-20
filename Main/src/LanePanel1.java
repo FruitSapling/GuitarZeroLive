@@ -51,7 +51,7 @@ public class LanePanel1 extends JPanel {
       //at.scale(0.75, 0.75);
       //AffineTransformOp scaleOp =
          // new AffineTransformOp(at, AffineTransformOp.TYPE_BILINEAR);
-     // after = scaleOp.filter(album, after);
+      // after = scaleOp.filter(album, after);
       //this.album = after;
 
     }catch(IOException e) {
