@@ -15,19 +15,17 @@ public class StoreView extends JFrame implements PropertyChangeListener {
 
     private StoreModel model;
     private StoreController controller;
-    private MainGuitarController controller2;
+    private StoreGuitarController controller2;
 
     private JPanel panel;
 
     private MainView.Guitar g;
 
-    public StoreView(StoreModel model, StoreController controller, MainGuitarController controller2) {
+    public StoreView(StoreModel model, StoreController controller, StoreGuitarController controller2) {
         this.model = model;
         this.model.addPropertyChangeListener(this);
         this.controller = controller;
         this.controller2 = controller2;
-
-        controller2.addListener(controller2);
 
         this.g = new MainView.Guitar(Constants.w,Constants.h);
 

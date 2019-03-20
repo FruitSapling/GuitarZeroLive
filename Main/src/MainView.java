@@ -149,7 +149,8 @@ public class MainView extends JFrame implements PropertyChangeListener {
         frame.dispose();
         StoreModel model = new StoreModel();
         StoreController controller = new StoreController(model);
-        new StoreView(model, controller, gbController);
+        StoreGuitarController guitarController = new StoreGuitarController(model);
+        new StoreView(model, controller, guitarController);
       }
     };
 
