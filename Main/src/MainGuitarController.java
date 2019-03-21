@@ -112,7 +112,7 @@ public class MainGuitarController extends GuitarController implements GuitarButt
   }
 
   @Override
-  public void zeroPowerWhammyOrBenderPressed() {
+  public void zeroPowerWhammyOrBenderPressed(ArrayList<GuitarButton> buttonsPressed) {
 
   }
 }

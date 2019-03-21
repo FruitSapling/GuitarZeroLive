@@ -18,11 +18,13 @@ public class GuitarPoller implements Runnable {
     private boolean running;
 
     public GuitarPoller(GuitarController controller) {
+        System.out.println("guitar poller created");
         running = true;
         this.controller = controller;
     }
 
     public void stop() {
+        System.out.println("guitar poller STOPPED");
         this.running = false;
     }
 
@@ -110,7 +112,7 @@ public class GuitarPoller implements Runnable {
                 if (beingPressed(strumValue)
                     || vals[BENDER_INDEX]>0.0
                     || whammyValue > Constants.WHAMMY_RESTING_VALUE) {
-                    controller.zeroPowerWhammyOrBenderPressed();
+                    controller.zeroPowerWhammyOrBenderPressed(buttonsPressed);
                 }
 
                 // If the Guitar was just strummed...

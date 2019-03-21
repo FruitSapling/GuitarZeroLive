@@ -13,7 +13,6 @@ public class SelectGuitarController extends GuitarController implements GuitarBu
 
     private SelectModel model;
     public final ArrayList<GuitarButtonListener> listeners = new ArrayList<>();
-    GuitarPoller guitarPoller;
 
     public SelectGuitarController(SelectModel model) {
         this.model = model;
@@ -110,7 +109,7 @@ public class SelectGuitarController extends GuitarController implements GuitarBu
     }
 
     @Override
-    public void zeroPowerWhammyOrBenderPressed() {
+    public void zeroPowerWhammyOrBenderPressed(ArrayList<GuitarButton> buttonsPressed) {
 
     }
 }

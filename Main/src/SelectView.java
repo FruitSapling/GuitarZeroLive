@@ -46,6 +46,9 @@ public class SelectView extends JFrame implements PropertyChangeListener {
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
+    public void stopPoller() {
+        this.controller2.guitarPoller.stop();
+    }
 
     public void propertyChange(PropertyChangeEvent pce) {
         if (pce.getPropertyName() == null) {

@@ -58,7 +58,7 @@ public class SelectModel {
         this.support.firePropertyChange(null,null,null);
     }
 
-    CarouselButton[] setMenu(JFrame frame) {
+    CarouselButton[] setMenu(SelectView selectView) {
         /**
          * @author Morgan
          */
@@ -76,7 +76,7 @@ public class SelectModel {
             int surplus = 5 - (5-list.length);
 
             for (int i = 0; i < list.length; i++) {
-                buttons[i] = createMeaningfulButton(frame, arrayList, i);
+                buttons[i] = createMeaningfulButton(selectView, arrayList, i);
             }
             for (int i = surplus; i < 5; i++) {
                 buttons[i] = createEmptyButton();
@@ -86,13 +86,13 @@ public class SelectModel {
         else {
             buttons = new CarouselButton[list.length];
             for (int i = 0; i < list.length; i++) {
-                buttons[i] = createMeaningfulButton(frame, arrayList, i);
+                buttons[i] = createMeaningfulButton(selectView, arrayList, i);
             }
         }
         return buttons;
     }
 
-    CarouselButton createMeaningfulButton(JFrame frame, ArrayList<File> list, int count) {
+    CarouselButton createMeaningfulButton(SelectView selectView, ArrayList<File> list, int count) {
         /**
          * @author Morgan
          */
@@ -129,8 +129,9 @@ public class SelectModel {
                     JOptionPane.showMessageDialog(null, "Selected track has become: " + zipName,
                             "Selection Info", JOptionPane.INFORMATION_MESSAGE);
                 }
-                frame.dispose();
-                returnToMenu(frame);
+                selectView.stopPoller();
+                selectView.dispose();
+                returnToMenu(selectView);
             }
             @Override public void onHighlight() {
                 //TODO: for Luke
@@ -174,8 +175,9 @@ public class SelectModel {
         return null;
     }
 
-    protected void returnToMenu(JFrame frame) {
-        frame.dispose();
+    protected void returnToMenu(SelectView selectView) {
+        selectView.stopPoller();
+        selectView.dispose();
         MainModel model = new MainModel();
         MainController controller1 = new MainController(model);
         MainGuitarController controller2 = new MainGuitarController(model);

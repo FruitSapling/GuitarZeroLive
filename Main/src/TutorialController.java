@@ -57,7 +57,7 @@ public class TutorialController extends GuitarController implements KeyListener 
   }
 
   @Override
-  public void zeroPowerWhammyOrBenderPressed() {
+  public void zeroPowerWhammyOrBenderPressed(ArrayList<GuitarButton> buttonsPressed) {
 
   }
 }

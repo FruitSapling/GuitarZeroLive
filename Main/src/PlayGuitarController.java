@@ -30,8 +30,8 @@ public class PlayGuitarController extends GuitarController {
   public void zeroPowerPressed() { }
 
   @Override
-  public void zeroPowerWhammyOrBenderPressed() {
-
+  public void zeroPowerWhammyOrBenderPressed(ArrayList<GuitarButton> buttonsPressed) {
+    model.guitarStrummed(buttonsPressed);
   }
 
 }
