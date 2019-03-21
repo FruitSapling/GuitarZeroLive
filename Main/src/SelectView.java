@@ -36,8 +36,6 @@ public class SelectView extends JFrame implements PropertyChangeListener {
         this.menu = new CarouselMenu(buttons, 20, 400);
         this.model.addPropertyChangeListener(menu);
 
-        this.g.add(menu);
-
         this.panel.add(g);
 
         this.addKeyListener(controller);
