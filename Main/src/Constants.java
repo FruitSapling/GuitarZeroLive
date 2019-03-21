@@ -41,6 +41,9 @@ public class Constants {
     public static int       w = 750;
     public static int       h = 1000;
 
+    public static int       LOOP_START = 10000;
+    public static int       LOOP_END = 20000;
+
     public static float     WHAMMY_RESTING_VALUE = 0.05f;
 
     //Used for perspective added by Tom
