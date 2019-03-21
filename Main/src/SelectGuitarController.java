@@ -80,7 +80,7 @@ public class SelectGuitarController extends GuitarController implements GuitarBu
 //        else if(e.getKeyChar() == 'd') {
 //            cycleCarouselLeft(); }
         if(e.getKeyChar() == KeyEvent.VK_ENTER) {
-            selectMode();
+            model.selectMode();
         }
     }
 
@@ -106,7 +106,7 @@ public class SelectGuitarController extends GuitarController implements GuitarBu
 
     @Override
     public void zeroPowerPressed() {
-        selectMode();
+        model.selectMode();
     }
 
     @Override
