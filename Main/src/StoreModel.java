@@ -125,10 +125,7 @@ public class StoreModel {
 
         File[] files = getFolders(Constants.STORE_FILE_PATH,"dir");
 
-        // Make only 3 buttons with actual images even if too many are in the folder
-        int limiter = files.length > 5 ? 5 : files.length;
-
-        for (int i = 0; i < limiter; i++) {
+        for (int i = 0; i < files.length; i++) {
 
             File file = files[i];
 
@@ -160,6 +157,7 @@ public class StoreModel {
 
         }
 
+        // Carousel has to have at least 5 buttons or they get stretched wierdly
         for (int i = buttons.size(); i < 5; i++) {
             CarouselButton button = new CarouselButton(Constants.DEFAULT_WHITE_IMAGE_PATH,"none") {
                 @Override public void onHighlight() {}

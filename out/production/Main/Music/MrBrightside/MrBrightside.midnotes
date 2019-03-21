@@ -47,7 +47,7 @@ ON,C#5,4552
 OFF,C#5,4759
 ON,G#4,4759
 OFF,G#4,4966
-zero power mode started
+zero power mode started,4966
 ON,F#3,4966
 OFF,F#3,5172
 ON,G#4,5172
@@ -95,7 +95,7 @@ OFF,D#5,9517
 ON,C#5,9517
 OFF,C#5,9724
 ON,G#4,9724
-zero power mode finished
+zero power mode finished,9931
 OFF,G#4,9931
 ON,F#3,9931
 OFF,F#3,10138
@@ -193,7 +193,7 @@ ON,C#5,19448
 OFF,C#5,19655
 ON,G#4,19655
 OFF,G#4,19862
-zero power mode started
+zero power mode started,19862
 ON,C#4,19862
 OFF,C#4,20069
 ON,G#4,20069
@@ -241,7 +241,7 @@ OFF,D#5,24414
 ON,C#5,24414
 OFF,C#5,24621
 ON,G#4,24621
-zero power mode finished
+zero power mode finished,24828
 OFF,G#4,24828
 ON,F#3,24828
 OFF,F#3,25034
@@ -339,7 +339,7 @@ ON,C#5,34345
 OFF,C#5,34552
 ON,G#4,34552
 OFF,G#4,34759
-zero power mode started
+zero power mode started,34759
 ON,C4,34759
 OFF,C4,34966
 ON,G#4,34966
@@ -387,7 +387,7 @@ OFF,D#5,39310
 ON,C#5,39310
 OFF,C#5,39517
 ON,G#4,39517
-zero power mode finished
+zero power mode finished,39724
 OFF,G#4,39724
 ON,C#3,39724
 ON,G#3,39931
@@ -485,7 +485,7 @@ ON,C#4,49241
 OFF,C#4,49448
 ON,G#3,49448
 OFF,G#3,49655
-zero power mode started
+zero power mode started,49655
 ON,F#2,49655
 ON,G#3,49862
 OFF,F#2,49862
@@ -533,7 +533,7 @@ OFF,D#4,54207
 ON,C#4,54207
 OFF,C#4,54414
 ON,G#3,54414
-zero power mode finished
+zero power mode finished,54621
 OFF,G#3,54621
 ON,C#3,54621
 ON,G#3,54828
@@ -631,7 +631,7 @@ ON,C#4,64138
 OFF,C#4,64345
 ON,G#3,64345
 OFF,G#3,64552
-zero power mode started
+zero power mode started,64552
 ON,F#2,64552
 ON,G#3,64759
 OFF,F#2,64759
@@ -679,7 +679,7 @@ OFF,C#4,69103
 ON,F#4,69103
 OFF,F#4,69310
 ON,C#4,69310
-zero power mode finished
+zero power mode finished,69517
 OFF,C#4,69517
 ON,G#4,69517
 OFF,G#4,69724
@@ -1033,7 +1033,7 @@ ON,C#5,110483
 OFF,C#5,110690
 ON,G#4,110690
 OFF,G#4,110897
-zero power mode started
+zero power mode started,110897
 ON,F#3,110897
 OFF,F#3,111103
 ON,G#4,111103
@@ -1081,7 +1081,7 @@ OFF,D#5,115448
 ON,C#5,115448
 OFF,C#5,115655
 ON,G#4,115655
-zero power mode finished
+zero power mode finished,115862
 OFF,G#4,115862
 ON,F#3,115862
 OFF,F#3,116069
@@ -1179,7 +1179,7 @@ ON,C#5,125379
 OFF,C#5,125586
 ON,G#4,125586
 OFF,G#4,125793
-zero power mode started
+zero power mode started,125793
 ON,C#4,125793
 OFF,C#4,126000
 ON,G#4,126000
@@ -1227,7 +1227,7 @@ OFF,D#5,130345
 ON,C#5,130345
 OFF,C#5,130552
 ON,G#4,130552
-zero power mode finished
+zero power mode finished,130759
 OFF,G#4,130759
 ON,F#3,130759
 OFF,F#3,130965
@@ -1325,7 +1325,7 @@ ON,C#4,140276
 OFF,C#4,140483
 ON,G#3,140483
 OFF,G#3,140690
-zero power mode started
+zero power mode started,140690
 ON,F#2,140690
 ON,G#3,140897
 OFF,F#2,140897
@@ -1373,7 +1373,7 @@ OFF,D#4,145241
 ON,C#4,145241
 OFF,C#4,145448
 ON,G#3,145448
-zero power mode finished
+zero power mode finished,145655
 OFF,G#3,145655
 ON,C#3,145655
 ON,G#3,145862
@@ -1471,7 +1471,7 @@ ON,C#4,155172
 OFF,C#4,155379
 ON,G#3,155379
 OFF,G#3,155586
-zero power mode started
+zero power mode started,155586
 ON,F#2,155586
 ON,G#3,155793
 OFF,F#2,155793
@@ -1519,7 +1519,7 @@ OFF,C#4,160138
 ON,F4,160138
 OFF,F4,160345
 ON,C#4,160345
-zero power mode finished
+zero power mode finished,160552
 OFF,C#4,160552
 ON,F#4,160552
 OFF,F#4,160759
@@ -2063,12 +2063,3 @@ ON,C#4,223948
 OFF,C#4,224448
 ON,C4,224448
 OFF,C4,227448
-zero
-zero
-zero
-zero
-zero
-zero
-zero
-zero
-zero
