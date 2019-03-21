@@ -46,6 +46,8 @@ public class CarouselMenu extends JLayeredPane implements PropertyChangeListener
     flowLayout.setVgap(yPos+10);
     this.setLayout(flowLayout);
     this.addButtons(buttons);
+    this.cycleLeft();
+    this.cycleRight();
     this.revalidate();
   }
 
