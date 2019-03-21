@@ -34,7 +34,7 @@ public class MainView extends JFrame implements PropertyChangeListener {
     this.panel = new JPanel();
     this.panel.setPreferredSize(new Dimension(Constants.w,Constants.h));
 
-    CarouselButton[] buttons = setMenu(this);
+    CarouselButton[] buttons = model1.setMenu(this);
     this.menu = new CarouselMenu(buttons, 20, 400);
     model1.addPropertyChangeListener(menu);
 
@@ -57,15 +57,11 @@ public class MainView extends JFrame implements PropertyChangeListener {
       if (!model1.menuOpen) {
         model1.menuOpen = true;
         g.add(menu);
-        System.out.println("added menu");
       } else if (model1.menuOpen) {
         model1.menuOpen = false;
         g.remove(menu);
-        System.out.println("removed menu");
       }
     } else if (pce.getPropertyName() == "modelConstructed") {
-      System.out.println(g);
-      System.out.println(menu);
     }
     this.revalidate();
     this.repaint();
@@ -110,66 +106,4 @@ public class MainView extends JFrame implements PropertyChangeListener {
     }
   }
 
-  public CarouselButton[] setMenu(JFrame frame) {
-    CarouselButton[] buttons = new CarouselButton[5];
-
-    buttons[0] = new CarouselButton(Constants.EXIT_IMAGE_PATH, "Exit") {
-      @Override public void onClick() {
-        System.exit(0);
-      }
-      @Override public void onHighlight() {}
-    };
-
-    buttons[1] = new CarouselButton(Constants.SELECT_IMAGE_PATH, "Select") {
-      @Override public void onClick() {
-        frame.dispose();
-        SelectModel model = new SelectModel();
-        SelectController controller = new SelectController(model);
-        SelectGuitarController controller2 = new SelectGuitarController(model);
-        new SelectView(model, controller, controller2);
-      }
-      @Override public void onHighlight() {}
-    };
-
-    buttons[2] = new CarouselButton(Constants.PLAY_IMAGE_PATH, "Play") {
-      @Override public void onClick() {
-        if (IntendedTrack.getIntendedTrack().equals("")) {
-          JOptionPane.showMessageDialog(null, "You must select a track before attempting to play!"
-                  , "Selection Error", JOptionPane.ERROR_MESSAGE);
-        }
-        else {
-          frame.dispose();
-          PlayModel model = new PlayModel();
-          PlayController2 controller2 = new PlayController2(model);
-          PlayGuitarController guitarController = new PlayGuitarController(model);
-          PlayView view = new PlayView(model, controller2, guitarController);
-          PlayController1 controller = new PlayController1(model);
-        }
-      }
-      @Override public void onHighlight() {}
-    };
-
-    buttons[3] = new CarouselButton(Constants.STORE_IMAGE_PATH, "Store") {
-      @Override public void onClick() {
-        frame.dispose();
-        StoreModel model = new StoreModel();
-        StoreController controller = new StoreController(model);
-        StoreGuitarController guitarController = new StoreGuitarController(model);
-        new StoreView(model, controller, guitarController);
-      }
-      @Override public void onHighlight() {}
-    };
-
-    buttons[4] = new CarouselButton(Constants.TUTORIAL_IMAGE_PATH, "Tutorial") {
-      @Override public void onClick() {
-        frame.dispose();
-        TutorialModel model = new TutorialModel();
-        TutorialController controller = new TutorialController(model);
-        new TutorialView(model, controller);
-      }
-      @Override public void onHighlight() {}
-    };
-
-    return buttons;
-  }
 }

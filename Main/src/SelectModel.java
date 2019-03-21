@@ -122,7 +122,6 @@ public class SelectModel {
                 }
                 else {
                     IntendedTrack.setIntendedTrack(intendedTrack.replace("\\", "/"));
-                    System.out.println(IntendedTrack.getIntendedTrack());
                     JOptionPane.showMessageDialog(null, "Selected track has become: " + zipName,
                             "Selection Info", JOptionPane.INFORMATION_MESSAGE);
                 }
@@ -134,7 +133,7 @@ public class SelectModel {
                 new MainView(model, controller1, controller2);
             }
             @Override public void onHighlight() {
-                System.out.println(zipName);
+                //TODO: for Luke
             }
             };
         }
