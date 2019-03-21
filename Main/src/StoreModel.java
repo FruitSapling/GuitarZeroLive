@@ -221,7 +221,14 @@ public class StoreModel {
       MainModel model = new MainModel();
       MainController controller1 = new MainController(model);
       MainGuitarController controller2 = new MainGuitarController(model);
-      new MainView(model, controller1, controller2);
+      MainView view = new MainView(model, controller1, controller2);
+
+      // Hot fix for carousel bug.
+      model.menuOpen = true;
+      model.showMenu();
+      model.showMenu();
+
+      view.requestFocusInWindow();
     }
 
 
