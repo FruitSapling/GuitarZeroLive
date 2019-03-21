@@ -18,8 +18,11 @@ public class LanePanel3 extends JPanel {
 
   private boolean zeroPowerMode;
 
-  public LanePanel3(CopyOnWriteArrayList<Note> notes, boolean zeroPowerMode) {
+  private int streak;
+
+  public LanePanel3(CopyOnWriteArrayList<Note> notes, boolean zeroPowerMode, int streak) {
     try {
+      this.streak = streak;
       this.white = ImageIO.read(new FileInputStream("Main/src/resources/pick.png"));
       this.black = ImageIO.read(new FileInputStream("Main/src/resources/pick1.png"));
       this.zeroPowerIcon = ImageIO.read(new FileInputStream("Main/src/resources/ZeroPower.png"));
@@ -38,8 +41,15 @@ public class LanePanel3 extends JPanel {
   public void setZeroPowerMode(boolean zeroPowerMode) {
     this.zeroPowerMode = zeroPowerMode;
   }
+  public void setStreak(int streak) {
+    this.streak = streak;
+  }
 
   public void paintComponent(Graphics g) {
+    Graphics2D g2 = (Graphics2D) g;
+    g2.setColor(Color.BLACK);
+    g2.setFont(new Font("TimesRoman", Font.PLAIN, 30));
+    g2.drawString("Streak: " + Integer.toString(streak), getWidth()/2, 50);
     if(zeroPowerMode) {
       g.drawImage(zeroPowerIcon, 200, 600, null);
     }

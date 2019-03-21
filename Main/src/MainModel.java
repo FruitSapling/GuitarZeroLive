@@ -69,7 +69,14 @@ public class MainModel {
         SelectModel model = new SelectModel();
         SelectController controller = new SelectController(model);
         SelectGuitarController controller2 = new SelectGuitarController(model);
-        new SelectView(model, controller, controller2);
+        SelectView view = new SelectView(model, controller, controller2);
+
+        // Hot fix for carousel bug.
+        model.menuOpen = true;
+        model.showMenu();
+        model.showMenu();
+
+        view.requestFocusInWindow();
       }
       @Override public void onHighlight() {}
     };
@@ -100,7 +107,14 @@ public class MainModel {
         StoreModel model = new StoreModel();
         StoreController controller = new StoreController(model);
         StoreGuitarController guitarController = new StoreGuitarController(model);
-        new StoreView(model, controller, guitarController);
+        StoreView view = new StoreView(model, controller, guitarController);
+
+        // Hot fix for carousel bug.
+        model.menuOpen = true;
+        model.showMenu();
+        model.showMenu();
+
+        view.requestFocusInWindow();
       }
       @Override public void onHighlight() {}
     };

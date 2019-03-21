@@ -1,6 +1,6 @@
 /**
  * @author Tom
- * Refactored for Select Mode from Slash Mode by @Morgan
+ * Refactored for Select Mode from Slash Mode by Morgan
  */
 
 import javax.imageio.ImageIO;
@@ -72,8 +72,11 @@ public class SelectModel {
         ArrayList<File> arrayList = new ArrayList<File>(Arrays.asList(list));
 
         if (list.length < 5) {
+            /*Less than 5 unzipped tracks to display - use some maths to generate empty buttons
+              This avoids an issue with generating additional buttons
+             */
             buttons = new CarouselButton[5];
-            int surplus = 5 - (5-list.length);
+            int surplus = 5 - (5-list.length); // integer holds how many empty buttons we need
 
             for (int i = 0; i < list.length; i++) {
                 buttons[i] = createMeaningfulButton(selectView, arrayList, i);
@@ -84,6 +87,7 @@ public class SelectModel {
         }
 
         else {
+            // if we have 5 or more buttons, no need for any additional empty buttons
             buttons = new CarouselButton[list.length];
             for (int i = 0; i < list.length; i++) {
                 buttons[i] = createMeaningfulButton(selectView, arrayList, i);
@@ -105,10 +109,10 @@ public class SelectModel {
 
         for (int j = 0; j < unzippedList.size(); j++) {
             if (unzippedList.get(j).getName().split("\\.")[1].equals("jpg")) {
-                imagePath = unzippedList.get(j).getPath();
+                imagePath = unzippedList.get(j).getPath(); // Our cover art
             }
             if (unzippedList.get(j).getName().split("\\.")[1].equals("midnotes")) {
-                zipPath = unzippedList.get(j).getPath();
+                zipPath = unzippedList.get(j).getPath(); // Our notes file
             }
         }
         File img = new File(imagePath);
@@ -120,6 +124,7 @@ public class SelectModel {
             ImageIcon icon = new ImageIcon(newImage);
 
             return new CarouselButton(icon, zipName) {@Override public void onClick() {
+                //IntendedTrack will be null if no notes file was found
                 if (IntendedTrack.getIntendedTrack().equals("")) {
                     JOptionPane.showMessageDialog(null, "Error - No Track Selected",
                             "Empty Button", JOptionPane.WARNING_MESSAGE);
@@ -134,7 +139,6 @@ public class SelectModel {
                 returnToMenu(selectView);
             }
             @Override public void onHighlight() {
-                //TODO: for Luke
                 PlaySong.stopPreview();
                 PlaySong.playPreview(zipName);
             }
@@ -175,13 +179,28 @@ public class SelectModel {
         return null;
     }
 
+<<<<<<< HEAD
     protected void returnToMenu(SelectView selectView) {
         selectView.stopPoller();
         selectView.dispose();
+=======
+    protected void returnToMenu(JFrame frame) {
+        /*
+        Method used to dispose of the current frame and return to slash mode
+         */
+        frame.dispose();
+>>>>>>> 3afbb24d3aef346cf6f7b0aa8fb0af141a3c882b
         MainModel model = new MainModel();
         MainController controller1 = new MainController(model);
         MainGuitarController controller2 = new MainGuitarController(model);
-        new MainView(model, controller1, controller2);
+        MainView view = new MainView(model, controller1, controller2);
         PlaySong.stopPreview();
+
+        // Hot fix for carousel bug.
+        model.menuOpen = true;
+        model.showMenu();
+        model.showMenu();
+
+        view.requestFocusInWindow();
     }
 }

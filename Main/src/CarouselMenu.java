@@ -53,7 +53,7 @@ public class CarouselMenu extends JLayeredPane implements PropertyChangeListener
 
   // Cycle the carousel to the right
   public void cycleRight() {
-
+      //farLeft and farRight hold expected array indexes, in order to allow for carousel menu movement off screen
     if (farLeft == 0) { farLeft = buttons.length-1; }
     else { farLeft = farLeft-1; }
 
@@ -63,9 +63,10 @@ public class CarouselMenu extends JLayeredPane implements PropertyChangeListener
     int left = farLeft; int right = farRight;
     int count = 0;
 
+    //Fill the placeholder array with the newly sourced correct indexes
     for (int i = left; count < 5; i++) {
       try { tempArray[count] = buttons[i]; }
-      catch (ArrayIndexOutOfBoundsException e) {
+      catch (ArrayIndexOutOfBoundsException e) { //if we back around to 0, adjust i to avoid an exception
         i = 0;
         tempArray[count] = buttons[i];
       }
@@ -77,7 +78,7 @@ public class CarouselMenu extends JLayeredPane implements PropertyChangeListener
 
   // Cycle the carousel to the left
   public void cycleLeft() {
-
+      //farLeft and farRight hold expected array indexes, in order to allow for carousel menu movement off screen
     if (farLeft == buttons.length) { farLeft = 0; }
     else { farLeft = farLeft+1; }
 
@@ -86,9 +87,10 @@ public class CarouselMenu extends JLayeredPane implements PropertyChangeListener
 
     int left = farLeft; int right = farRight;
     int count = 0;
+      //Fill the placeholder array with the newly sourced correct indexes
     for (int i = left; count < 5; i++) {
       try { tempArray[count] = buttons[i]; }
-      catch (ArrayIndexOutOfBoundsException e) {
+      catch (ArrayIndexOutOfBoundsException e) { //if we back around to 0, adjust i to avoid an exception
         i = 0;
         tempArray[count] = buttons[i];
       }
