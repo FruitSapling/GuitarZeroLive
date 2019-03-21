@@ -19,6 +19,7 @@ import javax.swing.JLayeredPane;
  * to call the CarouselButton's "onClick" method.
  *
  * @author Willem
+ * Morgan - Contributed the maths within cycleLeft & cycleRight to handle more than 5 buttons
  *
  */
 public class CarouselMenu extends JLayeredPane implements PropertyChangeListener {

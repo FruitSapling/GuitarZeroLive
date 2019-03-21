@@ -30,10 +30,10 @@ public class SelectGuitarController extends GuitarController implements GuitarBu
                 }
                 break;
             case ZERO_POWER:
-                selectMode();
+                model.selectMode();
                 break;
             case ESCAPE:
-                backMode();
+                model.backMode();
                 break;
         }
     }
@@ -66,14 +66,6 @@ public class SelectGuitarController extends GuitarController implements GuitarBu
 
     public void cycleCarouselLeft() {
         model.cycleCarouselLeft();
-    }
-
-    public void selectMode() {
-        model.selectMode();
-    }
-
-    public void backMode() {
-        model.backMode();
     }
 
     @Override
