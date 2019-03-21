@@ -12,7 +12,7 @@ public class Scoring {
   public void noteHit(){
     currentStreak += 1;
     if(checkStreak()){ currentMultiplier *= 2;}
-    score += currentMultiplier * Constants.noteValue;
+    score += currentMultiplier * Constants.NOTE_VALUE;
     if (checkScore()) {
       addInGameCurrency();
     }
@@ -25,15 +25,15 @@ public class Scoring {
 
   // If current streak is multiple of streakMultiple, multiply multiplier by 2
   private boolean checkStreak(){
-    return currentStreak % Constants.streakMultiple == 0;
+    return currentStreak % Constants.STREAK_MULTIPLE == 0;
   }
 
   private boolean checkScore(){
-    return score % Constants.scoreMultiple == 0;
+    return score % Constants.SCORE_MULTIPLE == 0;
   }
 
   private void addInGameCurrency(){
-    if(inGameCurrency < Constants.maxInGameCurrency){
+    if(inGameCurrency < Constants.MAX_IN_GAME_CURRENCY){
       inGameCurrency += 1;
     }
   }
