@@ -22,30 +22,9 @@ public class ExtractNotes{
   private static final ArrayList<Integer> nextMessageOf = new ArrayList<>();
   private static int currentTrack = 0;
 
-  public static void main(String[] args){
-    // code below is all for showcase
-    makeNotesFile("Wonderwall.mid");
-  }
-
-  /**
-   * Finds a lead Guitar from the file and then uses this to extract the appropiate notes
-   * @param filename the name of the midifile to be played
-   */
-  public static void makeNotesFile(String filename){
-    try{
-      seq = MidiSystem.getSequence(new File("Server/src/resources/" + filename));
-    } catch (Exception e){
-      e.printStackTrace();
-      System.exit(1);
-    }
-    Guitar leadGuitar = findLeadGuitar(findAllGuitars(seq));
-    convertMidiToNotes(seq, leadGuitar, filename);
-  }
-
-
     /**
      * Finds a lead Guitar from the file and then uses this to extract the appropiate notes
-     * @param file the name of the midifile to be played
+     * @param file the midifile to be played
      */
     public static void makeNotesFile(File file){
         try{

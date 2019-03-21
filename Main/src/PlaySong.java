@@ -14,6 +14,10 @@ public class PlaySong {
 
   /**
    * Plays the song specified, muting or soloing the track given if required
+   * @param filename the songname of the file to be played
+   * @param trackNumber the track number the lead guitar is stored on
+   * @param mute should the lead guitar be muted
+   * @param solo should only the lead guitar be played
    */
   public static void playMidi(String filename, int trackNumber, boolean mute, boolean solo){
     try {
@@ -36,6 +40,10 @@ public class PlaySong {
     }
   }
 
+  /**
+   * Plays a 30 second portion of a song, starting at 10 seconds in, on repeat
+   * @param filename the filename of the song to be played
+   */
   public static void playPreview(String filename){
     try{
       sequen = MidiSystem.getSequencer();
@@ -45,13 +53,6 @@ public class PlaySong {
       sequen.setLoopEndPoint(Constants.LOOP_END);
       sequen.setTickPosition(Constants.LOOP_START);
       sequen.setLoopCount(sequen.LOOP_CONTINUOUSLY);
-      sequen.addMetaEventListener(new MetaEventListener() {
-        public void meta(MetaMessage mesg) {
-            if ( mesg.getType() == Constants.END_OF_SONG ) {
-              sequen.close();
-            }
-          }
-        });
       sequen.start();
     } catch(Exception e){
       e.printStackTrace();
@@ -59,6 +60,9 @@ public class PlaySong {
     }
   }
 
+  /**
+   * Stops the preview song from playing
+   */
   public static void stopPreview(){
     try{
       sequen.close();
