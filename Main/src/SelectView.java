@@ -57,6 +57,13 @@ public class SelectView extends JFrame implements PropertyChangeListener {
                 g.remove(menu);
             }
         }
+        else if (pce.getPropertyName() == "backMode") {
+            this.dispose();
+            MainModel model = new MainModel();
+            MainController controller1 = new MainController(model);
+            MainGuitarController controller2 = new MainGuitarController(model);
+            new MainView(model, controller1, controller2);
+        }
         this.revalidate();
         this.repaint();
         this.pack();
