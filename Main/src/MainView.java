@@ -117,6 +117,7 @@ public class MainView extends JFrame implements PropertyChangeListener {
       @Override public void onClick() {
         System.exit(0);
       }
+      @Override public void onHighlight() {}
     };
 
     buttons[1] = new CarouselButton(Constants.SELECT_IMAGE_PATH, "Select") {
@@ -127,6 +128,7 @@ public class MainView extends JFrame implements PropertyChangeListener {
         SelectGuitarController controller2 = new SelectGuitarController(model);
         new SelectView(model, controller, controller2);
       }
+      @Override public void onHighlight() {}
     };
 
     buttons[2] = new CarouselButton(Constants.PLAY_IMAGE_PATH, "Play") {
@@ -144,6 +146,7 @@ public class MainView extends JFrame implements PropertyChangeListener {
           PlayController1 controller = new PlayController1(model);
         }
       }
+      @Override public void onHighlight() {}
     };
 
     buttons[3] = new CarouselButton(Constants.STORE_IMAGE_PATH, "Store") {
@@ -154,6 +157,7 @@ public class MainView extends JFrame implements PropertyChangeListener {
         StoreGuitarController guitarController = new StoreGuitarController(model);
         new StoreView(model, controller, guitarController);
       }
+      @Override public void onHighlight() {}
     };
 
     buttons[4] = new CarouselButton(Constants.TUTORIAL_IMAGE_PATH, "Tutorial") {
@@ -163,6 +167,7 @@ public class MainView extends JFrame implements PropertyChangeListener {
         TutorialController controller = new TutorialController(model);
         new TutorialView(model, controller);
       }
+      @Override public void onHighlight() {}
     };
 
     return buttons;
