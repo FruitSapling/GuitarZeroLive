@@ -35,6 +35,7 @@ public class ExtractNotes{
     try{
       seq = MidiSystem.getSequence(new File("Server/src/resources/" + filename));
     } catch (Exception e){
+      e.printStackTrace();
       System.exit(1);
     }
     Guitar leadGuitar = findLeadGuitar(findAllGuitars(seq));
