@@ -48,4 +48,8 @@ public class TutorialModel {
     this.support.addPropertyChangeListener(pcl);
   }
 
+  public void backMode() {
+    support.firePropertyChange("endTutorial", null, null);
+  }
+
 }
