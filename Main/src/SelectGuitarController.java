@@ -21,18 +21,21 @@ public class SelectGuitarController extends GuitarController implements GuitarBu
 
     @Override
     public void guitarButtonPressReceived(GuitarButtonPressedEvent e) {
-//        switch(e.getGuitarButton()) {
-//            case STRUM:
-//                if (e.getValue() == 1.0) {
-//                    cycleCarouselRight();
-//                } else {
-//                    cycleCarouselLeft();
-//                }
-//                break;
-//            case ZERO_POWER:
-//                selectMode();
-//                break;
-//        }
+        switch(e.getGuitarButton()) {
+            case STRUM:
+                if (e.getValue() == 1.0) {
+                    cycleCarouselRight();
+                } else {
+                    cycleCarouselLeft();
+                }
+                break;
+            case ZERO_POWER:
+                selectMode();
+                break;
+            case ESCAPE:
+                backMode();
+                break;
+        }
     }
 
     public synchronized void addListener(GuitarButtonListener listener){
@@ -67,6 +70,10 @@ public class SelectGuitarController extends GuitarController implements GuitarBu
 
     public void selectMode() {
         model.selectMode();
+    }
+
+    public void backMode() {
+        model.backMode();
     }
 
     @Override
