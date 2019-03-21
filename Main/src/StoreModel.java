@@ -69,7 +69,16 @@ public class StoreModel {
       CarouselButton[] buttons = new CarouselButton[5];
         Client client = new Client(Constants.SERVER_IP_ADDRESS,Constants.STORE_FILE_PATH,Constants.CLIENT_PORT_NUMBER);
 
-        client.connect();
+        try {
+          client.connect();
+        }
+        catch (IOException e) {
+          JOptionPane.showMessageDialog(null, "Error connecting to the server",
+              "Error Info", JOptionPane.INFORMATION_MESSAGE);
+          backToMain(frame);
+          return buttons;
+        }
+
 
         if (client.socket != null) {
             File zippedFiles = client.receiveFiles("zipped",page);

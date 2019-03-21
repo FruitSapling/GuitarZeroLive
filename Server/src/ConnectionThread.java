@@ -39,8 +39,7 @@ public class ConnectionThread implements Runnable {
       switch (task) {
         case 0:
           System.out.println("Output");
-          int page = inStream.read();
-          sendFiles(page);
+          sendFiles();
           break;
         case 1:
           System.out.println("Input");
@@ -105,12 +104,12 @@ public class ConnectionThread implements Runnable {
   * A method to send a page (3) folders to the client at a time.
   * This page integer should start at 0 for page 1.
   */
-  private void sendFiles(int page) {
+  private void sendFiles() {
     try {
       OutputStream out = client.getOutputStream();
       DataOutputStream outputStream = new DataOutputStream(out);
 
-      File[] zippedFolders = Arrays.copyOfRange(getZippedFiles(),(page*3),((page+1)*3));
+      File[] zippedFolders = getZippedFiles();
       FileZipper zipper = new FileZipper(zippedFolders,"Server/src/resources","tempZip");
 
       File zippedFolder = zipper.zipFiles();
