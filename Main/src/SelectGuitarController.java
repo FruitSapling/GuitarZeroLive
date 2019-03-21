@@ -45,19 +45,19 @@ public class SelectGuitarController extends GuitarController implements GuitarBu
         listeners.remove(listener);
     }
 
-    public void fireGuitarButtonPressedEvent(GuitarButton btn) {
-        GuitarButtonPressedEvent e = new GuitarButtonPressedEvent(this, btn);
-        for (GuitarButtonListener listener: listeners) {
-            listener.guitarButtonPressReceived(e);
-        }
-    }
-
-    public void fireGuitarButtonPressedEvent(GuitarButton btn, float value) {
-        GuitarButtonPressedEvent e = new GuitarButtonPressedEvent(this, btn, value);
-        for (GuitarButtonListener listener: listeners) {
-            listener.guitarButtonPressReceived(e);
-        }
-    }
+//    public void fireGuitarButtonPressedEvent(GuitarButton btn) {
+//        GuitarButtonPressedEvent e = new GuitarButtonPressedEvent(this, btn);
+//        for (GuitarButtonListener listener: listeners) {
+//            listener.guitarButtonPressReceived(e);
+//        }
+//    }
+//
+//    public void fireGuitarButtonPressedEvent(GuitarButton btn, float value) {
+//        GuitarButtonPressedEvent e = new GuitarButtonPressedEvent(this, btn, value);
+//        for (GuitarButtonListener listener: listeners) {
+//            listener.guitarButtonPressReceived(e);
+//        }
+//    }
 
     public void cycleCarouselRight() {
         model.cycleCarouselRight();

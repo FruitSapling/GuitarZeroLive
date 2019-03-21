@@ -179,17 +179,9 @@ public class SelectModel {
         return null;
     }
 
-<<<<<<< HEAD
     protected void returnToMenu(SelectView selectView) {
         selectView.stopPoller();
         selectView.dispose();
-=======
-    protected void returnToMenu(JFrame frame) {
-        /*
-        Method used to dispose of the current frame and return to slash mode
-         */
-        frame.dispose();
->>>>>>> 3afbb24d3aef346cf6f7b0aa8fb0af141a3c882b
         MainModel model = new MainModel();
         MainController controller1 = new MainController(model);
         MainGuitarController controller2 = new MainGuitarController(model);
