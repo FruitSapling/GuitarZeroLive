@@ -26,6 +26,7 @@ public class LanePanel1 extends JPanel {
   private BufferedImage mult1,mult2,mult3;
   private BufferedImage album;
   private int score, currency, mult;
+  private boolean artFound = true;
   public LanePanel1(CopyOnWriteArrayList<Note> notes, int score, int currency, int mult) {
     try{
       this.score = score;
@@ -39,20 +40,24 @@ public class LanePanel1 extends JPanel {
       this.mult3 = ImageIO.read(new FileInputStream("Main/src/resources/3.png"));
 
       String track = IntendedTrack.getIntendedTrack();
-      String trackName = track.split("\\.")[0];
-      String[] trackNameSplit = trackName.split("/");
-      //this.album = ImageIO.read(new FileInputStream(trackNameSplit[0] + "/" + trackNameSplit[1] + "/resources/" + trackNameSplit[2] + ".jpg"));
+      track = track.substring(0, track.length() - 9) + ".jpg";
+      System.out.println(track);
 
-      //Scale the album art to the desired size (Tom)
-      //int w = album.getWidth();
-      //int h = album.getHeight();
-      //BufferedImage after = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
-      //AffineTransform at = new AffineTransform();
-      //at.scale(0.75, 0.75);
-      //AffineTransformOp scaleOp =
-         // new AffineTransformOp(at, AffineTransformOp.TYPE_BILINEAR);
-      // after = scaleOp.filter(album, after);
-      //this.album = after;
+      try {
+        this.album = ImageIO.read(new FileInputStream(track));
+        int w = album.getWidth();
+        int h = album.getHeight();
+        BufferedImage after = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
+        AffineTransform at = new AffineTransform();
+        at.scale(0.5, 0.5);
+        AffineTransformOp scaleOp =
+            new AffineTransformOp(at, AffineTransformOp.TYPE_BILINEAR);
+        after = scaleOp.filter(album, after);
+        this.album = after;
+      }catch(IOException e) {
+        System.out.println("Album Art Not Found, Continuing Without");
+        this.artFound = false;
+      }
 
     }catch(IOException e) {
       System.out.println(e.getMessage());
@@ -93,7 +98,9 @@ public class LanePanel1 extends JPanel {
         break;
     }
 
-    //g.drawImage(album, 0, 0, null);
+    if(artFound) {
+      g.drawImage(album, 0, 0, null);
+    }
 
     for(Note n : this.notes) {
       if(n.getLane().equals(NoteInfo.LANE_ONE)) {
