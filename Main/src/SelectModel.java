@@ -129,12 +129,8 @@ public class SelectModel {
                     JOptionPane.showMessageDialog(null, "Selected track has become: " + zipName,
                             "Selection Info", JOptionPane.INFORMATION_MESSAGE);
                 }
-
                 frame.dispose();
-                MainModel model = new MainModel();
-                MainController controller1 = new MainController(model);
-                MainGuitarController controller2 = new MainGuitarController(model);
-                new MainView(model, controller1, controller2);
+                returnToMenu(frame);
             }
             @Override public void onHighlight() {
                 //TODO: for Luke
@@ -178,16 +174,12 @@ public class SelectModel {
         return null;
     }
 
-    //    private ArrayList<File> inputAllFiles() {
-//        File folder = new File(Constants.ZIP_FILE_PATH + "/");
-//
-//        //TODO: Figure out why this validation check isnt working
-////        for (int i = 0; i < list.size(); i++) {
-////            int index = list.get(i).getName().lastIndexOf('.');
-////            if (list.get(i).getName().substring(index) != "zip") {
-////                list.remove(i);
-////            }
-////        }
-//        return new ArrayList<File>(Arrays.asList(folder.listFiles()));
-//    }
+    protected void returnToMenu(JFrame frame) {
+        frame.dispose();
+        MainModel model = new MainModel();
+        MainController controller1 = new MainController(model);
+        MainGuitarController controller2 = new MainGuitarController(model);
+        new MainView(model, controller1, controller2);
+        PlaySong.stopPreview();
+    }
 }

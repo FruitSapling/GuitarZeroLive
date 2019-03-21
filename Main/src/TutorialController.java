@@ -26,6 +26,9 @@ public class TutorialController extends GuitarController implements KeyListener 
     if (e.getKeyChar() == KeyEvent.VK_SPACE) {
       model.nextStep();
     }
+    else if (e.getKeyChar() == 'q') {
+      model.backMode();
+    }
   }
 
   @Override

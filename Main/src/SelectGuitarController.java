@@ -30,10 +30,10 @@ public class SelectGuitarController extends GuitarController implements GuitarBu
                 }
                 break;
             case ZERO_POWER:
-                selectMode();
+                model.selectMode();
                 break;
             case ESCAPE:
-                backMode();
+                model.backMode();
                 break;
         }
     }
@@ -68,14 +68,6 @@ public class SelectGuitarController extends GuitarController implements GuitarBu
         model.cycleCarouselLeft();
     }
 
-    public void selectMode() {
-        model.selectMode();
-    }
-
-    public void backMode() {
-        model.backMode();
-    }
-
     @Override
     public void keyTyped(KeyEvent e) {
 
@@ -88,7 +80,7 @@ public class SelectGuitarController extends GuitarController implements GuitarBu
 //        else if(e.getKeyChar() == 'd') {
 //            cycleCarouselLeft(); }
         if(e.getKeyChar() == KeyEvent.VK_ENTER) {
-            selectMode();
+            model.selectMode();
         }
     }
 
@@ -114,7 +106,7 @@ public class SelectGuitarController extends GuitarController implements GuitarBu
 
     @Override
     public void zeroPowerPressed() {
-        selectMode();
+        model.selectMode();
     }
 
     @Override
