@@ -18,12 +18,7 @@ public class PlayController2 implements KeyListener {
     switch(e.getKeyCode()) {
       case KeyEvent.VK_SPACE:
         // TODO play midi sound of inputted note
-//      try {
-//        PlayGuitar.playNote(g,"G#",4,207);
-//      } catch (InterruptedException ex) {
-//        ex.printStackTrace();
-//      }
-//        model.strum();
+
         ArrayList<GuitarButton> buttonsPressed = new ArrayList<>();
         buttonsPressed.add(GuitarButton.WHITE_1);
         buttonsPressed.add(GuitarButton.WHITE_2);
