@@ -3,9 +3,7 @@ import java.util.List;
 import javax.sound.midi.Instrument;
 import javax.sound.midi.MidiChannel;
 import javax.sound.midi.MidiSystem;
-import javax.sound.midi.MidiUnavailableException;
 import javax.sound.midi.Patch;
-import javax.sound.midi.ShortMessage;
 import javax.sound.midi.Soundbank;
 import javax.sound.midi.Synthesizer;
 
@@ -37,12 +35,14 @@ public class PlayGuitar {
         }
       }
       if (guitar == null) {
+        System.out.println("No guitar");
         System.exit(1);
       }
 
       synth.close();
 
     } catch (Exception e) {
+      e.printStackTrace();
       System.exit(1);
     }
     return guitar;
@@ -67,6 +67,7 @@ public class PlayGuitar {
        channels[1].noteOff(findNote(note, octave));
        synth.close();
     } catch (Exception e) {
+      e.printStackTrace();
       System.exit(1);
     }
   }

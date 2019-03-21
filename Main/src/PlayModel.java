@@ -25,7 +25,6 @@ public class PlayModel {
   private boolean zeroPowerMode = false;
 
   public PlayModel() {
-
     this.current = new CopyOnWriteArrayList<>();
     this.support = new PropertyChangeSupport(this);
     this.score = new Scoring();
@@ -63,24 +62,25 @@ public class PlayModel {
 
     while(it.hasNext()){
       Map.Entry note = (Map.Entry) it.next();
-      NoteInfo[] landAndColour = (NoteInfo[]) note.getKey();
+      NoteInfo[] laneAndColour = (NoteInfo[]) note.getKey();
       int timeSig = (int) note.getValue();
+      int position = (timeSig / 3) - 600;
 
-      switch (landAndColour[0]) {
+      switch (laneAndColour[0]) {
         case LANE_ONE:
-          current.add(new Note(landAndColour[0], 0 - timeSig + 600, 200, landAndColour[1]));
+          current.add(new Note(laneAndColour[0], 0 - position, 200, laneAndColour[1]));
           break;
         case LANE_TWO:
-          current.add(new Note(landAndColour[0], 0 - timeSig + 600, 100, landAndColour[1]));
+          current.add(new Note(laneAndColour[0], 0 - position, 100, laneAndColour[1]));
           break;
         case LANE_THREE:
-          current.add(new Note(landAndColour[0], 0 - timeSig + 600, 0, landAndColour[1]));
+          current.add(new Note(laneAndColour[0], 0 - position, 0, laneAndColour[1]));
           break;
         case ZERO_ON:
-          current.add(new Note(landAndColour[0], 0 - timeSig + 600, 0, landAndColour[1]));
+          current.add(new Note(laneAndColour[0], 0 - position, 0, laneAndColour[1]));
           break;
         case ZERO_OFF:
-          current.add(new Note(landAndColour[0], 0 - timeSig + 600, 0, landAndColour[1]));
+          current.add(new Note(laneAndColour[0], 0 - position, 0, laneAndColour[1]));
           break;
       }
     }
@@ -96,7 +96,7 @@ public class PlayModel {
 
       String line;
       while((line = bw.readLine()) != null) {
-        if(line.equals("3")){
+        if(line.equals("4")){
           continue;
         }else{
           if(line.split(",")[0].equals("zero power mode started")){
@@ -170,7 +170,6 @@ public class PlayModel {
   //Refreshes the notes
   public void fireNotes() {
     support.firePropertyChange("Notes", null, this.current);
-
   }
 
   private boolean isInBar(Note note) {
