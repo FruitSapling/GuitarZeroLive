@@ -79,10 +79,10 @@ public class MainView extends JFrame implements PropertyChangeListener {
       g2.setColor(Color.DARK_GRAY);
 
       Polygon board = new Polygon();
-      board.addPoint(200, 20);
+      board.addPoint(200, 0);
       board.addPoint(10, getHeight());
       board.addPoint(getWidth()-10, getHeight());
-      board.addPoint(550, 20);
+      board.addPoint(550, 0);
       g2.setClip(board);
       g2.fillPolygon(board);
 
