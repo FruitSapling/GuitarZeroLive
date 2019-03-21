@@ -12,6 +12,7 @@ import javax.swing.JFrame;
 public class PlayView extends JFrame implements PropertyChangeListener {
 
   private PlayModel model;
+  private PlayController1 controller1;
   private PlayController2 controller2;
 
   private MainView.Guitar guitar;
@@ -19,7 +20,8 @@ public class PlayView extends JFrame implements PropertyChangeListener {
   private LanePanel2 jp2;
   private LanePanel3 jp3;
 
-  public PlayView(PlayModel model, PlayController2 controller2, PlayGuitarController guitarController) {
+  public PlayView(PlayModel model, PlayController1 controller1, PlayController2 controller2, PlayGuitarController guitarController) {
+    this.controller1 = controller1;
     this.controller2 = controller2;
     this.addKeyListener(controller2);
 
@@ -51,6 +53,7 @@ public class PlayView extends JFrame implements PropertyChangeListener {
     midi = midi.substring(0, midi.length() -5);
 
     PlaySong.playMidi(midi, 4, false, false);
+    controller1.startMovingNotes();
   }
 
   public void propertyChange(PropertyChangeEvent pce) {
@@ -71,8 +74,8 @@ public class PlayView extends JFrame implements PropertyChangeListener {
     PlayModel mp = new PlayModel();
     PlayController2 cp2 = new PlayController2(mp);
     PlayGuitarController gp = new PlayGuitarController(mp);
-    PlayView vp = new PlayView(mp,cp2,gp);
-    PlayController1 cp = new PlayController1(mp);
+    PlayController1 cp1 = new PlayController1(mp);
+    PlayView vp = new PlayView(mp,cp1,cp2,gp);
   }
 
 }

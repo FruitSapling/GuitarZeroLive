@@ -142,8 +142,8 @@ public class MainView extends JFrame implements PropertyChangeListener {
           PlayModel model = new PlayModel();
           PlayController2 controller2 = new PlayController2(model);
           PlayGuitarController guitarController = new PlayGuitarController(model);
-          PlayView view = new PlayView(model, controller2, guitarController);
-          PlayController1 controller = new PlayController1(model);
+          PlayController1 controller1 = new PlayController1(model);
+          PlayView view = new PlayView(model, controller1, controller2, guitarController);
         }
       }
       @Override public void onHighlight() {}

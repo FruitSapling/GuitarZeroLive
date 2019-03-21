@@ -64,7 +64,7 @@ public class PlayModel {
       Map.Entry note = (Map.Entry) it.next();
       NoteInfo[] laneAndColour = (NoteInfo[]) note.getKey();
       int timeSig = (int) note.getValue();
-      int position = (timeSig / 3) - 600;
+      int position = (timeSig / 5) - 0;
 
       switch (laneAndColour[0]) {
         case LANE_ONE:
@@ -96,7 +96,7 @@ public class PlayModel {
 
       String line;
       while((line = bw.readLine()) != null) {
-        if(line.equals("4")){
+        if(line.length()==1){
           continue;
         }else{
           if(line.split(",")[0].equals("zero power mode started")){
