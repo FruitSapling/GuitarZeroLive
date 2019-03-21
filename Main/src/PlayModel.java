@@ -96,7 +96,7 @@ public class PlayModel {
 
       String line;
       while((line = bw.readLine()) != null) {
-        if(line.length()==1){
+        if(line.length() == 1){ // accounts for first line being the track number
           continue;
         }else{
           if(line.split(",")[0].equals("zero power mode started")){

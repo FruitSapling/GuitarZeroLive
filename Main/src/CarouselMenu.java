@@ -51,36 +51,23 @@ public class CarouselMenu extends JLayeredPane implements PropertyChangeListener
   // Cycle the carousel to the right
   public void cycleRight() {
 
-    if (farLeft == 0) {
-      farLeft = buttons.length-1;
-    }
-    else {
-      farLeft = farLeft-1;
-    }
+    if (farLeft == 0) { farLeft = buttons.length-1; }
+    else { farLeft = farLeft-1; }
 
-    if (farRight == 0) {
-      farRight = buttons.length-1;
-    }
-    else {
-      farRight = farRight-1;
-    }
+    if (farRight == 0) { farRight = buttons.length-1; }
+    else { farRight = farRight-1; }
 
-//    CarouselButton last = buttons[buttons.length-1];
-//    System.arraycopy(buttons, 0, buttons, 1, buttons.length-1 );
-//    buttons[0] = last;
     int left = farLeft; int right = farRight;
     int count = 0;
+
     for (int i = left; count < 5; i++) {
-      try {
-        tempArray[count] = buttons[i];
-      }
+      try { tempArray[count] = buttons[i]; }
       catch (ArrayIndexOutOfBoundsException e) {
         i = 0;
         tempArray[count] = buttons[i];
       }
       count++;
     }
-
     this.addButtons(tempArray);
     tempArray[2].onHighlight();
   }
@@ -88,38 +75,21 @@ public class CarouselMenu extends JLayeredPane implements PropertyChangeListener
   // Cycle the carousel to the left
   public void cycleLeft() {
 
-    if (farLeft == buttons.length) {
-      farLeft = 0;
-    }
-    else {
-      farLeft = farLeft+1;
-    }
+    if (farLeft == buttons.length) { farLeft = 0; }
+    else { farLeft = farLeft+1; }
 
-    if (farRight == buttons.length) {
-      farRight = 0;
-    }
-    else {
-      farRight = farRight+1;
-    }
+    if (farRight == buttons.length) { farRight = 0; }
+    else { farRight = farRight+1; }
 
-//    CarouselButton first = buttons[0];
-//    System.arraycopy(buttons, 1, buttons, 0, buttons.length-1 );
-//    buttons[buttons.length-1] = first;
     int left = farLeft; int right = farRight;
     int count = 0;
     for (int i = left; count < 5; i++) {
-      try {
-        tempArray[count] = buttons[i];
-        System.out.println(i);
-      }
+      try { tempArray[count] = buttons[i]; }
       catch (ArrayIndexOutOfBoundsException e) {
         i = 0;
         tempArray[count] = buttons[i];
       }
       count++;
-    }
-    for (int counter = 0; counter < 5; counter++) {
-      System.out.println(tempArray[counter].getButtonName());
     }
     this.addButtons(tempArray);
     tempArray[2].onHighlight();
@@ -169,7 +139,7 @@ public class CarouselMenu extends JLayeredPane implements PropertyChangeListener
   }
 
   public void addButtons(CarouselButton[] tempArray) {
-    System.out.println(this.getComponents());
+    this.removeAll();
     for (int i = 4; i >= 0; i -= 1) {
       this.add(tempArray[i], 0);
     }

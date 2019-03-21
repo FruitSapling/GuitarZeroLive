@@ -41,8 +41,9 @@ public class Constants {
     public static int       w = 750;
     public static int       h = 1000;
 
+    public static int       END_OF_SONG = 0x2F;
     public static int       LOOP_START = 10000;
-    public static int       LOOP_END = 20000;
+    public static int       LOOP_END = 40000;
 
     public static float     WHAMMY_RESTING_VALUE = 0.05f;
 

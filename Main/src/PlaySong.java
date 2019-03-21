@@ -9,11 +9,6 @@ public class PlaySong {
 
   private static Sequencer sequen;
 
-  public static void main(String[] args){
-    playPreview("HeyBrother.mid");
-    stopPreview();
-  }
-
   /**
    * Plays the song specified, muting or soloing the track given if required
    */
@@ -26,7 +21,7 @@ public class PlaySong {
       if(solo) sequen.setTrackSolo(trackNumber, true);
       sequen.addMetaEventListener( new MetaEventListener() {
         public void meta( MetaMessage mesg ) {
-          if ( mesg.getType() == 0x2F /* end-of-track */ ) {
+          if ( mesg.getType() == Constants.END_OF_SONG ) {
             sequen.close();
           }
         }
@@ -42,14 +37,14 @@ public class PlaySong {
     try{
       sequen = MidiSystem.getSequencer();
       sequen.open();
-      sequen.setSequence(MidiSystem.getSequence(new File( filename)));
+      sequen.setSequence(MidiSystem.getSequence(new File( "Main/src/Music/" + filename + "/" + filename + ".mid")));
       sequen.setLoopStartPoint(Constants.LOOP_START);
       sequen.setLoopEndPoint(Constants.LOOP_END);
       sequen.setTickPosition(Constants.LOOP_START);
       sequen.setLoopCount(sequen.LOOP_CONTINUOUSLY);
       sequen.addMetaEventListener(new MetaEventListener() {
         public void meta(MetaMessage mesg) {
-            if ( mesg.getType() == 0x2F /* end-of-track */ ) {
+            if ( mesg.getType() == Constants.END_OF_SONG ) {
               sequen.close();
             }
           }
@@ -62,6 +57,10 @@ public class PlaySong {
   }
 
   public static void stopPreview(){
-    sequen.close();
+    try{
+      sequen.close();
+    } catch(Exception e){
+      // do nothing
+    }
   }
 }
