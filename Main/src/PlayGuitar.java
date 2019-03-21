@@ -43,6 +43,7 @@ public class PlayGuitar {
       synth.close();
 
     } catch (Exception e) {
+      e.printStackTrace();
       System.exit(1);
     }
     return guitar;

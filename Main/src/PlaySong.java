@@ -21,7 +21,7 @@ public class PlaySong {
     try {
       sequen = MidiSystem.getSequencer();
       sequen.open();
-      sequen.setSequence( MidiSystem.getSequence( new File( "Main/src/" + filename ) ) );
+      sequen.setSequence( MidiSystem.getSequence( new File( filename ) ) );
       if(mute) sequen.setTrackMute(trackNumber, true);
       if(solo) sequen.setTrackSolo(trackNumber, true);
       sequen.addMetaEventListener( new MetaEventListener() {
@@ -33,6 +33,7 @@ public class PlaySong {
       });
       sequen.start();
     } catch ( Exception e ) {
+      e.printStackTrace();
       System.exit( 1 );
     }
   }
@@ -41,7 +42,7 @@ public class PlaySong {
     try{
       sequen = MidiSystem.getSequencer();
       sequen.open();
-      sequen.setSequence(MidiSystem.getSequence(new File("Main/src/" + filename)));
+      sequen.setSequence(MidiSystem.getSequence(new File( filename)));
       sequen.setLoopStartPoint(Constants.LOOP_START);
       sequen.setLoopEndPoint(Constants.LOOP_END);
       sequen.setTickPosition(Constants.LOOP_START);
