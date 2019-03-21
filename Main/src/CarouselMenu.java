@@ -98,7 +98,6 @@ public class CarouselMenu extends JLayeredPane implements PropertyChangeListener
   }
 
   public void addButtons() {
-    System.out.println(this.buttons.length);
     int count = 0;
     for (int i = 4; i >= 0; i -= 1) {
       if (count == 5) {
