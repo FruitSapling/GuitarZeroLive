@@ -110,7 +110,7 @@ public class ConnectionThread implements Runnable {
       DataOutputStream outputStream = new DataOutputStream(out);
 
       File[] zippedFolders = getZippedFiles();
-      FileZipper zipper = new FileZipper(zippedFolders,"Server/src/resources","tempZip");
+      FileZipper zipper = new FileZipper(zippedFolders,Constants.RESOURCES_FOLDER,"tempZip");
 
       File zippedFolder = zipper.zipFiles();
       zippedFolder.createNewFile();
