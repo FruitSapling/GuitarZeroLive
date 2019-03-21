@@ -139,6 +139,7 @@ public class SelectModel {
             };
         }
         catch (IOException e) {
+            e.printStackTrace();
             System.exit(2);
         }
         return null;
@@ -166,6 +167,7 @@ public class SelectModel {
             };
         }
         catch (IOException e) {
+            e.printStackTrace();
             System.exit(2);
         }
         return null;

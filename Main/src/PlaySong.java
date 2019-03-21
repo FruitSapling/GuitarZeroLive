@@ -56,6 +56,7 @@ public class PlaySong {
         });
       sequen.start();
     } catch(Exception e){
+      e.printStackTrace();
       System.exit(1);
     }
   }
