@@ -48,10 +48,7 @@ public class GuitarPoller implements Runnable {
 //    }
 
     public boolean beingPressed(float value) {
-        if (value < (-1 * MIN_BTN_VALUE) || value > MIN_BTN_VALUE) {
-            return true;
-        }
-        else return false;
+        return value < (-1 * MIN_BTN_VALUE) || value > MIN_BTN_VALUE;
     }
 
     public void run() {

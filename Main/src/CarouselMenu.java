@@ -81,6 +81,7 @@ public class CarouselMenu extends JLayeredPane implements PropertyChangeListener
     System.arraycopy(buttons, 1, buttons, 0, buttons.length-1 );
     buttons[buttons.length-1] = first;
     this.addButtons();
+
   }
 
   public void selectMode() {
@@ -127,8 +128,13 @@ public class CarouselMenu extends JLayeredPane implements PropertyChangeListener
   }
 
   public void addButtons() {
+    int count = 0;
     for (int i = buttons.length-1; i >= 0; i -= 1) {
+      if (count == 5) {
+        break;
+      }
       this.add(buttons[i], 0);
+      count++;
     }
   }
 

@@ -64,10 +64,11 @@ public class SelectModel {
             public boolean accept(File file) { return file.isDirectory(); }
         });
 
-        CarouselButton[] buttons = new CarouselButton[5];
+        CarouselButton[] buttons;
         ArrayList<File> arrayList = new ArrayList<File>(Arrays.asList(list));
 
         if (list.length < 5) {
+            buttons = new CarouselButton[5];
             int surplus = 5 - (5-list.length);
 
             for (int i = 0; i < list.length; i++) {
@@ -78,11 +79,8 @@ public class SelectModel {
             }
         }
 
-        else if (list.length > 5) {
-            //TODO: Handle Carousel Menu with more than 5 buttons
-        }
-
         else {
+            buttons = new CarouselButton[list.length];
             for (int i = 0; i < list.length; i++) {
                 buttons[i] = createMeaningfulButton(frame, arrayList, i);
             }
@@ -95,7 +93,7 @@ public class SelectModel {
          * @author Morgan
          */
         String zipName = list.get(count).getName();
-        String zipPath = Constants.ZIP_FILE_PATH + "/" + list.get(count).getName() + "/" + zipName + ".midnotes";
+        String zipPath = "";
 
         File folder = new File(Constants.ZIP_FILE_PATH + "/" + zipName + "/");
         ArrayList<File> unzippedList = new ArrayList<>(Arrays.asList(folder.listFiles()));
@@ -105,8 +103,12 @@ public class SelectModel {
             if (unzippedList.get(j).getName().split("\\.")[1].equals("jpg")) {
                 imagePath = unzippedList.get(j).getPath();
             }
+            if (unzippedList.get(j).getName().split("\\.")[1].equals("midnotes")) {
+                zipPath = unzippedList.get(j).getPath();
+            }
         }
         File img = new File(imagePath);
+        final String intendedTrack = zipPath;
 
         try {
             Image image = ImageIO.read(img);
@@ -114,9 +116,16 @@ public class SelectModel {
             ImageIcon icon = new ImageIcon(newImage);
 
             return new CarouselButton(icon, zipName) { @Override public void onClick() {
-                IntendedTrack.setIntendedTrack(zipPath.replace("\\", "/"));
-                JOptionPane.showMessageDialog(null, "Selected track has become: " + zipName,
-                        "Selection Info", JOptionPane.INFORMATION_MESSAGE);
+                if (IntendedTrack.getIntendedTrack().equals("")) {
+                    JOptionPane.showMessageDialog(null, "Error - No Track Selected",
+                            "Empty Button", JOptionPane.WARNING_MESSAGE);
+                }
+                else {
+                    IntendedTrack.setIntendedTrack(intendedTrack.replace("\\", "/"));
+                    System.out.println(IntendedTrack.getIntendedTrack());
+                    JOptionPane.showMessageDialog(null, "Selected track has become: " + zipName,
+                            "Selection Info", JOptionPane.INFORMATION_MESSAGE);
+                }
 
                 frame.dispose();
                 MainModel model = new MainModel();
