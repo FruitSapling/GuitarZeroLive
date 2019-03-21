@@ -5,6 +5,9 @@ import javax.sound.midi.MidiChannel;
 import javax.sound.midi.MidiSystem;
 import javax.sound.midi.Sequencer;
 
+/**
+ * Plays the midi file music with various settings
+ */
 public class PlaySong {
 
   private static Sequencer sequen;
