@@ -48,6 +48,7 @@ public class SelectView extends JFrame implements PropertyChangeListener {
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
+
     public void propertyChange(PropertyChangeEvent pce) {
         if (pce.getPropertyName() == null) {
             if (!model.menuOpen) {

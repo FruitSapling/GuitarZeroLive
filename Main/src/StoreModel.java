@@ -3,6 +3,7 @@
  * Refactored for Store Mode from Slash Mode by @Morgan
  * Wrote functionality to get files from server @Mark
  */
+
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
@@ -74,12 +75,12 @@ public class StoreModel {
             File zippedFiles = client.receiveFiles("zipped",page);
             FileUnzipper unzipper = new FileUnzipper(Constants.STORE_FILE_PATH);
 
-            // Unzip received zipfile
+            // Unzip received zip file
             unzipper.unzipFiles(zippedFiles);
 
             // If there are less than 3 files sent there wont be any more so can't have another page.
             File[] files = getFolders(Constants.STORE_FILE_PATH,".zip");
-            this.anotherPage = files.length < 3 ? false : true;
+            this.anotherPage = files.length >= 3;
 
             for(File file: files) {
                 unzipper.unzipFiles(file);
@@ -182,20 +183,10 @@ public class StoreModel {
         File file = new File(parentPath);
         FileFilter filter;
         if (extension.equals("dir")) {
-            filter = new FileFilter() {
-                @Override
-                public boolean accept(File pathname) {
-                    return pathname.isDirectory();
-                }
-            };
+            filter = (pathname) -> pathname.isDirectory();
         }
         else {
-            filter = new FileFilter() {
-                @Override
-                public boolean accept(File pathname) {
-                    return pathname.getName().endsWith(extension);
-                }
-            };
+            filter = (pathname) -> pathname.getName().endsWith(extension);
         }
 
 
