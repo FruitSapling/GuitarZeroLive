@@ -174,7 +174,7 @@ public class PlayModel {
 
   private boolean isInBar(Note note) {
 
-    return note.getY() > 572 && note.getY() < 622;
+    return note.getY() > 550 && note.getY() < 630;
 
   }
 

@@ -93,7 +93,7 @@ public class MainView extends JFrame implements PropertyChangeListener {
       g2.drawLine(0, 300, getWidth(), 300);
       g2.drawLine(0, 400, getWidth(), 400);
       g2.drawLine(0, 500, getWidth(), 500);
-      g2.fillRect(0, 600, getWidth(), 50);
+      g2.fillRect(0, 600, getWidth(), Constants.BAR_HEIGHT);
 
       g2.setColor(Color.WHITE);
       g2.drawLine(250, 20, 125, getHeight());
