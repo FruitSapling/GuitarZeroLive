@@ -18,13 +18,6 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
 public class FileZipper {
-  private static File[] files;
-  private static Path saveLocation;
-
-  FileZipper(File[] files, String rootLocation, String fileName) {
-    this.files = files;
-    this.saveLocation = Paths.get(rootLocation,fileName);
-  }
 
   /*
    * A method to create a zip file of note files, the fileList is all the
@@ -42,7 +35,7 @@ public class FileZipper {
     if (valid == true) {
       // Make the notes file
       ExtractNotes.makeNotesFile(fileList.get(1));
-      File notesFile = new File("Server/src/resources/" + fileList.get(1).getName() + "notes");
+      File notesFile = new File(Constants.RESOURCES_FOLDER + "/" + fileList.get(1).getName() + "notes");
       fileList.add(notesFile);
 
       // Zip the files
@@ -81,11 +74,11 @@ public class FileZipper {
     File[] filesArray = new File[4];
     files.toArray(filesArray);
 
-    int fileCount = getZippedFiles("Server/src/resources").length;
+    int fileCount = getZippedFiles(Constants.RESOURCES_FOLDER).length;
 
     File firstFile;
     try {
-      firstFile = new File("Server/src/resources/song" + fileCount);
+      firstFile = new File(Constants.RESOURCES_FOLDER + "/song" + fileCount);
       String zipFileName = firstFile.getPath().concat(".zip");
 
       FileOutputStream fileOut = new FileOutputStream(zipFileName);
@@ -110,27 +103,21 @@ public class FileZipper {
   }
 
 
-  /*
-   * Method to zip all the files from the 'files' array into a compressed format and return the '.zip' file.
-   * Needed to be separate to other zipping method as different usage.
-   */
-  public File zipFiles() {
-    File firstFile = null;
-    try {
-      firstFile = new File(saveLocation.toString().concat(".zip"));
-      String zipFileName = firstFile.getName();
+  public File zipFiles(File[] files) {
 
-      FileOutputStream fileOut = new FileOutputStream(zipFileName);
+    File zipFolder = null;
+    try {
+      zipFolder = new File(Constants.RESOURCES_FOLDER + "/tempZip.zip");
+
+      FileOutputStream fileOut = new FileOutputStream(zipFolder.getPath());
       ZipOutputStream zipOut = new ZipOutputStream(fileOut);
 
       for (File file : files) {
-        if (file != null) {
-          zipOut.putNextEntry(new ZipEntry(file.getName()));
+        zipOut.putNextEntry(new ZipEntry(file.getName()));
 
-          byte[] bytes = Files.readAllBytes(file.toPath());
-          zipOut.write(bytes, 0, bytes.length);
-          zipOut.closeEntry();
-        }
+        byte[] bytes = Files.readAllBytes(file.toPath());
+        zipOut.write(bytes, 0, bytes.length);
+        zipOut.closeEntry();
       }
 
       zipOut.close();
@@ -140,7 +127,7 @@ public class FileZipper {
       System.err.println("I/O error: " + e);
     }
 
-    return firstFile;
+    return zipFolder;
   }
 
 
