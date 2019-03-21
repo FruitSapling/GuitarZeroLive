@@ -25,7 +25,7 @@ public class SelectView extends JFrame implements PropertyChangeListener {
         this.model = model;
         this.model.addPropertyChangeListener(this);
         this.controller = controller;
-        this.controller2 = controller2;
+        this.controller2 = controller2();
 
         this.g = new MainView.Guitar(Constants.w,Constants.h);
 
@@ -56,6 +56,9 @@ public class SelectView extends JFrame implements PropertyChangeListener {
                 model.menuOpen = false;
                 g.remove(menu);
             }
+        }
+        if (pce.getPropertyName() == "escape") {
+            model.returnToMenu(this);
         }
         this.revalidate();
         this.repaint();
