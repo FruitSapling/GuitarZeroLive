@@ -19,12 +19,12 @@ import javax.sound.midi.Track;
  */
 public class ExtractNotes{
   private static Sequence seq;
-  private static final ArrayList<Integer> nextMessageOf = new ArrayList<Integer>();
+  private static final ArrayList<Integer> nextMessageOf = new ArrayList<>();
   private static int currentTrack = 0;
 
   public static void main(String[] args){
     // code below is all for showcase
-    makeNotesFile("HeyBrother.mid");
+    makeNotesFile("Wonderwall.mid");
   }
 
   /**
@@ -156,7 +156,6 @@ public class ExtractNotes{
     int channelNumber = -2;
     int currentChannel = -1;
     int currentInstrumentNumber = -1;
-
     NoteFileMaker notes = new NoteFileMaker( "./Server/src/resources/" + filename + "notes", leadGuitar.getTrackNumber());
     ArrayList<String> noteList = new ArrayList<>();
 
@@ -222,8 +221,7 @@ public class ExtractNotes{
 
     int size = noteList.size()-1;
     for(int i = 0; i <= size; i++){
-      String[] line = new String[2];
-      line = noteList.get(i).split(",");
+      String[] line = noteList.get(i).split(",");
       if(line[0].equals("ON")){
         zeroPower.add(Integer.parseInt(line[2]));
         if(zeroPower.get(averageNotes-1) - zeroPower.get(0) < songHighPointLength && zeroPower.get(averageNotes-1) - zeroPower.get(0) > 0){

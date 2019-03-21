@@ -134,6 +134,8 @@ public class SelectModel {
             }
             @Override public void onHighlight() {
                 //TODO: for Luke
+                PlaySong.stopPreview();
+                PlaySong.playPreview(zipName);
             }
             };
         }
