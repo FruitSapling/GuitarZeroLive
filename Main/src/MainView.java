@@ -52,6 +52,10 @@ public class MainView extends JFrame implements PropertyChangeListener {
 
   }
 
+  public void stopPoller() {
+    this.gbController.guitarPoller.stop();
+  }
+
   public void propertyChange(PropertyChangeEvent pce) {
     if (pce.getPropertyName() == null) {
       if (!model1.menuOpen) {

@@ -12,13 +12,9 @@ public class MainGuitarController extends GuitarController implements GuitarButt
 
   private MainModel model;
   public final ArrayList<GuitarButtonListener> listeners = new ArrayList<>();
-  GuitarPoller guitarPoller;
 
   public MainGuitarController(MainModel model) {
     this.model = model;
-//    guitarPoller = new GuitarPoller(this);
-//    Thread t = new Thread(new GuitarPoller(this));
-//    t.start();
   }
 
   @Override

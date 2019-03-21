@@ -15,9 +15,15 @@ public class GuitarPoller implements Runnable {
 
     private float MIN_BTN_VALUE = 0.05f;
     private GuitarController controller;
+    private boolean running;
 
     public GuitarPoller(GuitarController controller) {
+        running = true;
         this.controller = controller;
+    }
+
+    public void stop() {
+        this.running = false;
     }
 
     /*
@@ -37,15 +43,6 @@ public class GuitarPoller implements Runnable {
         }
         return null;
     }
-
-
-//    public synchronized void addListener(GuitarButtonListener listener){
-//        controller.listeners.add(listener);
-//    }
-//
-//    public synchronized void removeListener(GuitarButtonListener listener){
-//        controller.listeners.remove(listener);
-//    }
 
     public boolean beingPressed(float value) {
         return value < (-1 * MIN_BTN_VALUE) || value > MIN_BTN_VALUE;
@@ -71,7 +68,7 @@ public class GuitarPoller implements Runnable {
         //values from the previous loop iteration
         float[]     prevVals   = new float[  cmps.length ];
 
-        while( true ) {
+        while( running ) {
             if ( ctrl.poll() ) {
                 int LAST_BINARY_BUTTON = 0;
                 buttonsPressed.clear();
@@ -85,7 +82,6 @@ public class GuitarPoller implements Runnable {
                 for (int i: Constants.binaryButtonsIndices) {
                     if (vals[i] == 1.0) {
                         buttonsPressed.add(Constants.INDEX_TO_BUTTON.get(i));
-//                        controller.fireGuitarButtonPressedEvent(Constants.INDEX_TO_BUTTON.get(i));
                     }
                 }
 
@@ -109,6 +105,7 @@ public class GuitarPoller implements Runnable {
                 int WHAMMY_INDEX = Constants.BUTTON_TO_INDEX.get(GuitarButton.WHAMMY);
                 float whammyValue = vals[WHAMMY_INDEX];
 
+
                 // If either the whammy, bender joystick or strum bar was pressed
                 if (beingPressed(strumValue)
                     || vals[BENDER_INDEX]>0.0
@@ -124,11 +121,8 @@ public class GuitarPoller implements Runnable {
                     } else if (prevStrumValue==-1.0) {
                         controller.strumDown();
                     }
-
                     controller.guitarStrummed(buttonsPressed);
-//                    controller.fireGuitarButtonPressedEvent(Constants.INDEX_TO_BUTTON.get(STRUM_INDEX), prevStrumValue);
                 }
-
             }
 
             //set prevVals to current vals

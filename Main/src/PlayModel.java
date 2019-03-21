@@ -205,7 +205,10 @@ public class PlayModel {
       }
     } else{
       for(GuitarButton g: buttonsPressed){
-        if(g == GuitarButton.ZERO_POWER || g == GuitarButton.BENDER || g == GuitarButton.WHAMMY || g == GuitarButton.BENDER_JOYSTICK){
+        if(g == GuitarButton.ZERO_POWER
+            || g == GuitarButton.BENDER
+            || g == GuitarButton.WHAMMY
+            || g == GuitarButton.BENDER_JOYSTICK){
           pressed = true;
         }
       }

@@ -52,7 +52,7 @@ public class MainModel {
   public void strummed() {
   }
 
-  public CarouselButton[] setMenu(JFrame frame) {
+  public CarouselButton[] setMenu(MainView mainView) {
     CarouselButton[] buttons = new CarouselButton[5];
 
     buttons[0] = new CarouselButton(Constants.EXIT_IMAGE_PATH, "Exit") {
@@ -64,7 +64,8 @@ public class MainModel {
 
     buttons[1] = new CarouselButton(Constants.SELECT_IMAGE_PATH, "Select") {
       @Override public void onClick() {
-        frame.dispose();
+        mainView.stopPoller();
+        mainView.dispose();
         SelectModel model = new SelectModel();
         SelectController controller = new SelectController(model);
         SelectGuitarController controller2 = new SelectGuitarController(model);
@@ -80,7 +81,8 @@ public class MainModel {
                   , "Selection Error", JOptionPane.ERROR_MESSAGE);
         }
         else {
-          frame.dispose();
+          mainView.stopPoller();
+          mainView.dispose();
           PlayModel model = new PlayModel();
           PlayController2 controller2 = new PlayController2(model);
           PlayGuitarController guitarController = new PlayGuitarController(model);
@@ -93,7 +95,8 @@ public class MainModel {
 
     buttons[3] = new CarouselButton(Constants.STORE_IMAGE_PATH, "Store") {
       @Override public void onClick() {
-        frame.dispose();
+        mainView.stopPoller();
+        mainView.dispose();
         StoreModel model = new StoreModel();
         StoreController controller = new StoreController(model);
         StoreGuitarController guitarController = new StoreGuitarController(model);
@@ -104,7 +107,8 @@ public class MainModel {
 
     buttons[4] = new CarouselButton(Constants.TUTORIAL_IMAGE_PATH, "Tutorial") {
       @Override public void onClick() {
-        frame.dispose();
+        mainView.stopPoller();
+        mainView.dispose();
         TutorialModel model = new TutorialModel();
         TutorialController controller = new TutorialController(model);
         new TutorialView(model, controller);
