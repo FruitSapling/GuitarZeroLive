@@ -32,14 +32,9 @@ public class Client {
   * A method to initiate the connection to the server if it hasn't already.
   * Implements the idea of lazy instantiation in terms of the Socket.
   */
-  public void connect() {
+  public void connect() throws IOException{
     if (this.socket == null) {
-      try {
-        this.socket = new Socket(ip, port);
-      } catch (IOException e) {
-        System.out.println("Error connecting to server: " + e.getMessage());
-        System.exit(1);
-      }
+      this.socket = new Socket(ip, port);
     }
     else {
       System.out.println("Client already connected");
@@ -98,7 +93,7 @@ public class Client {
       DataInputStream inStream = new DataInputStream(in);
 
       out.write(0);
-      out.write(page);
+      //out.write(page);
 
       FileOutputStream fileOut = new FileOutputStream(outputFile);
 

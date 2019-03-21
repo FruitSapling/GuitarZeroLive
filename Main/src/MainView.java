@@ -34,7 +34,7 @@ public class MainView extends JFrame implements PropertyChangeListener {
     this.panel = new JPanel();
     this.panel.setPreferredSize(new Dimension(Constants.w,Constants.h));
 
-    CarouselButton[] buttons = setMenu(this);
+    CarouselButton[] buttons = model1.setMenu(this);
     this.menu = new CarouselMenu(buttons, 20, 400);
     model1.addPropertyChangeListener(menu);
 
@@ -57,15 +57,11 @@ public class MainView extends JFrame implements PropertyChangeListener {
       if (!model1.menuOpen) {
         model1.menuOpen = true;
         g.add(menu);
-        System.out.println("added menu");
       } else if (model1.menuOpen) {
         model1.menuOpen = false;
         g.remove(menu);
-        System.out.println("removed menu");
       }
     } else if (pce.getPropertyName() == "modelConstructed") {
-      System.out.println(g);
-      System.out.println(menu);
     }
     this.revalidate();
     this.repaint();
@@ -110,6 +106,7 @@ public class MainView extends JFrame implements PropertyChangeListener {
     }
   }
 
+<<<<<<< HEAD
   public CarouselButton[] setMenu(JFrame frame) {
     CarouselButton[] buttons = new CarouselButton[5];
 
@@ -172,4 +169,6 @@ public class MainView extends JFrame implements PropertyChangeListener {
 
     return buttons;
   }
+=======
+>>>>>>> 4dd32d278c6842d083ca8709d641efbf3471635d
 }

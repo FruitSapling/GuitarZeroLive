@@ -2,6 +2,7 @@
 * @author Mark Newell
 */
 
+import javax.swing.*;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -66,7 +67,8 @@ public class FileZipper {
             System.exit(1);
         }
 
-        System.out.println("YAY");
+        JOptionPane.showMessageDialog(null, "Zip file created successfully!",
+                "Server Information", JOptionPane.INFORMATION_MESSAGE);
     }
 
 
@@ -93,7 +95,6 @@ public class FileZipper {
                     String errorMessage = String.format("%s is not a valid file format", file.getName());
                     throw new FileSystemException(errorMessage);
                 }
-                System.out.println();
             }
         }
         return true;

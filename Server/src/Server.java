@@ -18,7 +18,7 @@ public class Server {
 
   Server() {
     try {
-      this.socket = new ServerSocket(8888);
+      this.socket = new ServerSocket(Constants.PORT_NUMBER);
     }
     catch (IOException e) {
       System.out.println("Error setting up server: " + e.getMessage());

@@ -69,7 +69,16 @@ public class StoreModel {
       CarouselButton[] buttons = new CarouselButton[5];
         Client client = new Client(Constants.SERVER_IP_ADDRESS,Constants.STORE_FILE_PATH,Constants.CLIENT_PORT_NUMBER);
 
-        client.connect();
+        try {
+          client.connect();
+        }
+        catch (IOException e) {
+          JOptionPane.showMessageDialog(null, "Error connecting to the server",
+              "Error Info", JOptionPane.INFORMATION_MESSAGE);
+          backToMain(frame);
+          return buttons;
+        }
+
 
         if (client.socket != null) {
             File zippedFiles = client.receiveFiles("zipped",page);
@@ -113,7 +122,7 @@ public class StoreModel {
         File[] files = getFolders(Constants.STORE_FILE_PATH,"dir");
 
         // Make only 3 buttons with actual images even if too many are in the folder
-        int limiter = files.length > 3 ? 3 : files.length;
+        int limiter = files.length > 5 ? 5 : files.length;
 
         for (int i = 0; i < limiter; i++) {
 
@@ -147,7 +156,7 @@ public class StoreModel {
 
         }
 
-        for (int i = buttons.size(); i < 3; i++) {
+        for (int i = buttons.size(); i < 5; i++) {
             CarouselButton button = new CarouselButton(Constants.DEFAULT_WHITE_IMAGE_PATH,"none") {
                 @Override public void onHighlight() {}
                 @Override
@@ -155,22 +164,6 @@ public class StoreModel {
             };
             buttons.add(button);
         }
-
-        buttons.add(new CarouselButton(Constants.EXIT_IMAGE_PATH,"exit") {
-            @Override public void onHighlight() {}
-            @Override
-            public void onClick() {
-              backToMain(frame);
-            }
-        });
-
-      buttons.add(new CarouselButton(Constants.DEFAULT_NEXT_IMAGE_PATH,"nextPage") {
-          @Override public void onHighlight() { }
-        @Override
-        public void onClick() {
-          nextPage(frame);
-        }
-      });
 
         return buttons.toArray(new CarouselButton[buttons.size()]);
 
@@ -248,20 +241,6 @@ public class StoreModel {
           System.out.println(e.getMessage());
           System.exit(0);
         }
-      }
-
-    }
-
-
-    /**
-     * @author Mark
-     * Take the user to the next page of results if there are more files than can be viewed at once.
-     * */
-    private void nextPage(JFrame frame) {
-
-      if (anotherPage) {
-        page++;
-        //TODO: Make this update the menu
       }
 
     }
