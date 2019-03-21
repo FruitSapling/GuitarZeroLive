@@ -70,12 +70,12 @@ public class PlayView extends JFrame implements PropertyChangeListener {
     this.repaint();
   }
 
-  public static void main(String[] args) {
-    PlayModel mp = new PlayModel();
-    PlayController2 cp2 = new PlayController2(mp);
-    PlayGuitarController gp = new PlayGuitarController(mp);
-    PlayController1 cp1 = new PlayController1(mp);
-    PlayView vp = new PlayView(mp,cp1,cp2,gp);
-  }
+//  public static void main(String[] args) {
+//    PlayModel mp = new PlayModel();
+//    PlayController2 cp2 = new PlayController2(mp);
+//    PlayGuitarController gp = new PlayGuitarController(mp);
+//    PlayController1 cp1 = new PlayController1(mp);
+//    PlayView vp = new PlayView(mp,cp1,cp2,gp);
+//  }
 
 }

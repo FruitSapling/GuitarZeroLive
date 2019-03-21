@@ -3,12 +3,13 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 /**
- * A controller following the MVC design pattern, manipulating the model when
- * sending Guitar button presses and key presses.
+ * A controller following the MVC design pattern, manipulating the model when sending Guitar button
+ * presses and key presses.
  *
  * @author Willem
  */
-public class MainGuitarController extends GuitarController implements GuitarButtonListener, KeyListener {
+public class MainGuitarController extends GuitarController implements GuitarButtonListener,
+    KeyListener {
 
   private MainModel model;
   public final ArrayList<GuitarButtonListener> listeners = new ArrayList<>();
@@ -19,7 +20,7 @@ public class MainGuitarController extends GuitarController implements GuitarButt
 
   @Override
   public void guitarButtonPressReceived(GuitarButtonPressedEvent e) {
-    switch(e.getGuitarButton()) {
+    switch (e.getGuitarButton()) {
       case STRUM:
         if (e.getValue() == 1.0) {
           cycleCarouselRight();
@@ -36,24 +37,24 @@ public class MainGuitarController extends GuitarController implements GuitarButt
     }
   }
 
-  public synchronized void addListener(GuitarButtonListener listener){
+  public synchronized void addListener(GuitarButtonListener listener) {
     listeners.add(listener);
   }
 
-  public synchronized void removeListener(GuitarButtonListener listener){
+  public synchronized void removeListener(GuitarButtonListener listener) {
     listeners.remove(listener);
   }
 
   public void fireGuitarButtonPressedEvent(GuitarButton btn) {
     GuitarButtonPressedEvent e = new GuitarButtonPressedEvent(this, btn);
-    for (GuitarButtonListener listener: listeners) {
+    for (GuitarButtonListener listener : listeners) {
       listener.guitarButtonPressReceived(e);
     }
   }
 
   public void fireGuitarButtonPressedEvent(GuitarButton btn, float value) {
     GuitarButtonPressedEvent e = new GuitarButtonPressedEvent(this, btn, value);
-    for (GuitarButtonListener listener: listeners) {
+    for (GuitarButtonListener listener : listeners) {
       listener.guitarButtonPressReceived(e);
     }
   }
@@ -77,11 +78,11 @@ public class MainGuitarController extends GuitarController implements GuitarButt
 
   @Override
   public void keyPressed(KeyEvent e) {
-    if(e.getKeyChar() == 'e') {
+    if (e.getKeyChar() == 'e') {
       cycleCarouselRight();
-    }else if(e.getKeyChar() == 'd') {
+    } else if (e.getKeyChar() == 'd') {
       cycleCarouselLeft();
-    }else if(e.getKeyChar() == KeyEvent.VK_ENTER) {
+    } else if (e.getKeyChar() == KeyEvent.VK_ENTER) {
       selectMode();
     }
   }

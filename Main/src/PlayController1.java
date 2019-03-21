@@ -20,7 +20,9 @@ public class PlayController1 {
         model.fireNotes();
         model.move();
       }
-    }, 0 , 5);
-  };
+    }, 0, 5);
+  }
+
+  ;
 
 }

@@ -137,11 +137,9 @@ public class StoreManagerPanel extends JPanel {
 
     if (mode == "png") {
       fb.setFileFilter(new FileNameExtensionFilter("PNG File", "png", "jpg"));
-    }
-    else if (mode == "midi") {
+    } else if (mode == "midi") {
       fb.setFileFilter(new FileNameExtensionFilter("MIDI File", "mid", "midi"));
-    }
-    else if (mode == "txt") {
+    } else if (mode == "txt") {
       fb.setFileFilter(new FileNameExtensionFilter("Text File", "txt"));
     }
 

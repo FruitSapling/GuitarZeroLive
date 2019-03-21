@@ -1,8 +1,7 @@
 import java.util.ArrayList;
 
 /**
- * A Controller class used for play mode.
- * This class tells the model when the guitar is strummed.
+ * A Controller class used for play mode. This class tells the model when the guitar is strummed.
  *
  * @author Willem
  */
@@ -21,13 +20,16 @@ public class PlayGuitarController extends GuitarController {
   }
 
   @Override
-  public void strumUp() { }
+  public void strumUp() {
+  }
 
   @Override
-  public void strumDown() { }
+  public void strumDown() {
+  }
 
   @Override
-  public void zeroPowerPressed() { }
+  public void zeroPowerPressed() {
+  }
 
   @Override
   public void zeroPowerWhammyOrBenderPressed(ArrayList<GuitarButton> buttonsPressed) {

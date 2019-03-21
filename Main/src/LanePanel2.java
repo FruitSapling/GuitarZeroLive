@@ -19,7 +19,7 @@ public class LanePanel2 extends JPanel {
     try {
       this.white = ImageIO.read(new FileInputStream("Main/src/resources/pick.png"));
       this.black = ImageIO.read(new FileInputStream("Main/src/resources/pick1.png"));
-    }catch(IOException e) {
+    } catch (IOException e) {
       System.out.println(e.getMessage());
       System.exit(1);
     }
@@ -32,11 +32,11 @@ public class LanePanel2 extends JPanel {
   }
 
   public void paintComponent(Graphics g) {
-    for(Note n : this.notes) {
-      if(n.getLane().equals(NoteInfo.LANE_TWO)) {
-        if(n.getColour().equals(NoteInfo.WHITE)) {
+    for (Note n : this.notes) {
+      if (n.getLane().equals(NoteInfo.LANE_TWO)) {
+        if (n.getColour().equals(NoteInfo.WHITE)) {
           g.drawImage(white, n.getX(), n.getY(), null);
-        } else if(n.getColour().equals(NoteInfo.BLACK)) {
+        } else if (n.getColour().equals(NoteInfo.BLACK)) {
           g.drawImage(black, n.getX(), n.getY(), null);
         }
       }

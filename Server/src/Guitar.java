@@ -8,6 +8,7 @@ import java.util.ArrayList;
  * @since 2019-03-07
  */
 public class Guitar {
+
   private int instrumentNumber;
   private int trackNumber;
   private int channelNumber;
@@ -16,11 +17,12 @@ public class Guitar {
 
   /**
    * Assigns information about the current Guitar
+   *
    * @param trackNumber the track the Guitar is played on
    * @param channelNumber the channel the Guitar is played on
    * @param instrumentNumber the instrument number of the Guitar being played
    */
-  public Guitar(int trackNumber, int channelNumber, int instrumentNumber){
+  public Guitar(int trackNumber, int channelNumber, int instrumentNumber) {
     this.trackNumber = trackNumber;
     this.channelNumber = channelNumber;
     this.instrumentNumber = instrumentNumber;
@@ -29,37 +31,39 @@ public class Guitar {
 
   /**
    * Add the given note to the notes array if its not already in there
+   *
    * @param note the note being played
    */
-  public void addNote(String note){
-    if(!notes.contains(note))
-       this.notes.add(note);
+  public void addNote(String note) {
+    if (!notes.contains(note)) {
+      this.notes.add(note);
+    }
   }
 
   /**
    * Increase the note count by 1
    */
-  public void incrementNoteCount(){
+  public void incrementNoteCount() {
     this.noteCount += 1;
   }
 
-  public int getInstrumentNumber(){
+  public int getInstrumentNumber() {
     return this.instrumentNumber;
   }
 
-  public void setInstrumentNumber(int instrumentNumber){
+  public void setInstrumentNumber(int instrumentNumber) {
     this.instrumentNumber = instrumentNumber;
   }
 
-  public ArrayList<String> getNotes(){
+  public ArrayList<String> getNotes() {
     return this.notes;
   }
 
-  public int getTrackNumber(){
+  public int getTrackNumber() {
     return this.trackNumber;
   }
 
-  public int getChannelNumber(){
+  public int getChannelNumber() {
     return this.channelNumber;
   }
 

@@ -48,6 +48,7 @@ public class MainView extends JFrame implements PropertyChangeListener {
     this.add(panel);
     this.pack();
     this.setVisible(true);
+    this.setLocationRelativeTo(null);
     this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
   }

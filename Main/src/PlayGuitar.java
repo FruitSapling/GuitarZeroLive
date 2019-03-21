@@ -14,13 +14,13 @@ public class PlayGuitar {
       .asList("C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B");
   private static final int VOLUME = 127; // between 0 et 127
 
-  public static Instrument play(int instrument){
+  public static Instrument play(int instrument) {
     /*
         playNote("C", 6, 1000);
         playNote("C#", 6, 1000);
      */
     Instrument guitar = null;
-    try{
+    try {
       Synthesizer synth = MidiSystem.getSynthesizer();
       synth.open();
 
@@ -28,7 +28,7 @@ public class PlayGuitar {
       synth.loadAllInstruments(bank);
       Instrument instrs[] = synth.getLoadedInstruments();
 
-      for (int i=0; i < instrs.length; i++) {
+      for (int i = 0; i < instrs.length; i++) {
         if (instrs[i].getPatch().getProgram() == instrument) {
           guitar = instrs[i];
           break;
@@ -52,20 +52,20 @@ public class PlayGuitar {
    * Plays the given note for the given duration
    */
   public static void playNote(Instrument guitar, String note, int octave, int duration) {
-    try{
-       Synthesizer synth = MidiSystem.getSynthesizer();
-       synth.open();
-       MidiChannel[] channels = synth.getChannels();
+    try {
+      Synthesizer synth = MidiSystem.getSynthesizer();
+      synth.open();
+      MidiChannel[] channels = synth.getChannels();
 
-       Patch guitarPatch = guitar.getPatch();
-       channels[1].programChange(guitarPatch.getBank(), guitarPatch.getProgram());
-       // * start playing a note
-       channels[1].noteOn(findNote(note, octave), VOLUME );
-       // * wait
-       Thread.sleep( duration );
-       // * stop playing a note
-       channels[1].noteOff(findNote(note, octave));
-       synth.close();
+      Patch guitarPatch = guitar.getPatch();
+      channels[1].programChange(guitarPatch.getBank(), guitarPatch.getProgram());
+      // * start playing a note
+      channels[1].noteOn(findNote(note, octave), VOLUME);
+      // * wait
+      Thread.sleep(duration);
+      // * stop playing a note
+      channels[1].noteOff(findNote(note, octave));
+      synth.close();
     } catch (Exception e) {
       e.printStackTrace();
       System.exit(1);
@@ -74,7 +74,6 @@ public class PlayGuitar {
 
   /**
    * Returns the MIDI id for a given note: eg. 4C -> 60
-   * @return
    */
   private static int findNote(String note, int octave) {
     return NOTES.indexOf(note) + 12 * octave + 12;

@@ -15,54 +15,59 @@ public class PlaySong {
   /**
    * Plays the song specified, muting or soloing the track given if required
    */
-  public static void playMidi(String filename, int trackNumber, boolean mute, boolean solo){
+  public static void playMidi(String filename, int trackNumber, boolean mute, boolean solo) {
     try {
       sequen = MidiSystem.getSequencer();
       sequen.open();
-      sequen.setSequence( MidiSystem.getSequence( new File( filename ) ) );
-      if(mute) sequen.setTrackMute(trackNumber, true);
-      if(solo) sequen.setTrackSolo(trackNumber, true);
-      sequen.addMetaEventListener( new MetaEventListener() {
-        public void meta( MetaMessage mesg ) {
-          if ( mesg.getType() == Constants.END_OF_SONG ) {
+      sequen.setSequence(MidiSystem.getSequence(new File(filename)));
+      if (mute) {
+        sequen.setTrackMute(trackNumber, true);
+      }
+      if (solo) {
+        sequen.setTrackSolo(trackNumber, true);
+      }
+      sequen.addMetaEventListener(new MetaEventListener() {
+        public void meta(MetaMessage mesg) {
+          if (mesg.getType() == Constants.END_OF_SONG) {
             sequen.close();
           }
         }
       });
       sequen.start();
-    } catch ( Exception e ) {
+    } catch (Exception e) {
       e.printStackTrace();
-      System.exit( 1 );
+      System.exit(1);
     }
   }
 
-  public static void playPreview(String filename){
-    try{
+  public static void playPreview(String filename) {
+    try {
       sequen = MidiSystem.getSequencer();
       sequen.open();
-      sequen.setSequence(MidiSystem.getSequence(new File( "Main/src/Music/" + filename + "/" + filename + ".mid")));
+      sequen.setSequence(
+          MidiSystem.getSequence(new File("Main/src/Music/" + filename + "/" + filename + ".mid")));
       sequen.setLoopStartPoint(Constants.LOOP_START);
       sequen.setLoopEndPoint(Constants.LOOP_END);
       sequen.setTickPosition(Constants.LOOP_START);
       sequen.setLoopCount(sequen.LOOP_CONTINUOUSLY);
       sequen.addMetaEventListener(new MetaEventListener() {
         public void meta(MetaMessage mesg) {
-            if ( mesg.getType() == Constants.END_OF_SONG ) {
-              sequen.close();
-            }
+          if (mesg.getType() == Constants.END_OF_SONG) {
+            sequen.close();
           }
-        });
+        }
+      });
       sequen.start();
-    } catch(Exception e){
+    } catch (Exception e) {
       e.printStackTrace();
       System.exit(1);
     }
   }
 
-  public static void stopPreview(){
-    try{
+  public static void stopPreview() {
+    try {
       sequen.close();
-    } catch(Exception e){
+    } catch (Exception e) {
       // do nothing
     }
   }

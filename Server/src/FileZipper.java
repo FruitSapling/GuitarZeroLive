@@ -1,8 +1,8 @@
 /**
-* @author Mark Newell
+ * @author Mark Newell
  *
  * A class to perform different types of copression and validation.
-* */
+ */
 
 
 import java.io.File;
@@ -28,14 +28,14 @@ public class FileZipper {
     boolean valid = false;
     try {
       valid = validateFiles(fileList);
-    }
-    catch (FileSystemException e) {
+    } catch (FileSystemException e) {
       System.out.println(e.getMessage());
     }
     if (valid == true) {
       // Make the notes file
       ExtractNotes.makeNotesFile(fileList.get(1));
-      File notesFile = new File(Constants.RESOURCES_FOLDER + "/" + fileList.get(1).getName() + "notes");
+      File notesFile = new File(
+          Constants.RESOURCES_FOLDER + "/" + fileList.get(1).getName() + "notes");
       fileList.add(notesFile);
 
       // Zip the files
@@ -44,8 +44,7 @@ public class FileZipper {
       // Clean up resources folder
       try {
         Files.delete(notesFile.toPath());
-      }
-      catch (IOException e) {
+      } catch (IOException e) {
         System.out.println(e.getMessage());
         System.exit(0);
       }
@@ -57,8 +56,8 @@ public class FileZipper {
 
 
   /*
-  * Method to retrieve all the zip files in  the folder location.
-  */
+   * Method to retrieve all the zip files in  the folder location.
+   */
   public static File[] getZippedFiles(String location) {
     FileFilter filter = (pathname) -> pathname.getPath().endsWith(".zip");
     File[] zippedFolders = new File(location).listFiles(filter);

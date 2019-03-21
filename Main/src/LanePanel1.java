@@ -12,15 +12,14 @@ import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 /**
- * @author Tom
- * Contributed to by:
- * Willem - Planned the structure of lanes on the Guitar (following MVC) with Tom
- * Adapted by Tom to facilitate the three lanes containing different information.
+ * @author Tom Contributed to by: Willem - Planned the structure of lanes on the Guitar (following
+ * MVC) with Tom Adapted by Tom to facilitate the three lanes containing different information.
  *
  * LanePanel1 contains the notes on the left most string, as well as the score, multiplier, ingame
  * currency and the album art.
  */
 public class LanePanel1 extends JPanel {
+
   private CopyOnWriteArrayList<Note> notes;
 
   private BufferedImage white, black, star, mult1, mult2, mult3, mult4, mult5, mult6, mult7, mult8, mult9, mult10, album;
@@ -30,7 +29,7 @@ public class LanePanel1 extends JPanel {
   private boolean artFound = true;
 
   public LanePanel1(CopyOnWriteArrayList<Note> notes, int score, int currency, int mult) {
-    try{
+    try {
       this.score = score;
       this.currency = currency;
       this.mult = mult;
@@ -63,12 +62,12 @@ public class LanePanel1 extends JPanel {
             new AffineTransformOp(at, AffineTransformOp.TYPE_BILINEAR);
         after = scaleOp.filter(album, after);
         this.album = after;
-      }catch(IOException e) {
+      } catch (IOException e) {
         System.out.println("Album Art Not Found, Continuing Without");
         this.artFound = false;
       }
 
-    }catch(IOException e) {
+    } catch (IOException e) {
       System.out.println(e.getMessage());
       System.exit(1);
     }
@@ -79,9 +78,18 @@ public class LanePanel1 extends JPanel {
   public void setNotes(CopyOnWriteArrayList<Note> notes) {
     this.notes = notes;
   }
-  public void setScore(int score) { this.score = score; }
-  public void setCurrency(int currency) { this.currency = currency; }
-  public void setMult(int mult) { this.mult = mult; }
+
+  public void setScore(int score) {
+    this.score = score;
+  }
+
+  public void setCurrency(int currency) {
+    this.currency = currency;
+  }
+
+  public void setMult(int mult) {
+    this.mult = mult;
+  }
 
   public void paintComponent(Graphics g) {
     Graphics2D g2 = (Graphics2D) g;
@@ -93,12 +101,12 @@ public class LanePanel1 extends JPanel {
 
     //Draws a number of stars based on the amount of in-game currency the player has
     int interval = 0;
-    for(int i = 0; i < currency; i++) {
+    for (int i = 0; i < currency; i++) {
       g2.drawImage(star, interval, 600, null);
       interval += 50;
     }
 
-    switch(mult) {
+    switch (mult) {
       case 1:
         g2.drawImage(mult1, 0, 300, null);
         break;
@@ -131,16 +139,16 @@ public class LanePanel1 extends JPanel {
         break;
     }
 
-    if(artFound) {
+    if (artFound) {
       g.drawImage(album, 0, 0, null);
     }
 
     //Paint notes on string
-    for(Note n : this.notes) {
-      if(n.getLane().equals(NoteInfo.LANE_ONE)) {
-        if(n.getColour().equals(NoteInfo.WHITE)) {
+    for (Note n : this.notes) {
+      if (n.getLane().equals(NoteInfo.LANE_ONE)) {
+        if (n.getColour().equals(NoteInfo.WHITE)) {
           g.drawImage(white, n.getX(), n.getY(), null);
-        } else if(n.getColour().equals(NoteInfo.BLACK)) {
+        } else if (n.getColour().equals(NoteInfo.BLACK)) {
           g.drawImage(black, n.getX(), n.getY(), null);
         }
       }

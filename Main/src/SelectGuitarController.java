@@ -3,47 +3,47 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 /**
- * A controller following the MVC design pattern, manipulating the model when
- * sending Guitar button presses and key presses.
+ * A controller following the MVC design pattern, manipulating the model when sending Guitar button
+ * presses and key presses.
  *
- * @author Willem
- * Refactored from MainGuitarController by Morgan
+ * @author Willem Refactored from MainGuitarController by Morgan
  */
-public class SelectGuitarController extends GuitarController implements GuitarButtonListener, KeyListener {
+public class SelectGuitarController extends GuitarController implements GuitarButtonListener,
+    KeyListener {
 
-    private SelectModel model;
-    public final ArrayList<GuitarButtonListener> listeners = new ArrayList<>();
+  private SelectModel model;
+  public final ArrayList<GuitarButtonListener> listeners = new ArrayList<>();
 
-    public SelectGuitarController(SelectModel model) {
-        this.model = model;
-    }
+  public SelectGuitarController(SelectModel model) {
+    this.model = model;
+  }
 
-    @Override
-    public void guitarButtonPressReceived(GuitarButtonPressedEvent e) {
-        switch(e.getGuitarButton()) {
-            case STRUM:
-                if (e.getValue() == 1.0) {
-                    cycleCarouselRight();
-                } else {
-                    cycleCarouselLeft();
-                }
-                break;
-            case ZERO_POWER:
-                model.selectMode();
-                break;
-            case ESCAPE:
-                model.backMode();
-                break;
+  @Override
+  public void guitarButtonPressReceived(GuitarButtonPressedEvent e) {
+    switch (e.getGuitarButton()) {
+      case STRUM:
+        if (e.getValue() == 1.0) {
+          cycleCarouselRight();
+        } else {
+          cycleCarouselLeft();
         }
+        break;
+      case ZERO_POWER:
+        model.selectMode();
+        break;
+      case ESCAPE:
+        model.backMode();
+        break;
     }
+  }
 
-    public synchronized void addListener(GuitarButtonListener listener){
-        listeners.add(listener);
-    }
+  public synchronized void addListener(GuitarButtonListener listener) {
+    listeners.add(listener);
+  }
 
-    public synchronized void removeListener(GuitarButtonListener listener){
-        listeners.remove(listener);
-    }
+  public synchronized void removeListener(GuitarButtonListener listener) {
+    listeners.remove(listener);
+  }
 
 //    public void fireGuitarButtonPressedEvent(GuitarButton btn) {
 //        GuitarButtonPressedEvent e = new GuitarButtonPressedEvent(this, btn);
@@ -59,58 +59,58 @@ public class SelectGuitarController extends GuitarController implements GuitarBu
 //        }
 //    }
 
-    public void cycleCarouselRight() {
-        model.cycleCarouselRight();
-    }
+  public void cycleCarouselRight() {
+    model.cycleCarouselRight();
+  }
 
-    public void cycleCarouselLeft() {
-        model.cycleCarouselLeft();
-    }
+  public void cycleCarouselLeft() {
+    model.cycleCarouselLeft();
+  }
 
-    @Override
-    public void keyTyped(KeyEvent e) {
+  @Override
+  public void keyTyped(KeyEvent e) {
 
-    }
+  }
 
-    @Override
-    public void keyPressed(KeyEvent e) {
+  @Override
+  public void keyPressed(KeyEvent e) {
 //        if(e.getKeyChar() == 'e') {
 //            cycleCarouselRight(); }
 //        else if(e.getKeyChar() == 'd') {
 //            cycleCarouselLeft(); }
-        if(e.getKeyChar() == KeyEvent.VK_ENTER) {
-            model.selectMode();
-        }
+    if (e.getKeyChar() == KeyEvent.VK_ENTER) {
+      model.selectMode();
     }
+  }
 
-    @Override
-    public void keyReleased(KeyEvent e) {
+  @Override
+  public void keyReleased(KeyEvent e) {
 
-    }
+  }
 
-    @Override
-    public void guitarStrummed(ArrayList<GuitarButton> buttonsPressed) {
+  @Override
+  public void guitarStrummed(ArrayList<GuitarButton> buttonsPressed) {
 
-    }
+  }
 
-    @Override
-    public void strumUp() {
-        cycleCarouselRight();
-    }
+  @Override
+  public void strumUp() {
+    cycleCarouselRight();
+  }
 
-    @Override
-    public void strumDown() {
-        cycleCarouselLeft();
-    }
+  @Override
+  public void strumDown() {
+    cycleCarouselLeft();
+  }
 
-    @Override
-    public void zeroPowerPressed() {
-        model.selectMode();
-    }
+  @Override
+  public void zeroPowerPressed() {
+    model.selectMode();
+  }
 
-    @Override
-    public void zeroPowerWhammyOrBenderPressed(ArrayList<GuitarButton> buttonsPressed) {
+  @Override
+  public void zeroPowerWhammyOrBenderPressed(ArrayList<GuitarButton> buttonsPressed) {
 
-    }
+  }
 }
 
