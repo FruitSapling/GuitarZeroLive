@@ -1,7 +1,8 @@
 /**
-* Class that is run as a thread to create a connection to a client.
-* @author Mark Newell
-*/
+ * Class that is run as a thread to create a connection to a client.
+ *
+ * @author Mark Newell
+ */
 
 import java.awt.SystemTray;
 import java.io.DataInputStream;
@@ -19,6 +20,7 @@ import java.nio.file.Paths;
 import java.util.Arrays;
 
 public class ConnectionThread implements Runnable {
+
   private Socket client;
   private File dir;
 
@@ -50,21 +52,19 @@ public class ConnectionThread implements Runnable {
           System.out.println("Nothing");
       }
       inStream.close();
-    }
-    catch (IOException e) {
+    } catch (IOException e) {
       e.printStackTrace();
     }
   }
 
 
-
   /*
-  * Method to retrieve the next files from the client,
-  * Deprecated so maybe not needed.
-  */
+   * Method to retrieve the next files from the client,
+   * Deprecated so maybe not needed.
+   */
   @Deprecated
   private File receiveFile() {
-    File outputFile = new File(Paths.get(dir.getName(),"src.zip").toString());
+    File outputFile = new File(Paths.get(dir.getName(), "src.zip").toString());
 
     try {
       InputStream in = client.getInputStream();
@@ -75,36 +75,35 @@ public class ConnectionThread implements Runnable {
 
       byte[] buffer = new byte[1024];
 
-      while (inStream.read(buffer,0,buffer.length) != -1) {
+      while (inStream.read(buffer, 0, buffer.length) != -1) {
         out.write(buffer);
       }
       out.close();
       inStream.close();
       in.close();
 
-    }
-    catch (IOException e) {
+    } catch (IOException e) {
       e.printStackTrace();
     }
     return outputFile;
   }
 
 
-
   /*
    * To be used on the server to send the files back to the client
    */
   public File[] getZippedFiles() {
-    FileFilter filter = (pathname) -> pathname.getPath().endsWith(".zip") && !pathname.getName().equals("tempZip.zip");
+    FileFilter filter = (pathname) -> pathname.getPath().endsWith(".zip") && !pathname.getName()
+        .equals("tempZip.zip");
     File[] zippedFolders = dir.listFiles(filter);
     return zippedFolders;
   }
 
 
   /*
-  * A method to send a all the folders to the client at once time.
-  * This page integer should start at 0 for page 1.
-  */
+   * A method to send a all the folders to the client at once time.
+   * This page integer should start at 0 for page 1.
+   */
   private void sendFiles() {
     try {
       OutputStream out = client.getOutputStream();
@@ -118,20 +117,19 @@ public class ConnectionThread implements Runnable {
       FileInputStream input = new FileInputStream(zippedFolder);
       int bufferSize = 1024;
 
-      for (int i = 0; i <= (zippedFolder.length()/bufferSize); i++) {
+      for (int i = 0; i <= (zippedFolder.length() / bufferSize); i++) {
         byte[] buffer = new byte[bufferSize];
-        input.read(buffer,0,bufferSize);
-        outputStream.write(buffer,0,bufferSize);
+        input.read(buffer, 0, bufferSize);
+        outputStream.write(buffer, 0, bufferSize);
       }
 
       outputStream.close();
       out.close();
       input.close();
 
-      Files.delete(Paths.get(Constants.RESOURCES_FOLDER,"tempZip.zip"));
+      Files.delete(Paths.get(Constants.RESOURCES_FOLDER, "tempZip.zip"));
 
-    }
-    catch (IOException e) {
+    } catch (IOException e) {
       e.printStackTrace();
     }
   }

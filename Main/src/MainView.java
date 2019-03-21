@@ -48,8 +48,13 @@ public class MainView extends JFrame implements PropertyChangeListener {
     this.add(panel);
     this.pack();
     this.setVisible(true);
+    this.setLocationRelativeTo(null);
     this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
+  }
+
+  public void stopPoller() {
+    this.gbController.guitarPoller.stop();
   }
 
   public void propertyChange(PropertyChangeEvent pce) {
@@ -79,10 +84,10 @@ public class MainView extends JFrame implements PropertyChangeListener {
       g2.setColor(Color.DARK_GRAY);
 
       Polygon board = new Polygon();
-      board.addPoint(200, 20);
+      board.addPoint(200, 0);
       board.addPoint(10, getHeight());
       board.addPoint(getWidth()-10, getHeight());
-      board.addPoint(550, 20);
+      board.addPoint(550, 0);
       g2.setClip(board);
       g2.fillPolygon(board);
 
@@ -93,7 +98,7 @@ public class MainView extends JFrame implements PropertyChangeListener {
       g2.drawLine(0, 300, getWidth(), 300);
       g2.drawLine(0, 400, getWidth(), 400);
       g2.drawLine(0, 500, getWidth(), 500);
-      g2.fillRect(0, 600, getWidth(), 50);
+      g2.fillRect(0, 600, getWidth(), Constants.BAR_HEIGHT);
 
       g2.setColor(Color.WHITE);
       g2.drawLine(250, 20, 125, getHeight());

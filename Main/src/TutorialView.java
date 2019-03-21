@@ -7,8 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 /**
- * A View class for tutorial mode
- * This class shows the current step stored in the model.
+ * A View class for tutorial mode This class shows the current step stored in the model.
  *
  * @author Willem
  */
@@ -24,7 +23,7 @@ public class TutorialView extends JFrame implements PropertyChangeListener {
     this.model = model;
 
     this.panel = new TutorialPanel();
-    this.panel.setPreferredSize(new Dimension(Constants.w,Constants.h));
+    this.panel.setPreferredSize(new Dimension(Constants.w, Constants.h));
 
     this.addKeyListener(controller);
 
@@ -33,6 +32,7 @@ public class TutorialView extends JFrame implements PropertyChangeListener {
     this.add(panel);
     this.pack();
     this.setVisible(true);
+    this.setLocationRelativeTo(null);
     this.setDefaultCloseOperation(EXIT_ON_CLOSE);
   }
 
@@ -51,6 +51,7 @@ public class TutorialView extends JFrame implements PropertyChangeListener {
   }
 
   public class TutorialPanel extends JPanel {
+
     public void paintComponent(Graphics g) {
       Graphics2D g2 = (Graphics2D) g;
 

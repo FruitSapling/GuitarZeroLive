@@ -3,8 +3,8 @@ import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
 /**
- * A Controller class for tutorial mode
- * This class tells the model when to progress to the next step.
+ * A Controller class for tutorial mode This class tells the model when to progress to the next
+ * step.
  *
  * @author Willem
  */
@@ -25,8 +25,7 @@ public class TutorialController extends GuitarController implements KeyListener 
   public void keyPressed(KeyEvent e) {
     if (e.getKeyChar() == KeyEvent.VK_SPACE) {
       model.nextStep();
-    }
-    else if (e.getKeyChar() == 'q') {
+    } else if (e.getKeyChar() == 'q') {
       model.backMode();
     }
   }
@@ -57,7 +56,7 @@ public class TutorialController extends GuitarController implements KeyListener 
   }
 
   @Override
-  public void zeroPowerWhammyOrBenderPressed() {
+  public void zeroPowerWhammyOrBenderPressed(ArrayList<GuitarButton> buttonsPressed) {
 
   }
 }

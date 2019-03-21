@@ -1,6 +1,5 @@
 /**
- * @author Tom
- * Refactored for Select Mode from Slash Mode by @Morgan
+ * @author Tom Refactored for Select Mode from Slash Mode by Morgan
  */
 
 import javax.imageio.ImageIO;
@@ -15,171 +14,192 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class SelectModel {
-    public boolean menuOpen;
-    public CarouselMenu carouselMenu;
-    private PropertyChangeSupport support;
 
-    public SelectModel() {
-        this.support = new PropertyChangeSupport(this);
-        support.addPropertyChangeListener(carouselMenu);
+  public boolean menuOpen;
+  public CarouselMenu carouselMenu;
+  private PropertyChangeSupport support;
 
+  public SelectModel() {
+    this.support = new PropertyChangeSupport(this);
+    support.addPropertyChangeListener(carouselMenu);
+
+  }
+
+  public void setCarouselMenu(CarouselButton[] buttons) {
+    this.carouselMenu = new CarouselMenu(buttons, 0, 400);
+    carouselMenu.revalidate();
+    carouselMenu.repaint();
+  }
+
+  public void cycleCarouselLeft() {
+    this.support.firePropertyChange("cycleCarousel", null, "left");
+  }
+
+  public void cycleCarouselRight() {
+    this.support.firePropertyChange("cycleCarousel", null, "right");
+  }
+
+  public void selectMode() {
+    this.support.firePropertyChange("selectMode", null, null);
+  }
+
+  public void backMode() {
+    this.support.firePropertyChange("backMode", null, null);
+  }
+
+  public void addPropertyChangeListener(PropertyChangeListener pcl) {
+    this.support.addPropertyChangeListener(pcl);
+  }
+
+  public void showMenu() {
+    this.support.firePropertyChange(null, null, null);
+  }
+
+  public void hideMenu() {
+    this.support.firePropertyChange(null, null, null);
+  }
+
+  CarouselButton[] setMenu(SelectView selectView) {
+    /**
+     * @author Morgan
+     */
+    File folder = new File(Constants.ZIP_FILE_PATH + "/");
+    File[] list = folder.listFiles(new FileFilter() {
+      @Override
+      public boolean accept(File file) {
+        return file.isDirectory();
+      }
+    });
+
+    CarouselButton[] buttons;
+    ArrayList<File> arrayList = new ArrayList<File>(Arrays.asList(list));
+
+    if (list.length < 5) {
+            /*Less than 5 unzipped tracks to display - use some maths to generate empty buttons
+              This avoids an issue with generating additional buttons
+             */
+      buttons = new CarouselButton[5];
+      int surplus = 5 - (5 - list.length); // integer holds how many empty buttons we need
+
+      for (int i = 0; i < list.length; i++) {
+        buttons[i] = createMeaningfulButton(selectView, arrayList, i);
+      }
+      for (int i = surplus; i < 5; i++) {
+        buttons[i] = createEmptyButton();
+      }
+    } else {
+      // if we have 5 or more buttons, no need for any additional empty buttons
+      buttons = new CarouselButton[list.length];
+      for (int i = 0; i < list.length; i++) {
+        buttons[i] = createMeaningfulButton(selectView, arrayList, i);
+      }
     }
+    return buttons;
+  }
 
-    public void setCarouselMenu(CarouselButton[] buttons) {
-        this.carouselMenu = new CarouselMenu(buttons, 0, 400);
-        carouselMenu.revalidate();
-        carouselMenu.repaint();
+  CarouselButton createMeaningfulButton(SelectView selectView, ArrayList<File> list, int count) {
+    /**
+     * @author Morgan
+     */
+    String zipName = list.get(count).getName();
+    String zipPath = "";
+
+    File folder = new File(Constants.ZIP_FILE_PATH + "/" + zipName + "/");
+    ArrayList<File> unzippedList = new ArrayList<>(Arrays.asList(folder.listFiles()));
+    String imagePath = Constants.DEFAULT_WHITE_IMAGE_PATH;
+
+    for (int j = 0; j < unzippedList.size(); j++) {
+      if (unzippedList.get(j).getName().split("\\.")[1].equals("jpg")) {
+        imagePath = unzippedList.get(j).getPath(); // Our cover art
+      }
+      if (unzippedList.get(j).getName().split("\\.")[1].equals("midnotes")) {
+        zipPath = unzippedList.get(j).getPath(); // Our notes file
+      }
     }
+    File img = new File(imagePath);
+    final String intendedTrack = zipPath;
 
-    public void cycleCarouselLeft() {
-        this.support.firePropertyChange("cycleCarousel", null, "left");
-    }
+    try {
+      Image image = ImageIO.read(img);
+      Image newImage = image
+          .getScaledInstance(Constants.BUTTON_WIDTH, Constants.BUTTON_HEIGHT, Image.SCALE_DEFAULT);
+      ImageIcon icon = new ImageIcon(newImage);
 
-    public void cycleCarouselRight() {
-        this.support.firePropertyChange("cycleCarousel", null, "right");
-    }
-
-    public void selectMode() {
-        this.support.firePropertyChange("selectMode", null, null);
-    }
-
-    public void backMode() {
-        this.support.firePropertyChange("backMode", null, null);
-    }
-
-    public void addPropertyChangeListener(PropertyChangeListener pcl) {
-        this.support.addPropertyChangeListener(pcl);
-    }
-
-    public void showMenu() {
-        this.support.firePropertyChange(null,null,null);
-    }
-    public void hideMenu() {
-        this.support.firePropertyChange(null,null,null);
-    }
-
-    CarouselButton[] setMenu(JFrame frame) {
-        /**
-         * @author Morgan
-         */
-        File folder = new File(Constants.ZIP_FILE_PATH + "/");
-        File[] list = folder.listFiles(new FileFilter() {
-            @Override
-            public boolean accept(File file) { return file.isDirectory(); }
-        });
-
-        CarouselButton[] buttons;
-        ArrayList<File> arrayList = new ArrayList<File>(Arrays.asList(list));
-
-        if (list.length < 5) {
-            buttons = new CarouselButton[5];
-            int surplus = 5 - (5-list.length);
-
-            for (int i = 0; i < list.length; i++) {
-                buttons[i] = createMeaningfulButton(frame, arrayList, i);
-            }
-            for (int i = surplus; i < 5; i++) {
-                buttons[i] = createEmptyButton();
-            }
+      return new CarouselButton(icon, zipName) {
+        @Override
+        public void onClick() {
+          //IntendedTrack will be null if no notes file was found
+          if (IntendedTrack.getIntendedTrack().equals("")) {
+            JOptionPane.showMessageDialog(null, "Error - No Track Selected",
+                "Empty Button", JOptionPane.WARNING_MESSAGE);
+          } else {
+            IntendedTrack.setIntendedTrack(intendedTrack.replace("\\", "/"));
+            JOptionPane.showMessageDialog(null, "Selected track has become: " + zipName,
+                "Selection Info", JOptionPane.INFORMATION_MESSAGE);
+          }
+          selectView.stopPoller();
+          selectView.dispose();
+          returnToMenu(selectView);
         }
 
-        else {
-            buttons = new CarouselButton[list.length];
-            for (int i = 0; i < list.length; i++) {
-                buttons[i] = createMeaningfulButton(frame, arrayList, i);
-            }
+        @Override
+        public void onHighlight() {
+          PlaySong.stopPreview();
+          PlaySong.playPreview(zipName);
         }
-        return buttons;
+      };
+    } catch (IOException e) {
+      e.printStackTrace();
+      System.exit(2);
     }
+    return null;
+  }
 
-    CarouselButton createMeaningfulButton(JFrame frame, ArrayList<File> list, int count) {
-        /**
-         * @author Morgan
-         */
-        String zipName = list.get(count).getName();
-        String zipPath = "";
+  CarouselButton createEmptyButton() {
+    /**
+     * @author Morgan
+     */
+    String imagePath = Constants.DEFAULT_WHITE_IMAGE_PATH;
+    File img = new File(imagePath);
 
-        File folder = new File(Constants.ZIP_FILE_PATH + "/" + zipName + "/");
-        ArrayList<File> unzippedList = new ArrayList<>(Arrays.asList(folder.listFiles()));
-        String imagePath = Constants.DEFAULT_WHITE_IMAGE_PATH;
+    try {
+      Image image = ImageIO.read(img);
+      Image newImage = image
+          .getScaledInstance(Constants.BUTTON_WIDTH, Constants.BUTTON_HEIGHT, Image.SCALE_DEFAULT);
+      ImageIcon icon = new ImageIcon(newImage);
 
-        for (int j = 0; j < unzippedList.size(); j++) {
-            if (unzippedList.get(j).getName().split("\\.")[1].equals("jpg")) {
-                imagePath = unzippedList.get(j).getPath();
-            }
-            if (unzippedList.get(j).getName().split("\\.")[1].equals("midnotes")) {
-                zipPath = unzippedList.get(j).getPath();
-            }
+      return new CarouselButton(icon, "empty") {
+        @Override
+        public void onClick() {
+          JOptionPane.showMessageDialog(null, "Nothing to see here...",
+              "Empty Button", JOptionPane.WARNING_MESSAGE);
         }
-        File img = new File(imagePath);
-        final String intendedTrack = zipPath;
 
-        try {
-            Image image = ImageIO.read(img);
-            Image newImage = image.getScaledInstance(Constants.BUTTON_WIDTH, Constants.BUTTON_HEIGHT, Image.SCALE_DEFAULT);
-            ImageIcon icon = new ImageIcon(newImage);
-
-            return new CarouselButton(icon, zipName) {@Override public void onClick() {
-                if (IntendedTrack.getIntendedTrack().equals("")) {
-                    JOptionPane.showMessageDialog(null, "Error - No Track Selected",
-                            "Empty Button", JOptionPane.WARNING_MESSAGE);
-                }
-                else {
-                    IntendedTrack.setIntendedTrack(intendedTrack.replace("\\", "/"));
-                    JOptionPane.showMessageDialog(null, "Selected track has become: " + zipName,
-                            "Selection Info", JOptionPane.INFORMATION_MESSAGE);
-                }
-                frame.dispose();
-                returnToMenu(frame);
-            }
-            @Override public void onHighlight() {
-                //TODO: for Luke
-                PlaySong.stopPreview();
-                PlaySong.playPreview(zipName);
-            }
-            };
+        @Override
+        public void onHighlight() {
         }
-        catch (IOException e) {
-            e.printStackTrace();
-            System.exit(2);
-        }
-        return null;
+      };
+    } catch (IOException e) {
+      e.printStackTrace();
+      System.exit(2);
     }
+    return null;
+  }
 
-    CarouselButton createEmptyButton() {
-        /**
-         * @author Morgan
-         */
-        String imagePath = Constants.DEFAULT_WHITE_IMAGE_PATH;
-        File img = new File(imagePath);
+  protected void returnToMenu(SelectView selectView) {
+    selectView.stopPoller();
+    selectView.dispose();
+    MainModel model = new MainModel();
+    MainController controller1 = new MainController(model);
+    MainGuitarController controller2 = new MainGuitarController(model);
+    MainView view = new MainView(model, controller1, controller2);
+    PlaySong.stopPreview();
 
-        try {
-            Image image = ImageIO.read(img);
-            Image newImage = image.getScaledInstance(Constants.BUTTON_WIDTH, Constants.BUTTON_HEIGHT, Image.SCALE_DEFAULT);
-            ImageIcon icon = new ImageIcon(newImage);
+    // Hot fix for carousel bug.
+    model.menuOpen = true;
+    model.showMenu();
+    model.showMenu();
 
-            return new CarouselButton(icon, "empty") {
-                @Override
-                public void onClick() {
-                    JOptionPane.showMessageDialog(null, "Nothing to see here...",
-                            "Empty Button", JOptionPane.WARNING_MESSAGE);
-                }
-                @Override public void onHighlight() {}
-            };
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-            System.exit(2);
-        }
-        return null;
-    }
-
-    protected void returnToMenu(JFrame frame) {
-        frame.dispose();
-        MainModel model = new MainModel();
-        MainController controller1 = new MainController(model);
-        MainGuitarController controller2 = new MainGuitarController(model);
-        new MainView(model, controller1, controller2);
-        PlaySong.stopPreview();
-    }
+    view.requestFocusInWindow();
+  }
 }

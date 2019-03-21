@@ -12,6 +12,7 @@ import javax.swing.JFrame;
 public class PlayView extends JFrame implements PropertyChangeListener {
 
   private PlayModel model;
+  private PlayController1 controller1;
   private PlayController2 controller2;
 
   private MainView.Guitar guitar;
@@ -19,7 +20,8 @@ public class PlayView extends JFrame implements PropertyChangeListener {
   private LanePanel2 jp2;
   private LanePanel3 jp3;
 
-  public PlayView(PlayModel model, PlayController2 controller2, PlayGuitarController guitarController) {
+  public PlayView(PlayModel model, PlayController1 controller1, PlayController2 controller2, PlayGuitarController guitarController) {
+    this.controller1 = controller1;
     this.controller2 = controller2;
     this.addKeyListener(controller2);
 
@@ -34,8 +36,8 @@ public class PlayView extends JFrame implements PropertyChangeListener {
     //Initialize panels to avoid null pointers
     CopyOnWriteArrayList<Note> blank = new CopyOnWriteArrayList<>();
     this.jp1 = new LanePanel1(blank, model.getScore().getScore(), model.getScore().getInGameCurrency(), model.getScore().getCurrentMultiplier());
-    this.jp2 = new LanePanel2(blank, model.getScore().getCurrentStreak());
-    this.jp3 = new LanePanel3(blank, model.isZeroPowerMode());
+    this.jp2 = new LanePanel2(blank);
+    this.jp3 = new LanePanel3(blank, model.isZeroPowerMode(), model.getScore().getCurrentStreak());
 
     this.guitar.add(jp1);
     this.guitar.add(jp2);
@@ -50,7 +52,8 @@ public class PlayView extends JFrame implements PropertyChangeListener {
     String midi = IntendedTrack.getIntendedTrack();
     midi = midi.substring(0, midi.length() -5);
 
-    PlaySong.playMidi(midi, 4, true, false);
+    PlaySong.playMidi(midi, 4, false, false);
+    controller1.startMovingNotes();
   }
 
   public void propertyChange(PropertyChangeEvent pce) {
@@ -61,18 +64,18 @@ public class PlayView extends JFrame implements PropertyChangeListener {
     this.jp1.setScore(model.getScore().getScore());
     this.jp1.setCurrency(model.getScore().getInGameCurrency());
     this.jp1.setMult(model.getScore().getCurrentMultiplier());
-    this.jp2.setStreak(model.getScore().getCurrentStreak());
+    this.jp3.setStreak(model.getScore().getCurrentStreak());
     this.jp3.setZeroPowerMode(model.isZeroPowerMode());
 
     this.repaint();
   }
 
-  public static void main(String[] args) {
-    PlayModel mp = new PlayModel();
-    PlayController2 cp2 = new PlayController2(mp);
-    PlayGuitarController gp = new PlayGuitarController(mp);
-    PlayView vp = new PlayView(mp,cp2,gp);
-    PlayController1 cp = new PlayController1(mp);
-  }
+//  public static void main(String[] args) {
+//    PlayModel mp = new PlayModel();
+//    PlayController2 cp2 = new PlayController2(mp);
+//    PlayGuitarController gp = new PlayGuitarController(mp);
+//    PlayController1 cp1 = new PlayController1(mp);
+//    PlayView vp = new PlayView(mp,cp1,cp2,gp);
+//  }
 
 }

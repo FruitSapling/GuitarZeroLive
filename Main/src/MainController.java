@@ -4,7 +4,7 @@ import java.awt.event.KeyListener;
 /**
  * @author Tom
  */
-public class MainController implements KeyListener{
+public class MainController implements KeyListener {
 
   private MainModel model;
   public boolean playMode = false;
@@ -13,19 +13,21 @@ public class MainController implements KeyListener{
     this.model = model;
   }
 
-  public void keyTyped(KeyEvent e) { }
+  public void keyTyped(KeyEvent e) {
+  }
 
-  public void keyReleased(KeyEvent e) { }
+  public void keyReleased(KeyEvent e) {
+  }
 
   public void keyPressed(KeyEvent evt) {
-    switch(evt.getKeyCode()) {
-      case KeyEvent.VK_SPACE :
-        if(playMode) {
+    switch (evt.getKeyCode()) {
+      case KeyEvent.VK_SPACE:
+        if (playMode) {
           model.strummed();
         }
         break;
-      case KeyEvent.VK_ESCAPE :
-        if(model.menuOpen) {
+      case KeyEvent.VK_ESCAPE:
+        if (model.menuOpen) {
           model.hideMenu();
         } else {
           model.showMenu();

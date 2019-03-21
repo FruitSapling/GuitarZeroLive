@@ -45,6 +45,7 @@ public class NoteFileMaker {
 
   /**
    * Writes each note and its metadata on a new line in the file
+   *
    * @param notes A list of notes to be written
    */
   public void writeSong(ArrayList<String> notes) {

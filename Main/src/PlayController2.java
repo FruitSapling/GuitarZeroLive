@@ -11,11 +11,14 @@ public class PlayController2 implements KeyListener {
     this.model = model;
   }
 
-  public void keyTyped(KeyEvent e) { }
-  public void keyReleased(KeyEvent e) { }
+  public void keyTyped(KeyEvent e) {
+  }
+
+  public void keyReleased(KeyEvent e) {
+  }
 
   public void keyPressed(KeyEvent e) {
-    switch(e.getKeyCode()) {
+    switch (e.getKeyCode()) {
       case KeyEvent.VK_SPACE:
         // TODO play midi sound of inputted note
 

@@ -5,8 +5,7 @@ import java.io.File;
 import javax.imageio.ImageIO;
 
 /**
- * A Model class for tutorial mode
- * This class stores the current step shown in the tutorial view.
+ * A Model class for tutorial mode This class stores the current step shown in the tutorial view.
  *
  * @author Willem
  */
@@ -18,8 +17,8 @@ public class TutorialModel {
   private BufferedImage[] steps;
 
   public TutorialModel() {
-    this.support      = new PropertyChangeSupport(this);
-    this.steps        = new BufferedImage[Constants.tutorialStepsPaths.length];
+    this.support = new PropertyChangeSupport(this);
+    this.steps = new BufferedImage[Constants.tutorialStepsPaths.length];
 
     for (int i = 0; i < Constants.tutorialStepsPaths.length; i++) {
       try {
@@ -34,7 +33,7 @@ public class TutorialModel {
 
   // Call this method when the model should move to the next tutorial step.
   public void nextStep() {
-    if (currentStepIndex != Constants.tutorialStepsPaths.length-1) {
+    if (currentStepIndex != Constants.tutorialStepsPaths.length - 1) {
       currentStepIndex += 1;
       currentStep = steps[currentStepIndex];
       support.firePropertyChange("nextStep", null, null);

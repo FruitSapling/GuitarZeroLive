@@ -15,14 +15,11 @@ public class LanePanel2 extends JPanel {
   private BufferedImage white;
   private BufferedImage black;
 
-  private int streak;
-
-  public LanePanel2(CopyOnWriteArrayList<Note> notes, int streak) {
+  public LanePanel2(CopyOnWriteArrayList<Note> notes) {
     try {
-      this.streak = streak;
       this.white = ImageIO.read(new FileInputStream("Main/src/resources/pick.png"));
       this.black = ImageIO.read(new FileInputStream("Main/src/resources/pick1.png"));
-    }catch(IOException e) {
+    } catch (IOException e) {
       System.out.println(e.getMessage());
       System.exit(1);
     }
@@ -34,18 +31,12 @@ public class LanePanel2 extends JPanel {
     this.notes = notes;
   }
 
-  public void setStreak(int streak) { this.streak = streak; }
-
   public void paintComponent(Graphics g) {
-    Graphics2D g2 = (Graphics2D) g;
-    g2.setColor(Color.PINK);
-    g2.setFont(new Font("TimesRoman", Font.PLAIN, 50));
-    g2.drawString("Streak: " + Integer.toString(streak), getWidth()/2-110, 100);
-    for(Note n : this.notes) {
-      if(n.getLane().equals(NoteInfo.LANE_TWO)) {
-        if(n.getColour().equals(NoteInfo.WHITE)) {
+    for (Note n : this.notes) {
+      if (n.getLane().equals(NoteInfo.LANE_TWO)) {
+        if (n.getColour().equals(NoteInfo.WHITE)) {
           g.drawImage(white, n.getX(), n.getY(), null);
-        } else if(n.getColour().equals(NoteInfo.BLACK)) {
+        } else if (n.getColour().equals(NoteInfo.BLACK)) {
           g.drawImage(black, n.getX(), n.getY(), null);
         }
       }

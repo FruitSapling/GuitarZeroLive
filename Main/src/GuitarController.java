@@ -6,7 +6,7 @@ public abstract class GuitarController {
 
   public GuitarController() {
     guitarPoller = new GuitarPoller(this);
-    Thread t = new Thread(new GuitarPoller(this));
+    Thread t = new Thread(guitarPoller);
     t.start();
   }
 
@@ -18,6 +18,6 @@ public abstract class GuitarController {
 
   public abstract void zeroPowerPressed();
 
-  public abstract void zeroPowerWhammyOrBenderPressed();
+  public abstract void zeroPowerWhammyOrBenderPressed(ArrayList<GuitarButton> buttonsPressed);
 
 }

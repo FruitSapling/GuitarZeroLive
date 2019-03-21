@@ -11,9 +11,8 @@ import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
- * @author Tom
- * Contributed to by:
- * Willem - Planned the PlayModel structure (following MVC) with Tom, and did some pair programming.
+ * @author Tom Contributed to by: Willem - Planned the PlayModel structure (following MVC) with Tom,
+ * and did some pair programming.
  */
 public class PlayModel {
 
@@ -60,11 +59,11 @@ public class PlayModel {
     HashMap<NoteInfo[], Integer> fromNoteFile = readNotesFile(IntendedTrack.getIntendedTrack());
     Iterator it = fromNoteFile.entrySet().iterator();
 
-    while(it.hasNext()){
+    while (it.hasNext()) {
       Map.Entry note = (Map.Entry) it.next();
       NoteInfo[] laneAndColour = (NoteInfo[]) note.getKey();
       int timeSig = (int) note.getValue();
-      int position = (timeSig / 3) - 600;
+      int position = (timeSig / 5) - 0;
 
       switch (laneAndColour[0]) {
         case LANE_ONE:
@@ -95,51 +94,54 @@ public class PlayModel {
       BufferedReader bw = new BufferedReader(fw);
 
       String line;
-      while((line = bw.readLine()) != null) {
-        if(line.length() == 1){ // accounts for first line being the track number
+      while ((line = bw.readLine()) != null) {
+        if (line.length() == 1) { // accounts for first line being the track number
           continue;
-        }else{
-          if(line.split(",")[0].equals("zero power mode started")){
-            results.put(new NoteInfo[]{NoteInfo.ZERO_ON, NoteInfo.ZERO}, Integer.parseInt(line.split(",")[1]));
+        } else {
+          if (line.split(",")[0].equals("zero power mode started")) {
+            results.put(new NoteInfo[]{NoteInfo.ZERO_ON, NoteInfo.ZERO},
+                Integer.parseInt(line.split(",")[1]));
             continue;
-          }else if(line.split(",")[0].equals("zero power mode finished")){
-            results.put(new NoteInfo[]{NoteInfo.ZERO_OFF, NoteInfo.ZERO}, Integer.parseInt(line.split(",")[1]));
+          } else if (line.split(",")[0].equals("zero power mode finished")) {
+            results.put(new NoteInfo[]{NoteInfo.ZERO_OFF, NoteInfo.ZERO},
+                Integer.parseInt(line.split(",")[1]));
             continue;
           }
         }
 
         String[] split = line.split(",");
-        if(split[0].equals("OFF")) {
+        if (split[0].equals("OFF")) {
           continue;
         }
 
         String noteString = split[1];
         char note = noteString.charAt(0);
 
-        if((note == 'A') || (note == 'B')) {
-          results.put(new NoteInfo[]{NoteInfo.LANE_ONE, NoteInfo.BLACK}, Integer.parseInt(split[2]));
-        }
-        else if((note == 'C')) {
-          results.put(new NoteInfo[]{NoteInfo.LANE_ONE, NoteInfo.WHITE}, Integer.parseInt(split[2]));
-        }
-        else if((note == 'D')) {
-          results.put(new NoteInfo[]{NoteInfo.LANE_TWO, NoteInfo.BLACK}, Integer.parseInt(split[2]));
-        }
-        else if((note == 'E')) {
-          results.put(new NoteInfo[]{NoteInfo.LANE_TWO, NoteInfo.WHITE}, Integer.parseInt(split[2]));
-        }
-        else if((note == 'F')) {
-          results.put(new NoteInfo[]{NoteInfo.LANE_THREE, NoteInfo.BLACK}, Integer.parseInt(split[2]));
-        }
-        else {
-          results.put(new NoteInfo[]{NoteInfo.LANE_THREE, NoteInfo.WHITE}, Integer.parseInt(split[2]));
+        if ((note == 'A') || (note == 'B')) {
+          results
+              .put(new NoteInfo[]{NoteInfo.LANE_ONE, NoteInfo.BLACK}, Integer.parseInt(split[2]));
+        } else if ((note == 'C')) {
+          results
+              .put(new NoteInfo[]{NoteInfo.LANE_ONE, NoteInfo.WHITE}, Integer.parseInt(split[2]));
+        } else if ((note == 'D')) {
+          results
+              .put(new NoteInfo[]{NoteInfo.LANE_TWO, NoteInfo.BLACK}, Integer.parseInt(split[2]));
+        } else if ((note == 'E')) {
+          results
+              .put(new NoteInfo[]{NoteInfo.LANE_TWO, NoteInfo.WHITE}, Integer.parseInt(split[2]));
+        } else if ((note == 'F')) {
+          results
+              .put(new NoteInfo[]{NoteInfo.LANE_THREE, NoteInfo.BLACK}, Integer.parseInt(split[2]));
+        } else {
+          results
+              .put(new NoteInfo[]{NoteInfo.LANE_THREE, NoteInfo.WHITE}, Integer.parseInt(split[2]));
         }
       }
 
       bw.close();
       return results;
 
-    }catch(IOException e) {
+    } catch (IOException e) {
       System.out.println(e.getMessage());
       System.exit(1);
     }
@@ -150,9 +152,9 @@ public class PlayModel {
   //Moves the notes down the screen
   public void move() {
 
-    for(Note n : this.current) {
+    for (Note n : this.current) {
       n.move();
-      if(n.getY() == 0) {
+      if (n.getY() == 0) {
         if (n.getLane().equals(NoteInfo.ZERO_ON)) {
           setZeroPowerMode(true);
         } else if (n.getLane().equals(NoteInfo.ZERO_OFF)) {
@@ -160,7 +162,7 @@ public class PlayModel {
         }
       }
 
-      if(n.getY() > 622) {
+      if (n.getY() > 622) {
         this.score.noteMissed();
         this.current.remove(n);
       }
@@ -174,7 +176,7 @@ public class PlayModel {
 
   private boolean isInBar(Note note) {
 
-    return note.getY() > 572 && note.getY() < 622;
+    return note.getY() > 550 && note.getY() < 630;
 
   }
 
@@ -183,8 +185,8 @@ public class PlayModel {
     NoteInfo lane = note.getLane();
     boolean pressed = false;
 
-    if(!zeroPowerMode){
-      for (GuitarButton g: buttonsPressed) {
+    if (!zeroPowerMode) {
+      for (GuitarButton g : buttonsPressed) {
         if (note.getColour().equals(NoteInfo.WHITE)) { // If the note is white
           if ((lane.equals(NoteInfo.LANE_ONE) && g == GuitarButton.WHITE_1)
               || (lane.equals(NoteInfo.LANE_TWO) && g == GuitarButton.WHITE_2)
@@ -203,9 +205,12 @@ public class PlayModel {
           }
         }
       }
-    } else{
-      for(GuitarButton g: buttonsPressed){
-        if(g == GuitarButton.ZERO_POWER || g == GuitarButton.BENDER || g == GuitarButton.WHAMMY || g == GuitarButton.BENDER_JOYSTICK){
+    } else {
+      for (GuitarButton g : buttonsPressed) {
+        if (g == GuitarButton.ZERO_POWER
+            || g == GuitarButton.BENDER
+            || g == GuitarButton.WHAMMY
+            || g == GuitarButton.BENDER_JOYSTICK) {
           pressed = true;
         }
       }
@@ -215,7 +220,7 @@ public class PlayModel {
 
   public void guitarStrummed(ArrayList<GuitarButton> buttonsPressed) {
     Iterator<Note> it = this.current.iterator();
-    while(it.hasNext()) {
+    while (it.hasNext()) {
       Note currentNote = it.next();
 
       if (wasPressed(currentNote, buttonsPressed) && isInBar(currentNote)) {
