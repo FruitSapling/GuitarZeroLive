@@ -2,12 +2,6 @@
 import java.awt.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.io.File;
-import java.io.FileFilter;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import javax.imageio.ImageIO;
 import javax.swing.*;
 
 /**
@@ -41,6 +35,8 @@ public class SelectView extends JFrame implements PropertyChangeListener {
         CarouselButton[] buttons = model.setMenu(this);
         this.menu = new CarouselMenu(buttons, 20, 400);
         this.model.addPropertyChangeListener(menu);
+
+        this.g.add(menu);
 
         this.panel.add(g);
 

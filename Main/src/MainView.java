@@ -63,6 +63,9 @@ public class MainView extends JFrame implements PropertyChangeListener {
         g.remove(menu);
         System.out.println("removed menu");
       }
+    } else if (pce.getPropertyName() == "modelConstructed") {
+      System.out.println(g);
+      System.out.println(menu);
     }
     this.revalidate();
     this.repaint();

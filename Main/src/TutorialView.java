@@ -1,18 +1,20 @@
-import java.awt.BasicStroke;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Polygon;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+/**
+ * A View class for tutorial mode
+ * This class shows the current step stored in the model.
+ *
+ * @author Willem
+ */
 public class TutorialView extends JFrame implements PropertyChangeListener {
 
   private TutorialModel model;
-  private TutorialController controller;
 
   private JPanel panel;
 
@@ -20,7 +22,6 @@ public class TutorialView extends JFrame implements PropertyChangeListener {
 
   public TutorialView(TutorialModel model, TutorialController controller) {
     this.model = model;
-    this.controller = controller;
 
     this.panel = new TutorialPanel();
     this.panel.setPreferredSize(new Dimension(Constants.w,Constants.h));
@@ -52,37 +53,9 @@ public class TutorialView extends JFrame implements PropertyChangeListener {
   public class TutorialPanel extends JPanel {
     public void paintComponent(Graphics g) {
       Graphics2D g2 = (Graphics2D) g;
+
+      // Draw the current tutorial step to the screen
       g2.drawImage(model.currentStep, 0, 0, this);
-////
-////      g2.setColor(Color.DARK_GRAY);
-////
-////      Polygon board = new Polygon();
-////      board.addPoint(200, 20);
-////      board.addPoint(10, getHeight());
-////      board.addPoint(getWidth()-10, getHeight());
-////      board.addPoint(550, 20);
-////      g2.setClip(board);
-////      g2.fillPolygon(board);
-////
-////      g2.setStroke(new BasicStroke(5));
-////      g2.setColor(Color.RED);
-////      g2.drawLine(0, 100, getWidth(), 100);
-////      g2.drawLine(0, 200, getWidth(), 200);
-////      g2.drawLine(0, 300, getWidth(), 300);
-////      g2.drawLine(0, 400, getWidth(), 400);
-////      g2.drawLine(0, 500, getWidth(), 500);
-////      g2.fillRect(0, 600, getWidth(), 50);
-////
-////      g2.setColor(Color.WHITE);
-////      g2.drawLine(250, 20, 125, getHeight());
-////      g2.setColor(Color.GREEN);
-////      g2.drawLine(375, 20, 375, getHeight());
-////      g2.setColor(Color.BLUE);
-////      g2.drawLine(500, 20, 625, getHeight());
-////
-////      g2.setClip(null);
-
-
     }
   }
 

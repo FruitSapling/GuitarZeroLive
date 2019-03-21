@@ -38,35 +38,6 @@ public class CarouselMenu extends JLayeredPane implements PropertyChangeListener
     this.revalidate();
   }
 
-  //Constructor used if no buttons array is available
-  public CarouselMenu(int xPos, int yPos) {
-    this.buttons = getEmptyButtons();
-    this.xPos = xPos;
-    this.yPos = yPos;
-    this.setBounds(20, 100, 100, 100);
-    this.setPreferredSize(new Dimension(800, 150));
-    this.setVisible(true);
-    FlowLayout flowLayout = new FlowLayout();
-    flowLayout.setHgap(0);
-    flowLayout.setVgap(yPos+10);
-    this.setLayout(flowLayout);
-    this.addButtons();
-    this.revalidate();
-  }
-  // Returns 5 CarouselButtons with the exit image.
-  public CarouselButton[] getEmptyButtons() {
-    CarouselButton[] buttons = new CarouselButton[5];
-    for (int i = 0; i < 5; i++) {
-      buttons[i] = new CarouselButton(Constants.EXIT_IMAGE_PATH, "Empty") {
-        @Override
-        public void onClick() {
-          System.exit(0);
-        }
-      };
-    }
-    return buttons;
-  }
-
   // Cycle the carousel to the right
   public void cycleRight() {
     CarouselButton last = buttons[buttons.length-1];
