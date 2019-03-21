@@ -48,6 +48,10 @@ public class StoreModel {
         this.support.firePropertyChange("selectMode", null, null);
     }
 
+    public void backMode() {
+      this.support.firePropertyChange("backMode", null, null);
+    }
+
     public void addPropertyChangeListener(PropertyChangeListener pcl) {
         this.support.addPropertyChangeListener(pcl);
     }
@@ -214,7 +218,7 @@ public class StoreModel {
      * @author Mark
      * Simple method to end the current frame and create a new Main frame.
      * */
-    private void backToMain(JFrame frame) {
+    public void backToMain(JFrame frame) {
       frame.dispose();
       MainModel model = new MainModel();
       MainController controller1 = new MainController(model);

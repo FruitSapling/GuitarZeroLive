@@ -24,6 +24,8 @@ public class StoreController implements KeyListener {
             model.cycleCarouselRight();
         }else if(evt.getKeyChar() == 'd') {
             model.cycleCarouselLeft();
+        }else if(evt.getKeyChar() == 'q') {
+            model.backMode();
         }
         switch(evt.getKeyCode()) {
             case KeyEvent.VK_ESCAPE :
