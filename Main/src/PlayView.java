@@ -47,7 +47,7 @@ public class PlayView extends JFrame implements PropertyChangeListener {
     this.setLocationRelativeTo(null);
     this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-    PlaySong.playMidi("SmokeOnTheWater.mid", 5, false, false);
+    PlaySong.playMidi("HeyBrother.mid", 4, false, false);
   }
 
   public void propertyChange(PropertyChangeEvent pce) {

@@ -7,8 +7,11 @@ import javax.sound.midi.Sequencer;
 
 public class PlaySong {
 
+  private static Sequencer sequen;
+
   public static void main(String[] args){
     playPreview("HeyBrother.mid");
+    stopPreview();
   }
 
   /**
@@ -16,7 +19,7 @@ public class PlaySong {
    */
   public static void playMidi(String filename, int trackNumber, boolean mute, boolean solo){
     try {
-      final Sequencer sequen = MidiSystem.getSequencer();
+      sequen = MidiSystem.getSequencer();
       sequen.open();
       sequen.setSequence( MidiSystem.getSequence( new File( "Main/src/" + filename ) ) );
       if(mute) sequen.setTrackMute(trackNumber, true);
@@ -36,8 +39,7 @@ public class PlaySong {
 
   public static void playPreview(String filename){
     try{
-      final Sequencer sequen = MidiSystem.getSequencer();
-
+      sequen = MidiSystem.getSequencer();
       sequen.open();
       sequen.setSequence(MidiSystem.getSequence(new File("Main/src/" + filename)));
       sequen.setLoopStartPoint(Constants.LOOP_START);
@@ -55,5 +57,9 @@ public class PlaySong {
     } catch(Exception e){
       System.exit(1);
     }
+  }
+
+  public static void stopPreview(){
+    sequen.close();
   }
 }
