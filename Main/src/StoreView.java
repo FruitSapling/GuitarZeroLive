@@ -55,9 +55,10 @@ public class StoreView extends JFrame implements PropertyChangeListener {
                 g.remove(model.carouselMenu);
             }
         }
-        else if (pce.getPropertyName() == "carouselUpdate") {
-
+        else if (pce.getPropertyName() == "backMode") {
+            model.backToMain(this);
         }
+
 
         this.revalidate();
         this.repaint();
