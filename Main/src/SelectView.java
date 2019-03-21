@@ -57,7 +57,7 @@ public class SelectView extends JFrame implements PropertyChangeListener {
                 g.remove(menu);
             }
         }
-        if (pce.getPropertyName() == "escape") {
+        else if (pce.getPropertyName() == "backMode") {
             model.returnToMenu(this);
         }
         this.revalidate();

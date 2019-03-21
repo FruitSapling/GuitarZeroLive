@@ -43,6 +43,10 @@ public class SelectModel {
         this.support.firePropertyChange("selectMode", null, null);
     }
 
+    public void backMode() {
+        this.support.firePropertyChange("backMode", null, null);
+    }
+
     public void addPropertyChangeListener(PropertyChangeListener pcl) {
         this.support.addPropertyChangeListener(pcl);
     }
