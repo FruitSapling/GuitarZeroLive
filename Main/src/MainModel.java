@@ -14,9 +14,10 @@ public class MainModel {
   public CarouselMenu carouselMenu;
 
   public MainModel() {
-
     this.support = new PropertyChangeSupport(this);
     support.addPropertyChangeListener(carouselMenu);
+    support.firePropertyChange("modelConstructed", null, null);
+    System.out.println("la");
   }
 
   public void setCarouselMenu(CarouselButton[] buttons) {
@@ -39,6 +40,7 @@ public class MainModel {
 
   public void addPropertyChangeListener(PropertyChangeListener pcl) {
     this.support.addPropertyChangeListener(pcl);
+    support.firePropertyChange("modelConstructed", null, null);
   }
 
   public void showMenu() {

@@ -4,6 +4,12 @@ import java.beans.PropertyChangeSupport;
 import java.io.File;
 import javax.imageio.ImageIO;
 
+/**
+ * A Model class for tutorial mode
+ * This class stores the current step shown in the tutorial view.
+ *
+ * @author Willem
+ */
 public class TutorialModel {
 
   public BufferedImage currentStep;

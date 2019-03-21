@@ -16,13 +16,13 @@ import java.util.Arrays;
 
 public class SelectModel {
     public boolean menuOpen;
-
-    private PropertyChangeSupport support;
     public CarouselMenu carouselMenu;
+    private PropertyChangeSupport support;
 
     public SelectModel() {
         this.support = new PropertyChangeSupport(this);
         support.addPropertyChangeListener(carouselMenu);
+
     }
 
     public void setCarouselMenu(CarouselButton[] buttons) {

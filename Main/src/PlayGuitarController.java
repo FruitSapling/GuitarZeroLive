@@ -1,5 +1,11 @@
 import java.util.ArrayList;
 
+/**
+ * A Controller class used for play mode.
+ * This class tells the model when the guitar is strummed.
+ *
+ * @author Willem
+ */
 public class PlayGuitarController extends GuitarController {
 
   PlayModel model;

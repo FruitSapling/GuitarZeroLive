@@ -3,7 +3,8 @@ import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
 /**
- * A Controller class to
+ * A Controller class for tutorial mode
+ * This class tells the model when to progress to the next step.
  *
  * @author Willem
  */

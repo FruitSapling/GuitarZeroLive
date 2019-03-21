@@ -5,7 +5,8 @@ import java.lang.Math;
 /**
  * The Constants class keeps all constants used throughout the code.
  *
- * @author Willem & Everyone
+ * @author Willem
+ * Contributed to by everyone.
  */
 
 public class Constants {

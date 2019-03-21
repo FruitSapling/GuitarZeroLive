@@ -7,10 +7,9 @@ import javax.swing.*;
  * @author Tom
  * Contributed to by:
  * Morgan - Refactored for Store Mode from Slash Mode
- * Willem - Making the carousel work in store mode, mock store mode carousel menu
+ * Willem - Making the carousel work in store mode
  * Mark - Adding functionality from model to display the correct files
  */
-
 public class StoreView extends JFrame implements PropertyChangeListener {
 
     private StoreModel model;
