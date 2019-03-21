@@ -12,16 +12,18 @@ import javax.swing.JFrame;
 public class PlayView extends JFrame implements PropertyChangeListener {
 
   private PlayModel model;
-  private PlayController2 controller;
+  private PlayController1 controller1;
+  private PlayController2 controller2;
 
   private MainView.Guitar guitar;
   private LanePanel1 jp1;
   private LanePanel2 jp2;
   private LanePanel3 jp3;
 
-  public PlayView(PlayModel model, PlayController2 controller, PlayGuitarController guitarController) {
-    this.controller = controller;
-    this.addKeyListener(controller);
+  public PlayView(PlayModel model, PlayController1 controller1, PlayController2 controller2, PlayGuitarController guitarController) {
+    this.controller1 = controller1;
+    this.controller2 = controller2;
+    this.addKeyListener(controller2);
 
     this.model = model;
     this.model.addPropertyChangeListener(this);
@@ -68,8 +70,8 @@ public class PlayView extends JFrame implements PropertyChangeListener {
     PlayModel mp = new PlayModel();
     PlayController2 cp2 = new PlayController2(mp);
     PlayGuitarController gp = new PlayGuitarController(mp);
-    PlayView vp = new PlayView(mp,cp2,gp);
     PlayController1 cp = new PlayController1(mp);
+    PlayView vp = new PlayView(mp,cp,cp2,gp);
   }
 
 }

@@ -141,7 +141,7 @@ public class MainView extends JFrame implements PropertyChangeListener {
           PlayController1 controller = new PlayController1(model);
           PlayController2 controller2 = new PlayController2(model);
           PlayGuitarController guitarController = new PlayGuitarController(model);
-          new PlayView(model, controller2, guitarController);
+          new PlayView(model, controller, controller2, guitarController);
         }
       }
     };
