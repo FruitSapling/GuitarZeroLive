@@ -33,7 +33,7 @@ public class Server {
     try {
       Socket socket = this.socket.accept();
 
-      Thread thread = new Thread(new ConnectionThread(socket,"."));
+      Thread thread = new Thread(new ConnectionThread(socket,Constants.RESOURCES_FOLDER));
       thread.start();
     }
     catch (IOException e) {

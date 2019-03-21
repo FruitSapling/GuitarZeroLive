@@ -3,6 +3,7 @@
 * @author Mark Newell
 */
 
+import java.awt.SystemTray;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
@@ -94,14 +95,14 @@ public class ConnectionThread implements Runnable {
    * To be used on the server to send the files back to the client
    */
   public File[] getZippedFiles() {
-    FileFilter filter = (pathname) -> pathname.getPath().endsWith(".zip");
+    FileFilter filter = (pathname) -> pathname.getPath().endsWith(".zip") && !pathname.getName().equals("tempZip.zip");
     File[] zippedFolders = dir.listFiles(filter);
     return zippedFolders;
   }
 
 
   /*
-  * A method to send a page (3) folders to the client at a time.
+  * A method to send a all the folders to the client at once time.
   * This page integer should start at 0 for page 1.
   */
   private void sendFiles() {
@@ -110,9 +111,8 @@ public class ConnectionThread implements Runnable {
       DataOutputStream outputStream = new DataOutputStream(out);
 
       File[] zippedFolders = getZippedFiles();
-      FileZipper zipper = new FileZipper(zippedFolders,Constants.RESOURCES_FOLDER,"tempZip");
-
-      File zippedFolder = zipper.zipFiles();
+      FileZipper zipper = new FileZipper();
+      File zippedFolder = zipper.zipFiles(zippedFolders);
       zippedFolder.createNewFile();
 
       FileInputStream input = new FileInputStream(zippedFolder);
@@ -128,7 +128,7 @@ public class ConnectionThread implements Runnable {
       out.close();
       input.close();
 
-      Files.delete(Paths.get("tempZip.zip"));
+      Files.delete(Paths.get(Constants.RESOURCES_FOLDER,"tempZip.zip"));
 
     }
     catch (IOException e) {

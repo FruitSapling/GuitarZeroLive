@@ -34,6 +34,9 @@ public class MainGuitarController extends GuitarController implements GuitarButt
       case ZERO_POWER:
         selectMode();
         break;
+      case ESCAPE:
+        System.exit(1);
+        break;
     }
   }
 
