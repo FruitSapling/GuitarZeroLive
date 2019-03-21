@@ -18,7 +18,7 @@ public class PlayController1 {
         model.fireNotes();
         model.move();
       }
-    }, 0 , 1);
+    }, 0 , 3);
   }
 
 }

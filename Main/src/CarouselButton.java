@@ -33,4 +33,5 @@ public abstract class CarouselButton extends JButton {
 
   public abstract void onClick(
   );
+  public abstract void onHighlight();
 }

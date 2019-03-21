@@ -51,7 +51,7 @@ public class PlayGuitar {
   /**
    * Plays the given note for the given duration
    */
-  public static void playNote(Instrument guitar, String note, int octave, int duration) throws InterruptedException {
+  public static void playNote(Instrument guitar, String note, int octave, int duration) {
     try{
        Synthesizer synth = MidiSystem.getSynthesizer();
        synth.open();
@@ -76,6 +76,6 @@ public class PlayGuitar {
    * @return
    */
   private static int findNote(String note, int octave) {
-    return NOTES.indexOf(note.substring(0)) + 12 * octave + 12;
+    return NOTES.indexOf(note) + 12 * octave + 12;
   }
 }

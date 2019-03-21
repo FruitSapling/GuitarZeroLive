@@ -130,6 +130,7 @@ public class StoreModel {
             String filePath = imageFile.getPath();
 
             CarouselButton button = new CarouselButton(filePath,imageFile.getName().split("[.]")[0]) {
+                @Override public void onHighlight() {}
                 @Override
                 public void onClick() {
                     JOptionPane.showMessageDialog(null, "You have bought: " + getButtonName(),
@@ -148,6 +149,7 @@ public class StoreModel {
 
         for (int i = buttons.size(); i < 3; i++) {
             CarouselButton button = new CarouselButton(Constants.DEFAULT_WHITE_IMAGE_PATH,"none") {
+                @Override public void onHighlight() {}
                 @Override
                 public void onClick() {}
             };
@@ -155,6 +157,7 @@ public class StoreModel {
         }
 
         buttons.add(new CarouselButton(Constants.EXIT_IMAGE_PATH,"exit") {
+            @Override public void onHighlight() {}
             @Override
             public void onClick() {
               backToMain(frame);
@@ -162,6 +165,7 @@ public class StoreModel {
         });
 
       buttons.add(new CarouselButton(Constants.DEFAULT_NEXT_IMAGE_PATH,"nextPage") {
+          @Override public void onHighlight() { }
         @Override
         public void onClick() {
           nextPage(frame);

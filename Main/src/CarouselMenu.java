@@ -44,6 +44,7 @@ public class CarouselMenu extends JLayeredPane implements PropertyChangeListener
     System.arraycopy(buttons, 0, buttons, 1, buttons.length-1 );
     buttons[0] = last;
     this.addButtons();
+    buttons[2].onHighlight();
   }
 
   // Cycle the carousel to the left
@@ -52,6 +53,7 @@ public class CarouselMenu extends JLayeredPane implements PropertyChangeListener
     System.arraycopy(buttons, 1, buttons, 0, buttons.length-1 );
     buttons[buttons.length-1] = first;
     this.addButtons();
+    buttons[2].onHighlight();
   }
 
   public void selectMode() {

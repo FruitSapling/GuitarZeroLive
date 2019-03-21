@@ -115,7 +115,7 @@ public class SelectModel {
             Image newImage = image.getScaledInstance(Constants.BUTTON_WIDTH, Constants.BUTTON_HEIGHT, Image.SCALE_DEFAULT);
             ImageIcon icon = new ImageIcon(newImage);
 
-            return new CarouselButton(icon, zipName) { @Override public void onClick() {
+            return new CarouselButton(icon, zipName) {@Override public void onClick() {
                 if (IntendedTrack.getIntendedTrack().equals("")) {
                     JOptionPane.showMessageDialog(null, "Error - No Track Selected",
                             "Empty Button", JOptionPane.WARNING_MESSAGE);
@@ -132,6 +132,9 @@ public class SelectModel {
                 MainController controller1 = new MainController(model);
                 MainGuitarController controller2 = new MainGuitarController(model);
                 new MainView(model, controller1, controller2);
+            }
+            @Override public void onHighlight() {
+                System.out.println(zipName);
             }
             };
         }
@@ -159,6 +162,7 @@ public class SelectModel {
                     JOptionPane.showMessageDialog(null, "Nothing to see here...",
                             "Empty Button", JOptionPane.WARNING_MESSAGE);
                 }
+                @Override public void onHighlight() {}
             };
         }
         catch (IOException e) {
