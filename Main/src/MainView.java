@@ -84,28 +84,28 @@ public class MainView extends JFrame implements PropertyChangeListener {
       g2.setColor(Color.DARK_GRAY);
 
       Polygon board = new Polygon();
-      board.addPoint(200, 0);
-      board.addPoint(10, getHeight());
-      board.addPoint(getWidth()-10, getHeight());
-      board.addPoint(550, 0);
+      board.addPoint(Constants.guitarStartTop, 0);
+      board.addPoint(Constants.guitarStartBottom, getHeight());
+      board.addPoint(getWidth()-Constants.guitarStartBottom, getHeight());
+      board.addPoint(Constants.guitarEndTop, 0);
       g2.setClip(board);
       g2.fillPolygon(board);
 
       g2.setStroke(new BasicStroke(5));
       g2.setColor(Color.RED);
-      g2.drawLine(0, 100, getWidth(), 100);
-      g2.drawLine(0, 200, getWidth(), 200);
-      g2.drawLine(0, 300, getWidth(), 300);
-      g2.drawLine(0, 400, getWidth(), 400);
-      g2.drawLine(0, 500, getWidth(), 500);
-      g2.fillRect(0, 600, getWidth(), Constants.BAR_HEIGHT);
+      g2.drawLine(0, Constants.fret1, getWidth(), Constants.fret1);
+      g2.drawLine(0, Constants.fret2, getWidth(), Constants.fret2);
+      g2.drawLine(0, Constants.fret3, getWidth(), Constants.fret3);
+      g2.drawLine(0, Constants.fret4, getWidth(), Constants.fret4);
+      g2.drawLine(0, Constants.fret5, getWidth(), Constants.fret5);
+      g2.fillRect(0, Constants.strumBar, getWidth(), Constants.BAR_HEIGHT);
 
       g2.setColor(Color.WHITE);
-      g2.drawLine(250, 20, 125, getHeight());
+      g2.drawLine(Constants.STR1_START, 0, Constants.STR1_END, getHeight());
       g2.setColor(Color.GREEN);
-      g2.drawLine(375, 20, 375, getHeight());
+      g2.drawLine(Constants.STR2_START, 0, Constants.STR2_END, getHeight());
       g2.setColor(Color.BLUE);
-      g2.drawLine(500, 20, 625, getHeight());
+      g2.drawLine(Constants.STR3_START, 0, Constants.STR3_END, getHeight());
 
       g2.setClip(null);
     }

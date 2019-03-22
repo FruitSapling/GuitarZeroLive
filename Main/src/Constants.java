@@ -51,6 +51,23 @@ public class Constants {
 
   //Used for perspective added by Tom
   public static double tanTheta = 0.32;
+  public static int guitarStartTop = 200;
+  public static int guitarStartBottom = 10;
+  public static int guitarEndTop = 550;
+
+  public static int fret1 = 100;
+  public static int fret2 = 200;
+  public static int fret3 = 300;
+  public static int fret4 = 400;
+  public static int fret5 = 500;
+  public static int strumBar = 600;
+
+  public static int STR1_START = 250;
+  public static int STR1_END = 125;
+  public static int STR2_START = 375;
+  public static int STR2_END = 375;
+  public static int STR3_START = 500;
+  public static int STR3_END = 625;
 
   public static int GUITAR_POLL_DELAY = 50;
   public static HashMap<Integer, GuitarButton> INDEX_TO_BUTTON = new HashMap<Integer, GuitarButton>() {{

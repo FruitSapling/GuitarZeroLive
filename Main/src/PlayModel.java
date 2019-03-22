@@ -162,7 +162,7 @@ public class PlayModel {
         }
       }
 
-      if (n.getY() > 622) {
+      if (n.getY() > Constants.BAR_HEIGHT+Constants.strumBar-25) {
         this.score.noteMissed();
         this.current.remove(n);
       }
@@ -176,7 +176,7 @@ public class PlayModel {
 
   private boolean isInBar(Note note) {
 
-    return note.getY() > 550 && note.getY() < 630;
+    return note.getY() > Constants.strumBar-25 && note.getY() < Constants.BAR_HEIGHT+Constants.strumBar-25;
 
   }
 
