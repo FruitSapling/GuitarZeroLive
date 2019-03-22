@@ -47,14 +47,6 @@ public class Guitar {
     this.noteCount += 1;
   }
 
-  public int getInstrumentNumber() {
-    return this.instrumentNumber;
-  }
-
-  public void setInstrumentNumber(int instrumentNumber) {
-    this.instrumentNumber = instrumentNumber;
-  }
-
   public ArrayList<String> getNotes() {
     return this.notes;
   }

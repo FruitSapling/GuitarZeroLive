@@ -52,7 +52,7 @@ public class PlayView extends JFrame implements PropertyChangeListener {
     String midi = IntendedTrack.getIntendedTrack();
     midi = midi.substring(0, midi.length() -5);
 
-    PlaySong.playMidi(midi, 4, false, false);
+    PlaySong.playMidi(midi, 5, true, false);
     controller1.startMovingNotes();
   }
 
